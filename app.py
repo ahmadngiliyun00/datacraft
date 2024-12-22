@@ -30,10 +30,63 @@ ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# Fungsi untuk menghapus emoji
+def remove_emoji(text):
+    emoji_pattern = re.compile("["
+        u"\U0001F600-\U0001F64F"
+        u"\U0001F300-\U0001F5FF"
+        u"\U0001F680-\U0001F6FF"
+        u"\U0001F700-\U0001F77F"
+        u"\U0001F780-\U0001F7FF"
+        u"\U0001F800-\U0001F8FF"
+        u"\U0001F900-\U0001F9FF"
+        u"\U0001FA00-\U0001FA6F"
+        u"\U0001FA70-\U0001FAFF"
+        u"\U00002702-\U000027B0"
+        u"\U000024C2-\U0001F251"
+        "]+", flags=re.UNICODE)
+    return emoji_pattern.sub(r'', text)
+
+# Fungsi untuk menghapus tautan
+def remove_links(text):
+    return re.sub(r'http\S+|www\.\S+', '', text)
+
+# Fungsi untuk menghapus simbol atau karakter khusus
+def remove_special_characters(text):
+    return re.sub(r'[^\w\s]', '', text)
+
+# Fungsi untuk menghapus tag HTML dan entitas
+def remove_html_tags_and_entities(text):
+    if isinstance(text, str):
+        text = re.sub(r'<.*?>', '', text)  # Hapus tag HTML
+        text = re.sub(r'&[a-z]+;', '', text)  # Hapus entitas HTML
+    return text
+
+# Fungsi untuk menghapus underscore
+def remove_underscores(text):
+    if isinstance(text, str):
+        return text.replace('_', '')  # Mengganti underscore dengan string kosong
+    return text
+
+# Fungsi utama pembersihan data
+def clean_comment(text):
+    text = str(text)  # Konversi nilai menjadi string
+    text = remove_emoji(text)  # Hapus emoji
+    text = remove_links(text)  # Hapus tautan
+    text = remove_html_tags_and_entities(text)  # Hapus tag HTML dan entitas
+    text = remove_special_characters(text)  # Hapus simbol
+    text = remove_underscores(text)  # Hapus underscore
+    text = text.strip()  # Hapus spasi berlebih
+    return text.lower()  # Ubah ke huruf kecil
+
 # Route untuk halaman index
 @app.route('/')
 def index():
     return render_template('index.html', title="Dashboard")
+
+@app.route('/about')
+def about():
+    return render_template('about.html', title="Tentang Aplikasi")
 
 # Route untuk halaman Membuat Dataset
 @app.route('/create-dataset', methods=['GET','POST'])
@@ -74,7 +127,7 @@ def create_dataset():
 
         # Validasi file
         if os.path.exists(manual_path):
-            return render_template('11_create_dataset.html',
+            return render_template('01_create_dataset.html',
                                 title="Buat Dataset",
                                 success_message=f"Dataset berhasil dibuat: {filename}",
                                 download_link=url_for('download_file', filename=filename),
@@ -83,7 +136,7 @@ def create_dataset():
             flash(f"Gagal membuat dataset. Periksa kembali inputan atau token. {file_path}", "error")
             return redirect(url_for('create_dataset'))
         
-    return render_template('11_create_dataset.html', title="Buat Dataset")
+    return render_template('01_create_dataset.html', title="Buat Dataset")
 
 # Route untuk mengunduh file yang sudah dibuat
 @app.route('/download/<filename>')
@@ -156,7 +209,7 @@ def upload_dataset():
             # Redirect ke halaman details_dataset
             return redirect(url_for('details_dataset'))
 
-    return render_template('12_upload_dataset.html', title="Unggah Dataset")
+    return render_template('02_upload_dataset.html', title="Unggah Dataset")
 
 # Route untuk Rincian Dataset
 @app.route('/details-dataset', methods=['GET', 'POST'])
@@ -180,7 +233,7 @@ def details_dataset():
         # Validasi keberadaan file
         if not os.path.exists(filepath):
             flash(f"File {selected_file} tidak ditemukan di sistem.", "error")
-            return render_template('13_details_dataset.html', title="Rincian Dataset", file_details=os.listdir(app.config['UPLOAD_FOLDER']))
+            return render_template('03_details_dataset.html', title="Rincian Dataset", file_details=os.listdir(app.config['UPLOAD_FOLDER']))
         
         # Membaca dataset
         data = pd.read_csv(filepath)
@@ -191,7 +244,7 @@ def details_dataset():
         
         if 'Tweet' not in data.columns:
             flash("Kolom 'Tweet' tidak ditemukan dalam dataset.", "error")
-            return render_template('13_details_dataset.html', title="Rincian Dataset", file_details=os.listdir(app.config['UPLOAD_FOLDER']))
+            return render_template('03_details_dataset.html', title="Rincian Dataset", file_details=os.listdir(app.config['UPLOAD_FOLDER']))
 
         # Tambahkan kolom 'Tweet Length'
         data['Tweet Length'] = data['Tweet'].apply(lambda x: len(str(x).split()))
@@ -258,7 +311,7 @@ def details_dataset():
         plt.close()
 
         return render_template(
-            '13_details_dataset.html',
+            '03_details_dataset.html',
             title="Rincian Dataset",
             file_details=os.listdir(app.config['UPLOAD_FOLDER']),
             selected_file=selected_file,
@@ -282,15 +335,92 @@ def details_dataset():
 
     except Exception as e:
         flash(f"Terjadi kesalahan: {e}", "error")
-        return render_template('13_details_dataset.html', title="Rincian Dataset", file_details=os.listdir(app.config['UPLOAD_FOLDER']))
+        return render_template('03_details_dataset.html', title="Rincian Dataset", file_details=os.listdir(app.config['UPLOAD_FOLDER']))
 
+# Route untuk Pembersihan Data
+@app.route('/clean-dataset', methods=['GET', 'POST'])
+def clean_dataset():
+    try:
+        # Ambil daftar file di direktori upload
+        uploaded_files_list = os.listdir(app.config['UPLOAD_FOLDER'])
+        uploaded_files_list = [f for f in uploaded_files_list if allowed_file(f)]
 
+        selected_file = None
+        if len(uploaded_files_list) == 1:
+            selected_file = uploaded_files_list[0]
+        elif request.method == 'POST':
+            selected_file = request.form.get('selected_file')
 
+        if not selected_file:
+            flash("Silakan pilih dataset untuk dibersihkan.", "error")
+            return render_template('11_cleaned_dataset.html', file_details=uploaded_files_list, title="Pembersihan Data")
 
+        input_path = os.path.join(app.config['UPLOAD_FOLDER'], selected_file)
+        output_file = "dataset_1_cleaned.csv"
+        output_path = os.path.join(os.getcwd(), 'data', 'processed', output_file)
 
-@app.route('/about')
-def about():
-    return render_template('about.html', title="Tentang Aplikasi")
+        # Pastikan direktori processed ada
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+        # Membaca dataset
+        data = pd.read_csv(input_path)
+
+        # Pastikan kolom 'Tweet' atau 'Review' ada
+        if 'Review' in data.columns:
+            data.rename(columns={'Review': 'Tweet'}, inplace=True)
+
+        if 'Tweet' not in data.columns:
+            flash("Kolom 'Tweet' tidak ditemukan dalam dataset.", "error")
+            return render_template('11_cleaned_dataset.html', title="Pembersihan Data")
+
+        # Terapkan pembersihan
+        data['Cleaned_Tweet'] = data['Tweet'].apply(clean_comment)
+
+        # Hapus duplikat dan nilai kosong
+        data = data.drop_duplicates(subset='Cleaned_Tweet')
+        data = data.dropna(subset=['Cleaned_Tweet'])
+
+        # Hapus teks dengan panjang <= 3 huruf
+        data = data[data['Cleaned_Tweet'].str.len() > 3]
+
+        # Simpan dataset yang telah dibersihkan
+        data.to_csv(output_path, index=False)
+
+        # Informasi dataset
+        data_head = data.head([['Tweet', 'Cleaned_Tweet']]).to_html(classes='table table-striped', index=False)
+        data_description = data.describe().to_html(classes='table table-striped')
+        data_shape = data.shape
+        duplicate_count = data.duplicated().sum()
+        null_count = data.isnull().sum().sum()
+
+        # Tampilkan WordCloud
+        wordcloud_path = os.path.join('static', 'cleaned_tweet_wordcloud.png')
+        text = ' '.join(data['Cleaned_Tweet'].dropna())
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+        plt.figure(figsize=(10, 6))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis('off')
+        plt.savefig(wordcloud_path)
+        plt.close()
+
+        return render_template(
+            '11_cleaned_dataset.html',
+            title="Pembersihan Data",
+            data_head=data_head,
+            data_description=data_description,
+            data_shape=data_shape,
+            duplicate_count=duplicate_count,
+            null_count=null_count,
+            wordcloud_path=wordcloud_path,
+            file_details=uploaded_files_list,
+            selected_file=selected_file,
+            output_file=output_file
+        )
+
+    except Exception as e:
+        flash(f"Terjadi kesalahan: {e}", "error")
+        return render_template('11_cleaned_dataset.html', file_details=uploaded_files_list, title="Pembersihan Data")
+
 @app.route('/pra-pemrosesan')
 def pra_pemrosesan():
     return render_template('about.html', title="Tentang Aplikasi")
@@ -304,99 +434,6 @@ def evaluasi():
 def analisis_hasil():
     return render_template('analisis_hasil.html', title="Tentang Aplikasi")
 
-# Route untuk Rincian Dataset
-# @app.route('/details-dataset', methods=['GET', 'POST'])
-# def details_dataset():
-#     # Ambil daftar file di direktori upload
-#     uploaded_files_list = os.listdir(app.config['UPLOAD_FOLDER'])
-#     uploaded_files_list = [f for f in uploaded_files_list if allowed_file(f)]
-    
-#     selected_file = None
-#     data_head = None
-#     data_description = None
-#     chart_path = None
-
-#     # Jika hanya ada satu file, langsung pilih file tersebut
-#     if len(uploaded_files_list) == 1:
-#         selected_file = uploaded_files_list[0]
-#     elif request.method == 'POST':
-#         # Jika user memilih file dari form
-#         selected_file = request.form.get('selected_file')
-
-#     if selected_file:
-#         filepath = os.path.join(app.config['UPLOAD_FOLDER'], selected_file)
-
-#         try:
-#             # Membaca dataset
-#             if selected_file.endswith('.csv'):
-#                 data = pd.read_csv(filepath)
-#             else:
-#                 data = pd.read_excel(filepath)
-
-#             # Kolom `full_text` panjang kata
-#             data['full_text Length'] = data['full_text'].apply(lambda x: len(str(x).split()))
-
-#             # Deteksi elemen yang perlu dibersihkan
-#             def detect_emoji(text):
-#                 if isinstance(text, str):
-#                     emoji_pattern = re.compile("["
-#                         u"\U0001F600-\U0001F64F"
-#                         u"\U0001F300-\U0001F5FF"
-#                         u"\U0001F680-\U0001F6FF"
-#                         u"\U0001F700-\U0001F77F"
-#                         u"\U0001F780-\U0001F7FF"
-#                         u"\U0001F800-\U0001F8FF"
-#                         u"\U0001F900-\U0001F9FF"
-#                         u"\U0001FA00-\U0001FA6F"
-#                         u"\U0001FA70-\U0001FAFF"
-#                         u"\U00002702-\U000027B0"
-#                         u"\U000024C2-\U0001F251"
-#                         "]+", flags=re.UNICODE)
-#                     return bool(emoji_pattern.search(text))
-#                 return False
-
-#             emoji_tweets = len(data[data['full_text'].apply(detect_emoji)])
-#             links = len(data[data['full_text'].str.contains("http|www|<a", na=False)])
-#             symbols = len(data[data['full_text'].str.contains(r'[^\w\s]', na=False)])
-#             empty_tweets = len(data[data['full_text'].str.strip() == ''])
-#             only_numbers = len(data[data['full_text'].str.match(r'^\d+$', na=False)])
-#             tweets_with_numbers = len(data[data['full_text'].str.contains(r'\d', na=False)])
-#             short_tweets = len(data[data['full_text Length'] < 3])
-
-#             # Visualisasi panjang `full_text`
-#             chart_path = 'static/tweet_length_distribution.png'
-#             plt.figure(figsize=(10, 6))
-#             data['full_text Length'].plot(kind='hist', bins=30, title='full_text Length Distribution')
-#             plt.xlabel('Jumlah Kata')
-#             plt.ylabel('Jumlah full_text')
-#             plt.savefig(chart_path)
-#             plt.close()
-
-#             # Konversi DataFrame ke HTML untuk template
-#             data_head = data.head().to_html(classes='table table-striped', index=False)
-#             data_description = data.describe().to_html(classes='table table-striped')
-
-#         except Exception as e:
-#             flash(f"Terjadi kesalahan: {e}", "error")
-#             return redirect(request.url)
-
-#     return render_template(
-#         '13_details_dataset.html',
-#         title="Rincian Dataset",
-#         file_details=uploaded_files_list,
-#         selected_file=selected_file,
-#         data_head=data_head,
-#         data_description=data_description,
-#         null_tweets=data['full_text'].isnull().sum() if selected_file else 0,
-#         emoji_tweets=emoji_tweets if selected_file else 0,
-#         links=links if selected_file else 0,
-#         symbols=symbols if selected_file else 0,
-#         empty_tweets=empty_tweets if selected_file else 0,
-#         only_numbers=only_numbers if selected_file else 0,
-#         tweets_with_numbers=tweets_with_numbers if selected_file else 0,
-#         short_tweets=short_tweets if selected_file else 0,
-#         chart_path=chart_path
-#     )
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)

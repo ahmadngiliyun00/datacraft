@@ -49,32 +49,72 @@
 			<ul class="menu-sub">
 				<li class="menu-item {% if request.path == url_for('create_dataset') %}active{% endif %}">
 					<a href="{{ url_for('create_dataset') }}" class="menu-link">
-						<div data-i18n="Without menu">Buat Dataset</div>
+						<div data-i18n="Buat Dataset">Buat Dataset</div>
 					</a>
 				</li>
 				<li class="menu-item {% if request.path == url_for('upload_dataset') %}active{% endif %}">
 					<a href="{{ url_for('upload_dataset') }}" class="menu-link">
-						<div data-i18n="Without menu">Unggah Dataset</div>
+						<div data-i18n="Unggah Dataset">Unggah Dataset</div>
 					</a>
 				</li>
 				<li class="menu-item {% if request.path == url_for('details_dataset') %}active{% endif %}">
 					<a href="{{ url_for('details_dataset') }}" class="menu-link">
-						<div data-i18n="Without menu">Rincian Dataset</div>
+						<div data-i18n="Rincian Dataset">Rincian Dataset</div>
 					</a>
 				</li>
 			</ul>
 		</li>
 		<!-- Pra-Pemrosesan -->
-		<li class="menu-item {% if url_for('pra_pemrosesan') in request.path %}active open{% endif %}">
+		<li class="menu-item {% if url_for('pra_pemrosesan') in request.path or url_for('clean_dataset') in request.path %}active open{% endif %}">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-wrench"></i>
 				<div data-i18n="Pra-Pemrosesan">Pra-Pemrosesan</div>
 			</a>
 
 			<ul class="menu-sub">
+				<li class="menu-item {% if request.path == url_for('clean_dataset') %}active{% endif %}">
+					<a href="{{ url_for('clean_dataset') }}" class="menu-link">
+						<div data-i18n="Pembersihdan Data">Pembersihdan Data</div>
+					</a>
+				</li>
 				<li class="menu-item {% if request.path == url_for('pra_pemrosesan') %}active{% endif %}">
 					<a href="{{ url_for('pra_pemrosesan') }}" class="menu-link">
-						<div data-i18n="Without menu">Without menu</div>
+						<div data-i18n="Normalisasi Data">Normalisasi Data</div>
+					</a>
+				</li>
+				<li class="menu-item {% if request.path == url_for('pra_pemrosesan') %}active{% endif %}">
+					<a href="{{ url_for('pra_pemrosesan') }}" class="menu-link">
+						<div data-i18n="Tokenisasi Data">Tokenisasi Data</div>
+					</a>
+				</li>
+				<li class="menu-item {% if request.path == url_for('pra_pemrosesan') %}active{% endif %}">
+					<a href="{{ url_for('pra_pemrosesan') }}" class="menu-link">
+						<div data-i18n="Penghapusan Stopwords">Penghapusan Stopwords</div>
+					</a>
+				</li>
+				<li class="menu-item {% if request.path == url_for('pra_pemrosesan') %}active{% endif %}">
+					<a href="{{ url_for('pra_pemrosesan') }}" class="menu-link">
+						<div data-i18n="Stemming Data">Stemming Data</div>
+					</a>
+				</li>
+				<li class="menu-item {% if request.path == url_for('pra_pemrosesan') %}active{% endif %}">
+					<a href="{{ url_for('pra_pemrosesan') }}" class="menu-link">
+						<div data-i18n="Pelabelan Data">Pelabelan Data</div>
+					</a>
+				</li>
+				<li class="menu-item {% if request.path == url_for('pra_pemrosesan') %}active{% endif %}">
+					<a href="{{ url_for('pra_pemrosesan') }}" class="menu-link">
+						<div data-i18n="Label Encoding">Label Encoding</div>
+					</a>
+				</li>
+				<li class="menu-item {% if request.path == url_for('pra_pemrosesan') %}active{% endif %}">
+					<a href="{{ url_for('pra_pemrosesan') }}" class="menu-link">
+						<div data-i18n="Representasi Fitur">Representasi Fitur</div>
+					</a>
+				</li>
+				<li class="menu-item {% if request.path == url_for('pra_pemrosesan') %}active{% endif %}">
+					<a href="{{ url_for('pra_pemrosesan') }}" class="menu-link">
+						<div data-i18n="Pemisahan Data">Pemisahan Data</div>
 					</a>
 				</li>
 			</ul>
