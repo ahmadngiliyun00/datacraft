@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="fw-bold mb-4">
+    <span class="text-muted fw-light">DataCraft / </span>
+    <span class="color-custom-secondary">{{ title }}</span>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">Tentang Aplikasi</h5>
+        </div>
+        <div class="card-body">
+          <p>
+            <strong>DataCraft</strong> adalah aplikasi yang dirancang untuk memudahkan proses data mining. 
+            Aplikasi ini memiliki beberapa fitur utama seperti:
+          </p>
+          <ul>
+            <li>Mengunggah atau membuat dataset dari Twitter dengan teknik scraping data.</li>
+            <li>Melakukan pra-pemrosesan data secara otomatis.</li>
+            <li>Melakukan pemodelan data dengan algoritma machine learning seperti Naive Bayes dan SVM.</li>
+            <li>Evaluasi hasil prediksi dengan berbagai metrik evaluasi.</li>
+            <li>Menyajikan hasil analisis dalam bentuk visualisasi yang mudah dipahami.</li>
+          </ul>
+          <p>
+            Dengan antarmuka yang sederhana dan fungsional, <strong>DataCraft</strong> membantu Anda untuk melakukan eksplorasi data dengan lebih cepat dan efisien.
+          </p>
+          <p>
+            Aplikasi ini dikembangkan oleh tim pengembang independen dengan tujuan memberikan solusi bagi peneliti, akademisi, dan praktisi di bidang data mining.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- / Content -->
+{% endblock %}

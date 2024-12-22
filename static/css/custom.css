@@ -1,0 +1,12 @@
+.color-custom-primary {
+  color: #5271ff;
+}
+.color-custom-secondary {
+  color: #545454;
+}
+/* CSS untuk loading spinner */
+.spinner-border {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.2em;
+}

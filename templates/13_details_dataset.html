@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="fw-bold mb-4">
+    <span class="text-muted fw-light">DataCraft / </span>
+    <span class="text-muted fw-light">Eksplorasi Data / </span>
+    <span class="color-custom-secondary">{{ title }}</span>
+  </div>
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <div class="row">
+    {% if not selected_file %}
+    <div class="col-12 mb-4 order-0">
+      <!-- Pilih Dataset -->
+      <div class="card mb-4">
+        <h5 class="card-header">Pilih Dataset</h5>
+        <form method="POST" action="{{ url_for('details_dataset') }}">
+          <div class="card-body">
+            <div class="row mb-3">
+              <label for="selected_file" class="col-sm-2 col-form-label">Pilih Dataset</label>
+              <div class="col-10">
+                <select class="form-select" name="selected_file" id="selected_file" required>
+                  <option value="" disabled selected>-- Pilih Dataset --</option>
+                  {% for file in file_details %}
+                  <option value="{{ file }}" {% if selected_file == file %}selected{% endif %}>
+                    {{ file }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-10 offset-md-2">
+                <button type="submit" class="btn btn-primary">Tampilkan</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    {% else %}
+    <div class="col-12 mb-4 order-0">
+      <!-- Informasi Dataset -->
+      <div class="card mb-4">
+        <h5 class="card-header">Informasi Dataset</h5>
+        <div class="card-body">
+          <ul>
+            <li><strong>Nama File:</strong> {{ selected_file }}</li>
+            <li><strong>Dimensi Dataset:</strong> {{ data_shape }}</li>
+            <li><strong>Jumlah Duplikat:</strong> {{ duplicate_count }}</li>
+            <li><strong>Jumlah Nilai Kosong:</strong> {{ null_count }}</li>
+          </ul>
+					<pre>{{ data_info }}</pre>
+        </div>
+      </div>
+      <!-- Informasi Elemen yang Perlu Dibersihkan -->
+      <div class="card mb-4">
+        <h5 class="card-header">Informasi Elemen yang Perlu Dibersihkan</h5>
+        <div class="card-body">
+          <ul>
+            <li>Jumlah Tweet Kosong: {{ empty_tweets }}</li>
+            <li>Tweet dengan Emoji: {{ emoji_tweets }}</li>
+            <li>Tweet dengan Tautan: {{ links }}</li>
+            <li>Tweet dengan Simbol Khusus: {{ symbols }}</li>
+            <li>Tweet Kosong atau Berisi Spasi: {{ empty_tweets }}</li>
+            <li>Tweet Hanya Angka: {{ only_numbers }}</li>
+            <li>Tweet Mengandung Angka: {{ tweets_with_numbers }}</li>
+            <li>Tweet Pendek (&lt; 3 Kata): {{ short_tweets }}</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Menampilkan Data -->
+      <div class="card mb-4">
+        <h5 class="card-header">Data Head</h5>
+        <div class="card-body">
+					<div class="table table-responsive">
+						{{ data_head | safe }}
+					</div>
+				</div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">Statistik Deskriptif</h5>
+        <div class="card-body">
+					<div class="table table-responsive">
+						{{ data_description | safe }}
+					</div>
+				</div>
+      </div>
+			<div class="card mb-4">
+				<h5 class="card-header">Jumlah Nilai Unik</h5>
+				<div class="card-body">
+					<div class="tabel table-responsive">
+						{{ data_unique | safe }}
+					</div>
+				</div>
+			</div>
+      <!-- Visualisasi -->
+      <div class="card mb-4">
+        <h5 class="card-header">Distribusi Panjang Tweet</h5>
+        <div class="card-body">
+          <img
+            src="{{ chart_path }}"
+            alt="Distribusi Panjang Tweet"
+            class="img-fluid"
+            draggable="false" />
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">WordCloud Tweet</h5>
+        <div class="card-body">
+          <img
+            src="{{ wordcloud_path }}"
+            alt="WordCloud Tweet"
+            class="img-fluid"
+            draggable="false" />
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
