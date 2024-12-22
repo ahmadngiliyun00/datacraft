@@ -126,6 +126,26 @@
             draggable="false" />
         </div>
       </div>
+      <div class="card">
+        <div class="card-body">
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="">
+							<a href="{{ url_for('create_dataset') }}"
+								class="btn btn-warning btn-sm ms-3">
+								<i class="bx bx-arrow-back"></i>
+								&nbsp; Buat Dataset
+							</a>
+						</div>
+						<div class="">
+							<a href="{{ url_for('clean_dataset') }}"
+								class="btn btn-primary btn-sm ms-3">
+								<i class='bx bx-cog'></i>
+								&nbsp; Pembersihan Data
+							</a>
+						</div>
+					</div>
+        </div>
+      </div>
     </div>
     {% endif %}
   </div>

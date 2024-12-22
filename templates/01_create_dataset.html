@@ -6,6 +6,18 @@
 		<span class="text-muted fw-light">Eksprolasi Data / </span>
 		<span class="color-custom-secondary">{{ title }}</span>
 	</div>
+
+  <!-- Flash Messages -->
+  {% if success_message %}
+	<div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+		<i class="bx bx-info-circle me-2"></i>
+		<div>
+			{{ success_message }}
+		</div>
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+  {% endif %}
+
 	<div class="row">
 		<div class="col-12 mb-4 order-0">
 			<!-- HTML5 Inputs for Dataset Creation -->
@@ -13,29 +25,6 @@
 				<h5 class="card-header">Buat Dataset dari Twitter</h5>
 				<div class="card-body">
 					{% if success_message %}
-					<div
-						class="alert alert-success d-flex align-items-center alert-dismissible fade show"
-						role="alert">
-						<i class="bx bx-info-circle me-2"></i>
-						<div>
-							{{ success_message }}
-							<a
-								href="{{ download_link }}"
-								class="btn btn-primary btn-sm ms-3"
-								download>
-								<i class="bx bx-download"></i> Unduh Dataset
-							</a>
-							<a href="{{ url_for('upload_dataset') }}"
-                class="btn btn-info btn-sm ms-3">
-								<i class='bx bx-upload'></i> Unggah Dataset
-							</a>
-						</div>
-						<a href="{{ url_for('create_dataset') }}"
-							class="btn btn-danger btn-sm ms-3"
-							data-bs-dismiss="alert" aria-label="Close">
-							<i class="bx bx-arrow-back"></i> Kembali
-						</a>
-					</div>
 					<form action="" method="POST">
 						<div class="mb-3 row">
 							<label for="keyword-input" class="col-md-2 col-form-label"
@@ -94,7 +83,7 @@
 									id="submit-btn"
 									onclick="showLoading(event)"
 									disabled>
-									<span id="button-text">Proses</span>
+									<span id="button-text">Ambil Data</span>
 									<div
 										id="loading-spinner"
 										class="spinner-border spinner-border-sm ms-2 d-none"
@@ -105,6 +94,30 @@
 							</div>
 						</div>
 					</form>
+					<hr class="divider">
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="">
+							<a href="{{ url_for('create_dataset') }}"
+								class="btn btn-danger btn-sm ms-3">
+								<i class="bx bx-arrow-back"></i>
+								&nbsp; Kembali
+							</a>
+						</div>
+						<div class="">
+							<a
+								href="{{ download_link }}"
+								class="btn btn-success btn-sm ms-3"
+								download>
+								<i class="bx bx-download"></i>
+								&nbsp; Unduh Dataset
+							</a>
+							<a href="{{ url_for('upload_dataset') }}"
+								class="btn btn-primary btn-sm ms-3">
+								<i class='bx bx-upload'></i>
+								&nbsp; Unggah Dataset
+							</a>
+						</div>
+					</div>
 					{% else %}
 					<form action="" method="POST">
 						<div class="mb-3 row">
@@ -157,7 +170,7 @@
 									type="submit"
 									id="submit-btn"
 									onclick="showLoading(event)">
-									<span id="button-text">Proses</span>
+									<span id="button-text">Ambil Data</span>
 									<div
 										id="loading-spinner"
 										class="spinner-border spinner-border-sm ms-2 d-none"

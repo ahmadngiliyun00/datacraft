@@ -141,12 +141,20 @@ def create_dataset():
 # Route untuk mengunduh file yang sudah dibuat
 @app.route('/download/<filename>')
 def download_file(filename):
-    try:
-        download_dir = os.path.join(os.getcwd(), "data", "tweets-data")
-        return send_from_directory(download_dir, filename, as_attachment=True)
-    except Exception as e:
-        flash("Gagal mengunduh file.", "error")
-        return redirect(url_for('create_dataset'))
+    if url_for('create_dataset'):
+        try:
+            download_dir = os.path.join(os.getcwd(), "data", "tweets-data")
+            return send_from_directory(download_dir, filename, as_attachment=True)
+        except Exception as e:
+            flash("Gagal mengunduh file.", "error")
+            return redirect(url_for('create_dataset'))
+    elif url_for('clean_dataset'):
+        try:
+            download_dir = os.path.join(os.getcwd(), "data", "processed")
+            return send_from_directory(download_dir, filename, as_attachment=True)
+        except Exception as e:
+            flash("Gagal mengunduh file.", "error")
+            return redirect(url_for('clean_dataset'))
 
 # Route untuk halaman Unggah Dataset
 @app.route('/upload-dataset', methods=['GET', 'POST'])
@@ -292,7 +300,7 @@ def details_dataset():
         short_tweets = len(data[data['Tweet Length'] < 3])
 
         # Visualisasi distribusi panjang Tweet
-        chart_path = os.path.join('static', 'tweet_length_distribution.png')
+        chart_path = os.path.join('static', 'img', 'tweet_0_length_distribution.png')
         plt.figure(figsize=(16, 9))
         data['Tweet Length'].plot(kind='hist', bins=30, title='Distribusi Panjang Tweet', color='blue', edgecolor='black')
         plt.xlabel('Jumlah Kata')
@@ -301,7 +309,7 @@ def details_dataset():
         plt.close()
 
         # Visualisasi WordCloud
-        wordcloud_path = os.path.join('static', 'tweet_wordcloud.png')
+        wordcloud_path = os.path.join('static', 'img', 'tweet_0_wordcloud.png')
         text = ' '.join(data['Tweet'].dropna())
         wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
         plt.figure(figsize=(16, 9))
@@ -387,14 +395,14 @@ def clean_dataset():
         data.to_csv(output_path, index=False)
 
         # Informasi dataset
-        data_head = data.head([['Tweet', 'Cleaned_Tweet']]).to_html(classes='table table-striped', index=False)
+        data_head = data.head().to_html(classes='table table-striped', index=False)
         data_description = data.describe().to_html(classes='table table-striped')
         data_shape = data.shape
         duplicate_count = data.duplicated().sum()
         null_count = data.isnull().sum().sum()
 
         # Tampilkan WordCloud
-        wordcloud_path = os.path.join('static', 'cleaned_tweet_wordcloud.png')
+        wordcloud_path = os.path.join('static', 'img', 'tweet_1_wordcloud_cleaned.png')
         text = ' '.join(data['Cleaned_Tweet'].dropna())
         wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
         plt.figure(figsize=(10, 6))
@@ -414,7 +422,7 @@ def clean_dataset():
             wordcloud_path=wordcloud_path,
             file_details=uploaded_files_list,
             selected_file=selected_file,
-            output_file=output_file
+            download_link=url_for('download_file', output_file=output_file),
         )
 
     except Exception as e:
