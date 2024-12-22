@@ -65,7 +65,7 @@
 			</ul>
 		</li>
 		<!-- Pra-Pemrosesan -->
-		<li class="menu-item {% if url_for('pra_pemrosesan') in request.path or url_for('clean_dataset') in request.path %}active open{% endif %}">
+		<li class="menu-item {% if url_for('clean_dataset') in request.path or url_for('normalize_dataset') in request.path %}active open{% endif %}">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-wrench"></i>
 				<div data-i18n="Pra-Pemrosesan">Pra-Pemrosesan</div>
@@ -77,8 +77,8 @@
 						<div data-i18n="Pembersihdan Data">Pembersihdan Data</div>
 					</a>
 				</li>
-				<li class="menu-item {% if request.path == url_for('pra_pemrosesan') %}active{% endif %}">
-					<a href="{{ url_for('pra_pemrosesan') }}" class="menu-link">
+				<li class="menu-item {% if request.path == url_for('normalize_dataset') %}active{% endif %}">
+					<a href="{{ url_for('normalize_dataset') }}" class="menu-link">
 						<div data-i18n="Normalisasi Data">Normalisasi Data</div>
 					</a>
 				</li>

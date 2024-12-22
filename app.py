@@ -105,7 +105,7 @@ def create_dataset():
         safe_keyword = re.sub(r'[^\w\s]', '_', keyword)  # Ganti karakter khusus jadi '_'
         safe_keyword = re.sub(r'\s+', '_', safe_keyword.strip())  # Hilangkan spasi berlebih
         timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        filename = f"{safe_keyword}_{timestamp}.csv"
+        filename = f"dataset_0_{safe_keyword}_{timestamp}.csv"
         file_path = os.path.join(save_dir, filename)
 
         # Pindah ke direktori kerja
@@ -141,20 +141,22 @@ def create_dataset():
 # Route untuk mengunduh file yang sudah dibuat
 @app.route('/download/<filename>')
 def download_file(filename):
-    if url_for('create_dataset'):
-        try:
-            download_dir = os.path.join(os.getcwd(), "data", "tweets-data")
-            return send_from_directory(download_dir, filename, as_attachment=True)
-        except Exception as e:
-            flash("Gagal mengunduh file.", "error")
-            return redirect(url_for('create_dataset'))
-    elif url_for('clean_dataset'):
-        try:
-            download_dir = os.path.join(os.getcwd(), "data", "processed")
-            return send_from_directory(download_dir, filename, as_attachment=True)
-        except Exception as e:
-            flash("Gagal mengunduh file.", "error")
-            return redirect(url_for('clean_dataset'))
+    # Tentukan direktori berdasarkan nama file
+    if filename.startswith("dataset_0"):
+        download_dir = os.path.join(os.getcwd(), "data", "tweets-data")
+    elif filename.startswith("dataset_1"):
+        download_dir = os.path.join(os.getcwd(), "data", "processed")
+    elif filename.startswith("dataset_2"):
+        download_dir = os.path.join(os.getcwd(), "data", "processed")
+    else:
+        flash("File tidak valid untuk diunduh.", "error")
+        return redirect(url_for('clean_dataset'))
+
+    try:
+        return send_from_directory(download_dir, filename, as_attachment=True)
+    except Exception as e:
+        flash("Gagal mengunduh file.", "error")
+        return redirect(request.referrer)
 
 # Route untuk halaman Unggah Dataset
 @app.route('/upload-dataset', methods=['GET', 'POST'])
@@ -263,7 +265,7 @@ def details_dataset():
         buffer = io.StringIO()
         data.info(buf=buffer)
         data_info = buffer.getvalue()
-        data_description = data.describe().to_html(classes='table table-striped')
+        data_description = data.describe().round(2).to_html(classes='table table-striped')
         data_shape = data.shape  # Dimensi dataset
         # Jumlah nilai unik
         data_unique = pd.DataFrame(data.nunique(), columns=['Unique Values']).reset_index()
@@ -382,6 +384,16 @@ def clean_dataset():
             return render_template('11_cleaned_dataset.html', title="Pembersihan Data")
 
         # Terapkan pembersihan
+        def clean_comment(text):
+            text = str(text)  # Konversi ke string
+            text = remove_emoji(text)  # Hapus emoji
+            text = remove_links(text)  # Hapus tautan
+            text = remove_html_tags_and_entities(text)  # Hapus tag HTML dan entitas
+            text = remove_special_characters(text)  # Hapus simbol
+            text = text.strip()  # Hapus spasi berlebih
+            return text.lower()  # Ubah ke huruf kecil
+
+        # Terapkan fungsi pembersihan
         data['Cleaned_Tweet'] = data['Tweet'].apply(clean_comment)
 
         # Hapus duplikat dan nilai kosong
@@ -391,24 +403,35 @@ def clean_dataset():
         # Hapus teks dengan panjang <= 3 huruf
         data = data[data['Cleaned_Tweet'].str.len() > 3]
 
+        # Hitung jumlah kata dari Cleaned_Tweet
+        data['Cleaned_Length'] = data['Cleaned_Tweet'].apply(lambda x: len(x.split()))
+
         # Simpan dataset yang telah dibersihkan
         data.to_csv(output_path, index=False)
-
-        # Informasi dataset
-        data_head = data.head().to_html(classes='table table-striped', index=False)
-        data_description = data.describe().to_html(classes='table table-striped')
+        
+        data_head = data[['Tweet', 'Cleaned_Tweet']].head().to_html(classes='table table-striped', index=False)
+        data_description = data.describe().round(2).to_html(classes='table table-striped')
         data_shape = data.shape
         duplicate_count = data.duplicated().sum()
         null_count = data.isnull().sum().sum()
 
+        # Distribusi panjang Cleaned_Tweet
+        chart_path = os.path.join('static', 'img', 'tweet_1_length_distribution_cleaned.png')
+        plt.figure(figsize=(16, 9))
+        data['Cleaned_Length'].plot(kind='hist', bins=30, color='blue', edgecolor='black', title='Distribusi Panjang Cleaned Tweet')
+        plt.xlabel('Jumlah Kata')
+        plt.ylabel('Frekuensi')
+        plt.savefig(chart_path, bbox_inches='tight', facecolor='white')
+        plt.close()
+
         # Tampilkan WordCloud
         wordcloud_path = os.path.join('static', 'img', 'tweet_1_wordcloud_cleaned.png')
         text = ' '.join(data['Cleaned_Tweet'].dropna())
-        wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
-        plt.figure(figsize=(10, 6))
+        wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
+        plt.figure(figsize=(16, 9))
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis('off')
-        plt.savefig(wordcloud_path)
+        plt.savefig(wordcloud_path, bbox_inches='tight', facecolor='white')
         plt.close()
 
         return render_template(
@@ -419,15 +442,95 @@ def clean_dataset():
             data_shape=data_shape,
             duplicate_count=duplicate_count,
             null_count=null_count,
+            chart_path=chart_path,
             wordcloud_path=wordcloud_path,
             file_details=uploaded_files_list,
             selected_file=selected_file,
-            download_link=url_for('download_file', output_file=output_file),
+            download_link=url_for('download_file', filename=output_file)
         )
 
     except Exception as e:
         flash(f"Terjadi kesalahan: {e}", "error")
         return render_template('11_cleaned_dataset.html', file_details=uploaded_files_list, title="Pembersihan Data")
+
+@app.route('/normalize-dataset', methods=['GET', 'POST'])
+def normalize_dataset():
+    try:
+        # Ambil daftar file di direktori processed
+        processed_files_list = os.listdir(os.path.join(os.getcwd(), 'data', 'processed'))
+        processed_files_list = [f for f in processed_files_list if allowed_file(f)]
+
+        selected_file = 'dataset_1_cleaned.csv'
+        input_path = os.path.join(os.getcwd(), 'data', 'processed', selected_file)
+        output_file = "dataset_2_normalized.csv"
+        output_path = os.path.join(os.getcwd(), 'data', 'processed', output_file)
+
+        # Pastikan direktori processed ada
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+        # Membaca dataset
+        data = pd.read_csv(input_path)
+
+        # Pastikan kolom 'Cleaned_Tweet' ada
+        if 'Cleaned_Tweet' not in data.columns:
+            flash("Kolom 'Cleaned_Tweet' tidak ditemukan dalam dataset.", "error")
+            return render_template('12_normalized_dataset.html', file_details=processed_files_list, title="Normalisasi Data")
+
+        # Normalisasi Data
+        def normalize_text(text):
+            text = text.lower()  # Konversi ke huruf kecil
+            text = re.sub(r'[^\w\s]', '', text)  # Hapus tanda baca
+            text = re.sub(r'\s+', ' ', text).strip()  # Hapus spasi berlebih
+            return text
+
+        data['Normalized_Tweet'] = data['Cleaned_Tweet'].apply(normalize_text)
+
+        # Hitung jumlah kata dari Cleaned_Tweet
+        data['Normalized_Length'] = data['Normalized_Tweet'].apply(lambda x: len(x.split()))
+
+        # Simpan dataset yang telah dinormalisasi
+        data.to_csv(output_path, index=False)
+
+        # Informasi dataset
+        data_head = data[['Cleaned_Tweet', 'Normalized_Tweet']].head().to_html(classes='table table-striped', index=False)
+        data_description = data.describe().to_html(classes='table table-striped')
+        data_shape = data.shape
+
+        # Distribusi panjang Normalized_Tweet
+        chart_path = os.path.join('static', 'img', 'tweet_2_length_distribution_cleaned.png')
+        plt.figure(figsize=(16, 9))
+        data['Normalized_Length'].plot(kind='hist', bins=30, color='blue', edgecolor='black', title='Distribusi Panjang Normalized Tweet')
+        plt.xlabel('Jumlah Kata')
+        plt.ylabel('Frekuensi')
+        plt.savefig(chart_path, bbox_inches='tight', facecolor='white')
+        plt.close()
+
+        # Tampilkan WordCloud
+        wordcloud_path = os.path.join('static', 'img', 'tweet_2_wordcloud_normalized.png')
+        text = ' '.join(data['Normalized_Tweet'].dropna())
+        wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
+        plt.figure(figsize=(16, 9))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis('off')
+        plt.savefig(wordcloud_path, bbox_inches='tight', facecolor='white')
+        plt.close()
+
+        return render_template(
+            '12_normalized_dataset.html',
+            title="Normalisasi Data",
+            data_head=data_head,
+            data_description=data_description,
+            data_shape=data_shape,
+            file_details=processed_files_list,
+            selected_file=selected_file,
+            download_link=url_for('download_file', filename=output_file),
+            chart_path=chart_path,
+            wordcloud_path=wordcloud_path
+        )
+
+    except Exception as e:
+        flash(f"Terjadi kesalahan: {e}", "error")
+        return render_template('12_normalized_dataset.html', file_details=processed_files_list, title="Normalisasi Data")
 
 @app.route('/pra-pemrosesan')
 def pra_pemrosesan():

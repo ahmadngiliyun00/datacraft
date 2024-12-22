@@ -1,14 +1,12 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="fw-bold mb-4">
 		<span class="text-muted fw-light">DataCraft / </span>
-		<span class="text-muted fw-light">Pra-Pemrosesan Data / </span>
+		<span class="text-muted fw-light">Eksplorasi Data / </span>
 		<span class="color-custom-secondary">{{ title }}</span>
 	</div>
-	{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-  {% for category, message in messages %}
+	{% with messages = get_flashed_messages(with_categories=true) %} {% if
+	messages %} {% for category, message in messages %}
 	<div
 		class="alert alert-{{ category }} alert-dismissible fade show"
 		role="alert">
@@ -19,9 +17,7 @@
 			data-bs-dismiss="alert"
 			aria-label="Close"></button>
 	</div>
-	{% endfor %}
-  {% endif %}
-  {% endwith %}
+	{% endfor %} {% endif %} {% endwith %}
 	<div class="row">
 		<div class="col-12 mb-4 order-0">
 			<!-- Informasi Dataset -->
@@ -31,8 +27,6 @@
 					<ul>
 						<li><strong>Nama File:</strong> {{ selected_file }}</li>
 						<li><strong>Dimensi Dataset:</strong> {{ data_shape }}</li>
-						<li><strong>Jumlah Duplikat:</strong> {{ duplicate_count }}</li>
-						<li><strong>Jumlah Nilai Kosong:</strong> {{ null_count }}</li>
 					</ul>
 				</div>
 			</div>
@@ -46,16 +40,18 @@
 			<div class="card mb-4">
 				<h5 class="card-header">Statistik Deskriptif</h5>
 				<div class="card-body">
-					<div class="table-responsive">{{ data_description | safe }}</div>
+					<div class="table table-responsive">
+						{{ data_description | safe }}
+					</div>
 				</div>
 			</div>
 			<!-- Visualisasi -->
 			<div class="card mb-4">
-				<h5 class="card-header">Distribusi Panjang Cleaned Tweet</h5>
+				<h5 class="card-header">Distribusi Panjang Normalisasi Tweet</h5>
 				<div class="card-body">
 					<img
 						src="{{ chart_path }}"
-						alt="Distribusi Panjang Cleaned Tweet"
+						alt="Distribusi Panjang Normalisasi Tweet"
 						class="img-fluid"
 						draggable="false" />
 				</div>
@@ -65,12 +61,12 @@
 				<div class="card-body">
 					<img
 						src="{{ wordcloud_path }}"
-						alt="WordCloud Cleaned Tweet"
+						alt="WordCloud"
 						class="img-fluid"
 						draggable="false" />
 				</div>
 			</div>
-			<!-- Tombol Navigasi -->
+			<!-- Download dan Navigasi -->
 			<div class="card">
 				<div class="card-body">
 					<div class="d-flex justify-content-between align-items-center">
@@ -82,19 +78,16 @@
 								&nbsp; Buat Dataset
 							</a>
 						</div>
-						<div>
+						<div class="">
 							<a
 								href="{{ download_link }}"
-								class="btn btn-success btn-sm"
-								download>
-								<i class="bx bx-download"></i>
-								&nbsp; Unduh Data
+								class="btn btn-success btn-sm">
+								<i class="bx bx-download"></i>&nbsp; Unduh Data
 							</a>
 							<a
-								href="{{ url_for('normalize_dataset') }}"
-								class="btn btn-primary btn-sm">
-								<i class="bx bx-cog"></i>
-								&nbsp; Normalisasi Data
+								href="{{ url_for('details_dataset') }}"
+								class="btn btn-warning btn-sm">
+								<i class="bx bx-arrow-back"></i>&nbsp; Kembali ke Detail Dataset
 							</a>
 						</div>
 					</div>
