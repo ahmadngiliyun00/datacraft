@@ -32,7 +32,7 @@
 			</div>
 			<!-- Menampilkan Data -->
 			<div class="card mb-4">
-				<h5 class="card-header">Data Head</h5>
+				<h5 class="card-header">5 Data Teratas</h5>
 				<div class="card-body">
 					<div class="table-responsive">{{ data_head | safe }}</div>
 				</div>
@@ -85,9 +85,10 @@
 								<i class="bx bx-download"></i>&nbsp; Unduh Data
 							</a>
 							<a
-								href="{{ url_for('details_dataset') }}"
-								class="btn btn-warning btn-sm">
-								<i class="bx bx-arrow-back"></i>&nbsp; Kembali ke Detail Dataset
+								href="{{ url_for('tokenize_dataset') }}"
+								class="btn btn-primary btn-sm">
+								<i class="bx bx-cog"></i>
+								&nbsp; Tokenisasi Data
 							</a>
 						</div>
 					</div>

@@ -3889,19 +3889,24 @@ textarea.form-control-lg {
 }
 
 .card-header {
-  padding: 1.5rem 1.5rem;
-  margin-bottom: 0;
-  background-color: transparent;
-  border-bottom: 0 solid #d9dee3;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  /* background-color: transparent; */
+  border-bottom: 1px solid #d9dee3;
+  background-color: rgba(82, 113, 255, .2);
+  color: #5271ff;
 }
 .card-header:first-child {
   border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .card-footer {
-  padding: 1.5rem 1.5rem;
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.5rem;
   background-color: transparent;
-  border-top: 0 solid #d9dee3;
+  border-top: 1px solid #d9dee3;
+  background-color: rgba(133, 146, 163, .2);
+  color: var(--bs-secondary);
 }
 .card-footer:last-child {
   border-radius: 0 0 0.5rem 0.5rem;
