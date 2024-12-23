@@ -37,52 +37,52 @@
 					Distribusi Label dalam Data Latih dan Data Uji
 				</h5>
 				<div class="card-body">
-          <div class="row">
-            <div class="col-12 mb-4">
-              <div class="table table-responsive">
-                <table class="table table-striped">
-                  <thead>
-                      <tr>
-                          <th>Sentimen</th>
-                          <th>Data Latih (70%)</th>
-                          <th>Data Uji (30%)</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>Positif</td>
-                          <td class="text-center">{{ train_sentiment_counts['positif'] if 'positif' in train_sentiment_counts else 0 }}</td>
-                          <td class="text-center">{{ test_sentiment_counts['positif'] if 'positif' in test_sentiment_counts else 0 }}</td>
-                      </tr>
-                      <tr>
-                          <td>Negatif</td>
-                          <td class="text-center">{{ train_sentiment_counts['negatif'] if 'negatif' in train_sentiment_counts else 0 }}</td>
-                          <td class="text-center">{{ test_sentiment_counts['negatif'] if 'negatif' in test_sentiment_counts else 0 }}</td>
-                      </tr>
-                      <tr>
-                          <td>Netral</td>
-                          <td class="text-center">{{ train_sentiment_counts['netral'] if 'netral' in train_sentiment_counts else 0 }}</td>
-                          <td class="text-center">{{ test_sentiment_counts['netral'] if 'netral' in test_sentiment_counts else 0 }}</td>
-                      </tr>
-                  </tbody>
-              </table>
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <img
-                src="{{ train_dist_path }}"
-                alt="Distribusi Label dalam Data Latih"
-                class="img-fluid"
-                draggable="false" />
-            </div>
-            <div class="col-12 col-md-6">
-              <img
-                src="{{ test_dist_path }}"
-                alt="Distribusi Label dalam Data Uji"
-                class="img-fluid"
-                draggable="false" />
-            </div>
-          </div>
+					<div class="row">
+						<div class="col-12 mb-4">
+							<div class="table table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th>Sentimen</th>
+											<th>Data Latih (70%)</th>
+											<th>Data Uji (30%)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Positif</td>
+											<td class="text-center">{{ train_sentiment_counts["Positif"] }}</td>
+											<td class="text-center">{{ test_sentiment_counts["Positif"] }}</td>
+										</tr>
+										<tr>
+											<td>Netral</td>
+											<td class="text-center">{{ train_sentiment_counts["Netral"] }}</td>
+											<td class="text-center">{{ test_sentiment_counts["Netral"] }}</td>
+										</tr>
+										<tr>
+											<td>Negatif</td>
+											<td class="text-center">{{ train_sentiment_counts["Negatif"] }}</td>
+											<td class="text-center">{{ test_sentiment_counts["Negatif"] }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col-12 col-md-6">
+							<img
+								src="{{ train_dist_path }}"
+								alt="Distribusi Label dalam Data Latih"
+								class="img-fluid"
+								draggable="false" />
+						</div>
+						<div class="col-12 col-md-6">
+							<img
+								src="{{ test_dist_path }}"
+								alt="Distribusi Label dalam Data Uji"
+								class="img-fluid"
+								draggable="false" />
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- Tombol Navigasi -->
@@ -113,7 +113,7 @@
 								&nbsp; Unduh Data Uji
 							</a>
 							<a
-								href="{{ url_for('feature_representation') }}"
+								href="{{ url_for('naive_bayes_model') }}"
 								class="btn btn-primary btn-sm">
 								<i class="bx bx-cog"></i>
 								&nbsp; Melatih Model

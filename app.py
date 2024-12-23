@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import secrets
 import csv
 import nltk
+import pickle
 import matplotlib
 from sklearn.feature_extraction.text import TfidfVectorizer
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
@@ -14,6 +15,8 @@ from wordcloud import WordCloud
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 matplotlib.use('Agg')
 
 app = Flask(__name__)
@@ -165,6 +168,10 @@ def download_file(filename):
         download_dir = os.path.join(os.getcwd(), "data", "processed")
     elif filename.startswith("dataset_9"):
         download_dir = os.path.join(os.getcwd(), "data", "processed")
+    elif filename.startswith("model_1"):
+        download_dir = os.path.join(os.getcwd(), "data", "modeled")
+    elif filename.startswith("model_2"):
+        download_dir = os.path.join(os.getcwd(), "data", "modeled")
     else:
         flash("File tidak valid untuk diunduh.", "error")
         return redirect(url_for('clean_dataset'))
@@ -373,6 +380,10 @@ def details_dataset():
     except Exception as e:
         flash(f"Terjadi kesalahan: {e}", "error")
         return render_template('03_details_dataset.html', title="Rincian Dataset", file_details=os.listdir(app.config['UPLOAD_FOLDER']))
+
+@app.route('/pra-pemrosesan')
+def pra_pemrosesan():
+    return render_template('about.html', title="Tentang Aplikasi")
 
 # Route untuk Pembersihan Data
 @app.route('/clean-dataset', methods=['GET', 'POST'])
@@ -1036,7 +1047,10 @@ def feature_representation():
 
         # Konversi hasil TF-IDF ke DataFrame
         tfidf_df = pd.DataFrame(tfidf_matrix.toarray(), columns=feature_names)
-        tfidf_df['Sentimen'] = data['Sentimen']
+        
+        # Mapping untuk Label Encoding
+        sentiment_mapping = {'positif': 1, 'netral': 0, 'negatif': -1}
+        tfidf_df['Sentimen'] = data['Sentimen'].map(sentiment_mapping)
 
         # Simpan dataset dengan fitur TF-IDF
         tfidf_df.to_csv(output_path, index=False)
@@ -1123,11 +1137,21 @@ def split_dataset():
         # Visualisasi distribusi label dalam data latih dan data uji
         train_label_dist = y_train.value_counts()
         test_label_dist = y_test.value_counts()
-        train_sentiment_counts = train_data['Sentimen'].value_counts()
-        test_sentiment_counts = test_data['Sentimen'].value_counts()
+        train_sentiment_counts = {
+            "Positif": train_data['Sentimen'].value_counts().get(1, 0),
+            "Netral": train_data['Sentimen'].value_counts().get(0, 0),
+            "Negatif": train_data['Sentimen'].value_counts().get(-1, 0)
+        }
 
-        train_dist_path = os.path.join('static', 'img', 'train_label_distribution.png')
-        test_dist_path = os.path.join('static', 'img', 'test_label_distribution.png')
+        test_sentiment_counts = {
+            "Positif": test_data['Sentimen'].value_counts().get(1, 0),
+            "Netral": test_data['Sentimen'].value_counts().get(0, 0),
+            "Negatif": test_data['Sentimen'].value_counts().get(-1, 0)
+        }
+
+
+        train_dist_path = os.path.join('static', 'img', 'tweet_9_train_label_distribution.png')
+        test_dist_path = os.path.join('static', 'img', 'tweet_9_test_label_distribution.png')
 
         plt.figure(figsize=(16, 9))
         plt.bar(
@@ -1173,12 +1197,186 @@ def split_dataset():
         flash(f"Terjadi kesalahan: {e}", "error")
         return render_template('19_split_dataset.html', file_details=processed_files_list, title="Pemisahan Data")
 
-@app.route('/pra-pemrosesan')
-def pra_pemrosesan():
-    return render_template('about.html', title="Tentang Aplikasi")
-@app.route('/pemodelan')
-def pemodelan():
-    return render_template('pemodelan.html', title="Tentang Aplikasi")
+@app.route('/naive-bayes-model', methods=['GET', 'POST'])
+def naive_bayes_model():
+    try:
+        from sklearn.naive_bayes import MultinomialNB
+        from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
+        from sklearn.impute import SimpleImputer
+        import joblib
+
+        # Ambil daftar file di direktori processed
+        processed_files_list = os.listdir(os.path.join(os.getcwd(), 'data', 'processed'))
+        processed_files_list = [f for f in processed_files_list if allowed_file(f)]
+
+        train_file = 'dataset_9_train.csv'
+        test_file = 'dataset_9_test.csv'
+        train_path = os.path.join(os.getcwd(), 'data', 'processed', train_file)
+        test_path = os.path.join(os.getcwd(), 'data', 'processed', test_file)
+
+        # Pastikan file tersedia
+        if not os.path.exists(train_path) or not os.path.exists(test_path):
+            flash("Data latih atau data uji tidak ditemukan. Silakan lakukan pemisahan data terlebih dahulu.", "error")
+            return render_template('21_model_naive_bayes.html', file_details=processed_files_list, title="Model Naive Bayes")
+
+        # Membaca dataset
+        train_data = pd.read_csv(train_path)
+        test_data = pd.read_csv(test_path)
+
+        # Pastikan kolom 'Sentimen' ada
+        if 'Sentimen' not in train_data.columns or 'Sentimen' not in test_data.columns:
+            flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "error")
+            return render_template('21_model_naive_bayes.html', file_details=processed_files_list, title="Model Naive Bayes")
+
+        # Pisahkan fitur dan label
+        X_train = train_data.drop(columns=['Sentimen'])
+        y_train = train_data['Sentimen']
+        X_test = test_data.drop(columns=['Sentimen'])
+        y_test = test_data['Sentimen']
+
+        # Periksa dan tangani nilai NaN di data latih dan uji
+        if y_train.isnull().any() or y_test.isnull().any():
+            y_train = y_train.fillna(0)  # Mengisi nilai NaN dengan 0
+            y_test = y_test.fillna(0)
+        
+        if X_train.isnull().any().any() or X_test.isnull().any().any():
+            imputer = SimpleImputer(strategy='constant', fill_value=0)
+            X_train = pd.DataFrame(imputer.fit_transform(X_train), columns=X_train.columns)
+            X_test = pd.DataFrame(imputer.transform(X_test), columns=X_test.columns)
+
+        # Inisialisasi dan latih model Naive Bayes
+        model = MultinomialNB()
+        model.fit(X_train, y_train)
+
+        # Prediksi pada data uji
+        y_pred = model.predict(X_test)
+
+        # Evaluasi model
+        accuracy = accuracy_score(y_test, y_pred)
+        report = classification_report(y_test, y_pred, target_names=['Negatif', 'Netral', 'Positif'], output_dict=True)
+
+        # Confusion Matrix
+        cm = confusion_matrix(y_test, y_pred, labels=[-1, 0, 1])
+        cm_path = os.path.join('static', 'img', 'model_1_naive_bayes_confusion_matrix.png')
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['Negatif', 'Netral', 'Positif'])
+        fig, ax = plt.subplots(figsize=(16, 9))  # Atur ukuran gambar
+        disp.plot(ax=ax, cmap='Blues', values_format='d')
+        plt.title("Confusion Matrix - Naive Bayes")
+        plt.savefig(cm_path, bbox_inches='tight', facecolor='white')
+        plt.close()
+
+        # Simpan model
+        model_path = os.path.join(os.getcwd(), 'data', 'modeled', 'model_1_naive_bayes.pkl')
+        os.makedirs(os.path.dirname(model_path), exist_ok=True)
+        joblib.dump(model, model_path)
+
+        return render_template(
+            '21_model_naive_bayes.html',
+            title="Model Naive Bayes",
+            accuracy=accuracy,
+            cm_path=cm_path,
+            file_details=processed_files_list,
+            train_file=train_file,
+            test_file=test_file,
+            model_download_link=url_for('download_file', filename='model_1_naive_bayes.pkl'),
+            report=report
+        )
+
+    except Exception as e:
+        flash(f"Terjadi kesalahan: {e}", "error")
+        return render_template('21_model_naive_bayes.html', file_details=processed_files_list, title="Model Naive Bayes")
+
+@app.route('/svm-model', methods=['GET', 'POST'])
+def svm_model():
+    try:
+        from sklearn.svm import SVC
+        from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+        import seaborn as sns
+        import joblib
+
+        # Ambil daftar file di direktori processed
+        processed_files_list = os.listdir(os.path.join(os.getcwd(), 'data', 'processed'))
+        processed_files_list = [f for f in processed_files_list if allowed_file(f)]
+
+        train_file = "dataset_9_train.csv"
+        test_file = "dataset_9_test.csv"
+        train_path = os.path.join(os.getcwd(), 'data', 'processed', train_file)
+        test_path = os.path.join(os.getcwd(), 'data', 'processed', test_file)
+
+        # Membaca dataset latih dan uji
+        train_data = pd.read_csv(train_path)
+        test_data = pd.read_csv(test_path)
+
+        # Pisahkan fitur dan label
+        X_train = train_data.drop(columns=['Sentimen'])
+        y_train = train_data['Sentimen']
+        X_test = test_data.drop(columns=['Sentimen'])
+        y_test = test_data['Sentimen']
+
+        # Tangani nilai NaN pada fitur
+        X_train = X_train.fillna(X_train.mean())
+        X_test = X_test.fillna(X_test.mean())
+
+        # Tangani nilai NaN pada label
+        if y_train.isnull().values.any() or y_test.isnull().values.any():
+            # flash("Label latih atau uji mengandung nilai NaN. Baris dengan NaN akan dihapus.", "warning")
+            valid_train_indices = ~y_train.isnull()
+            X_train = X_train[valid_train_indices]
+            y_train = y_train[valid_train_indices]
+
+            valid_test_indices = ~y_test.isnull()
+            X_test = X_test[valid_test_indices]
+            y_test = y_test[valid_test_indices]
+
+        # Validasi setelah imputasi
+        assert not X_train.isnull().values.any(), "Masih ada NaN pada X_train"
+        assert not X_test.isnull().values.any(), "Masih ada NaN pada X_test"
+        assert not y_train.isnull().values.any(), "Masih ada NaN pada y_train"
+        assert not y_test.isnull().values.any(), "Masih ada NaN pada y_test"
+
+        # Inisialisasi dan pelatihan model SVM
+        model = SVC(kernel='linear', random_state=42)
+        model.fit(X_train, y_train)
+
+        # Prediksi pada data uji
+        y_pred = model.predict(X_test)
+
+        # Evaluasi model
+        accuracy = accuracy_score(y_test, y_pred)
+        report = classification_report(y_test, y_pred, target_names=['Negatif', 'Netral', 'Positif'], output_dict=True)
+        confusion = confusion_matrix(y_test, y_pred)
+
+        # Simpan confusion matrix sebagai gambar
+        confusion_path = os.path.join('static', 'img', 'model_2_svm_confusion_matrix.png')
+        plt.figure(figsize=(16, 9))
+        sns.heatmap(confusion, annot=True, fmt="d", cmap="Blues", xticklabels=['Negatif', 'Netral', 'Positif'], yticklabels=['Negatif', 'Netral', 'Positif'])
+        plt.title("Confusion Matrix - SVM")
+        plt.xlabel("Predicted Label")
+        plt.ylabel("True Label")
+        plt.savefig(confusion_path, bbox_inches='tight', facecolor='white')
+        plt.close()
+
+        # Simpan model
+        model_path = os.path.join(os.getcwd(), 'data', 'modeled', 'model_2_svm.pkl')
+        os.makedirs(os.path.dirname(model_path), exist_ok=True)
+        joblib.dump(model, model_path)
+
+        return render_template(
+            '22_model_svm.html',
+            title="Model SVM",
+            accuracy=accuracy,
+            cm_path=confusion_path,
+            file_details=processed_files_list,
+            train_file=train_file,
+            test_file=test_file,
+            model_download_link=url_for('download_file', filename='model_2_svm.pkl'),
+            report=report
+        )
+
+    except Exception as e:
+        flash(f"Terjadi kesalahan: {e}", "error")
+        return render_template('22_model_svm.html', file_details=processed_files_list, title="Model SVM")
+
 @app.route('/evaluasi')
 def evaluasi():
     return render_template('evaluasi.html', title="Tentang Aplikasi")
