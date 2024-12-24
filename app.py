@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import secrets
 import csv
 import nltk
+import seaborn as sns
 import pickle
 import matplotlib
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -1270,6 +1271,29 @@ def naive_bayes_model():
         os.makedirs(os.path.dirname(model_path), exist_ok=True)
         joblib.dump(model, model_path)
 
+        # Simpan hasil evaluasi ke dalam file CSV
+        eval_file = os.path.join(os.getcwd(), 'data', 'processed', 'model_0_calculated.csv')
+        os.makedirs(os.path.dirname(eval_file), exist_ok=True)
+
+        eval_data = []
+        for label, metrics in report.items():
+            if label not in ['accuracy', 'macro avg', 'weighted avg']:
+                eval_data.append({
+                    "Model": "Naive Bayes",
+                    "Kelas": label,
+                    "Akurasi": accuracy,
+                    "Presisi": metrics['precision'],
+                    "Recall": metrics['recall'],
+                    "F1-Score": metrics['f1-score'],
+                    "Support": metrics['support']
+                })
+        
+        # Simpan ke dalam CSV
+        if not os.path.exists(eval_file):
+            pd.DataFrame(eval_data).to_csv(eval_file, index=False)
+        else:
+            pd.DataFrame(eval_data).to_csv(eval_file, mode='a', header=False, index=False)
+
         return render_template(
             '21_model_naive_bayes.html',
             title="Model Naive Bayes",
@@ -1290,7 +1314,7 @@ def naive_bayes_model():
 def svm_model():
     try:
         from sklearn.svm import SVC
-        from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+        from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, ConfusionMatrixDisplay
         import seaborn as sns
         import joblib
 
@@ -1347,25 +1371,52 @@ def svm_model():
         confusion = confusion_matrix(y_test, y_pred)
 
         # Simpan confusion matrix sebagai gambar
-        confusion_path = os.path.join('static', 'img', 'model_2_svm_confusion_matrix.png')
-        plt.figure(figsize=(16, 9))
-        sns.heatmap(confusion, annot=True, fmt="d", cmap="Blues", xticklabels=['Negatif', 'Netral', 'Positif'], yticklabels=['Negatif', 'Netral', 'Positif'])
-        plt.title("Confusion Matrix - SVM")
-        plt.xlabel("Predicted Label")
-        plt.ylabel("True Label")
-        plt.savefig(confusion_path, bbox_inches='tight', facecolor='white')
+        # Confusion Matrix
+        cm = confusion_matrix(y_test, y_pred, labels=[-1, 0, 1])
+        cm_path = os.path.join('static', 'img', 'model_2_svm_confusion_matrix.png')
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=['Negatif', 'Netral', 'Positif'])
+        fig, ax = plt.subplots(figsize=(16, 9))  # Atur ukuran gambar
+        disp.plot(ax=ax, cmap='Blues', values_format='d')
+        plt.title("Confusion Matrix - Support Vector Machine")
+        plt.savefig(cm_path, bbox_inches='tight', facecolor='white')
         plt.close()
 
         # Simpan model
         model_path = os.path.join(os.getcwd(), 'data', 'modeled', 'model_2_svm.pkl')
         os.makedirs(os.path.dirname(model_path), exist_ok=True)
         joblib.dump(model, model_path)
+        
+        # Tambahkan hasil evaluasi ke file model_0_calculated.csv
+        csv_path = os.path.join(os.getcwd(), 'data', 'processed', 'model_0_calculated.csv')
+        os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+
+        results = []
+        for label, metrics in report.items():
+            if label not in ['accuracy', 'macro avg', 'weighted avg']:
+                results.append({
+                    'Model': 'SVM',
+                    'Kelas': label,
+                    'Akurasi': accuracy,
+                    'Presisi': metrics['precision'],
+                    'Recall': metrics['recall'],
+                    'F1-Score': metrics['f1-score'],
+                    'Support': metrics['support']
+                })
+
+        # Simpan ke file CSV
+        if not os.path.exists(csv_path):
+            df = pd.DataFrame(results)
+            df.to_csv(csv_path, index=False)
+        else:
+            df = pd.read_csv(csv_path)
+            df = pd.concat([df, pd.DataFrame(results)], ignore_index=True)
+            df.to_csv(csv_path, index=False)
 
         return render_template(
             '22_model_svm.html',
             title="Model SVM",
             accuracy=accuracy,
-            cm_path=confusion_path,
+            cm_path=cm_path,
             file_details=processed_files_list,
             train_file=train_file,
             test_file=test_file,
@@ -1376,6 +1427,131 @@ def svm_model():
     except Exception as e:
         flash(f"Terjadi kesalahan: {e}", "error")
         return render_template('22_model_svm.html', file_details=processed_files_list, title="Model SVM")
+
+@app.route('/evaluation-model', methods=['GET', 'POST'])
+def evaluation_model():
+    try:
+        # Membaca file CSV dengan hasil evaluasi
+        file_path = os.path.join(os.getcwd(), 'data', 'processed', 'model_0_calculated.csv')
+        if not os.path.exists(file_path):
+            flash("File evaluasi tidak ditemukan. Pastikan file model_0_calculated.csv sudah dibuat.", "error")
+            return render_template('23_model_evaluation.html', title="Evaluasi Model")
+
+        # Membaca file model_0_calculated.csv
+        data = pd.read_csv(file_path)
+
+        # Menambahkan visualisasi
+        # Ringkasan Akurasi Per Model
+        accuracy_summary = data.groupby('Model')['Akurasi'].mean().reset_index()
+
+        # Bar Chart Perbandingan Akurasi
+        accuracy_chart_path = os.path.join('static', 'img', 'evaluation_1_accuracy_comparison.png')
+        plt.figure(figsize=(16, 9))
+        sns.barplot(x='Model', y='Akurasi', data=accuracy_summary, palette='viridis')
+        plt.title('Perbandingan Akurasi Antar Model')
+        plt.xlabel('Model')
+        plt.ylabel('Akurasi')
+        plt.ylim(0, 1)
+        plt.savefig(accuracy_chart_path, bbox_inches='tight', facecolor='white')
+        plt.close()
+
+        # Bar Chart Performa Per Kelas untuk Naive Bayes
+        naive_bayes_data = data[data['Model'] == 'Naive Bayes']
+        nb_performance_path = os.path.join('static', 'img', 'evaluation_1_naive_bayes_performance.png')
+        naive_bayes_data.set_index('Kelas')[['Presisi', 'Recall', 'F1-Score']].plot(
+            kind='bar', figsize=(16, 9), color=['skyblue', 'orange', 'green'])
+        plt.title('Performa Naive Bayes Per Kelas')
+        plt.ylabel('Nilai')
+        plt.ylim(0, 1)
+        plt.savefig(nb_performance_path, bbox_inches='tight', facecolor='white')
+        plt.close()
+
+        # Bar Chart Performa Per Kelas untuk SVM
+        svm_data = data[data['Model'] == 'SVM']
+        svm_performance_path = os.path.join('static', 'img', 'evaluation_1_svm_performance.png')
+        svm_data.set_index('Kelas')[['Presisi', 'Recall', 'F1-Score']].plot(
+            kind='bar', figsize=(16, 9), color=['skyblue', 'orange', 'green'])
+        plt.title('Performa SVM Per Kelas')
+        plt.ylabel('Nilai')
+        plt.ylim(0, 1)
+        plt.savefig(svm_performance_path, bbox_inches='tight', facecolor='white')
+        plt.close()
+
+        return render_template(
+            '23_model_evaluation.html',
+            title="Evaluasi Model",
+            accuracy_chart_path=accuracy_chart_path,
+            nb_performance_path=nb_performance_path,
+            svm_performance_path=svm_performance_path,
+            naive_bayes_data=naive_bayes_data.to_dict('records'),
+            svm_data=svm_data.to_dict('records')
+        )
+
+    except Exception as e:
+        flash(f"Terjadi kesalahan: {e}", "error")
+        return render_template('23_model_evaluation.html', title="Evaluasi Model")
+
+@app.route('/compare-model', methods=['GET', 'POST'])
+def compare_model():
+    try:
+        # Path ke file hasil evaluasi model
+        evaluation_file_path = os.path.join(os.getcwd(), 'data', 'processed', 'model_0_calculated.csv')
+
+        # Pastikan file evaluasi tersedia
+        if not os.path.exists(evaluation_file_path):
+            flash("File evaluasi model tidak ditemukan. Pastikan model sudah dievaluasi.", "error")
+            return render_template('24_model_compare.html', title="Perbandingan Model")
+
+        # Membaca file evaluasi
+        evaluation_data = pd.read_csv(evaluation_file_path)
+
+        # Rata-rata metrik untuk setiap model
+        avg_metrics = evaluation_data.groupby('Model').agg({
+            'Akurasi': 'mean',
+            'Presisi': 'mean',
+            'Recall': 'mean',
+            'F1-Score': 'mean'
+        }).reset_index()
+
+        # Simpan grafik perbandingan akurasi antar model
+        accuracy_plot_path = os.path.join('static', 'img', 'compare_1_models_accuracy.png')
+        plt.figure(figsize=(16, 9))
+        sns.barplot(x='Model', y='Akurasi', data=avg_metrics, palette='viridis')
+        plt.title('Perbandingan Akurasi Antar Model')
+        plt.ylabel('Akurasi')
+        plt.xlabel('Model')
+        plt.ylim(0, 1)
+        plt.savefig(accuracy_plot_path, bbox_inches='tight', facecolor='white')
+        plt.close()
+
+        # Simpan grafik perbandingan rata-rata presisi, recall, dan F1-Score
+        metrics_plot_path = os.path.join('static', 'img', 'compare_1_models_metrics.png')
+        melted_metrics = avg_metrics.melt(id_vars='Model', value_vars=['Presisi', 'Recall', 'F1-Score'],
+                                            var_name='Metrik', value_name='Nilai')
+        plt.figure(figsize=(16, 9))
+        sns.barplot(x='Model', y='Nilai', hue='Metrik', data=melted_metrics, palette='muted')
+        plt.title('Perbandingan Rata-rata Presisi, Recall, dan F1-Score')
+        plt.ylabel('Nilai')
+        plt.xlabel('Model')
+        plt.ylim(0, 1)
+        plt.legend(title='Metrik')
+        plt.savefig(metrics_plot_path, bbox_inches='tight', facecolor='white')
+        plt.close()
+
+        # Menyiapkan data untuk tabel perbandingan
+        comparison_table = avg_metrics.to_dict(orient='records')
+
+        return render_template(
+            '24_model_compare.html',
+            title="Perbandingan Model",
+            accuracy_plot_path=accuracy_plot_path,
+            metrics_plot_path=metrics_plot_path,
+            comparison_table=comparison_table
+        )
+
+    except Exception as e:
+        flash(f"Terjadi kesalahan: {e}", "error")
+        return render_template('24_model_compare.html', title="Perbandingan Model")
 
 @app.route('/evaluasi')
 def evaluasi():
