@@ -1,4 +1,10 @@
-![alt text](https://raw.githubusercontent.com/ahmadngiliyun00/datacraft/refs/heads/main/static/img/DataCraft.png?token=GHSAT0AAAAAAC3LMYZOMFAP2NQLSNHAULBYZ3KDM6A)
+![alt text](https://raw.githubusercontent.com/ahmadngiliyun00/datacraft/refs/heads/main/static/img/Logo-DataCraft-Horizontal.png?token=GHSAT0AAAAAAC3LMYZOZWBBTA4V4BYYA3Z6Z3KD4EA)
+
+
+# **Selamat Datang di DataCraft**
+
+![alt text](https://raw.githubusercontent.com/ahmadngiliyun00/datacraft/refs/heads/main/static/img/Tentang-Aplikasi.png?token=GHSAT0AAAAAAC3LMYZOCRVMYFWDNL2BRX56Z3KD5JQ)
+
 ### **Pustaka Bawaan**
 
 Anda tidak perlu menginstal pustaka berikut karena sudah termasuk dalam Python:
