@@ -153,7 +153,7 @@
 		</li>
 
 		<!-- Optimalisasi Model -->
-		<li class="menu-item {% if url_for('about') in request.path %}active open{% endif %}">
+		<li class="menu-item {% if url_for('compare_model') in request.path %}active open{% endif %}">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-sort-up"></i>
 				<div data-i18n="Optimalisasi Model">Optimalisasi Model</div>
@@ -161,7 +161,7 @@
 
 			<ul class="menu-sub">
 				<li class="menu-item">
-					<a href="{{ url_for('about') }}" class="menu-link" data-bs-toggle="collapse" data-bs-target="#optimizeNaiveBayes" aria-expanded="false">
+					<a href="{{ url_for('index') }}" class="menu-link" data-bs-toggle="collapse" data-bs-target="#optimizeNaiveBayes" aria-expanded="false">
 						<div data-i18n="Optimisasi Naive Bayes">Optimisasi Naive Bayes</div>
 					</a>
 					<ul id="optimizeNaiveBayes" class="collapse nav ms-3">
@@ -171,7 +171,7 @@
 					</ul>
 				</li>
 				<li class="menu-item">
-					<a href="{{ url_for('about') }}" class="menu-link" data-bs-toggle="collapse" data-bs-target="#optimizeSVM" aria-expanded="false">
+					<a href="{{ url_for('index') }}" class="menu-link" data-bs-toggle="collapse" data-bs-target="#optimizeSVM" aria-expanded="false">
 						<div data-i18n="Optimisasi SVM">Optimisasi SVM</div>
 					</a>
 					<ul id="optimizeSVM" class="collapse nav ms-3">
@@ -181,7 +181,7 @@
 					</ul>
 				</li>
 				<li class="menu-item">
-					<a href="{{ url_for('about') }}" class="menu-link">
+					<a href="{{ url_for('index') }}" class="menu-link">
 						<div data-i18n="Perbandingan Hasil">Perbandingan Hasil</div>
 					</a>
 				</li>
@@ -189,32 +189,32 @@
 		</li>
 
 		<!-- Evaluasi -->
-		<li class="menu-item {% if url_for('about') in request.path %}active open{% endif %}">
+		<li class="menu-item {% if url_for('compare_model') in request.path %}active open{% endif %}">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-line-chart"></i>
 				<div data-i18n="Evaluasi">Evaluasi</div>
 			</a>
 
 			<ul class="menu-sub">
-				<li class="menu-item">
-					<a href="{{ url_for('about') }}" class="menu-link">
-						<div data-i18n="Without menu">Without menu</div>
+				<li class="menu-item  {% if request.path == url_for('index') %}active{% endif %}">
+					<a href="{{ url_for('index') }}" class="menu-link">
+						<div data-i18n="Tentang Aplikasi">Tentang Aplikasi</div>
 					</a>
 				</li>
 			</ul>
 		</li>
 		
 		<!-- Analisis Hasil -->
-		<li class="menu-item {% if url_for('about') in request.path %}active open{% endif %}">
+		<li class="menu-item {% if url_for('compare_model') in request.path %}active open{% endif %}">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-file-find"></i>
 				<div data-i18n="Analisis Hasil">Analisis Hasil</div>
 			</a>
 
 			<ul class="menu-sub">
-				<li class="menu-item">
-					<a href="{{ url_for('about') }}" class="menu-link">
-						<div data-i18n="Without menu">Without menu</div>
+				<li class="menu-item  {% if request.path == url_for('index') %}active{% endif %}">
+					<a href="{{ url_for('index') }}" class="menu-link">
+						<div data-i18n="Tentang Aplikasi">Tentang Aplikasi</div>
 					</a>
 				</li>
 			</ul>
