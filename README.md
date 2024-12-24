@@ -1,3 +1,4 @@
+![alt text](https://raw.githubusercontent.com/ahmadngiliyun00/datacraft/refs/heads/main/static/img/DataCraft.png?token=GHSAT0AAAAAAC3LMYZOMFAP2NQLSNHAULBYZ3KDM6A)
 ### **Pustaka Bawaan**
 
 Anda tidak perlu menginstal pustaka berikut karena sudah termasuk dalam Python:
