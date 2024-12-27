@@ -1,9 +1,9 @@
-![alt text](https://raw.githubusercontent.com/ahmadngiliyun00/datacraft/refs/heads/main/static/img/Logo-DataCraft-Horizontal.png?token=GHSAT0AAAAAAC3LMYZOZWBBTA4V4BYYA3Z6Z3KD4EA)
+![alt text](https://github.com/ahmadngiliyun00/datacraft/blob/main/static/img/Logo-DataCraft-Horizontal.png?raw=true)
 
 
 # **Selamat Datang di DataCraft**
 
-![alt text](https://raw.githubusercontent.com/ahmadngiliyun00/datacraft/refs/heads/main/static/img/Tentang-Aplikasi.png?token=GHSAT0AAAAAAC3LMYZOCRVMYFWDNL2BRX56Z3KD5JQ)
+![alt text](https://github.com/ahmadngiliyun00/datacraft/blob/main/static/img/Tentang-Aplikasi.png?raw=true)
 
 ### **Pustaka Bawaan**
 
