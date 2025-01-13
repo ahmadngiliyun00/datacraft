@@ -576,6 +576,7 @@ def normalize_dataset():
 @app.route('/tokenize-dataset', methods=['GET', 'POST'])
 def tokenize_dataset():
     try:
+        processed_files_list = []
         nltk.download('punkt', quiet=True)
         nltk.download('punkt_tab', quiet=True)
         # Ambil daftar file di direktori processed
@@ -1556,10 +1557,10 @@ def compare_model():
 @app.route('/evaluasi')
 def evaluasi():
     return render_template('evaluasi.html', title="Tentang Aplikasi")
+
 @app.route('/analisis-hasil')
 def analisis_hasil():
     return render_template('analisis_hasil.html', title="Tentang Aplikasi")
-
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
