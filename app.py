@@ -1556,6 +1556,7 @@ def compare_model():
 @app.route('/evaluasi')
 def evaluasi():
     return render_template('evaluasi.html', title="Tentang Aplikasi")
+
 @app.route('/analisis-hasil')
 def analisis_hasil():
     return render_template('analisis_hasil.html', title="Tentang Aplikasi")
