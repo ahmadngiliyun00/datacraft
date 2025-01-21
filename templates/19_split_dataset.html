@@ -50,19 +50,19 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td>Positif</td>
-											<td class="text-center">{{ train_sentiment_counts["Positif"] }}</td>
-											<td class="text-center">{{ test_sentiment_counts["Positif"] }}</td>
+											<!-- <td>Positif</td>
+											<td class="text-center"></td>
+											<td class="text-center"></td> -->
 										</tr>
 										<tr>
-											<td>Netral</td>
-											<td class="text-center">{{ train_sentiment_counts["Netral"] }}</td>
-											<td class="text-center">{{ test_sentiment_counts["Netral"] }}</td>
+											<!-- <td>Netral</td>
+											<td class="text-center"></td>
+											<td class="text-center"></td> -->
 										</tr>
 										<tr>
-											<td>Negatif</td>
-											<td class="text-center">{{ train_sentiment_counts["Negatif"] }}</td>
-											<td class="text-center">{{ test_sentiment_counts["Negatif"] }}</td>
+											<!-- <td>Negatif</td>
+											<td class="text-center"></td>
+											<td class="text-center"></td> -->
 										</tr>
 									</tbody>
 								</table>
@@ -91,7 +91,7 @@
 					<div class="d-flex justify-content-between align-items-center">
 						<div>
 							<a
-								href="{{ url_for('feature_representation') }}"
+								href="{{ url_for('feature_representation_bow') }}"
 								class="btn btn-warning btn-sm">
 								<i class="bx bx-arrow-back"></i>
 								&nbsp; Representasi Fitur

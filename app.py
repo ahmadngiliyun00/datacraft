@@ -37,6 +37,15 @@ ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def remove_mentions(text):
+    return re.sub(r'@\w+', '', text)
+
+def remove_hashtags(text):
+    return re.sub(r'#\w+', '', text)
+
+def remove_uniques(text):
+    return re.sub(r'[^a-zA-Z0-9\s]', '', text)
+
 # Fungsi untuk menghapus emoji
 def remove_emoji(text):
     emoji_pattern = re.compile("["
@@ -58,10 +67,6 @@ def remove_emoji(text):
 def remove_links(text):
     return re.sub(r'http\S+|www\.\S+', '', text)
 
-# Fungsi untuk menghapus simbol atau karakter khusus
-def remove_special_characters(text):
-    return re.sub(r'[^\w\s]', '', text)
-
 # Fungsi untuk menghapus tag HTML dan entitas
 def remove_html_tags_and_entities(text):
     if isinstance(text, str):
@@ -69,22 +74,16 @@ def remove_html_tags_and_entities(text):
         text = re.sub(r'&[a-z]+;', '', text)  # Hapus entitas HTML
     return text
 
+# Fungsi untuk menghapus simbol atau karakter khusus
+def remove_special_characters(text):
+    return re.sub(r'[^\w\s]', '', text)
+
 # Fungsi untuk menghapus underscore
 def remove_underscores(text):
     if isinstance(text, str):
         return text.replace('_', '')  # Mengganti underscore dengan string kosong
     return text
 
-# Fungsi utama pembersihan data
-def clean_comment(text):
-    text = str(text)  # Konversi nilai menjadi string
-    text = remove_emoji(text)  # Hapus emoji
-    text = remove_links(text)  # Hapus tautan
-    text = remove_html_tags_and_entities(text)  # Hapus tag HTML dan entitas
-    text = remove_special_characters(text)  # Hapus simbol
-    text = remove_underscores(text)  # Hapus underscore
-    text = text.strip()  # Hapus spasi berlebih
-    return text.lower()  # Ubah ke huruf kecil
 
 # Route untuk halaman index
 @app.route('/')
@@ -425,10 +424,14 @@ def clean_dataset():
         # Terapkan pembersihan
         def clean_comment(text):
             text = str(text)  # Konversi ke string
+            text = remove_mentions(text)  # Hapus mentions
+            text = remove_hashtags(text)  # Hapus hashtags
+            text = remove_uniques(text)  # Hapus uniques
             text = remove_emoji(text)  # Hapus emoji
             text = remove_links(text)  # Hapus tautan
             text = remove_html_tags_and_entities(text)  # Hapus tag HTML dan entitas
             text = remove_special_characters(text)  # Hapus simbol
+            text = remove_underscores(text)  # Hapus underscore
             text = text.strip()  # Hapus spasi berlebih
             return text.lower()  # Ubah ke huruf kecil
 
@@ -648,6 +651,7 @@ def tokenize_dataset():
 @app.route('/remove-stopwords', methods=['GET', 'POST'])
 def remove_stopwords():
     try:
+        # DICOBA GANTI KE SASTRAWI
         nltk.download('stopwords', quiet=True)
         # Ambil daftar file di direktori processed
         processed_files_list = os.listdir(os.path.join(os.getcwd(), 'data', 'processed'))
@@ -680,6 +684,7 @@ def remove_stopwords():
                             'klo', 'msh', 'blm', 'gue', 'sih', 'pa', 'dgn', 'n', 'skrg', 'pake', 'si',
                             'dg', 'utk', 'deh', 'tu', 'hrt', 'ala', 'mdy', 'moga', 'tau', 'liat', 'orang2',
                             'jadi']
+        stopwordsBahasa = 'stopwordbahasa.csv'
         custom_stopwords = request.form.get('custom_stopwords')
 
         # Gabungkan manual_stopwords dengan custom_stopwords
@@ -687,6 +692,7 @@ def remove_stopwords():
             # Pisahkan kata-kata dari input pengguna berdasarkan koma dan gabungkan dengan manual_stopwords
             custom_stopwords_list = [word.strip().lower() for word in custom_stopwords.split(',')]
             stop_words.update(manual_stopwords)  # Tambahkan stopwords manual
+            stop_words.update(stopwordsBahasa)  # Tambahkan stopwords dari input pengguna
             stop_words.update(custom_stopwords_list)  # Tambahkan stopwords dari input pengguna
         else:
             stop_words.update(manual_stopwords)  # Tambahkan hanya stopwords manual jika tidak ada input
@@ -951,7 +957,7 @@ def label_encode():
         processed_files_list = os.listdir(os.path.join(os.getcwd(), 'data', 'processed'))
         processed_files_list = [f for f in processed_files_list if allowed_file(f)]
 
-        selected_file = 'dataset_6_labeled.csv'
+        selected_file = 'dataset_5_stemmed.csv'
         input_path = os.path.join(os.getcwd(), 'data', 'processed', selected_file)
         output_file = "dataset_7_encoded.csv"
         output_path = os.path.join(os.getcwd(), 'data', 'processed', output_file)
@@ -1011,9 +1017,17 @@ def label_encode():
         flash(f"Terjadi kesalahan: {e}", "error")
         return render_template('17_encoded_dataset.html', file_details=processed_files_list, title="Label Encoding")
 
-@app.route('/feature-representation', methods=['GET', 'POST'])
-def feature_representation():
+# @app.route('/feature-representation', methods=['GET', 'POST'])
+# def feature_representation():
+
+# === BERHENTI DI SINI ===
+
+@app.route('/feature-representation-bow', methods=['GET', 'POST'])
+def feature_representation_bow():
     try:
+        # Terapkan Bag of Words pada kolom Stemmed_Tweet
+        from sklearn.feature_extraction.text import CountVectorizer
+        
         # Ambil daftar file di direktori processed
         processed_files_list = os.listdir(os.path.join(os.getcwd(), 'data', 'processed'))
         processed_files_list = [f for f in processed_files_list if allowed_file(f)]
@@ -1037,40 +1051,76 @@ def feature_representation():
         # Konversi kolom 'Stemmed_Tweet' ke string
         data['Stemmed_Tweet'] = data['Stemmed_Tweet'].astype(str).fillna("")
 
-        # Terapkan TF-IDF pada kolom Stemmed_Tweet
-        tfidf = TfidfVectorizer(
+        # # Terapkan TF-IDF pada kolom Stemmed_Tweet
+        # tfidf = TfidfVectorizer(
+        #     analyzer='word',
+        #     token_pattern=r'\b\w+\b',
+        #     lowercase=True,
+        #     max_features=1000
+        # )
+        # tfidf_matrix = tfidf.fit_transform(data['Stemmed_Tweet'].apply(lambda x: ' '.join(eval(x))))
+        # feature_names = tfidf.get_feature_names_out()
+
+        # # Konversi hasil TF-IDF ke DataFrame
+        # tfidf_df = pd.DataFrame(tfidf_matrix.toarray(), columns=feature_names)
+        
+        # # Mapping untuk Label Encoding
+        # sentiment_mapping = {'positif': 1, 'netral': 0, 'negatif': -1}
+        # tfidf_df['Sentimen'] = data['Sentimen'].map(sentiment_mapping)
+
+        # # Simpan dataset dengan fitur TF-IDF
+        # tfidf_df.to_csv(output_path, index=False)
+        
+        # # Informasi dataset
+        # data_shape = tfidf_df.shape
+
+        # # Distribusi fitur TF-IDF (10 fitur teratas)
+        # feature_sums = tfidf_df.drop(columns=['Sentimen']).sum(axis=0).sort_values(ascending=False)[:10]
+
+        # # Visualisasi distribusi fitur
+        # feature_dist_path = os.path.join('static', 'img', 'tweet_8_tfidf_feature_distribution.png')
+        # plt.figure(figsize=(16, 9))
+        # feature_sums.plot(kind='barh', color='skyblue', edgecolor='black')
+        # plt.xlabel('Total Bobot')
+        # plt.ylabel('Fitur')
+        # plt.title('10 Fitur Teratas Berdasarkan TF-IDF')
+        # plt.gca().invert_yaxis()  # Balikkan urutan agar fitur dengan bobot terbesar di atas
+        # plt.savefig(feature_dist_path, bbox_inches='tight', facecolor='white')
+        # plt.close()
+        
+        bow = CountVectorizer(
             analyzer='word',
             token_pattern=r'\b\w+\b',
             lowercase=True,
-            max_features=1000
+            max_features=999  # Batasi hingga 1000 fitur (opsional)
         )
-        tfidf_matrix = tfidf.fit_transform(data['Stemmed_Tweet'].apply(lambda x: ' '.join(eval(x))))
-        feature_names = tfidf.get_feature_names_out()
+        bow_matrix = bow.fit_transform(data['Stemmed_Tweet'].apply(lambda x: ' '.join(eval(x))))
+        feature_names = bow.get_feature_names_out()
 
-        # Konversi hasil TF-IDF ke DataFrame
-        tfidf_df = pd.DataFrame(tfidf_matrix.toarray(), columns=feature_names)
-        
+        # Konversi hasil BoW ke DataFrame
+        bow_df = pd.DataFrame(bow_matrix.toarray(), columns=feature_names)
+
         # Mapping untuk Label Encoding
         sentiment_mapping = {'positif': 1, 'netral': 0, 'negatif': -1}
-        tfidf_df['Sentimen'] = data['Sentimen'].map(sentiment_mapping)
+        bow_df['Sentimen'] = data['Sentimen'].map(sentiment_mapping)
 
-        # Simpan dataset dengan fitur TF-IDF
-        tfidf_df.to_csv(output_path, index=False)
+        # Simpan dataset dengan fitur BoW
+        bow_df.to_csv(output_path, index=False)
 
         # Informasi dataset
-        data_shape = tfidf_df.shape
+        data_shape = bow_df.shape
 
-        # Distribusi fitur TF-IDF (10 fitur teratas)
-        feature_sums = tfidf_df.drop(columns=['Sentimen']).sum(axis=0).sort_values(ascending=False)[:10]
+        # Distribusi fitur BoW (10 fitur teratas)
+        feature_sums = bow_df.drop(columns=['Sentimen']).sum(axis=0).sort_values(ascending=False)[:10]
 
-        # Visualisasi distribusi fitur
-        feature_dist_path = os.path.join('static', 'img', 'tweet_8_tfidf_feature_distribution.png')
+        # Visualisasi distribusi fitur BoW (10 fitur teratas)
+        feature_dist_path = os.path.join('static', 'img', 'tweet_8_bow_feature_distribution.png')
         plt.figure(figsize=(16, 9))
         feature_sums.plot(kind='barh', color='skyblue', edgecolor='black')
-        plt.xlabel('Total Bobot')
+        plt.xlabel('Total Frekuensi')
         plt.ylabel('Fitur')
-        plt.title('10 Fitur Teratas Berdasarkan TF-IDF')
-        plt.gca().invert_yaxis()  # Balikkan urutan agar fitur dengan bobot terbesar di atas
+        plt.title('10 Fitur Teratas Berdasarkan Bag of Words')
+        plt.gca().invert_yaxis()  # Balikkan urutan agar fitur dengan frekuensi terbesar di atas
         plt.savefig(feature_dist_path, bbox_inches='tight', facecolor='white')
         plt.close()
 
@@ -1091,12 +1141,117 @@ def feature_representation():
 @app.route('/split-dataset', methods=['GET', 'POST'])
 def split_dataset():
     try:
+        # from sklearn.model_selection import train_test_split
+
+        # # Ambil daftar file di direktori processed
+        # processed_files_list = os.listdir(os.path.join(os.getcwd(), 'data', 'processed'))
+        # processed_files_list = [f for f in processed_files_list if allowed_file(f)]
+
+        # selected_file = 'dataset_8_tfidf_features.csv'
+        # input_path = os.path.join(os.getcwd(), 'data', 'processed', selected_file)
+        # train_file = "dataset_9_train.csv"
+        # test_file = "dataset_9_test.csv"
+        # train_path = os.path.join(os.getcwd(), 'data', 'processed', train_file)
+        # test_path = os.path.join(os.getcwd(), 'data', 'processed', test_file)
+
+        # # Pastikan direktori processed ada
+        # os.makedirs(os.path.dirname(train_path), exist_ok=True)
+        # os.makedirs(os.path.dirname(test_path), exist_ok=True)
+
+        # # Membaca dataset
+        # data = pd.read_csv(input_path)
+
+        # # Pastikan kolom 'Sentimen' ada
+        # if 'Sentimen' not in data.columns:
+        #     flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "error")
+        #     return render_template('19_split_dataset.html', file_details=processed_files_list, title="Pemisahan Data")
+
+        # # Pisahkan fitur dan label
+        # X = data.drop(columns=['Sentimen'])
+        # y = data['Sentimen']
+
+        # # Pemisahan data dengan rasio 70:30
+        # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+
+        # # Gabungkan kembali fitur dan label untuk data latih dan data uji
+        # train_data = pd.concat([X_train, y_train.reset_index(drop=True)], axis=1)
+        # test_data = pd.concat([X_test, y_test.reset_index(drop=True)], axis=1)
+
+        # # Simpan data latih dan data uji ke file
+        # train_data.to_csv(train_path, index=False)
+        # test_data.to_csv(test_path, index=False)
+
+        # # Informasi dataset
+        # data_shape = data.shape
+        # train_shape = train_data.shape
+        # test_shape = test_data.shape
+
+        # # Visualisasi distribusi label dalam data latih dan data uji
+        # train_label_dist = y_train.value_counts()
+        # test_label_dist = y_test.value_counts()
+        # train_sentiment_counts = {
+        #     "Positif": train_data['Sentimen'].value_counts().get(1, 0),
+        #     "Netral": train_data['Sentimen'].value_counts().get(0, 0),
+        #     "Negatif": train_data['Sentimen'].value_counts().get(-1, 0)
+        # }
+
+        # test_sentiment_counts = {
+        #     "Positif": test_data['Sentimen'].value_counts().get(1, 0),
+        #     "Netral": test_data['Sentimen'].value_counts().get(0, 0),
+        #     "Negatif": test_data['Sentimen'].value_counts().get(-1, 0)
+        # }
+
+
+        # train_dist_path = os.path.join('static', 'img', 'tweet_9_train_label_distribution.png')
+        # test_dist_path = os.path.join('static', 'img', 'tweet_9_test_label_distribution.png')
+
+        # plt.figure(figsize=(16, 9))
+        # plt.bar(
+        #     ['Negatif (-1)', 'Netral (0)', 'Positif (1)'],
+        #     [train_label_dist.get(-1, 0), train_label_dist.get(0, 0), train_label_dist.get(1, 0)],
+        #     color=['red', 'gray', 'green']
+        # )
+        # plt.title('Distribusi Label dalam Data Latih')
+        # plt.xlabel('Label')
+        # plt.ylabel('Jumlah')
+        # plt.savefig(train_dist_path, bbox_inches='tight', facecolor='white')
+        # plt.close()
+
+        # plt.figure(figsize=(16, 9))
+        # plt.bar(
+        #     ['Negatif (-1)', 'Netral (0)', 'Positif (1)'],
+        #     [test_label_dist.get(-1, 0), test_label_dist.get(0, 0), test_label_dist.get(1, 0)],
+        #     color=['red', 'gray', 'green']
+        # )
+        # plt.title('Distribusi Label dalam Data Uji')
+        # plt.xlabel('Label')
+        # plt.ylabel('Jumlah')
+        # plt.savefig(test_dist_path, bbox_inches='tight', facecolor='white')
+        # plt.close()
+
+        # return render_template(
+        #     '19_split_dataset.html',
+        #     title="Pemisahan Data",
+        #     data_shape=data_shape,
+        #     train_shape=train_shape,
+        #     test_shape=test_shape,
+        #     train_dist_path=train_dist_path,
+        #     test_dist_path=test_dist_path,
+        #     file_details=processed_files_list,
+        #     selected_file=selected_file,
+        #     train_download_link=url_for('download_file', filename=train_file),
+        #     test_download_link=url_for('download_file', filename=test_file),
+        #     train_sentiment_counts=train_sentiment_counts,
+        #     test_sentiment_counts=test_sentiment_counts
+        # )
+        
         from sklearn.model_selection import train_test_split
 
         # Ambil daftar file di direktori processed
         processed_files_list = os.listdir(os.path.join(os.getcwd(), 'data', 'processed'))
         processed_files_list = [f for f in processed_files_list if allowed_file(f)]
 
+        # Ubah file input ke hasil BoW
         selected_file = 'dataset_8_tfidf_features.csv'
         input_path = os.path.join(os.getcwd(), 'data', 'processed', selected_file)
         train_file = "dataset_9_train.csv"
@@ -1116,9 +1271,9 @@ def split_dataset():
             flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "error")
             return render_template('19_split_dataset.html', file_details=processed_files_list, title="Pemisahan Data")
 
-        # Pisahkan fitur dan label
-        X = data.drop(columns=['Sentimen'])
-        y = data['Sentimen']
+        # Pisahkan fitur (X) dan label (y)
+        X = data.drop(columns=['Sentimen'])  # Fitur dari BoW
+        y = data['Sentimen']  # Label
 
         # Pemisahan data dengan rasio 70:30
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
@@ -1135,49 +1290,67 @@ def split_dataset():
         data_shape = data.shape
         train_shape = train_data.shape
         test_shape = test_data.shape
+        
+        # Pastikan kolom 'Sentimen' ada dan tidak kosong
+        # if 'Sentimen' not in train_data.columns or train_data['Sentimen'].isnull().all():
+        #     train_sentiment_counts = {"Positif": 0, "Netral": 0, "Negatif": 0}
+        # else:
+        #     train_sentiment_counts = {
+        #         "Positif": train_data['Sentimen'].value_counts().get(1, 0),
+        #         "Netral": train_data['Sentimen'].value_counts().get(0, 0),
+        #         "Negatif": train_data['Sentimen'].value_counts().get(-1, 0)
+        #     }
+
+        # if 'Sentimen' not in test_data.columns or test_data['Sentimen'].isnull().all():
+        #     test_sentiment_counts = {"Positif": 0, "Netral": 0, "Negatif": 0}
+        # else:
+        #     test_sentiment_counts = {
+        #         "Positif": test_data['Sentimen'].value_counts().get(1, 0),
+        #         "Netral": test_data['Sentimen'].value_counts().get(0, 0),
+        #         "Negatif": test_data['Sentimen'].value_counts().get(-1, 0)
+        #     }
 
         # Visualisasi distribusi label dalam data latih dan data uji
-        train_label_dist = y_train.value_counts()
-        test_label_dist = y_test.value_counts()
-        train_sentiment_counts = {
-            "Positif": train_data['Sentimen'].value_counts().get(1, 0),
-            "Netral": train_data['Sentimen'].value_counts().get(0, 0),
-            "Negatif": train_data['Sentimen'].value_counts().get(-1, 0)
-        }
+        # train_label_dist = y_train.value_counts()
+        # test_label_dist = y_test.value_counts()
+        # train_sentiment_counts = {
+        #     "Positif": train_data['Sentimen'].value_counts().get(1, 0),
+        #     "Netral": train_data['Sentimen'].value_counts().get(0, 0),
+        #     "Negatif": train_data['Sentimen'].value_counts().get(-1, 0)
+        # }
 
-        test_sentiment_counts = {
-            "Positif": test_data['Sentimen'].value_counts().get(1, 0),
-            "Netral": test_data['Sentimen'].value_counts().get(0, 0),
-            "Negatif": test_data['Sentimen'].value_counts().get(-1, 0)
-        }
+        # test_sentiment_counts = {
+        #     "Positif": test_data['Sentimen'].value_counts().get(1, 0),
+        #     "Netral": test_data['Sentimen'].value_counts().get(0, 0),
+        #     "Negatif": test_data['Sentimen'].value_counts().get(-1, 0)
+        # }
 
+        # train_dist_path = os.path.join('static', 'img', 'tweet_9_train_label_distribution.png')
+        # test_dist_path = os.path.join('static', 'img', 'tweet_9_test_label_distribution.png')
 
-        train_dist_path = os.path.join('static', 'img', 'tweet_9_train_label_distribution.png')
-        test_dist_path = os.path.join('static', 'img', 'tweet_9_test_label_distribution.png')
+        # plt.figure(figsize=(16, 9))
+        # plt.bar(
+        #     ['Negatif (-1)', 'Netral (0)', 'Positif (1)'],
+        #     [train_label_dist.get(-1, 0), train_label_dist.get(0, 0), train_label_dist.get(1, 0)],
+        #     color=['red', 'gray', 'green']
+        # )
+        # plt.title('Distribusi Label dalam Data Latih')
+        # plt.xlabel('Label')
+        # plt.ylabel('Jumlah')
+        # plt.savefig(train_dist_path, bbox_inches='tight', facecolor='white')
+        # plt.close()
 
-        plt.figure(figsize=(16, 9))
-        plt.bar(
-            ['Negatif (-1)', 'Netral (0)', 'Positif (1)'],
-            [train_label_dist.get(-1, 0), train_label_dist.get(0, 0), train_label_dist.get(1, 0)],
-            color=['red', 'gray', 'green']
-        )
-        plt.title('Distribusi Label dalam Data Latih')
-        plt.xlabel('Label')
-        plt.ylabel('Jumlah')
-        plt.savefig(train_dist_path, bbox_inches='tight', facecolor='white')
-        plt.close()
-
-        plt.figure(figsize=(16, 9))
-        plt.bar(
-            ['Negatif (-1)', 'Netral (0)', 'Positif (1)'],
-            [test_label_dist.get(-1, 0), test_label_dist.get(0, 0), test_label_dist.get(1, 0)],
-            color=['red', 'gray', 'green']
-        )
-        plt.title('Distribusi Label dalam Data Uji')
-        plt.xlabel('Label')
-        plt.ylabel('Jumlah')
-        plt.savefig(test_dist_path, bbox_inches='tight', facecolor='white')
-        plt.close()
+        # plt.figure(figsize=(16, 9))
+        # plt.bar(
+        #     ['Negatif (-1)', 'Netral (0)', 'Positif (1)'],
+        #     [test_label_dist.get(-1, 0), test_label_dist.get(0, 0), test_label_dist.get(1, 0)],
+        #     color=['red', 'gray', 'green']
+        # )
+        # plt.title('Distribusi Label dalam Data Uji')
+        # plt.xlabel('Label')
+        # plt.ylabel('Jumlah')
+        # plt.savefig(test_dist_path, bbox_inches='tight', facecolor='white')
+        # plt.close()
 
         return render_template(
             '19_split_dataset.html',
@@ -1185,15 +1358,16 @@ def split_dataset():
             data_shape=data_shape,
             train_shape=train_shape,
             test_shape=test_shape,
-            train_dist_path=train_dist_path,
-            test_dist_path=test_dist_path,
+            # train_dist_path=train_dist_path,
+            # test_dist_path=test_dist_path,
             file_details=processed_files_list,
             selected_file=selected_file,
             train_download_link=url_for('download_file', filename=train_file),
             test_download_link=url_for('download_file', filename=test_file),
-            train_sentiment_counts=train_sentiment_counts,
-            test_sentiment_counts=test_sentiment_counts
+            # train_sentiment_counts=train_sentiment_counts,
+            # test_sentiment_counts=test_sentiment_counts
         )
+
 
     except Exception as e:
         flash(f"Terjadi kesalahan: {e}", "error")

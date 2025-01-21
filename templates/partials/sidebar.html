@@ -66,7 +66,7 @@
 		</li>
 
 		<!-- Pra-Pemrosesan -->
-		<li class="menu-item {% if url_for('clean_dataset') in request.path or url_for('normalize_dataset') in request.path or url_for('tokenize_dataset') in request.path or url_for('remove_stopwords') in request.path or url_for('stemming_dataset') in request.path or url_for('label_dataset') in request.path or url_for('label_encode') in request.path or url_for('feature_representation') in request.path or url_for('split_dataset') in request.path %}active open{% endif %}">
+		<li class="menu-item {% if url_for('clean_dataset') in request.path or url_for('normalize_dataset') in request.path or url_for('tokenize_dataset') in request.path or url_for('remove_stopwords') in request.path or url_for('stemming_dataset') in request.path or url_for('label_dataset') in request.path or url_for('label_encode') in request.path or url_for('feature_representation_bow') in request.path or url_for('split_dataset') in request.path %}active open{% endif %}">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-wrench"></i>
 				<div data-i18n="Pra-Pemrosesan">Pra-Pemrosesan</div>
@@ -108,8 +108,8 @@
 						<div data-i18n="Label Encoding">Label Encoding</div>
 					</a>
 				</li>
-				<li class="menu-item {% if request.path == url_for('feature_representation') %}active{% endif %}">
-					<a href="{{ url_for('feature_representation') }}" class="menu-link">
+				<li class="menu-item {% if request.path == url_for('feature_representation_bow') %}active{% endif %}">
+					<a href="{{ url_for('feature_representation_bow') }}" class="menu-link">
 						<div data-i18n="Representasi Fitur">Representasi Fitur</div>
 					</a>
 				</li>
@@ -204,11 +204,11 @@
 			</ul>
 		</li>
 		
-		<!-- Analisis Hasil -->
+		<!-- Interpretasi Hasil -->
 		<li class="menu-item {% if url_for('compare_model') in request.path %}active open{% endif %}">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
 				<i class="menu-icon tf-icons bx bx-file-find"></i>
-				<div data-i18n="Analisis Hasil">Analisis Hasil</div>
+				<div data-i18n="Interpretasi Hasil">Interpretasi Hasil</div>
 			</a>
 
 			<ul class="menu-sub">
