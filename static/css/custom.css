@@ -1,3 +1,15 @@
+:root {
+  --primary-color: #5271ff;
+  --primary-color-transparent: #5272ff50;
+  --secondary-color: #545454;
+  --danger-dark: rgb(220, 53, 69);
+  --danger-light: #f8d7da;
+  --success-dark: rgb(25, 135, 84);
+  --success-light: #d1e7dd;
+  --warning-dark: rgb(255, 193, 7);
+  --warning-light: #fff3cd;
+}
+
 .color-custom-primary {
   color: #5271ff;
 }
@@ -10,7 +22,6 @@
   height: 1rem;
   border-width: 0.2em;
 }
-
 .nav-link {
   font-size: 14px;
   padding: 5px 10px;
@@ -24,4 +35,128 @@
 }
 .collapse ul {
   margin-left: 10px;
+}
+.avatar {
+  font-size: 2.5rem;
+  width: auto !important;
+  height: auto !important;
+  margin-bottom: .75rem;
+}
+.avatar .bx::before {
+  font-size: 2.5rem;
+}
+.avatar.danger .bx.danger {
+  color: var(--danger-dark);
+  background: var(--danger-light);
+  border: 1px solid var(--danger-dark);
+  border-radius: .5rem;
+  padding: .25rem;
+}
+.avatar.success .bx.success {
+  color: var(--success-dark);
+  background: var(--success-light);
+  border: 1px solid var(--success-dark);
+  border-radius: .5rem;
+  padding: .25rem;
+}
+
+.container {
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+}
+
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  position: relative;
+}
+
+.card.step {
+  width: 300px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin: 0;
+  border: 1px solid #dee2e6;
+}
+
+.card.step.danger {
+  border-color: var(--danger-dark);
+}
+
+.card.step.success {
+  border-color: var(--success-dark);
+}
+
+.card.step:not(.collapsed) {
+  outline: 5px solid var(--primary-color-transparent);
+  border: 1px solid var(--primary-color);
+}
+
+.card.step:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.connector {
+  flex: 1;
+  position: relative;
+  height: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+}
+
+.connector svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.connector line {
+  stroke: #dee2e6;
+  stroke-width: 2;
+  stroke-dasharray: 5,5;
+}
+
+.arrow-icon {
+  color: #6c757d;
+  background: white;
+  border-radius: 50%;
+  padding: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+@media (max-width: 992px) {
+  .card-container {
+      flex-direction: column;
+  }
+
+  .card.step {
+    width: 100%;
+  }
+  
+  .connector {
+      height: 50px;
+      width: 4px;
+      overflow: hidden;
+  }
+  
+  .connector svg {
+      transform: rotate(90deg);
+  }
+  
+  .arrow-icon {
+      transform: rotate(90deg);
+  }
 }

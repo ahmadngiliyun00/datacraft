@@ -17,3 +17,25 @@ function showLoading(event) {
   // Submit form secara manual
   event.target.closest('form').submit();
 }
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.card');
+  
+  cards.forEach(card => {
+      // Add Bootstrap shadow class by default
+      card.classList.add('shadow-sm');
+      
+      card.addEventListener('mouseenter', () => {
+          card.style.transform = 'translateY(-10px)';
+          // Increase shadow on hover
+          card.classList.remove('shadow-sm');
+          card.classList.add('shadow-lg');
+      });
+      
+      card.addEventListener('mouseleave', () => {
+          card.style.transform = 'translateY(0)';
+          // Restore original shadow
+          card.classList.remove('shadow-lg');
+          card.classList.add('shadow-sm');
+      });
+  });
+});

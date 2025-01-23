@@ -1736,5 +1736,13 @@ def evaluasi():
 def analisis_hasil():
     return render_template('analisis_hasil.html', title="Tentang Aplikasi")
 
+
+
+# * Baru data_exploration
+@app.route('/data-exploration')
+def data_exploration():
+    return render_template('data_exploration.html', title="Data Eksplorasi")
+
+
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
