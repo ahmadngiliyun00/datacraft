@@ -95,62 +95,63 @@ def about():
     return render_template('about.html', title="Tentang Aplikasi")
 
 # Route untuk halaman Membuat Dataset
-@app.route('/create-dataset', methods=['GET','POST'])
-def create_dataset():
-    if request.method == 'POST':
-        # Ambil input dari form
-        keyword = request.form['keyword']
-        tweet_limit = request.form['tweet_limit']
-        auth_token = request.form['auth_token']
+# @app.route('/create-dataset', methods=['GET','POST'])
+# def create_dataset():
+#     if request.method == 'POST':
+#         # Ambil input dari form
+#         keyword = request.form['keyword']
+#         tweet_limit = request.form['tweet_limit']
+#         auth_token = request.form['auth_token']
 
-        # Tentukan direktori penyimpanan
-        save_dir = os.path.join(os.getcwd(), "data")
-        os.makedirs(save_dir, exist_ok=True)
+#         # Tentukan direktori penyimpanan
+#         save_dir = os.path.join(os.getcwd(), "data")
+#         os.makedirs(save_dir, exist_ok=True)
 
-        # Nama file
-        safe_keyword = re.sub(r'[^\w\s]', '_', keyword)  # Ganti karakter khusus jadi '_'
-        safe_keyword = re.sub(r'\s+', '_', safe_keyword.strip())  # Hilangkan spasi berlebih
-        timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-        filename = f"dataset_0_{safe_keyword}_{timestamp}.csv"
-        file_path = os.path.join(save_dir, filename)
+#         # Nama file
+#         safe_keyword = re.sub(r'[^\w\s]', '_', keyword)  # Ganti karakter khusus jadi '_'
+#         safe_keyword = re.sub(r'\s+', '_', safe_keyword.strip())  # Hilangkan spasi berlebih
+#         timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+#         filename = f"dataset_0_{safe_keyword}_{timestamp}.csv"
+#         file_path = os.path.join(save_dir, filename)
 
-        # Pindah ke direktori kerja
-        os.chdir(save_dir)
+#         # Pindah ke direktori kerja
+#         os.chdir(save_dir)
 
-        # Perintah scraping
-        command = (
-            f"npx -y tweet-harvest@2.6.1 "
-            f"-o \"{filename}\" -s \"{keyword}\" --tab \"LATEST\" -l {tweet_limit} --token {auth_token}"
-        )
-        result = os.system(command)
+#         # Perintah scraping
+#         command = (
+#             f"npx -y tweet-harvest@2.6.1 "
+#             f"-o \"{filename}\" -s \"{keyword}\" --tab \"LATEST\" -l {tweet_limit} --token {auth_token}"
+#         )
+#         result = os.system(command)
 
-        # Kembalikan ke direktori awal
-        os.chdir(os.path.dirname(__file__))
+#         # Kembalikan ke direktori awal
+#         os.chdir(os.path.dirname(__file__))
 
-        # Validasi file secara manual ke dalam direktori 'data/tweets-data'
-        manual_path = os.path.join(os.getcwd(), "data", "tweets-data", filename)
+#         # Validasi file secara manual ke dalam direktori 'data/tweets-data'
+#         manual_path = os.path.join(os.getcwd(), "data", "tweets-data", filename)
 
 
-        # Validasi file
-        if os.path.exists(manual_path):
-            return render_template('01_create_dataset.html',
-                                title="Buat Dataset",
-                                success_message=f"Dataset berhasil dibuat: {filename}",
-                                download_link=url_for('download_file', filename=filename),
-                                keyword=keyword, tweet_limit=tweet_limit, auth_token=auth_token)
-        else:
-            flash(f"Gagal membuat dataset. Periksa kembali inputan atau token. {file_path}", "error")
-            return redirect(url_for('create_dataset'))
+#         # Validasi file
+#         if os.path.exists(manual_path):
+#             return render_template('01_create_dataset.html',
+#                                 title="Buat Dataset",
+#                                 success_message=f"Dataset berhasil dibuat: {filename}",
+#                                 download_link=url_for('download_file', filename=filename),
+#                                 keyword=keyword, tweet_limit=tweet_limit, auth_token=auth_token)
+#         else:
+#             flash(f"Gagal membuat dataset. Periksa kembali inputan atau token. {file_path}", "error")
+#             return redirect(url_for('create_dataset'))
         
-    return render_template('01_create_dataset.html', title="Buat Dataset")
+#     return render_template('01_create_dataset.html', title="Buat Dataset")
 
 # Route untuk mengunduh file yang sudah dibuat
 @app.route('/download/<filename>')
 def download_file(filename):
     # Tentukan direktori berdasarkan nama file
-    if filename.startswith("dataset_0"):
-        download_dir = os.path.join(os.getcwd(), "data", "tweets-data")
-    elif filename.startswith("dataset_1"):
+    # if filename.startswith("dataset_0"):
+    #     download_dir = os.path.join(os.getcwd(), "data", "tweets-data")
+    # el
+    if filename.startswith("dataset_1"):
         download_dir = os.path.join(os.getcwd(), "data", "processed")
     elif filename.startswith("dataset_2"):
         download_dir = os.path.join(os.getcwd(), "data", "processed")
