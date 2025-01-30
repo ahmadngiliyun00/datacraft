@@ -10,6 +10,10 @@ import seaborn as sns
 import pickle
 import matplotlib
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, jsonify
 from datetime import datetime
 from werkzeug.utils import secure_filename
@@ -17,8 +21,6 @@ from wordcloud import WordCloud
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 matplotlib.use('Agg')
 
 app = Flask(__name__)
@@ -30,6 +32,10 @@ app.secret_key = secrets.token_hex(16)  # Gunakan string acak yang kuat dalam pr
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'data', 'uploaded')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Pastikan folder penyimpanan ada
+PROCESSED_FOLDER = os.path.join(os.getcwd(), 'data', 'processed')
+os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 
 # 🔹 Fungsi Cek Ekstensi File
 ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
@@ -1706,6 +1712,155 @@ def upload_dataset():
 
     flash('Format file tidak didukung! Hanya CSV, XLSX, dan XLS.', 'error')
     return redirect(url_for('data_exploration'))
+
+# 🔹 Route untuk Menampilkan Status Preprocessing
+@app.route('/preprocessing')
+def preprocessing():
+    uploaded_filename = "dataset_0_raw.csv"
+    dataset_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_filename)
+
+    # Daftar file hasil setiap langkah dengan nama file
+    processed_files = {
+        "Pembersihan": ("dataset_1_cleaned.csv", os.path.join(PROCESSED_FOLDER, "dataset_1_cleaned.csv")),
+        "Normalisasi": ("dataset_2_normalized.csv", os.path.join(PROCESSED_FOLDER, "dataset_2_normalized.csv")),
+        "Tokenisasi": ("dataset_3_tokenized.csv", os.path.join(PROCESSED_FOLDER, "dataset_3_tokenized.csv")),
+        "No Stopwords": ("dataset_4_no_stopwords.csv", os.path.join(PROCESSED_FOLDER, "dataset_4_no_stopwords.csv")),
+        "Stemming": ("dataset_5_stemmed.csv", os.path.join(PROCESSED_FOLDER, "dataset_5_stemmed.csv")),
+        "Label Encoding": ("dataset_6_encoded.csv", os.path.join(PROCESSED_FOLDER, "dataset_6_encoded.csv")),
+        "Pembagian": ("dataset_7_train.csv", os.path.join(PROCESSED_FOLDER, "dataset_7_train.csv")),
+    }
+
+    # Cek apakah file hasil pra-pemrosesan tersedia
+    preprocessing_status = {step: os.path.exists(path) for step, (_, path) in processed_files.items()}
+    
+    # Ambil nama file yang tersedia
+    preprocessing_files = {step: filename if preprocessing_status[step] else "Belum tersedia" 
+                            for step, (filename, _) in processed_files.items()}
+
+    return render_template(
+        'pre_processing.html',
+        title="Pra-Pemrosesan",
+        dataset_uploaded=os.path.exists(dataset_path),
+        preprocessing_status=preprocessing_status,  # Status langkah pra-pemrosesan
+        preprocessing_files=preprocessing_files  # Nama file yang tersedia
+    )
+    
+# Fungsi utama untuk melakukan pra-pemrosesan
+@app.route('/start-preprocessing', methods=['POST'])
+def start_preprocessing():
+    uploaded_filename = "dataset_0_raw.csv"
+    dataset_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_filename)
+    
+    if not os.path.exists(dataset_path):
+        return jsonify({"success": False, "message": "Dataset belum diunggah."})
+
+    try:
+        # 📌 1️⃣ Pembersihan Data
+        print("🚀 Memulai Pembersihan Data...")
+        data = pd.read_csv(dataset_path)
+        if 'Tweet' not in data.columns:
+            return jsonify({"success": False, "message": "Kolom 'Tweet' tidak ditemukan dalam dataset!"})
+
+        data['Tweet'] = data['Tweet'].astype(str)
+        data['Tweet'] = data['Tweet'].apply(lambda x: remove_mentions(x))
+        data['Tweet'] = data['Tweet'].apply(lambda x: remove_hashtags(x))
+        data['Tweet'] = data['Tweet'].apply(lambda x: remove_uniques(x))
+        data['Tweet'] = data['Tweet'].apply(lambda x: remove_emoji(x))
+        data['Tweet'] = data['Tweet'].apply(lambda x: remove_links(x))
+        data['Tweet'] = data['Tweet'].apply(lambda x: remove_html_tags_and_entities(x))
+        data['Tweet'] = data['Tweet'].apply(lambda x: remove_special_characters(x))
+        data['Tweet'] = data['Tweet'].apply(lambda x: remove_underscores(x))
+        data = data.drop_duplicates(subset=['Tweet'])
+        data = data.dropna(subset=['Tweet'])
+        data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_1_cleaned.csv"), index=False)
+        print("✅ Pembersihan Data Selesai.")
+
+        # 📌 2️⃣ Normalisasi Data
+        print("🚀 Memulai Normalisasi Data...")
+        data['Tweet'] = data['Tweet'].str.lower()
+        data['Tweet'] = data['Tweet'].str.replace(r"[^a-z\s]+", " ", regex=True)
+        data['Tweet'] = data['Tweet'].str.replace(r"\s+", " ", regex=True)
+        data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_2_normalized.csv"), index=False)
+        print("✅ Normalisasi Data Selesai.")
+
+        # 📌 3️⃣ Tokenisasi Data
+        print("🚀 Memulai Tokenisasi Data...")
+        nltk.download('punkt', quiet=True)
+        data['Tokens'] = data['Tweet'].apply(word_tokenize)
+        data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_3_tokenized.csv"), index=False)
+        print("✅ Tokenisasi Data Selesai.")
+
+        # 📌 4️⃣ Penghapusan Stopwords
+        print("🚀 Memulai Penghapusan Stopwords...")
+        nltk.download('stopwords', quiet=True)
+        stop_words = set(stopwords.words('indonesian'))
+
+        # Stopwords kustom
+        manual_stopwords = [
+            'gelo', 'mentri2', 'yg', 'ga', 'udh', 'aja', 'kaga', 'bgt', 'spt', 'sdh',
+            'dr', 'utan', 'tuh', 'budi', 'bodi', 'p', 'psi_id', 'fufufafa', 'pln', 'lu',
+            'krn', 'dah', 'jd', 'tdk', 'dll', 'golkar_id', 'dlm', 'ri', 'jg', 'ni', 'sbg',
+            'tp', 'nih', 'gini', 'jkw', 'nggak', 'bs', 'pk', 'ya', 'gk', 'gw', 'gua',
+            'klo', 'msh', 'blm', 'gue', 'sih', 'pa', 'dgn', 'n', 'skrg', 'pake', 'si',
+            'dg', 'utk', 'deh', 'tu', 'hrt', 'ala', 'mdy', 'moga', 'tau', 'liat', 'orang2',
+            'jadi'
+        ]
+        stop_words.update(manual_stopwords)
+
+        # Stopwords dari file CSV
+        stopword_file = os.path.join(PROCESSED_FOLDER, 'stopwordbahasa.csv')
+        if os.path.exists(stopword_file):
+            stopword_df = pd.read_csv(stopword_file, header=None)
+            stop_words.update(stopword_df[0].tolist())
+
+        def remove_stopwords_from_tokens(tokens):
+            try:
+                tokens = eval(tokens)  # Ubah string token menjadi list Python
+                return [word for word in tokens if word.lower() not in stop_words]
+            except Exception as e:
+                return []
+
+        data['Tokens'] = data['Tokens'].apply(lambda x: remove_stopwords_from_tokens(str(x)))
+        data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_4_no_stopwords.csv"), index=False)
+        print("✅ Penghapusan Stopwords Selesai.")
+
+        # 📌 5️⃣ Stemming Data
+        print("🚀 Memulai Stemming Data...")
+        factory = StemmerFactory()
+        stemmer = factory.create_stemmer()
+        data['Tokens'] = data['Tokens'].apply(lambda x: [stemmer.stem(word) for word in x])
+        data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_5_stemmed.csv"), index=False)
+        print("✅ Stemming Data Selesai.")
+
+        # 📌 6️⃣ Label Encoding
+        print("🚀 Memulai Label Encoding...")
+        if 'Sentimen' in data.columns:
+            sentiment_mapping = {'positif': 1, 'netral': 0, 'negatif': -1}
+            data['Sentimen'] = data['Sentimen'].map(sentiment_mapping)
+            data['Label_Encoded'] = LabelEncoder().fit_transform(data['Sentimen'])
+            data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_6_encoded.csv"), index=False)
+            print("✅ Label Encoding Selesai.")
+        else:
+            return jsonify({"success": False, "message": "Kolom 'Sentimen' tidak ditemukan dalam dataset!"})
+
+        # 📌 7️⃣ Pembagian Data
+        print("🚀 Memulai Pembagian Data...")
+        X = data['Tokens']
+        y = data['Label_Encoded']
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+
+        train_data = pd.DataFrame({'Tokens': X_train, 'Label_Encoded': y_train})
+        test_data = pd.DataFrame({'Tokens': X_test, 'Label_Encoded': y_test})
+
+        train_data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_7_train.csv"), index=False)
+        test_data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_8_test.csv"), index=False)
+        print("✅ Pembagian Data Selesai.")
+
+        return jsonify({"success": True})
+
+    except Exception as e:
+        print(f"❌ Terjadi Kesalahan: {str(e)}")
+        return jsonify({"success": False, "message": str(e)})
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)

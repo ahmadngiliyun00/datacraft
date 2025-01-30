@@ -1,0 +1,342 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+	<div class="fw-bold mb-4">
+		<span class="text-muted fw-light">DataCraft / </span>
+		<span class="color-custom-secondary">{{ title }}</span>
+	</div>
+
+	<!-- Flash Messages -->
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+	{% for category, message in messages %}
+	<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+		{{ message }}
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
+
+  <!-- Card Step -->
+	<div class="row">
+		<div class="col-12">
+			<div class="container p-0 mb-4">
+				<div class="flow-container">
+					<div class="flow-row">
+						<!-- Card Pembersihan -->
+						<div
+							class="card step collapsed {{ 'success' if preprocessing_status['Pembersihan'] else 'danger' }}"
+							id="cardA"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseA"
+							aria-expanded="false"
+							aria-controls="collapseA">
+							<div class="card-body text-center">
+								<div
+									class="avatar flex-shrink-0 {{ 'success' if preprocessing_status['Pembersihan'] else 'danger' }}">
+									<i
+										class="bx {{ 'bx-check-circle success' if preprocessing_status['Pembersihan'] else 'bx-x-circle danger' }}"></i>
+								</div>
+								<h3 class="card-title">Pembersihan</h3>
+								<p class="card-text text-muted">
+									{{ preprocessing_files['Pembersihan'] if preprocessing_status['Pembersihan'] else "Nama File" }}
+								</p>
+								<span class="badge bg-{{ 'success' if preprocessing_status['Pembersihan'] else 'danger' }}">
+									{{ 'Sudah dilakukan' if preprocessing_status['Pembersihan'] else 'Belum dilakukan' }}
+								</span>
+							</div>
+						</div>
+		
+						<!-- Connector -->
+						<div class="connector">
+							<svg
+								width="100%"
+								height="100%">
+								<line
+									id="connectingLine1"
+									x1="0"
+									y1="50%"
+									x2="100%"
+									y2="50%" />
+							</svg>
+							<i class="bx bx-right-arrow-alt bx-md arrow-icon"></i>
+						</div>
+		
+						<!-- Card Normalisasi -->
+						<div
+							class="card step collapsed {{ 'success' if preprocessing_status['Normalisasi'] else 'danger' }}"
+							id="cardB"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseB"
+							aria-expanded="false"
+							aria-controls="collapseB">
+							<div class="card-body text-center">
+								<div class="avatar flex-shrink-0 {{ 'success' if preprocessing_status['Normalisasi'] else 'danger' }}">
+									<i
+										class="bx {{ 'bx-check-circle success' if preprocessing_status['Normalisasi'] else 'bx-x-circle danger' }}"></i>
+								</div>
+								<h3 class="card-title">Normalisasi</h3>
+								<p class="card-text text-muted">
+									{{ preprocessing_files['Normalisasi'] if preprocessing_status['Normalisasi'] else "Jumlah Data" }}
+								</p>
+								<span
+									class="badge bg-{{ 'success' if preprocessing_status['Normalisasi'] else 'danger' }}">
+									{{ 'Data tersedia' if preprocessing_status['Normalisasi'] else 'Belum dilakukan' }}
+								</span>
+							</div>
+						</div>
+		
+						<!-- Connector -->
+						<div class="connector">
+							<svg
+								width="100%"
+								height="100%">
+								<line
+									id="connectingLine1"
+									x1="0"
+									y1="50%"
+									x2="100%"
+									y2="50%" />
+							</svg>
+							<i class="bx bx-right-arrow-alt bx-md arrow-icon"></i>
+						</div>
+		
+						<!-- Card Tokenisasi -->
+						<div
+							class="card step collapsed {{ 'success' if preprocessing_status['Tokenisasi'] else 'danger' }}"
+							id="cardC"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseC"
+							aria-expanded="false"
+							aria-controls="collapseC">
+							<div class="card-body text-center">
+								<div class="avatar flex-shrink-0 {{ 'success' if preprocessing_status['Tokenisasi'] else 'danger' }}">
+									<i
+										class="bx {{ 'bx-check-circle success' if preprocessing_status['Tokenisasi'] else 'bx-x-circle danger' }}"></i>
+								</div>
+								<h3 class="card-title">Tokenisasi</h3>
+								<p class="card-text text-muted">
+									{{ preprocessing_files['Tokenisasi'] if preprocessing_status['Tokenisasi'] else "Jumlah Data" }}
+								</p>
+								<span
+									class="badge bg-{{ 'success' if preprocessing_status['Tokenisasi'] else 'danger' }}">
+									{{ 'Data tersedia' if preprocessing_status['Tokenisasi'] else 'Belum dilakukan' }}
+								</span>
+							</div>
+						</div>
+		
+						<!-- Connector -->
+						<div class="connector">
+							<svg
+								width="100%"
+								height="100%">
+								<line
+									id="connectingLine1"
+									x1="0"
+									y1="50%"
+									x2="100%"
+									y2="50%" />
+							</svg>
+							<i class="bx bx-right-arrow-alt bx-md arrow-icon"></i>
+						</div>
+		
+						<!-- Card No Stopwords -->
+						<div
+							class="card step collapsed {{ 'success' if preprocessing_status['No Stopwords'] else 'danger' }}"
+							id="cardD"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseD"
+							aria-expanded="false"
+							aria-controls="collapseD">
+							<div class="card-body text-center">
+								<div class="avatar flex-shrink-0 {{ 'success' if preprocessing_status['No Stopwords'] else 'danger' }}">
+									<i
+										class="bx {{ 'bx-check-circle success' if preprocessing_status['No Stopwords'] else 'bx-x-circle danger' }}"></i>
+								</div>
+								<h3 class="card-title">No Stopwords</h3>
+								<p class="card-text text-muted">
+									{{ preprocessing_files['No Stopwords'] if preprocessing_status['No Stopwords'] else "Jumlah Data" }}
+								</p>
+								<span
+									class="badge bg-{{ 'success' if preprocessing_status['No Stopwords'] else 'danger' }}">
+									{{ 'Data tersedia' if preprocessing_status['No Stopwords'] else 'Belum dilakukan' }}
+								</span>
+							</div>
+						</div>
+					</div>
+					<!-- Vertical Connector -->
+					<div class="vertical-connector">
+						<svg width="100%" height="100%">
+								<line x1="50%" y1="0" x2="50%" y2="100%" />
+						</svg>
+						<i class='bx bx-down-arrow-alt bx-md arrow-icon'></i>
+					</div>
+					<div class="flow-row">
+	
+						<!-- Card Stemming -->
+						<div
+							class="card step collapsed {{ 'success' if preprocessing_status['Stemming'] else 'danger' }}"
+							id="cardE"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseE"
+							aria-expanded="false"
+							aria-controls="collapseE">
+							<div class="card-body text-center">
+								<div class="avatar flex-shrink-0 {{ 'success' if preprocessing_status['Stemming'] else 'danger' }}">
+									<i
+										class="bx {{ 'bx-check-circle success' if preprocessing_status['Stemming'] else 'bx-x-circle danger' }}"></i>
+								</div>
+								<h3 class="card-title">Stemming</h3>
+								<p class="card-text text-muted">
+									{{ preprocessing_files['Stemming'] if preprocessing_status['Stemming'] else "Jumlah Data" }}
+								</p>
+								<span
+									class="badge bg-{{ 'success' if preprocessing_status['Stemming'] else 'danger' }}">
+									{{ 'Data tersedia' if preprocessing_status['Stemming'] else 'Belum dilakukan' }}
+								</span>
+							</div>
+						</div>
+	
+						<!-- Connector -->
+						<div class="connector">
+							<svg
+								width="100%"
+								height="100%">
+								<line
+									id="connectingLine1"
+									x1="0"
+									y1="50%"
+									x2="100%"
+									y2="50%" />
+							</svg>
+							<i class="bx bx-right-arrow-alt bx-md arrow-icon"></i>
+						</div>
+	
+						<!-- Card Label Encoding -->
+						<div
+							class="card step collapsed {{ 'success' if preprocessing_status['Label Encoding'] else 'danger' }}"
+							id="cardF"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseF"
+							aria-expanded="false"
+							aria-controls="collapseF">
+							<div class="card-body text-center">
+								<div class="avatar flex-shrink-0 {{ 'success' if preprocessing_status['Label Encoding'] else 'danger' }}">
+									<i
+										class="bx {{ 'bx-check-circle success' if preprocessing_status['Label Encoding'] else 'bx-x-circle danger' }}"></i>
+								</div>
+								<h3 class="card-title">Label Encoding</h3>
+								<p class="card-text text-muted">
+									{{ preprocessing_files['Label Encoding'] if preprocessing_status['Label Encoding'] else "Jumlah Data" }}
+								</p>
+								<span
+									class="badge bg-{{ 'success' if preprocessing_status['Label Encoding'] else 'danger' }}">
+									{{ 'Data tersedia' if preprocessing_status['Label Encoding'] else 'Belum dilakukan' }}
+								</span>
+							</div>
+						</div>
+	
+						<!-- Connector -->
+						<div class="connector">
+							<svg
+								width="100%"
+								height="100%">
+								<line
+									id="connectingLine1"
+									x1="0"
+									y1="50%"
+									x2="100%"
+									y2="50%" />
+							</svg>
+							<i class="bx bx-right-arrow-alt bx-md arrow-icon"></i>
+						</div>
+
+						<!-- Card Pembagian -->
+						<div
+							class="card step collapsed {{ 'success' if preprocessing_status['Pembagian'] else 'danger' }}"
+							id="cardG"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseG"
+							aria-expanded="false"
+							aria-controls="collapseG">
+							<div class="card-body text-center">
+								<div
+									class="avatar flex-shrink-0 {{ 'success' if preprocessing_status['Pembagian'] else 'danger' }}">
+									<i
+										class="bx {{ 'bx-check-circle success' if preprocessing_status['Pembagian'] else 'bx-x-circle danger' }}"></i>
+								</div>
+								<h3 class="card-title">Pembagian</h3>
+								<p class="card-text text-muted">
+									{{ preprocessing_files['Pembagian'] if preprocessing_status['Pembagian'] else "Nama File" }}
+								</p>
+								<span class="badge bg-{{ 'success' if preprocessing_status['Pembagian'] else 'danger' }}">
+									{{ 'Sudah dilakukan' if preprocessing_status['Pembagian'] else 'Belum dilakukan' }}
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Tombol Mulai Pra-Pemrosesan -->
+	<div class="card mb-4">
+		<h5 class="card-header">Pra-Pemrosesan Data</h5>
+		<div class="card-body text-center">
+			<p class="text-muted">Klik tombol di bawah ini untuk memulai pra-pemrosesan.</p>
+			<button id="start-preprocessing" class="btn btn-primary" {% if not dataset_uploaded %}disabled{% endif %}>
+				<i class="bx bx-cog bx-spin"></i> Mulai Pra-Pemrosesan
+			</button>
+		</div>
+	</div>
+
+	<!-- Progress Pra-Pemrosesan -->
+
+	<div class="row">
+    <div class="col-12 order-0">
+      <!-- Collapse Pembersihan -->
+			<div
+				class="collapse"
+				id="collapseA">
+				<div class="card">
+					<h5 class="card-header">Pembersihan</h5>
+					<div class="card-body">
+						Pembersihan
+					</div>
+				</div>
+			</div>
+
+			<!-- Collapse Normalisasi -->
+			<div
+				class="collapse"
+				id="collapseB">
+				<div class="card">
+					<h5 class="card-header">Normalisasi</h5>
+					<div class="card-body">
+						Normalisasi
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	document.getElementById('start-preprocessing').addEventListener('click', function () {
+		this.disabled = true;
+		this.innerHTML = '<i class="bx bx-loader bx-spin"></i> Sedang Memproses...';
+
+		fetch("{{ url_for('start_preprocessing') }}", { method: "POST" })
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					location.reload();
+				} else {
+					alert("Terjadi kesalahan dalam pra-pemrosesan.");
+				}
+			});
+	});
+</script>
+{% endblock %}

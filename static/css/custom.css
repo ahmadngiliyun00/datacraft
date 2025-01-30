@@ -67,6 +67,47 @@
   display: flex;
   justify-content: center;
 }
+.flow-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.flow-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  position: relative;
+  width: 100%;
+}
+
+.flow-row.reverse {
+  flex-direction: row-reverse;
+}
+
+.flow-row.reverse .connector i.arrow-icon {
+  transform: rotateZ(180deg);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.flow-row .card.step {
+  max-width: 300px;
+  min-width: 200px;
+  width: auto;
+}
+
+.flow-row .connector {
+  max-width: 100px;
+  min-width: 80px;
+  width: auto;
+}
+
+.card-group {
+  width: 200px;
+  position: relative;
+}
 
 .card-container {
   display: flex;
@@ -123,6 +164,32 @@
 }
 
 .connector line {
+  stroke: #dee2e6;
+  stroke-width: 2;
+  stroke-dasharray: 5,5;
+}
+
+.vertical-connector {
+  height: 80px;
+  width: 4px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.vertical-connector svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.vertical-connector i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vertical-connector line {
   stroke: #dee2e6;
   stroke-width: 2;
   stroke-dasharray: 5,5;
