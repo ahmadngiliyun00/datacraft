@@ -10,8 +10,9 @@ import seaborn as sns
 import pickle
 import matplotlib
 from sklearn.feature_extraction.text import TfidfVectorizer
-from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, jsonify
 from datetime import datetime
+from werkzeug.utils import secure_filename
 from wordcloud import WordCloud
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from nltk.corpus import stopwords
@@ -30,7 +31,7 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), 'data', 'uploaded')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Allowed extensions
+# 🔹 Fungsi Cek Ekstensi File
 ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
 
 # Fungsi pengecekan ekstensi file
@@ -182,205 +183,6 @@ def download_file(filename):
     except Exception as e:
         flash("Gagal mengunduh file.", "error")
         return redirect(request.referrer)
-
-# Route untuk halaman Unggah Dataset
-@app.route('/upload-dataset', methods=['GET', 'POST'])
-def upload_dataset():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            flash('Tidak ada file yang diunggah.', 'error')
-            return redirect(request.url)
-
-        file = request.files['file']
-        if file.filename == '':
-            flash('Pilih file terlebih dahulu.', 'error')
-            return redirect(request.url)
-
-        if file and allowed_file(file.filename):
-            # Penamaan file menjadi dataset_0_raw.csv
-            filename = "dataset_0_raw.csv"
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
-
-            try:
-                # Jika file bukan CSV, konversi ke CSV
-                if file.filename.endswith('.xlsx') or file.filename.endswith('.xls'):
-                    try:
-                        # Gunakan engine openpyxl untuk membaca file .xlsx
-                        data = pd.read_excel(filepath, engine='openpyxl')
-                    except Exception as e1:
-                        # Jika gagal dengan openpyxl, coba xlrd untuk file .xls
-                        try:
-                            data = pd.read_excel(filepath, engine='xlrd')
-                        except Exception as e2:
-                            flash(f"Error saat membaca file Excel: {str(e2)}", 'error')
-                            return redirect(request.url)
-                    
-                    # Konversi ke CSV dengan pembatas koma
-                    data.to_csv(filepath, index=False, sep=',')
-                else:
-                    # Validasi pembatas CSV
-                    with open(filepath, 'r') as f:
-                        sample = f.read(1024)
-                        try:
-                            detected_delimiter = csv.Sniffer().sniff(sample).delimiter
-                        except csv.Error:
-                            detected_delimiter = ','  # Default fallback delimiter
-
-                    # Baca file CSV dengan pembatas yang terdeteksi
-                    data = pd.read_csv(filepath, delimiter=detected_delimiter)
-                    if detected_delimiter != ',':
-                        # Simpan ulang file CSV dengan pembatas koma
-                        data.to_csv(filepath, index=False, sep=',')
-            except Exception as e:
-                flash(f"Error saat membaca atau mengonversi file: {str(e)}", 'error')
-                return redirect(request.url)
-
-            # Ubah nama kolom `full_text` menjadi `Tweet` jika ada
-            if 'full_text' in data.columns:
-                data.rename(columns={'full_text': 'Tweet'}, inplace=True)
-
-            # Tambahkan kolom `Tweet Length` untuk menghitung jumlah kata dalam kolom `Tweet`
-            if 'Tweet' in data.columns:
-                data['Tweet Length'] = data['Tweet'].apply(lambda x: len(str(x).split()))
-            else:
-                flash("Kolom 'Tweet' tidak ditemukan dalam dataset!", "error")
-                return redirect(request.url)
-
-            # Simpan kembali file setelah perubahan
-            data.to_csv(filepath, index=False)
-
-            flash('Dataset berhasil diunggah dan disimpan sebagai dataset_0_raw.csv!', 'success')
-            # Redirect ke halaman details_dataset
-            return redirect(url_for('details_dataset'))
-
-    return render_template('02_upload_dataset.html', title="Unggah Dataset")
-
-# Route untuk Rincian Dataset
-@app.route('/details-dataset', methods=['GET', 'POST'])
-def details_dataset():
-    try:
-        # Semua angka ditampilkan dengan dua desimal.
-        pd.options.display.float_format = '{:.2f}'.format
-        
-        # Ambil file dari dropdown (jika ada pilihan file dari user)
-        selected_file = None
-        if request.method == 'POST':
-            selected_file = request.form.get('selected_file')
-        
-        # Default ke file utama jika tidak ada file yang dipilih
-        if not selected_file:
-            selected_file = "dataset_0_raw.csv"
-        
-        # Path file
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], selected_file)
-        
-        # Validasi keberadaan file
-        if not os.path.exists(filepath):
-            flash(f"File {selected_file} tidak ditemukan di sistem.", "error")
-            return render_template('03_details_dataset.html', title="Rincian Dataset", file_details=os.listdir(app.config['UPLOAD_FOLDER']))
-        
-        # Membaca dataset
-        data = pd.read_csv(filepath)
-        
-        # Pastikan kolom 'Tweet' atau 'full_text' ada
-        if 'full_text' in data.columns:
-            data.rename(columns={'full_text': 'Tweet'}, inplace=True)
-        
-        if 'Tweet' not in data.columns:
-            flash("Kolom 'Tweet' tidak ditemukan dalam dataset.", "error")
-            return render_template('03_details_dataset.html', title="Rincian Dataset", file_details=os.listdir(app.config['UPLOAD_FOLDER']))
-
-        # Tambahkan kolom 'Tweet Length'
-        data['Tweet Length'] = data['Tweet'].apply(lambda x: len(str(x).split()))
-
-        # Ringkasan dataset
-        data_head = data.head().to_html(classes='table table-striped', index=False)
-        # Tangkap output dari data.info()
-        buffer = io.StringIO()
-        data.info(buf=buffer)
-        data_info = buffer.getvalue()
-        data_description = data.describe().round(2).to_html(classes='table table-striped')
-        data_shape = data.shape  # Dimensi dataset
-        # Jumlah nilai unik
-        data_unique = pd.DataFrame(data.nunique(), columns=['Unique Values']).reset_index()
-        data_unique.rename(columns={'index': 'Column'}, inplace=True)
-        data_unique_html = data_unique.to_html(classes='table table-striped', index=False)
-        duplicate_count = data.duplicated().sum()  # Jumlah duplikat
-        null_count = data.isnull().sum().sum()  # Jumlah nilai kosong
-
-        # Deteksi elemen yang perlu dibersihkan
-        def detect_emoji(text):
-            if isinstance(text, str):
-                emoji_pattern = re.compile("["
-                    u"\U0001F600-\U0001F64F"
-                    u"\U0001F300-\U0001F5FF"
-                    u"\U0001F680-\U0001F6FF"
-                    u"\U0001F700-\U0001F77F"
-                    u"\U0001F780-\U0001F7FF"
-                    u"\U0001F800-\U0001F8FF"
-                    u"\U0001F900-\U0001F9FF"
-                    u"\U0001FA00-\U0001FA6F"
-                    u"\U0001FA70-\U0001FAFF"
-                    u"\U00002702-\U000027B0"
-                    u"\U000024C2-\U0001F251"
-                    "]+", flags=re.UNICODE)
-                return bool(emoji_pattern.search(text))
-            return False
-
-        emoji_tweets = len(data[data['Tweet'].apply(detect_emoji)])
-        links = len(data[data['Tweet'].str.contains("http|www|<a", na=False)])
-        symbols = len(data[data['Tweet'].str.contains(r'[^\w\s]', na=False)])
-        empty_tweets = len(data[data['Tweet'].str.strip() == ''])
-        only_numbers = len(data[data['Tweet'].str.match(r'^\d+$', na=False)])
-        tweets_with_numbers = len(data[data['Tweet'].str.contains(r'\d', na=False)])
-        short_tweets = len(data[data['Tweet Length'] < 3])
-
-        # Visualisasi distribusi panjang Tweet
-        chart_path = os.path.join('static', 'img', 'tweet_0_length_distribution.png')
-        plt.figure(figsize=(16, 9))
-        data['Tweet Length'].plot(kind='hist', bins=30, title='Distribusi Panjang Tweet', color='blue', edgecolor='black')
-        plt.xlabel('Jumlah Kata')
-        plt.ylabel('Jumlah Tweet')
-        plt.savefig(chart_path, bbox_inches='tight', facecolor='white')
-        plt.close()
-
-        # Visualisasi WordCloud
-        wordcloud_path = os.path.join('static', 'img', 'tweet_0_wordcloud.png')
-        text = ' '.join(data['Tweet'].dropna())
-        wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
-        plt.figure(figsize=(16, 9))
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis('off')
-        plt.savefig(wordcloud_path, bbox_inches='tight', facecolor='white')
-        plt.close()
-
-        return render_template(
-            '03_details_dataset.html',
-            title="Rincian Dataset",
-            file_details=os.listdir(app.config['UPLOAD_FOLDER']),
-            selected_file=selected_file,
-            data_head=data_head,
-            data_info=data_info,
-            data_description=data_description,
-            data_shape=data_shape,
-            data_unique=data_unique_html,
-            duplicate_count=duplicate_count,
-            null_count=null_count,
-            emoji_tweets=emoji_tweets,
-            links=links,
-            symbols=symbols,
-            empty_tweets=empty_tweets,
-            only_numbers=only_numbers,
-            tweets_with_numbers=tweets_with_numbers,
-            short_tweets=short_tweets,
-            chart_path=chart_path,
-            wordcloud_path=wordcloud_path
-        )
-
-    except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
-        return render_template('03_details_dataset.html', title="Rincian Dataset", file_details=os.listdir(app.config['UPLOAD_FOLDER']))
 
 @app.route('/pra-pemrosesan')
 def pra_pemrosesan():
@@ -1738,12 +1540,172 @@ def analisis_hasil():
     return render_template('analisis_hasil.html', title="Tentang Aplikasi")
 
 
-
-# ! Baru data_exploration
+# 🔹 Fungsi untuk Halaman Data Eksplorasi
 @app.route('/data-exploration')
 def data_exploration():
-    return render_template('data_exploration.html', title="Data Eksplorasi")
+    uploaded_filename = "dataset_0_raw.csv"
+    dataset_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_filename)
+    
+    # Pastikan variabel ini hanya True atau False
+    dataset_uploaded = os.path.exists(dataset_path)
 
+    sentiment_counts = {'positif': 0, 'negatif': 0, 'netral': 0}  # Default
+    
+    if dataset_uploaded:
+        try:
+            data = pd.read_csv(dataset_path)
+
+            # Cek apakah kolom Sentimen ada
+            if 'Sentimen' in data.columns:
+                sentiment_counts = data['Sentimen'].value_counts().to_dict()
+                
+            # Informasi dataset
+            data_shape = data.shape
+            duplicate_count = data.duplicated().sum()
+            null_count = data.isnull().sum().sum()
+
+            # Hitung jumlah unik
+            data_unique = data.nunique().to_frame(name='Unique Values').reset_index()
+            data_unique.rename(columns={'index': 'Column'}, inplace=True)
+            data_unique_html = data_unique.to_html(classes='table table-striped', index=False)
+
+            # Ringkasan dataset
+            data_head = data.head().to_html(classes='table table-striped', index=False)
+            
+            # Statistik Deskriptif
+            data_description = data.describe().round(2).to_html(classes='table table-striped')
+
+            # Deteksi elemen yang perlu dibersihkan
+            empty_tweets = data['Tweet'].str.strip().eq('').sum()
+            emoji_tweets = data['Tweet'].apply(lambda x: bool(re.search(r"[^\w\s]", str(x)))).sum()
+            links = data['Tweet'].str.contains("http|www", na=False).sum()
+            symbols = data['Tweet'].str.contains(r'[^\w\s]', na=False).sum()
+            only_numbers = data['Tweet'].str.match(r'^\d+$', na=False).sum()
+            tweets_with_numbers = data['Tweet'].str.contains(r'\d', na=False).sum()
+            short_tweets = (data['Tweet'].apply(lambda x: len(str(x).split())) < 3).sum()
+
+            # Visualisasi Sentimen
+            sentiment_chart_path = os.path.join('static', 'img', 'tweet_0_sentiment_distribution.png')
+            plt.figure(figsize=(16, 9))
+            plt.bar(sentiment_counts.keys(), sentiment_counts.values(), color=['green', 'red', 'blue'])
+            plt.xlabel("Sentimen")
+            plt.ylabel("Jumlah")
+            plt.title("Distribusi Sentimen")
+            plt.savefig(sentiment_chart_path, bbox_inches='tight', facecolor='white')
+            plt.close()
+
+            # Visualisasi Distribusi Panjang Tweet
+            chart_path = os.path.join('static', 'img', 'tweet_0_length_distribution.png')
+            plt.figure(figsize=(16, 9))
+            data['Tweet Length'].hist(bins=30, color='blue', edgecolor='black')
+            plt.xlabel('Jumlah Kata')
+            plt.ylabel('Jumlah Tweet')
+            plt.title('Distribusi Panjang Tweet')
+            plt.savefig(chart_path, bbox_inches='tight', facecolor='white')
+            plt.close()
+
+            # Visualisasi WordCloud
+            wordcloud_path = os.path.join('static', 'img', 'tweet_0_wordcloud.png')
+            text = ' '.join(data['Tweet'].dropna())
+            wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
+            plt.figure(figsize=(16, 9))
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis('off')
+            plt.savefig(wordcloud_path, bbox_inches='tight', facecolor='white')
+            plt.close()
+
+        except Exception as e:
+            flash(f"Terjadi kesalahan dalam membaca dataset: {e}", "error")
+            return redirect(url_for('data_exploration'))
+
+    return render_template(
+        'data_exploration.html',
+        title="Data Eksplorasi",
+        uploaded_filename=uploaded_filename,
+        dataset_uploaded=dataset_uploaded,
+        data_shape=data_shape if dataset_uploaded else None,
+        duplicate_count=duplicate_count if dataset_uploaded else None,
+        null_count=null_count if dataset_uploaded else None,
+        data_unique=data_unique_html if dataset_uploaded else None,
+        data_head=data_head if dataset_uploaded else None,
+        data_description=data_description if dataset_uploaded else None,
+        empty_tweets=empty_tweets if dataset_uploaded else None,
+        emoji_tweets=emoji_tweets if dataset_uploaded else None,
+        links=links if dataset_uploaded else None,
+        symbols=symbols if dataset_uploaded else None,
+        only_numbers=only_numbers if dataset_uploaded else None,
+        tweets_with_numbers=tweets_with_numbers if dataset_uploaded else None,
+        short_tweets=short_tweets if dataset_uploaded else None,
+        sentiment_counts=sentiment_counts if dataset_uploaded else None,
+        sentiment_chart_path=sentiment_chart_path if dataset_uploaded else None,
+        wordcloud_path=wordcloud_path if dataset_uploaded else None,
+        chart_path=chart_path if dataset_uploaded else None,
+    )
+
+# 🔹 Fungsi untuk Mengunggah Dataset
+@app.route('/upload-dataset', methods=['POST'])
+def upload_dataset():
+    if 'file' not in request.files:
+        flash('Tidak ada file yang diunggah.', 'error')
+        return redirect(url_for('data_exploration'))
+
+    file = request.files['file']
+    if file.filename == '':
+        flash('Pilih file terlebih dahulu.', 'error')
+        return redirect(url_for('data_exploration'))
+
+    if file and allowed_file(file.filename):
+        filename = "dataset_0_raw.csv"
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+
+        try:
+            # Jika file bukan CSV, konversi ke CSV
+            if file.filename.endswith('.xlsx') or file.filename.endswith('.xls'):
+                try:
+                    data = pd.read_excel(filepath, engine='openpyxl')
+                except Exception as e1:
+                    try:
+                        data = pd.read_excel(filepath, engine='xlrd')
+                    except Exception as e2:
+                        flash(f"Error membaca file Excel: {str(e2)}", 'error')
+                        return redirect(url_for('data_exploration'))
+
+                data.to_csv(filepath, index=False, sep=',')
+            else:
+                # Validasi delimiter CSV
+                with open(filepath, 'r') as f:
+                    sample = f.read(1024)
+                    try:
+                        detected_delimiter = csv.Sniffer().sniff(sample).delimiter
+                    except csv.Error:
+                        detected_delimiter = ','  # Default fallback delimiter
+
+                data = pd.read_csv(filepath, delimiter=detected_delimiter)
+                if detected_delimiter != ',':
+                    data.to_csv(filepath, index=False, sep=',')
+
+        except Exception as e:
+            flash(f"Error saat membaca atau mengonversi file: {str(e)}", 'error')
+            return redirect(url_for('data_exploration'))
+
+        # Normalisasi Nama Kolom
+        if 'full_text' in data.columns:
+            data.rename(columns={'full_text': 'Tweet'}, inplace=True)
+
+        if 'Tweet' not in data.columns:
+            flash("Kolom 'Tweet' tidak ditemukan dalam dataset!", "error")
+            return redirect(url_for('data_exploration'))
+
+        # Tambahkan Kolom Panjang Tweet
+        data['Tweet Length'] = data['Tweet'].apply(lambda x: len(str(x).split()))
+        data.to_csv(filepath, index=False)
+
+        flash('Dataset berhasil diunggah!', 'success')
+        return redirect(url_for('data_exploration'))
+
+    flash('Format file tidak didukung! Hanya CSV, XLSX, dan XLS.', 'error')
+    return redirect(url_for('data_exploration'))
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
