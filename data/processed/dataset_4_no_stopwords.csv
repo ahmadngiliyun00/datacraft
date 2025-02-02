@@ -1,4 +1,4 @@
-Tweet,Sentimen,Tweet Length,Tokens
+Tweet,Sentimen,Tweet Length,Tokenized
 wah gelo baru berapa hari ganti kabinet mentri yg ga capable udh keliatan aja kaga pernah mikirnya takut bgt,negatif,19,"['ganti', 'kabinet', 'mentri', 'capable', 'keliatan', 'mikirnya', 'takut']"
  jangan kan october tidak akan dapat selama nya krn prabowo sdh katakan dr mana uangnya sedangkan utan yg dibayar setiap hari triliun aneh nya kabinet nya bisa bengkak begitu banyak orangnya nah dr mana tuh duit bayar gajinya,negatif,40,"['october', 'nya', 'prabowo', 'uangnya', 'dibayar', 'triliun', 'aneh', 'nya', 'kabinet', 'nya', 'bengkak', 'orangnya', 'duit', 'bayar', 'gajinya']"
  gibran langsungblusukan kasih makan siang gratis prabowo langsung mau jalankan di sidang kabinet spt masih dibawah tekanan dan ada yang mengatur beliau,negatif,23,"['gibran', 'langsungblusukan', 'kasih', 'makan', 'siang', 'gratis', 'prabowo', 'langsung', 'jalankan', 'sidang', 'kabinet', 'dibawah', 'tekanan', 'mengatur', 'beliau']"

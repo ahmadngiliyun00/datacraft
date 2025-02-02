@@ -317,7 +317,7 @@
 								</div>
 								<h3 class="card-title">Pembagian</h3>
 								<p class="card-text text-muted">
-									{{ preprocessing_files['Pembagian'] if
+									{{ train_file if
 									preprocessing_status['Pembagian'] else "Tidak ada file" }}
 								</p>
 								<span
@@ -352,22 +352,22 @@
 								<strong>Nama File:</strong> {{
 								preprocessing_files['Pembersihan'] }}
 							</li>
-							<li><strong>Dimensi Dataset:</strong> {{ data_shape }}</li>
-							<li><strong>Jumlah Duplikat:</strong> {{ duplicate_count }}</li>
-							<li><strong>Jumlah Nilai Kosong:</strong> {{ null_count }}</li>
+							<li><strong>Dimensi Dataset:</strong> {{ data_shape_cleaned }}</li>
+							<li><strong>Jumlah Duplikat:</strong> {{ duplicate_count_cleaned }}</li>
+							<li><strong>Jumlah Nilai Kosong:</strong> {{ null_count_cleaned }}</li>
 						</ul>
 						<hr />
 						<!-- Menampilkan Data -->
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							5 Data Teratas
 						</div>
-						<div class="table table-responsive">{{ data_head | safe }}</div>
+						<div class="table table-responsive">{{ data_head_cleaned | safe }}</div>
 						<hr />
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							Statistik Deskriptif
 						</div>
 						<div class="table table-responsive">
-							{{ data_description | safe }}
+							{{ data_description_cleaned | safe }}
 						</div>
 						<hr />
 						<div class="row">
@@ -377,7 +377,7 @@
 									Distribusi Panjang Cleaned Tweet
 								</div>
 								<img
-									src="{{ chart_path }}"
+									src="{{ chart_path_cleaned }}"
 									alt="Distribusi Panjang Tweet"
 									class="img-fluid"
 									draggable="false"
@@ -389,7 +389,7 @@
 									WordCloud Tweet
 								</div>
 								<img
-									src="{{ wordcloud_path }}"
+									src="{{ wordcloud_path_cleaned }}"
 									alt="WordCloud Tweet"
 									class="img-fluid"
 									draggable="false"
@@ -411,7 +411,7 @@
 									</div>
 									<div>
 										<a
-											href="{{ download_link }}"
+											href="{{ download_link_cleaned }}"
 											class="btn btn-success btn-sm"
 											download>
 											<i class="bx bx-download"></i>
@@ -603,6 +603,371 @@
 					</div>
 				</div>
 			</div>
+
+			<!-- Collapse No Stopwords -->
+			<div
+				class="collapse"
+				id="collapseDD">
+				<div class="card">
+					<h5 class="card-header">Penghapusan Stopwords</h5>
+					<div class="card-body">
+						<!-- Informasi Dataset -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							Informasi Dataset
+						</div>
+						<ul class="list-group ms-3">
+							<li>
+								<strong>Nama File:</strong> {{ preprocessing_files['No Stopwords'] }}
+							</li>
+							<li>
+								<strong>Dimensi Dataset:</strong> {{ data_shape_no_stopwords }}
+							</li>
+						</ul>
+						<hr />
+						<!-- Menampilkan Data -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							5 Data Teratas
+						</div>
+						<div class="table table-responsive">
+							{{ data_head_no_stopwords | safe }}
+						</div>
+						<hr />
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							Statistik Deskriptif
+						</div>
+						<div class="table table-responsive">
+							{{ data_description_no_stopwords | safe }}
+						</div>
+						<hr />
+						<div class="row">
+							<div class="col-12 col-lg-6">
+								<!-- Visualisasi Distribusi Panjang No Stopwords -->
+								<div class="card-title fw-bold fs-5 text-primary mb-1">
+									Distribusi Panjang No Stopwords Tweet
+								</div>
+								<img
+									src="{{ chart_path_no_stopwords }}"
+									alt="Distribusi Panjang No Stopwords Tweet"
+									class="img-fluid"
+									draggable="false"
+									height="200" />
+							</div>
+							<div class="col-12 col-lg-6">
+								<!-- Visualisasi WordCloud No Stopwords -->
+								<div class="card-title fw-bold fs-5 text-primary mb-1">
+									WordCloud No Stopwords Tweet
+								</div>
+								<img
+									src="{{ wordcloud_path_no_stopwords }}"
+									alt="WordCloud No Stopwords Tweet"
+									class="img-fluid"
+									draggable="false"
+									height="200" />
+							</div>
+						</div>
+						<hr />
+						<!-- Download dan Navigasi -->
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center">
+									<div>
+										<a
+											href="{{ url_for('data_exploration') }}"
+											class="btn btn-info btn-sm">
+											<i class="bx bx-data"></i>
+											&nbsp; Data Eksplorasi
+										</a>
+									</div>
+									<div>
+										<a
+											href="{{ download_link_no_stopwords }}"
+											class="btn btn-success btn-sm"
+											download>
+											<i class="bx bx-download"></i>
+											&nbsp; Unduh Data
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Collapse Stemming -->
+			<div
+				class="collapse"
+				id="collapseEE">
+				<div class="card">
+					<h5 class="card-header">Stemming Data</h5>
+					<div class="card-body">
+						<!-- Informasi Dataset -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							Informasi Dataset
+						</div>
+						<ul class="list-group ms-3">
+							<li>
+								<strong>Nama File:</strong> {{ preprocessing_files['Stemming']
+								}}
+							</li>
+							<li>
+								<strong>Dimensi Dataset:</strong> {{ data_shape_stemmed }}
+							</li>
+						</ul>
+						<hr />
+						<!-- Menampilkan Data -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							5 Data Teratas
+						</div>
+						<div class="table table-responsive">
+							{{ data_head_stemmed | safe }}
+						</div>
+						<hr />
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							Statistik Deskriptif
+						</div>
+						<div class="table table-responsive">
+							{{ data_description_stemmed | safe }}
+						</div>
+						<hr />
+						<div class="row">
+							<div class="col-12 col-lg-6">
+								<!-- Visualisasi Distribusi Panjang Stemmed Tweet -->
+								<div class="card-title fw-bold fs-5 text-primary mb-1">
+									Distribusi Panjang Stemmed Tweet
+								</div>
+								<img
+									src="{{ chart_path_stemmed }}"
+									alt="Distribusi Panjang Stemmed Tweet"
+									class="img-fluid"
+									draggable="false"
+									height="200" />
+							</div>
+							<div class="col-12 col-lg-6">
+								<!-- Visualisasi WordCloud Stemmed Tweet -->
+								<div class="card-title fw-bold fs-5 text-primary mb-1">
+									WordCloud Stemmed Tweet
+								</div>
+								<img
+									src="{{ wordcloud_path_stemmed }}"
+									alt="WordCloud Stemmed Tweet"
+									class="img-fluid"
+									draggable="false"
+									height="200" />
+							</div>
+						</div>
+						<hr />
+						<!-- Download dan Navigasi -->
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center">
+									<div>
+										<a
+											href="{{ url_for('data_exploration') }}"
+											class="btn btn-info btn-sm">
+											<i class="bx bx-data"></i>
+											&nbsp; Data Eksplorasi
+										</a>
+									</div>
+									<div>
+										<a
+											href="{{ download_link_stemmed }}"
+											class="btn btn-success btn-sm"
+											download>
+											<i class="bx bx-download"></i>
+											&nbsp; Unduh Data
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Collapse Label Encoding -->
+			<div
+				class="collapse"
+				id="collapseFF">
+				<div class="card">
+					<h5 class="card-header">Label Encoding</h5>
+					<div class="card-body">
+						<!-- Informasi Dataset -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							Informasi Dataset
+						</div>
+						<ul class="list-group ms-3">
+							<li>
+								<strong>Nama File:</strong> {{ preprocessing_files['Label Encoding'] }}
+							</li>
+							<li>
+								<strong>Dimensi Dataset:</strong> {{ data_shape_encoded }}
+							</li>
+						</ul>
+						<hr />
+						<!-- Menampilkan Data -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							5 Data Teratas
+						</div>
+						<div class="table table-responsive">
+							{{ data_head_encoded | safe }}
+						</div>
+						<hr />
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							Statistik Deskriptif
+						</div>
+						<div class="table table-responsive">
+							{{ data_description_encoded | safe }}
+						</div>
+						<hr />
+						<div class="row">
+							<div class="col-12">
+								<!-- Visualisasi Distribusi Label Encoding -->
+								<div class="card-title fw-bold fs-5 text-primary mb-1">
+									Distribusi Label Encoding
+								</div>
+								<img
+									src="{{ chart_path_encoded }}"
+									alt="Distribusi Label Encoding"
+									class="img-fluid"
+									draggable="false"
+									height="200" />
+							</div>
+						</div>
+						<hr />
+						<!-- Download dan Navigasi -->
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center">
+									<div>
+										<a
+											href="{{ url_for('data_exploration') }}"
+											class="btn btn-info btn-sm">
+											<i class="bx bx-data"></i>
+											&nbsp; Data Eksplorasi
+										</a>
+									</div>
+									<div>
+										<a
+											href="{{ download_link_encoded }}"
+											class="btn btn-success btn-sm"
+											download>
+											<i class="bx bx-download"></i>
+											&nbsp; Unduh Data
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Collapse Pembagian -->
+			<div
+				class="collapse"
+				id="collapseGG">
+				<div class="card">
+					<h5 class="card-header">Pembagian</h5>
+					<div class="card-body">
+						<!-- Informasi Dataset -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							Informasi Dataset
+						</div>
+						<ul class="list-group ms-3">
+							<li>
+								<strong>Nama File Data Train:</strong> {{ train_file }}
+							</li>
+							<li>
+								<strong>Nama File Data Test:</strong> {{ test_file }}
+							</li>
+							<li>
+								<strong>Dimensi Dataset:</strong> {{ data_shape_train }}
+							</li>
+							<li>
+								<strong>Dimensi Dataset:</strong> {{ data_shape_test }}
+							</li>
+						</ul>
+						<hr />
+						<!-- Menampilkan Data -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							5 Data Teratas Data Train & Test
+						</div>
+						<div class="table table-responsive">
+							<span>Data Train</span>
+							{{ data_head_train | safe }}
+						</div><br />
+						<div class="table table-responsive">
+							<span>Data Test</span>
+							{{ data_head_test | safe }}
+						</div>
+						<hr />
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							Statistik Deskriptif Data Train & Test
+						</div>
+						<div class="table table-responsive">
+							<span>Data Train</span>
+							{{ data_description_train | safe }}
+						</div><br>
+						<div class="table table-responsive">
+							<span>Data Test</span>
+							{{ data_description_test | safe }}
+						</div>
+						<hr />
+						<div class="row">
+							<div class="col-12">
+								<!-- Visualisasi Distribusi Pembagian -->
+								<div class="card-title fw-bold fs-5 text-primary mb-1">
+									Distribusi Data Train & Test
+								</div>
+								<ul>
+									{% for item in data_distribution_split %}
+										<li>{{ item }}</li>
+									{% endfor %}
+								</ul>
+								<img
+									src="{{ chart_path_split }}"
+									alt="Distribusi Pembagian"
+									class="img-fluid"
+									draggable="false"
+									height="200" />
+							</div>
+						</div>
+						<hr />
+						<!-- Download dan Navigasi -->
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex justify-content-between align-items-center">
+									<div>
+										<a
+											href="{{ url_for('data_exploration') }}"
+											class="btn btn-info btn-sm">
+											<i class="bx bx-data"></i>
+											&nbsp; Data Eksplorasi
+										</a>
+									</div>
+									<div>
+										<a
+											href="{{ download_link_train }}"
+											class="btn btn-success btn-sm"
+											download>
+											<i class="bx bx-download"></i>
+											&nbsp; Unduh Data Train
+										</a>
+										<a
+											href="{{ download_link_test }}"
+											class="btn btn-success btn-sm"
+											download>
+											<i class="bx bx-download"></i>
+											&nbsp; Unduh Data Test
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -611,6 +976,7 @@
 	document
 		.getElementById('start-preprocessing')
 		.addEventListener('click', function () {
+			console.log("🛠 Tombol diklik, mulai preprocessing...");
 			this.disabled = true;
 			this.innerHTML = '<i class="bx bx-loader bx-spin"></i> Proses...';
 
@@ -618,11 +984,14 @@
 				.then((response) => response.json())
 				.then((data) => {
 					if (data.success) {
+						console.log("✅ Preprocessing berhasil, reload halaman...");
 						location.reload();
 					} else {
+						console.error("❌ Terjadi kesalahan dalam pra-pemrosesan.");
 						alert('Terjadi kesalahan dalam pra-pemrosesan.');
 					}
-				});
+				})
+				.catch(error => console.error("⚠️ Error fetch: ", error));
 		});
 </script>
 {% endblock %}

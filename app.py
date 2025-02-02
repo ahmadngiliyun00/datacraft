@@ -151,7 +151,7 @@ def about():
 #                                 download_link=url_for('download_file', filename=filename),
 #                                 keyword=keyword, tweet_limit=tweet_limit, auth_token=auth_token)
 #         else:
-#             flash(f"Gagal membuat dataset. Periksa kembali inputan atau token. {file_path}", "error")
+#             flash(f"Gagal membuat dataset. Periksa kembali inputan atau token. {file_path}", "danger")
 #             return redirect(url_for('create_dataset'))
         
 #     return render_template('01_create_dataset.html', title="Buat Dataset")
@@ -186,13 +186,13 @@ def download_file(filename):
     elif filename.startswith("model_2"):
         download_dir = os.path.join(os.getcwd(), "data", "modeled")
     else:
-        flash("File tidak valid untuk diunduh.", "error")
+        flash("File tidak valid untuk diunduh.", "danger")
         return redirect(url_for('clean_dataset'))
 
     try:
         return send_from_directory(download_dir, filename, as_attachment=True)
     except Exception as e:
-        flash("Gagal mengunduh file.", "error")
+        flash("Gagal mengunduh file.", "danger")
         return redirect(request.referrer)
 
 @app.route('/pra-pemrosesan')
@@ -214,7 +214,7 @@ def clean_dataset():
             selected_file = request.form.get('selected_file')
 
         if not selected_file:
-            flash("Silakan pilih dataset untuk dibersihkan.", "error")
+            flash("Silakan pilih dataset untuk dibersihkan.", "danger")
             return render_template('11_cleaned_dataset.html', file_details=uploaded_files_list, title="Pembersihan Data")
 
         input_path = os.path.join(app.config['UPLOAD_FOLDER'], selected_file)
@@ -232,7 +232,7 @@ def clean_dataset():
             data.rename(columns={'Review': 'Tweet'}, inplace=True)
 
         if 'Tweet' not in data.columns:
-            flash("Kolom 'Tweet' tidak ditemukan dalam dataset.", "error")
+            flash("Kolom 'Tweet' tidak ditemukan dalam dataset.", "danger")
             return render_template('11_cleaned_dataset.html', title="Pembersihan Data")
 
         # Terapkan pembersihan
@@ -306,7 +306,7 @@ def clean_dataset():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('11_cleaned_dataset.html', file_details=uploaded_files_list, title="Pembersihan Data")
 
 # Route untuk Normalisasi Data
@@ -330,7 +330,7 @@ def normalize_dataset():
 
         # Pastikan kolom 'Cleaned_Tweet' ada
         if 'Cleaned_Tweet' not in data.columns:
-            flash("Kolom 'Cleaned_Tweet' tidak ditemukan dalam dataset.", "error")
+            flash("Kolom 'Cleaned_Tweet' tidak ditemukan dalam dataset.", "danger")
             return render_template('12_normalized_dataset.html', file_details=processed_files_list, title="Normalisasi Data")
 
         # Normalisasi Data
@@ -386,7 +386,7 @@ def normalize_dataset():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('12_normalized_dataset.html', file_details=processed_files_list, title="Normalisasi Data")
 
 # Route untuk Tokenisasi Data
@@ -413,7 +413,7 @@ def tokenize_dataset():
 
         # Pastikan kolom 'Normalized_Tweet' ada
         if 'Normalized_Tweet' not in data.columns:
-            flash("Kolom 'Normalized_Tweet' tidak ditemukan dalam dataset.", "error")
+            flash("Kolom 'Normalized_Tweet' tidak ditemukan dalam dataset.", "danger")
             return render_template('13_tokenized_dataset.html', file_details=processed_files_list, title="Tokenisasi Data")
 
         # Tokenisasi Data
@@ -458,7 +458,7 @@ def tokenize_dataset():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('13_tokenized_dataset.html', file_details=processed_files_list, title="Tokenisasi Data")
 
 # Route untuk Penghapusan Stopwords
@@ -484,7 +484,7 @@ def remove_stopwords():
 
         # Pastikan kolom 'Tokenized_Tweet' ada
         if 'Tokenized_Tweet' not in data.columns:
-            flash("Kolom 'Tokenized_Tweet' tidak ditemukan dalam dataset.", "error")
+            flash("Kolom 'Tokenized_Tweet' tidak ditemukan dalam dataset.", "danger")
             return render_template('14_no_stopwords_dataset.html', file_details=processed_files_list, title="Penghapusan Stopwords")
 
         # Inisialisasi stopwords
@@ -559,7 +559,7 @@ def remove_stopwords():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('14_no_stopwords_dataset.html', file_details=processed_files_list, title="Penghapusan Stopwords")
 
 @app.route('/stemming-dataset', methods=['GET', 'POST'])
@@ -586,7 +586,7 @@ def stemming_dataset():
 
         # Pastikan kolom 'No_Stopwords_Tweet' ada
         if 'No_Stopwords_Tweet' not in data.columns:
-            flash("Kolom 'No_Stopwords_Tweet' tidak ditemukan dalam dataset.", "error")
+            flash("Kolom 'No_Stopwords_Tweet' tidak ditemukan dalam dataset.", "danger")
             return render_template('15_stemmed_dataset.html', file_details=processed_files_list, title="Stemming Data")
 
         # Fungsi untuk stemming menggunakan Sastrawi
@@ -635,7 +635,7 @@ def stemming_dataset():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('15_stemmed_dataset.html', file_details=processed_files_list, title="Stemming Data")
 
 @app.route('/label-dataset', methods=['GET', 'POST'])
@@ -660,7 +660,7 @@ def label_dataset():
 
         # Pastikan kolom 'Stemmed_Tweet' ada
         if 'Stemmed_Tweet' not in data.columns:
-            flash("Kolom 'Stemmed_Tweet' tidak ditemukan dalam dataset.", "error")
+            flash("Kolom 'Stemmed_Tweet' tidak ditemukan dalam dataset.", "danger")
             return render_template('16_labeled_dataset.html', file_details=processed_files_list, title="Pelabelan Data")
 
         # Daftar kata positif dan negatif (custom)
@@ -761,7 +761,7 @@ def label_dataset():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('16_labeled_dataset.html', file_details=processed_files_list, title="Pelabelan Data")
 
 @app.route('/label-encode', methods=['GET', 'POST'])
@@ -784,7 +784,7 @@ def label_encode():
 
         # Pastikan kolom 'Sentimen' ada
         if 'Sentimen' not in data.columns:
-            flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "error")
+            flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "danger")
             return render_template('17_encoded_dataset.html', file_details=processed_files_list, title="Label Encoding")
 
         # Mapping untuk Label Encoding
@@ -828,7 +828,7 @@ def label_encode():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('17_encoded_dataset.html', file_details=processed_files_list, title="Label Encoding")
 
 # @app.route('/feature-representation', methods=['GET', 'POST'])
@@ -859,7 +859,7 @@ def feature_representation_bow():
 
         # Pastikan kolom 'Stemmed_Tweet' ada
         if 'Stemmed_Tweet' not in data.columns:
-            flash("Kolom 'Stemmed_Tweet' tidak ditemukan dalam dataset.", "error")
+            flash("Kolom 'Stemmed_Tweet' tidak ditemukan dalam dataset.", "danger")
             return render_template('18_tfidf_dataset.html', file_details=processed_files_list, title="Representasi Fitur")
         
         # Konversi kolom 'Stemmed_Tweet' ke string
@@ -949,7 +949,7 @@ def feature_representation_bow():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('18_tfidf_dataset.html', file_details=processed_files_list, title="Representasi Fitur")
 
 @app.route('/split-dataset', methods=['GET', 'POST'])
@@ -977,7 +977,7 @@ def split_dataset():
 
         # # Pastikan kolom 'Sentimen' ada
         # if 'Sentimen' not in data.columns:
-        #     flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "error")
+        #     flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "danger")
         #     return render_template('19_split_dataset.html', file_details=processed_files_list, title="Pemisahan Data")
 
         # # Pisahkan fitur dan label
@@ -1082,7 +1082,7 @@ def split_dataset():
 
         # Pastikan kolom 'Sentimen' ada
         if 'Sentimen' not in data.columns:
-            flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "error")
+            flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "danger")
             return render_template('19_split_dataset.html', file_details=processed_files_list, title="Pemisahan Data")
 
         # Pisahkan fitur (X) dan label (y)
@@ -1184,7 +1184,7 @@ def split_dataset():
 
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('19_split_dataset.html', file_details=processed_files_list, title="Pemisahan Data")
 
 @app.route('/naive-bayes-model', methods=['GET', 'POST'])
@@ -1206,7 +1206,7 @@ def naive_bayes_model():
 
         # Pastikan file tersedia
         if not os.path.exists(train_path) or not os.path.exists(test_path):
-            flash("Data latih atau data uji tidak ditemukan. Silakan lakukan pemisahan data terlebih dahulu.", "error")
+            flash("Data latih atau data uji tidak ditemukan. Silakan lakukan pemisahan data terlebih dahulu.", "danger")
             return render_template('21_model_naive_bayes.html', file_details=processed_files_list, title="Model Naive Bayes")
 
         # Membaca dataset
@@ -1215,7 +1215,7 @@ def naive_bayes_model():
 
         # Pastikan kolom 'Sentimen' ada
         if 'Sentimen' not in train_data.columns or 'Sentimen' not in test_data.columns:
-            flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "error")
+            flash("Kolom 'Sentimen' tidak ditemukan dalam dataset.", "danger")
             return render_template('21_model_naive_bayes.html', file_details=processed_files_list, title="Model Naive Bayes")
 
         # Pisahkan fitur dan label
@@ -1296,7 +1296,7 @@ def naive_bayes_model():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('21_model_naive_bayes.html', file_details=processed_files_list, title="Model Naive Bayes")
 
 @app.route('/svm-model', methods=['GET', 'POST'])
@@ -1414,7 +1414,7 @@ def svm_model():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('22_model_svm.html', file_details=processed_files_list, title="Model SVM")
 
 @app.route('/evaluation-model', methods=['GET', 'POST'])
@@ -1423,7 +1423,7 @@ def evaluation_model():
         # Membaca file CSV dengan hasil evaluasi
         file_path = os.path.join(os.getcwd(), 'data', 'processed', 'model_0_calculated.csv')
         if not os.path.exists(file_path):
-            flash("File evaluasi tidak ditemukan. Pastikan file model_0_calculated.csv sudah dibuat.", "error")
+            flash("File evaluasi tidak ditemukan. Pastikan file model_0_calculated.csv sudah dibuat.", "danger")
             return render_template('23_model_evaluation.html', title="Evaluasi Model")
 
         # Membaca file model_0_calculated.csv
@@ -1477,7 +1477,7 @@ def evaluation_model():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('23_model_evaluation.html', title="Evaluasi Model")
 
 @app.route('/compare-model', methods=['GET', 'POST'])
@@ -1488,7 +1488,7 @@ def compare_model():
 
         # Pastikan file evaluasi tersedia
         if not os.path.exists(evaluation_file_path):
-            flash("File evaluasi model tidak ditemukan. Pastikan model sudah dievaluasi.", "error")
+            flash("File evaluasi model tidak ditemukan. Pastikan model sudah dievaluasi.", "danger")
             return render_template('24_model_compare.html', title="Perbandingan Model")
 
         # Membaca file evaluasi
@@ -1539,7 +1539,7 @@ def compare_model():
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan: {e}", "error")
+        flash(f"Terjadi kesalahan: {e}", "danger")
         return render_template('24_model_compare.html', title="Perbandingan Model")
 
 @app.route('/evaluasi')
@@ -1550,6 +1550,7 @@ def evaluasi():
 def analisis_hasil():
     return render_template('analisis_hasil.html', title="Tentang Aplikasi")
 
+# ! Baru
 
 # 🔹 Fungsi untuk Halaman Data Eksplorasi
 @app.route('/data-exploration')
@@ -1626,7 +1627,7 @@ def data_exploration():
             plt.close()
 
         except Exception as e:
-            flash(f"Terjadi kesalahan dalam membaca dataset: {e}", "error")
+            flash(f"Terjadi kesalahan dalam membaca dataset: {e}", "danger")
             return redirect(url_for('data_exploration'))
 
     return render_template(
@@ -1705,7 +1706,7 @@ def upload_dataset():
             data.rename(columns={'full_text': 'Tweet'}, inplace=True)
 
         if 'Tweet' not in data.columns:
-            flash("Kolom 'Tweet' tidak ditemukan dalam dataset!", "error")
+            flash("Kolom 'Tweet' tidak ditemukan dalam dataset!", "danger")
             return redirect(url_for('data_exploration'))
 
         # Tambahkan Kolom Panjang Tweet
@@ -1737,145 +1738,384 @@ def preprocessing():
         }
 
         # Cek apakah setiap file hasil preprocessing ada
-        preprocessing_status = {
-            step: os.path.exists(os.path.join(PROCESSED_FOLDER, filename))
-            for step, filename in processed_files.items()
-        }
+        preprocessing_status = {}
+        try:
+            preprocessing_status = {
+                step: os.path.exists(os.path.join(PROCESSED_FOLDER, filename))
+                for step, filename in processed_files.items()
+            }
+        except Exception as e:
+            flash(f"❌ Kesalahan dalam mengecek status preprocessing: {e}", "danger")
+            preprocessing_status = {step: False for step in processed_files.keys()}  # Inisialisasi dengan False
 
         # Ambil nama file yang tersedia atau tandai sebagai "Belum tersedia"
         preprocessing_files = {
             step: filename if preprocessing_status[step] else "Belum tersedia"
             for step, filename in processed_files.items()
         }
-
+        
+        # 🛠 Inisialisasi variabel default (mencegah "referenced before assignment")
+        data_shape_cleaned = None
+        data_head_cleaned = None
+        data_description_cleaned = None
+        duplicate_count_cleaned = None
+        null_count_cleaned = None
+        chart_path_cleaned = None
+        wordcloud_path_cleaned = None
+        download_link_cleaned = None
+        data_shape_normalized=None
+        data_head_normalized=None
+        data_description_normalized=None
+        chart_path_normalized=None
+        wordcloud_path_normalized=None
+        download_link_normalized=None
+        data_shape_tokenized=None
+        data_head_tokenized=None
+        data_description_tokenized=None
+        chart_path_tokenized=None
+        wordcloud_path_tokenized=None
+        download_link_tokenized=None
+        data_shape_no_stopwords=None
+        data_head_no_stopwords=None
+        data_description_no_stopwords=None
+        chart_path_no_stopwords=None
+        wordcloud_path_no_stopwords=None
+        download_link_no_stopwords=None
+        data_shape_stemmed=None
+        data_head_stemmed=None
+        data_description_stemmed=None
+        chart_path_stemmed=None
+        wordcloud_path_stemmed=None
+        download_link_stemmed=None
+        data_shape_encoded=None
+        data_head_encoded=None
+        data_description_encoded=None
+        chart_path_encoded=None
+        download_link_encoded=None
+        train_file=None
+        test_file=None
+        data_shape_train=None,
+        data_shape_test=None,
+        data_head_train=None,
+        data_head_test=None,
+        data_description_train=None,
+        data_description_test=None,
+        data_distribution_split=None,
+        chart_path_split=None,
+        download_link_train=None,
+        download_link_test=None,
+        
         # **📌 1️⃣ Pembersihan Data**
-        try:
-            output_file = "dataset_1_cleaned.csv"
-            output_path = os.path.join(app.config['PROCESSED_FOLDER'], output_file)
+        if preprocessing_status["Pembersihan"]:
+            try:
+                cleaned_file = "dataset_1_cleaned.csv"
+                cleaned_path = os.path.join(app.config['PROCESSED_FOLDER'], cleaned_file)
 
-            if not os.path.exists(output_path):
-                flash("File hasil pembersihan belum tersedia.", "error")
-                return render_template('pre_processing.html')
+                if not os.path.exists(cleaned_path):
+                    flash("File hasil perbersihan data belum tersedia.", "danger")
+                else:
+                    data = pd.read_csv(cleaned_path)
 
-            data = pd.read_csv(output_path)
+                    # **📊 Informasi Dataset**
+                    data_shape_cleaned = data.shape
+                    duplicate_count_cleaned = data.duplicated().sum()
+                    null_count_cleaned = data.isnull().sum().sum()
+                    data_head_cleaned = data.head().to_html(classes='table table-striped', index=False)
+                    data_description_cleaned = data.describe().round(2).to_html(classes='table table-striped')
 
-            # **📊 Informasi Dataset**
-            data_shape = data.shape
-            duplicate_count = data.duplicated().sum()
-            null_count = data.isnull().sum().sum()
-            data_head = data.head().to_html(classes='table table-striped', index=False)
-            data_description = data.describe().round(2).to_html(classes='table table-striped')
+                    # **📊 Visualisasi: Distribusi Panjang Tweet**
+                    chart_path_cleaned = os.path.join(app.config['STATIC_FOLDER'], 'tweet_1_length_distribution_cleaned.png')
+                    if not os.path.exists(chart_path_cleaned):
+                        plt.figure(figsize=(16, 9))
+                        data['Cleaned_Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='blue', edgecolor='black', title='Distribusi Panjang Cleaned Tweet')
+                        plt.xlabel('Jumlah Kata')
+                        plt.ylabel('Frekuensi')
+                        plt.savefig(chart_path_cleaned, bbox_inches='tight', facecolor='white')
+                        plt.close()
 
-            # **📊 Visualisasi: Distribusi Panjang Tweet**
-            chart_path = os.path.join(app.config['STATIC_FOLDER'], 'tweet_1_length_distribution_cleaned.png')
-            if not os.path.exists(chart_path):
-                plt.figure(figsize=(16, 9))
-                data['Cleaned_Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='blue', edgecolor='black', title='Distribusi Panjang Cleaned Tweet')
-                plt.xlabel('Jumlah Kata')
-                plt.ylabel('Frekuensi')
-                plt.savefig(chart_path, bbox_inches='tight', facecolor='white')
-                plt.close()
+                    # **☁️ WordCloud**
+                    wordcloud_path_cleaned = os.path.join(app.config['STATIC_FOLDER'], 'tweet_1_wordcloud_cleaned.png')
+                    if not os.path.exists(wordcloud_path_cleaned):
+                        text = ' '.join(data['Cleaned_Tweet'].dropna())
+                        wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
+                        plt.figure(figsize=(16, 9))
+                        plt.imshow(wordcloud, interpolation='bilinear')
+                        plt.axis('off')
+                        plt.savefig(wordcloud_path_cleaned, bbox_inches='tight', facecolor='white')
+                        plt.close()
+                        
+                    # **Download File**
+                    download_link_cleaned=url_for('download_file', filename=cleaned_file)
 
-            # **☁️ WordCloud**
-            wordcloud_path = os.path.join(app.config['STATIC_FOLDER'], 'tweet_1_wordcloud_cleaned.png')
-            if not os.path.exists(wordcloud_path):
-                text = ' '.join(data['Cleaned_Tweet'].dropna())
-                wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
-                plt.figure(figsize=(16, 9))
-                plt.imshow(wordcloud, interpolation='bilinear')
-                plt.axis('off')
-                plt.savefig(wordcloud_path, bbox_inches='tight', facecolor='white')
-                plt.close()
-
-        except Exception as e:
-            flash(f"❌ Kesalahan pada Pembersihan Data: {e}", "error")
+            except Exception as e:
+                flash(f"❌ Kesalahan pada Pembersihan Data: {e}", "danger")
 
         # **📌 2️⃣ Normalisasi Data**
-        try:
-            normalized_file = "dataset_2_normalized.csv"
-            normalized_path = os.path.join(app.config['PROCESSED_FOLDER'], normalized_file)
+        if preprocessing_status["Normalisasi"]:
+            try:
+                normalized_file = "dataset_2_normalized.csv"
+                normalized_path = os.path.join(app.config['PROCESSED_FOLDER'], normalized_file)
 
-            if not os.path.exists(normalized_path):
-                flash("File hasil normalisasi belum tersedia.", "error")
-                return render_template('pre_processing.html', preprocessing_status=preprocessing_status, preprocessing_files=preprocessing_files)
+                if not os.path.exists(normalized_path):
+                    flash("File hasil normalisasi belum tersedia.", "danger")
+                    # return render_template('pre_processing.html', preprocessing_status=preprocessing_status, preprocessing_files=preprocessing_files)
+                else:
+                    data = pd.read_csv(normalized_path)
 
-            data = pd.read_csv(normalized_path)
+                    # **📊 Informasi Dataset**
+                    data_shape_normalized = data.shape
+                    data_head_normalized = data.head().to_html(classes='table table-striped', index=False)
+                    data_description_normalized = data.describe().round(2).to_html(classes='table table-striped')
 
-            # **📊 Informasi Dataset**
-            data_shape_normalized = data.shape
-            data_head_normalized = data.head().to_html(classes='table table-striped', index=False)
-            data_description_normalized = data.describe().round(2).to_html(classes='table table-striped')
+                    # **📊 Visualisasi: Distribusi Panjang Tweet Setelah Normalisasi**
+                    chart_path_normalized = os.path.join(STATIC_FOLDER, 'tweet_2_length_distribution_normalized.png')
+                    if not os.path.exists(chart_path_normalized):
+                        plt.figure(figsize=(16, 9))
+                        data['Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='green', edgecolor='black', title='Distribusi Panjang Tweet Setelah Normalisasi')
+                        plt.xlabel('Jumlah Kata')
+                        plt.ylabel('Frekuensi')
+                        plt.savefig(chart_path_normalized, bbox_inches='tight', facecolor='white')
+                        plt.close()
 
-            # **📊 Visualisasi: Distribusi Panjang Tweet Setelah Normalisasi**
-            chart_path_normalized = os.path.join(STATIC_FOLDER, 'tweet_2_length_distribution_normalized.png')
-            if not os.path.exists(chart_path_normalized):
-                try:
-                    plt.figure(figsize=(16, 9))
-                    data['Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='green', edgecolor='black', title='Distribusi Panjang Tweet Setelah Normalisasi')
-                    plt.xlabel('Jumlah Kata')
-                    plt.ylabel('Frekuensi')
-                    plt.savefig(chart_path_normalized, bbox_inches='tight', facecolor='white')
-                    plt.close()
-                except Exception as e:
-                    flash(f"❌ Kesalahan dalam membuat histogram panjang tweet setelah normalisasi: {e}", "error")
+                    # **☁️ WordCloud Setelah Normalisasi**
+                    wordcloud_path_normalized = os.path.join(STATIC_FOLDER, 'tweet_2_wordcloud_normalized.png')
+                    if not os.path.exists(wordcloud_path_normalized):
+                        text = ' '.join(data['Tweet'].dropna())
+                        wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
+                        plt.figure(figsize=(16, 9))
+                        plt.imshow(wordcloud, interpolation='bilinear')
+                        plt.axis('off')
+                        plt.savefig(wordcloud_path_normalized, bbox_inches='tight', facecolor='white')
+                        plt.close()
+                        
+                    # **Download File**
+                    download_link_normalized=url_for('download_file', filename=normalized_file)
 
-            # **☁️ WordCloud Setelah Normalisasi**
-            wordcloud_path_normalized = os.path.join(STATIC_FOLDER, 'tweet_2_wordcloud_normalized.png')
-            if not os.path.exists(wordcloud_path_normalized):
-                try:
-                    text = ' '.join(data['Tweet'].dropna())
-                    wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
-                    plt.figure(figsize=(16, 9))
-                    plt.imshow(wordcloud, interpolation='bilinear')
-                    plt.axis('off')
-                    plt.savefig(wordcloud_path_normalized, bbox_inches='tight', facecolor='white')
-                    plt.close()
-                except Exception as e:
-                    flash(f"❌ Kesalahan dalam membuat WordCloud setelah normalisasi: {e}", "error")
-
-        except Exception as e:
-            flash(f"❌ Kesalahan pada Normalisasi Data: {e}", "error")
+            except Exception as e:
+                flash(f"❌ Kesalahan pada Normalisasi Data: {e}", "danger")
 
         # **📌 3️⃣ Tokenisasi Data**
-        try:
-            tokenized_file = "dataset_3_tokenized.csv"
-            tokenized_path = os.path.join(app.config['PROCESSED_FOLDER'], tokenized_file)
+        if preprocessing_status["Tokenisasi"]:
+            try:
+                tokenized_file = "dataset_3_tokenized.csv"
+                tokenized_path = os.path.join(app.config['PROCESSED_FOLDER'], tokenized_file)
 
-            if not os.path.exists(tokenized_path):
-                flash("File hasil tokenisasi belum tersedia.", "error")
-            else:
-                # Baca dataset hasil tokenisasi
-                data_tokenized = pd.read_csv(tokenized_path)
+                if not os.path.exists(tokenized_path):
+                    flash("File hasil tokenisasi belum tersedia.", "danger")
+                else:
+                    # Baca dataset hasil tokenisasi
+                    data_tokenized = pd.read_csv(tokenized_path)
 
-                # **📊 Informasi Dataset**
-                data_shape_tokenized = data_tokenized.shape
-                data_head_tokenized = data_tokenized.head().to_html(classes='table table-striped', index=False)
-                data_description_tokenized = data_tokenized.describe().round(2).to_html(classes='table table-striped')
+                    # **📊 Informasi Dataset**
+                    data_shape_tokenized = data_tokenized.shape
+                    data_head_tokenized = data_tokenized.head().to_html(classes='table table-striped', index=False)
+                    data_description_tokenized = data_tokenized.describe().round(2).to_html(classes='table table-striped')
 
-                # **📊 Visualisasi: Distribusi Panjang Tokenized Tweet**
-                chart_path_tokenized = os.path.join(app.config['STATIC_FOLDER'], 'tweet_3_length_distribution_tokenized.png')
-                if not os.path.exists(chart_path_tokenized):
-                    plt.figure(figsize=(16, 9))
-                    data_tokenized['Tokens'].str.split().apply(len).plot(kind='hist', bins=30, color='green', edgecolor='black', title='Distribusi Panjang Tokenized Tweet')
-                    plt.xlabel('Jumlah Kata')
-                    plt.ylabel('Frekuensi')
-                    plt.savefig(chart_path_tokenized, bbox_inches='tight', facecolor='white')
-                    plt.close()
+                    # **📊 Visualisasi: Distribusi Panjang Tokenized Tweet**
+                    chart_path_tokenized = os.path.join(app.config['STATIC_FOLDER'], 'tweet_3_length_distribution_tokenized.png')
+                    if not os.path.exists(chart_path_tokenized):
+                        plt.figure(figsize=(16, 9))
+                        data_tokenized['Tokenized'].str.split().apply(len).plot(kind='hist', bins=30, color='green', edgecolor='black', title='Distribusi Panjang Tokenized Tweet')
+                        plt.xlabel('Jumlah Kata')
+                        plt.ylabel('Frekuensi')
+                        plt.savefig(chart_path_tokenized, bbox_inches='tight', facecolor='white')
+                        plt.close()
 
-                # **☁️ WordCloud**
-                wordcloud_path_tokenized = os.path.join(app.config['STATIC_FOLDER'], 'tweet_3_wordcloud_tokenized.png')
-                if not os.path.exists(wordcloud_path_tokenized):
-                    text_tokenized = ' '.join(data_tokenized['Tokens'].dropna())
-                    wordcloud_tokenized = WordCloud(width=1280, height=720, background_color='white').generate(text_tokenized)
-                    plt.figure(figsize=(16, 9))
-                    plt.imshow(wordcloud_tokenized, interpolation='bilinear')
-                    plt.axis('off')
-                    plt.savefig(wordcloud_path_tokenized, bbox_inches='tight', facecolor='white')
-                    plt.close()
+                    # **☁️ WordCloud**
+                    wordcloud_path_tokenized = os.path.join(app.config['STATIC_FOLDER'], 'tweet_3_wordcloud_tokenized.png')
+                    if not os.path.exists(wordcloud_path_tokenized):
+                        text_tokenized = ' '.join(data_tokenized['Tokenized'].dropna())
+                        wordcloud_tokenized = WordCloud(width=1280, height=720, background_color='white').generate(text_tokenized)
+                        plt.figure(figsize=(16, 9))
+                        plt.imshow(wordcloud_tokenized, interpolation='bilinear')
+                        plt.axis('off')
+                        plt.savefig(wordcloud_path_tokenized, bbox_inches='tight', facecolor='white')
+                        plt.close()
+                        
+                    # **Download File**
+                    download_link_tokenized=url_for('download_file', filename=tokenized_file)
 
-        except Exception as e:
-            flash(f"❌ Kesalahan pada Tokenisasi Data: {e}", "error")
+            except Exception as e:
+                flash(f"❌ Kesalahan pada Tokenisasi Data: {e}", "danger")
+        
+        # **📌 4️⃣ Penghapusan Stopwords**
+        if preprocessing_status["No Stopwords"]:
+            try:
+                stopwords_file = "dataset_4_no_stopwords.csv"
+                stopwords_path = os.path.join(app.config['PROCESSED_FOLDER'], stopwords_file)
 
+                if not os.path.exists(stopwords_path):
+                    flash("File hasil penghapusan stopwords belum tersedia.", "danger")
+                else:
+                    # Baca dataset hasil penghapusan stopwords
+                    data_no_stopwords = pd.read_csv(stopwords_path)
+
+                    # **📊 Informasi Dataset**
+                    data_shape_no_stopwords = data_no_stopwords.shape
+                    data_head_no_stopwords = data_no_stopwords.head().to_html(classes='table table-striped', index=False)
+                    data_description_no_stopwords = data_no_stopwords.describe().round(2).to_html(classes='table table-striped')
+
+                    # **📊 Visualisasi: Distribusi Panjang No Stopwords Tweet**
+                    chart_path_no_stopwords = os.path.join(app.config['STATIC_FOLDER'], 'tweet_4_length_distribution_no_stopwords.png')
+                    if not os.path.exists(chart_path_no_stopwords):
+                        plt.figure(figsize=(16, 9))
+                        data_no_stopwords['Tokenized'].str.split().apply(len).plot(kind='hist', bins=30, color='purple', edgecolor='black', title='Distribusi Panjang No Stopwords Tweet')
+                        plt.xlabel('Jumlah Kata')
+                        plt.ylabel('Frekuensi')
+                        plt.savefig(chart_path_no_stopwords, bbox_inches='tight', facecolor='white')
+                        plt.close()
+
+                    # **☁️ WordCloud**
+                    wordcloud_path_no_stopwords = os.path.join(app.config['STATIC_FOLDER'], 'tweet_4_wordcloud_no_stopwords.png')
+                    if not os.path.exists(wordcloud_path_no_stopwords):
+                        text_no_stopwords = ' '.join(data_no_stopwords['Tokenized'].dropna())
+                        wordcloud_no_stopwords = WordCloud(width=1280, height=720, background_color='white').generate(text_no_stopwords)
+                        plt.figure(figsize=(16, 9))
+                        plt.imshow(wordcloud_no_stopwords, interpolation='bilinear')
+                        plt.axis('off')
+                        plt.savefig(wordcloud_path_no_stopwords, bbox_inches='tight', facecolor='white')
+                        plt.close()
+                        
+                    # **Download File**
+                    download_link_no_stopwords=url_for('download_file', filename=stopwords_file)
+
+            except Exception as e:
+                flash(f"❌ Kesalahan pada Penghapusan Stopwords: {e}", "danger")
+    
+        # **📌 5️⃣ Stemming Data**
+        if preprocessing_status["Stemming"]:
+            try:
+                stemmed_file = "dataset_5_stemmed.csv"
+                stemmed_path = os.path.join(app.config['PROCESSED_FOLDER'], stemmed_file)
+
+                if not os.path.exists(stemmed_path):
+                    flash("File hasil stemming belum tersedia.", "danger")
+                else:
+                    # Baca dataset hasil stemming
+                    data_stemmed = pd.read_csv(stemmed_path)
+
+                    # **📊 Informasi Dataset**
+                    data_shape_stemmed = data_stemmed.shape
+                    data_head_stemmed = data_stemmed.head().to_html(classes='table table-striped', index=False)
+                    data_description_stemmed = data_stemmed.describe().round(2).to_html(classes='table table-striped')
+
+                    # **📊 Visualisasi: Distribusi Panjang Stemmed Tweet**
+                    chart_path_stemmed = os.path.join(app.config['STATIC_FOLDER'], 'tweet_5_length_distribution_stemmed.png')
+                    if not os.path.exists(chart_path_stemmed):
+                        plt.figure(figsize=(16, 9))
+                        data_stemmed['Tokenized'].str.split().apply(len).plot(kind='hist', bins=30, color='purple', edgecolor='black', title='Distribusi Panjang Stemmed Tweet')
+                        plt.xlabel('Jumlah Kata')
+                        plt.ylabel('Frekuensi')
+                        plt.savefig(chart_path_stemmed, bbox_inches='tight', facecolor='white')
+                        plt.close()
+
+                    # **☁️ WordCloud untuk hasil Stemming**
+                    wordcloud_path_stemmed = os.path.join(app.config['STATIC_FOLDER'], 'tweet_5_wordcloud_stemmed.png')
+                    if not os.path.exists(wordcloud_path_stemmed):
+                        text_stemmed = ' '.join(data_stemmed['Tokenized'].dropna())
+                        wordcloud_stemmed = WordCloud(width=1280, height=720, background_color='white').generate(text_stemmed)
+                        plt.figure(figsize=(16, 9))
+                        plt.imshow(wordcloud_stemmed, interpolation='bilinear')
+                        plt.axis('off')
+                        plt.savefig(wordcloud_path_stemmed, bbox_inches='tight', facecolor='white')
+                        plt.close()
+                        
+                    # **Download File**
+                    download_link_stemmed=url_for('download_file', filename=stemmed_file)
+
+            except Exception as e:
+                flash(f"❌ Kesalahan pada Stemming Data: {e}", "danger")
+
+        # **📌 6️⃣ Label Encoding**
+        if preprocessing_status["Label Encoding"]:
+            try:
+                encoded_file = "dataset_6_encoded.csv"
+                encoded_path = os.path.join(app.config['PROCESSED_FOLDER'], encoded_file)
+
+                if not os.path.exists(encoded_path):
+                    flash("File hasil Label Encoding belum tersedia.", "danger")
+                else:
+                    # Baca dataset hasil Label Encoding
+                    data_encoded = pd.read_csv(encoded_path)
+
+                    # **📊 Informasi Dataset**
+                    data_shape_encoded = data_encoded.shape
+                    data_head_encoded = data_encoded.head().to_html(classes='table table-striped', index=False)
+                    data_description_encoded = data_encoded.describe().round(2).to_html(classes='table table-striped')
+
+                    # **📊 Visualisasi: Distribusi Label Encoding**
+                    chart_path_encoded = os.path.join(app.config['STATIC_FOLDER'], 'tweet_6_label_distribution_encoded.png')
+                    if not os.path.exists(chart_path_encoded):
+                        plt.figure(figsize=(16, 9))
+                        data_encoded['Label_Encoded'].value_counts().plot(kind='bar', color='orange', edgecolor='black', title='Distribusi Label Encoding')
+                        plt.xlabel('Kategori Label')
+                        plt.ylabel('Frekuensi')
+                        plt.xticks(rotation=0)
+                        plt.savefig(chart_path_encoded, bbox_inches='tight', facecolor='white')
+                        plt.close()
+                        
+                    # **Download File**
+                    download_link_encoded=url_for('download_file', filename=encoded_file)
+
+            except Exception as e:
+                flash(f"❌ Kesalahan pada Label Encoding: {e}", "danger")
+
+        # **📌 7️⃣ Pembagian Data**
+        if preprocessing_status.get("Pembagian"):
+            try:
+                train_file = "dataset_7_train.csv"
+                test_file = "dataset_8_test.csv"
+                train_path = os.path.join(PROCESSED_FOLDER, train_file)
+                test_path = os.path.join(PROCESSED_FOLDER, test_file)
+                
+                if os.path.exists(train_path) and os.path.exists(test_path):
+                    data_train = pd.read_csv(train_path)
+                    data_test = pd.read_csv(test_path)
+
+                    # Informasi dataset
+                    data_shape_train = data_train.shape
+                    data_shape_test = data_test.shape
+
+                    data_head_train = data_train.head().to_html(classes='table table-striped', index=False)
+                    data_head_test = data_test.head().to_html(classes='table table-striped', index=False)
+
+                    data_description_train = data_train.describe().round(2).to_html(classes='table table-striped')
+                    data_description_test = data_test.describe().round(2).to_html(classes='table table-striped')
+
+                    # **📊 Distribusi Data Train dan Test**
+                    train_size = len(data_train)
+                    test_size = len(data_test)
+                    total_size = train_size + test_size
+
+                    train_percentage = round((train_size / total_size) * 100, 2)
+                    test_percentage = round((test_size / total_size) * 100, 2)
+
+                    # **📌 Buat List untuk Distribusi Data**
+                    data_distribution_split = [
+                        f"Train Data: {train_size} sampel ({train_percentage}%)",
+                        f"Test Data: {test_size} sampel ({test_percentage}%)"
+                    ]
+
+                    # **📈 Visualisasi Distribusi Data Train vs Test**
+                    chart_path_split = os.path.join(app.config['STATIC_FOLDER'], 'tweet_7_split_data_distribution.png')
+                    if not os.path.exists(chart_path_split):
+                        plt.figure(figsize=(16, 9))
+                        plt.bar(["Train Data", "Test Data"], [train_size, test_size], color=['blue', 'orange'])
+                        plt.title("Distribusi Data Setelah Pembagian")
+                        plt.ylabel("Jumlah Sampel")
+                        plt.xlabel("Kategori Data")
+                        plt.savefig(chart_path_split, bbox_inches='tight', facecolor='white')
+                        plt.close()
+
+                    download_link_train = url_for('download_file', filename=train_file)
+                    download_link_test = url_for('download_file', filename=test_file)
+                    
+                else:
+                    flash("File hasil pembagian data belum tersedia.", "danger")
+                    
+            except Exception as e:
+                flash(f"❌ Kesalahan pada Pembagian Data: {e}", "danger")
+                
         return render_template(
             'pre_processing.html',
             title="Pra-Pemrosesan Data",
@@ -1883,38 +2123,119 @@ def preprocessing():
             dataset_uploaded=os.path.exists(dataset_path),
             preprocessing_status=preprocessing_status,
             preprocessing_files=preprocessing_files,
-            selected_file=output_file,
-            data_head=data_head,
-            data_description=data_description,
-            data_shape=data_shape,
-            duplicate_count=duplicate_count,
-            null_count=null_count,
-            chart_path=url_for('static', filename='img/tweet_1_length_distribution_cleaned.png'),
-            wordcloud_path=url_for('static', filename='img/tweet_1_wordcloud_cleaned.png'),
-            download_link=url_for('download_file', filename=output_file),
+            data_shape_cleaned=data_shape_cleaned,
+            data_head_cleaned=data_head_cleaned,
+            data_description_cleaned=data_description_cleaned,
+            duplicate_count_cleaned=duplicate_count_cleaned,
+            null_count_cleaned=null_count_cleaned,
+            chart_path_cleaned=url_for('static', filename='img/tweet_1_length_distribution_cleaned.png'),
+            wordcloud_path_cleaned=url_for('static', filename='img/tweet_1_wordcloud_cleaned.png'),
+            download_link_cleaned=download_link_cleaned,
             # Normalisasi Data
             data_shape_normalized=data_shape_normalized,
             data_head_normalized=data_head_normalized,
             data_description_normalized=data_description_normalized,
             chart_path_normalized=url_for('static', filename='img/tweet_2_length_distribution_normalized.png'),
             wordcloud_path_normalized=url_for('static', filename='img/tweet_2_wordcloud_normalized.png'),
-            download_link_normalized=url_for('download_file', filename=normalized_file),
+            download_link_normalized=download_link_normalized,
             # Tokenisasi Data
             data_shape_tokenized=data_shape_tokenized,
             data_head_tokenized=data_head_tokenized,
             data_description_tokenized=data_description_tokenized,
             chart_path_tokenized=url_for('static', filename='img/tweet_3_length_distribution_tokenized.png'),
             wordcloud_path_tokenized=url_for('static', filename='img/tweet_3_wordcloud_tokenized.png'),
-            download_link_tokenized=url_for('download_file', filename=tokenized_file),
+            download_link_tokenized=download_link_tokenized,
+            # No Stopwords Data
+            data_shape_no_stopwords=data_shape_no_stopwords,
+            data_head_no_stopwords=data_head_no_stopwords,
+            data_description_no_stopwords=data_description_no_stopwords,
+            chart_path_no_stopwords=url_for('static', filename='img/tweet_4_length_distribution_no_stopwords.png'),
+            wordcloud_path_no_stopwords=url_for('static', filename='img/tweet_4_wordcloud_no_stopwords.png'),
+            download_link_no_stopwords=download_link_no_stopwords,
+            # Stemming Data
+            data_shape_stemmed=data_shape_stemmed,
+            data_head_stemmed=data_head_stemmed,
+            data_description_stemmed=data_description_stemmed,
+            chart_path_stemmed=url_for('static', filename='img/tweet_5_length_distribution_stemmed.png'),
+            wordcloud_path_stemmed=url_for('static', filename='img/tweet_5_wordcloud_stemmed.png'),
+            download_link_stemmed=download_link_stemmed,
+            # Label Encoding Data
+            data_shape_encoded=data_shape_encoded,
+            data_head_encoded=data_head_encoded,
+            data_description_encoded=data_description_encoded,
+            chart_path_encoded=url_for('static', filename='img/tweet_6_label_distribution_encoded.png'),
+            download_link_encoded=download_link_encoded,
+            # Pembagian Data
+            train_file=train_file,
+            test_file=test_file,
+            data_shape_train=data_shape_train,
+            data_shape_test=data_shape_test,
+            data_head_train=data_head_train,
+            data_head_test=data_head_test,
+            data_description_train=data_description_train,
+            data_description_test=data_description_test,
+            data_distribution_split=data_distribution_split,
+            chart_path_split=url_for('static', filename='img/tweet_7_split_data_distribution.png'),
+            download_link_train=download_link_train,
+            download_link_test=download_link_test,
             all=all,
         )
 
     except Exception as e:
-        flash(f"Terjadi kesalahan dalam pra-pemrosesan: {e}", "error")
+        flash(f"Terjadi kesalahan dalam pra-pemrosesan: {e}", "danger")
         return render_template(
             'pre_processing.html', 
-            preprocessing_status=preprocessing_status, 
-            preprocessing_files=preprocessing_files,
+            preprocessing_status={}, 
+            preprocessing_files={},
+            data_shape_cleaned=None,
+            data_head_cleaned=None,
+            data_description_cleaned=None,
+            duplicate_count_cleaned=None,
+            null_count_cleaned=None,
+            chart_path_cleaned=None,
+            wordcloud_path_cleaned=None,
+            download_link_cleaned=None,
+            data_shape_normalized=None,
+            data_head_normalized=None,
+            data_description_normalized=None,
+            chart_path_normalized=None,
+            wordcloud_path_normalized=None,
+            download_link_normalized=None,
+            data_shape_tokenized=None,
+            data_head_tokenized=None,
+            data_description_tokenized=None,
+            chart_path_tokenized=None,
+            wordcloud_path_tokenized=None,
+            download_link_tokenized=None,
+            data_shape_no_stopwords=None,
+            data_head_no_stopwords=None,
+            data_description_no_stopwords=None,
+            chart_path_no_stopwords=None,
+            wordcloud_path_no_stopwords=None,
+            download_link_no_stopwords=None,
+            data_shape_stemmed=None,
+            data_head_stemmed=None,
+            data_description_stemmed=None,
+            chart_path_stemmed=None,
+            wordcloud_path_stemmed=None,
+            download_link_stemmed=None,
+            data_shape_encoded=None,
+            data_head_encoded=None,
+            data_description_encoded=None,
+            chart_path_encoded=None,
+            download_link_encoded=None,
+            train_file=None,
+            test_file=None,
+            data_shape_train=None,
+            data_shape_test=None,
+            data_head_train=None,
+            data_head_test=None,
+            data_description_train=None,
+            data_description_test=None,
+            data_distribution_split=None,
+            chart_path_split=None,
+            download_link_train=None,
+            download_link_test=None,
             all=all,
         )
 
@@ -1929,105 +2250,152 @@ def start_preprocessing():
 
     try:
         # 📌 1️⃣ Pembersihan Data
-        print("🚀 Memulai Pembersihan Data...")
-        data = pd.read_csv(dataset_path)
-        if 'Tweet' not in data.columns:
-            return jsonify({"success": False, "message": "Kolom 'Tweet' tidak ditemukan dalam dataset!"})
+        try:
+            print("🚀 Memulai Pembersihan Data...")
+            # (Proses normalisasi)
+            data = pd.read_csv(dataset_path)
+            if 'Tweet' not in data.columns:
+                return jsonify({"success": False, "message": "Kolom 'Tweet' tidak ditemukan dalam dataset!"})
 
-        data['Tweet'] = data['Tweet'].astype(str)
-        data['Tweet'] = data['Tweet'].apply(lambda x: remove_mentions(x))
-        data['Tweet'] = data['Tweet'].apply(lambda x: remove_hashtags(x))
-        data['Tweet'] = data['Tweet'].apply(lambda x: remove_uniques(x))
-        data['Tweet'] = data['Tweet'].apply(lambda x: remove_emoji(x))
-        data['Tweet'] = data['Tweet'].apply(lambda x: remove_links(x))
-        data['Tweet'] = data['Tweet'].apply(lambda x: remove_html_tags_and_entities(x))
-        data['Tweet'] = data['Tweet'].apply(lambda x: remove_special_characters(x))
-        data['Tweet'] = data['Tweet'].apply(lambda x: remove_underscores(x))
-        data = data.drop_duplicates(subset=['Tweet'])
-        data = data.dropna(subset=['Tweet'])
-        data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_1_cleaned.csv"), index=False)
-        print("✅ Pembersihan Data Selesai.")
+            data['Tweet'] = data['Tweet'].astype(str)
+            data['Tweet'] = data['Tweet'].apply(lambda x: remove_mentions(x))
+            data['Tweet'] = data['Tweet'].apply(lambda x: remove_hashtags(x))
+            data['Tweet'] = data['Tweet'].apply(lambda x: remove_uniques(x))
+            data['Tweet'] = data['Tweet'].apply(lambda x: remove_emoji(x))
+            data['Tweet'] = data['Tweet'].apply(lambda x: remove_links(x))
+            data['Tweet'] = data['Tweet'].apply(lambda x: remove_html_tags_and_entities(x))
+            data['Tweet'] = data['Tweet'].apply(lambda x: remove_special_characters(x))
+            data['Tweet'] = data['Tweet'].apply(lambda x: remove_underscores(x))
+            data = data.drop_duplicates(subset=['Tweet'])
+            data = data.dropna(subset=['Tweet'])
+            data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_1_cleaned.csv"), index=False)
+            print("✅ Pembersihan Data Selesai.")
+            
+        except Exception as e:
+            print(f"❌ Kesalahan pada Pembersihan Data: {e}")
 
         # 📌 2️⃣ Normalisasi Data
-        print("🚀 Memulai Normalisasi Data...")
-        data['Tweet'] = data['Tweet'].str.lower()
-        data['Tweet'] = data['Tweet'].str.replace(r"[^a-z\s]+", " ", regex=True)
-        data['Tweet'] = data['Tweet'].str.replace(r"\s+", " ", regex=True)
-        data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_2_normalized.csv"), index=False)
-        print("✅ Normalisasi Data Selesai.")
+        try:
+            print("🚀 Memulai Normalisasi Data...")
+            # (Proses normalisasi)
+            data['Tweet'] = data['Tweet'].str.lower()
+            data['Tweet'] = data['Tweet'].str.replace(r"[^a-z\s]+", " ", regex=True)
+            data['Tweet'] = data['Tweet'].str.replace(r"\s+", " ", regex=True)
+            data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_2_normalized.csv"), index=False)
+            print("✅ Normalisasi Data Selesai.")
+            
+        except Exception as e:
+            print(f"❌ Kesalahan pada Normalisasi Data: {e}")
 
         # 📌 3️⃣ Tokenisasi Data
-        print("🚀 Memulai Tokenisasi Data...")
-        nltk.download('punkt', quiet=True)
-        data['Tokens'] = data['Tweet'].apply(word_tokenize)
-        data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_3_tokenized.csv"), index=False)
-        print("✅ Tokenisasi Data Selesai.")
+        try:
+            print("🚀 Memulai Tokenisasi Data...")
+            try:
+                nltk.download('punkt', quiet=True)
+            except Exception as e:
+                print(f"❌ Gagal mengunduh 'punkt' dari NLTK: {e}")
+            
+            # (Proses tokenisasi)
+            data['Tokenized'] = data['Tweet'].apply(word_tokenize)
+            data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_3_tokenized.csv"), index=False)
+            print("✅ Tokenisasi Data Selesai.")
+            
+        except Exception as e:
+            print(f"❌ Kesalahan pada Tokenisasi Data: {e}")
 
         # 📌 4️⃣ Penghapusan Stopwords
-        print("🚀 Memulai Penghapusan Stopwords...")
-        nltk.download('stopwords', quiet=True)
-        stop_words = set(stopwords.words('indonesian'))
-
-        # Stopwords kustom
-        manual_stopwords = [
-            'gelo', 'mentri2', 'yg', 'ga', 'udh', 'aja', 'kaga', 'bgt', 'spt', 'sdh',
-            'dr', 'utan', 'tuh', 'budi', 'bodi', 'p', 'psi_id', 'fufufafa', 'pln', 'lu',
-            'krn', 'dah', 'jd', 'tdk', 'dll', 'golkar_id', 'dlm', 'ri', 'jg', 'ni', 'sbg',
-            'tp', 'nih', 'gini', 'jkw', 'nggak', 'bs', 'pk', 'ya', 'gk', 'gw', 'gua',
-            'klo', 'msh', 'blm', 'gue', 'sih', 'pa', 'dgn', 'n', 'skrg', 'pake', 'si',
-            'dg', 'utk', 'deh', 'tu', 'hrt', 'ala', 'mdy', 'moga', 'tau', 'liat', 'orang2',
-            'jadi'
-        ]
-        stop_words.update(manual_stopwords)
-
-        # Stopwords dari file CSV
-        stopword_file = os.path.join(PROCESSED_FOLDER, 'stopwordbahasa.csv')
-        if os.path.exists(stopword_file):
-            stopword_df = pd.read_csv(stopword_file, header=None)
-            stop_words.update(stopword_df[0].tolist())
-
-        def remove_stopwords_from_tokens(tokens):
+        try:
+            print("🚀 Memulai Penghapusan Stopwords...")
             try:
-                tokens = eval(tokens)  # Ubah string token menjadi list Python
-                return [word for word in tokens if word.lower() not in stop_words]
+                nltk.download('stopwords', quiet=True)
             except Exception as e:
-                return []
+                print(f"❌ Gagal mengunduh 'punkt' dari NLTK: {e}")
+            
+            # (Proses stemming)
+            stop_words = set(stopwords.words('indonesian'))
 
-        data['Tokens'] = data['Tokens'].apply(lambda x: remove_stopwords_from_tokens(str(x)))
-        data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_4_no_stopwords.csv"), index=False)
-        print("✅ Penghapusan Stopwords Selesai.")
+            # Stopwords kustom
+            manual_stopwords = [
+                'gelo', 'mentri2', 'yg', 'ga', 'udh', 'aja', 'kaga', 'bgt', 'spt', 'sdh',
+                'dr', 'utan', 'tuh', 'budi', 'bodi', 'p', 'psi_id', 'fufufafa', 'pln', 'lu',
+                'krn', 'dah', 'jd', 'tdk', 'dll', 'golkar_id', 'dlm', 'ri', 'jg', 'ni', 'sbg',
+                'tp', 'nih', 'gini', 'jkw', 'nggak', 'bs', 'pk', 'ya', 'gk', 'gw', 'gua',
+                'klo', 'msh', 'blm', 'gue', 'sih', 'pa', 'dgn', 'n', 'skrg', 'pake', 'si',
+                'dg', 'utk', 'deh', 'tu', 'hrt', 'ala', 'mdy', 'moga', 'tau', 'liat', 'orang2',
+                'jadi'
+            ]
+            stop_words.update(manual_stopwords)
+
+            # Stopwords dari file CSV
+            stopword_file = os.path.join(PROCESSED_FOLDER, 'stopwordbahasa.csv')
+            if os.path.exists(stopword_file):
+                stopword_df = pd.read_csv(stopword_file, header=None)
+                stop_words.update(stopword_df[0].tolist())
+
+            def remove_stopwords_from_tokens(tokens):
+                try:
+                    tokens = eval(tokens)  # Ubah string token menjadi list Python
+                    return [word for word in tokens if word.lower() not in stop_words]
+                except Exception as e:
+                    return []
+
+            data['Tokenized'] = data['Tokenized'].apply(lambda x: remove_stopwords_from_tokens(str(x)))
+            data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_4_no_stopwords.csv"), index=False)
+            print("✅ Penghapusan Stopwords Selesai.")
+            
+        except Exception as e:
+            print(f"❌ Kesalahan pada Penghapusan Stopwords: {e}")
 
         # 📌 5️⃣ Stemming Data
-        print("🚀 Memulai Stemming Data...")
-        factory = StemmerFactory()
-        stemmer = factory.create_stemmer()
-        data['Tokens'] = data['Tokens'].apply(lambda x: [stemmer.stem(word) for word in x])
-        data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_5_stemmed.csv"), index=False)
-        print("✅ Stemming Data Selesai.")
+        try:
+            # (Proses stemming)
+            print("🚀 Memulai Stemming Data...")
+            try:
+                factory = StemmerFactory()
+                stemmer = factory.create_stemmer()
+            except Exception as e:
+                print(f"❌ Gagal mengunduh 'Stemmer' dari Sastrawi: {e}")
+                
+            data['Tokenized'] = data['Tokenized'].apply(lambda x: [stemmer.stem(word) for word in x])
+            data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_5_stemmed.csv"), index=False)
+            print("✅ Stemming Data Selesai.")
+            
+        except Exception as e:
+            print(f"❌ Kesalahan pada Stemming Data: {e}")
 
         # 📌 6️⃣ Label Encoding
-        print("🚀 Memulai Label Encoding...")
-        if 'Sentimen' in data.columns:
-            sentiment_mapping = {'positif': 1, 'netral': 0, 'negatif': -1}
-            data['Sentimen'] = data['Sentimen'].map(sentiment_mapping)
-            data['Label_Encoded'] = LabelEncoder().fit_transform(data['Sentimen'])
-            data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_6_encoded.csv"), index=False)
-            print("✅ Label Encoding Selesai.")
-        else:
-            return jsonify({"success": False, "message": "Kolom 'Sentimen' tidak ditemukan dalam dataset!"})
+        try:
+            print("🚀 Memulai Label Encoding...")
+            # (Proses stemming)
+            if 'Sentimen' in data.columns:
+                sentiment_mapping = {'positif': 1, 'netral': 0, 'negatif': -1}
+                data['Label_Encoded'] = data['Sentimen'].map(sentiment_mapping)
+                data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_6_encoded.csv"), index=False)
+                print("✅ Label Encoding Selesai.")
+            else:
+                print("❌ Kesalahan: Kolom 'Sentimen' tidak ditemukan dalam dataset!")
+                return jsonify({"success": False, "message": "Kolom 'Sentimen' tidak ditemukan dalam dataset!"})
+            
+        except Exception as e:
+            print(f"❌ Kesalahan pada Label Encoding: {e}")
 
         # 📌 7️⃣ Pembagian Data
-        print("🚀 Memulai Pembagian Data...")
-        X = data['Tokens']
-        y = data['Label_Encoded']
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+        try:
+            print("🚀 Memulai Pembagian Data...")
+            # (Proses stemming)
+            X = data['Tokenized']
+            y = data['Label_Encoded']
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
 
-        train_data = pd.DataFrame({'Tokens': X_train, 'Label_Encoded': y_train})
-        test_data = pd.DataFrame({'Tokens': X_test, 'Label_Encoded': y_test})
+            train_data = pd.DataFrame({'Tokenized': X_train, 'Label_Encoded': y_train})
+            test_data = pd.DataFrame({'Tokenized': X_test, 'Label_Encoded': y_test})
 
-        train_data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_7_train.csv"), index=False)
-        test_data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_8_test.csv"), index=False)
-        print("✅ Pembagian Data Selesai.")
+            train_data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_7_train.csv"), index=False)
+            test_data.to_csv(os.path.join(PROCESSED_FOLDER, "dataset_8_test.csv"), index=False)
+            print("✅ Pembagian Data Selesai.")
+            
+        except Exception as e:
+            print(f"❌ Kesalahan pada Pembagian Data: {e}")
 
         return jsonify({"success": True})
 
