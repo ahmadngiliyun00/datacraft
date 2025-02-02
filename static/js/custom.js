@@ -6,50 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	const uploadText = document.getElementById('upload-text');
 	const uploadSpinner = document.getElementById('upload-spinner');
 
-	const collapseA = document.getElementById('collapseA'); // Unggah Dataset
-	const collapseB = document.getElementById('collapseB'); // Rincian Dataset
-
-	const uploadCard = document.getElementById('cardA');
-	const detailsCard = document.getElementById('cardB');
-
-	const fileInput = document.getElementById('fileInput');
-	const submitBtn = document.getElementById('submit-btn');
-
-	// Jika dataset sudah diunggah, perbarui UI
-	if (datasetUploaded) {
-		uploadCard.classList.remove('danger');
-		uploadCard.classList.add('success');
-		uploadCard.querySelector('.avatar').classList.remove('danger');
-		uploadCard.querySelector('.avatar').classList.add('success');
-		uploadCard.querySelector('.avatar i').classList.remove('bx-x-circle', 'danger');
-		uploadCard.querySelector('.avatar i').classList.add('bx-check-circle', 'success');
-		uploadCard.querySelector('.badge').classList.remove('bg-danger');
-		uploadCard.querySelector('.badge').classList.add('bg-success');
-		uploadCard.querySelector('.badge').textContent = "Sudah dilakukan";
-
-		// Tampilkan collapse unggah dataset secara default
-		let bsCollapseB = new bootstrap.Collapse(collapseB, { toggle: false });
-		bsCollapseB.show();
-
-		fileInput.disabled = true;
-		submitBtn.disabled = true;
-		
-		// Perbarui status rincian dataset
-		detailsCard.classList.remove('danger');
-		detailsCard.classList.add('success');
-		detailsCard.querySelector('.avatar').classList.remove('danger');
-		detailsCard.querySelector('.avatar').classList.add('success');
-		detailsCard.querySelector('.avatar i').classList.remove('bx-x-circle', 'danger');
-		detailsCard.querySelector('.avatar i').classList.add('bx-check-circle', 'success');
-		detailsCard.querySelector('.badge').classList.remove('bg-danger');
-		detailsCard.querySelector('.badge').classList.add('bg-success');
-		detailsCard.querySelector('.badge').textContent = "Dataset tersedia";
-	} else {
-		// Tampilkan collapse unggah dataset secara default
-		let bsCollapseA = new bootstrap.Collapse(collapseA, { toggle: false });
-		bsCollapseA.show();
-	}
-
 	// Efek Hover pada Card
 	cards.forEach((card) => {
 		card.classList.add('shadow-sm'); // Tambahkan efek shadow default

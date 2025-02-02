@@ -28,14 +28,19 @@ app = Flask(__name__)
 # Atur secret key untuk keamanan
 app.secret_key = secrets.token_hex(16)  # Gunakan string acak yang kuat dalam produksi
 
-# Konfigurasi direktori untuk menyimpan dataset
+# Konfigurasi path folder
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'data', 'uploaded')
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-# Pastikan folder penyimpanan ada
 PROCESSED_FOLDER = os.path.join(os.getcwd(), 'data', 'processed')
+STATIC_FOLDER = os.path.join(os.getcwd(), 'static', 'img')
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['PROCESSED_FOLDER'] = PROCESSED_FOLDER
+app.config['STATIC_FOLDER'] = STATIC_FOLDER
+
+# Pastikan direktori tersedia
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
+os.makedirs(STATIC_FOLDER, exist_ok=True)
 
 # 🔹 Fungsi Cek Ekstensi File
 ALLOWED_EXTENSIONS = {'csv', 'xls', 'xlsx'}
@@ -1716,35 +1721,203 @@ def upload_dataset():
 # 🔹 Route untuk Menampilkan Status Preprocessing
 @app.route('/preprocessing')
 def preprocessing():
-    uploaded_filename = "dataset_0_raw.csv"
-    dataset_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_filename)
+    try:
+        uploaded_filename = "dataset_0_raw.csv"
+        dataset_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_filename)
+        
+        # Daftar file hasil preprocessing
+        processed_files = {
+            "Pembersihan": "dataset_1_cleaned.csv",
+            "Normalisasi": "dataset_2_normalized.csv",
+            "Tokenisasi": "dataset_3_tokenized.csv",
+            "No Stopwords": "dataset_4_no_stopwords.csv",
+            "Stemming": "dataset_5_stemmed.csv",
+            "Label Encoding": "dataset_6_encoded.csv",
+            "Pembagian": "dataset_7_train.csv",
+        }
 
-    # Daftar file hasil setiap langkah dengan nama file
-    processed_files = {
-        "Pembersihan": ("dataset_1_cleaned.csv", os.path.join(PROCESSED_FOLDER, "dataset_1_cleaned.csv")),
-        "Normalisasi": ("dataset_2_normalized.csv", os.path.join(PROCESSED_FOLDER, "dataset_2_normalized.csv")),
-        "Tokenisasi": ("dataset_3_tokenized.csv", os.path.join(PROCESSED_FOLDER, "dataset_3_tokenized.csv")),
-        "No Stopwords": ("dataset_4_no_stopwords.csv", os.path.join(PROCESSED_FOLDER, "dataset_4_no_stopwords.csv")),
-        "Stemming": ("dataset_5_stemmed.csv", os.path.join(PROCESSED_FOLDER, "dataset_5_stemmed.csv")),
-        "Label Encoding": ("dataset_6_encoded.csv", os.path.join(PROCESSED_FOLDER, "dataset_6_encoded.csv")),
-        "Pembagian": ("dataset_7_train.csv", os.path.join(PROCESSED_FOLDER, "dataset_7_train.csv")),
-    }
+        # Cek apakah setiap file hasil preprocessing ada
+        preprocessing_status = {
+            step: os.path.exists(os.path.join(PROCESSED_FOLDER, filename))
+            for step, filename in processed_files.items()
+        }
 
-    # Cek apakah file hasil pra-pemrosesan tersedia
-    preprocessing_status = {step: os.path.exists(path) for step, (_, path) in processed_files.items()}
-    
-    # Ambil nama file yang tersedia
-    preprocessing_files = {step: filename if preprocessing_status[step] else "Belum tersedia" 
-                            for step, (filename, _) in processed_files.items()}
+        # Ambil nama file yang tersedia atau tandai sebagai "Belum tersedia"
+        preprocessing_files = {
+            step: filename if preprocessing_status[step] else "Belum tersedia"
+            for step, filename in processed_files.items()
+        }
 
-    return render_template(
-        'pre_processing.html',
-        title="Pra-Pemrosesan",
-        dataset_uploaded=os.path.exists(dataset_path),
-        preprocessing_status=preprocessing_status,  # Status langkah pra-pemrosesan
-        preprocessing_files=preprocessing_files  # Nama file yang tersedia
-    )
-    
+        # **📌 1️⃣ Pembersihan Data**
+        try:
+            output_file = "dataset_1_cleaned.csv"
+            output_path = os.path.join(app.config['PROCESSED_FOLDER'], output_file)
+
+            if not os.path.exists(output_path):
+                flash("File hasil pembersihan belum tersedia.", "error")
+                return render_template('pre_processing.html')
+
+            data = pd.read_csv(output_path)
+
+            # **📊 Informasi Dataset**
+            data_shape = data.shape
+            duplicate_count = data.duplicated().sum()
+            null_count = data.isnull().sum().sum()
+            data_head = data.head().to_html(classes='table table-striped', index=False)
+            data_description = data.describe().round(2).to_html(classes='table table-striped')
+
+            # **📊 Visualisasi: Distribusi Panjang Tweet**
+            chart_path = os.path.join(app.config['STATIC_FOLDER'], 'tweet_1_length_distribution_cleaned.png')
+            if not os.path.exists(chart_path):
+                plt.figure(figsize=(16, 9))
+                data['Cleaned_Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='blue', edgecolor='black', title='Distribusi Panjang Cleaned Tweet')
+                plt.xlabel('Jumlah Kata')
+                plt.ylabel('Frekuensi')
+                plt.savefig(chart_path, bbox_inches='tight', facecolor='white')
+                plt.close()
+
+            # **☁️ WordCloud**
+            wordcloud_path = os.path.join(app.config['STATIC_FOLDER'], 'tweet_1_wordcloud_cleaned.png')
+            if not os.path.exists(wordcloud_path):
+                text = ' '.join(data['Cleaned_Tweet'].dropna())
+                wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
+                plt.figure(figsize=(16, 9))
+                plt.imshow(wordcloud, interpolation='bilinear')
+                plt.axis('off')
+                plt.savefig(wordcloud_path, bbox_inches='tight', facecolor='white')
+                plt.close()
+
+        except Exception as e:
+            flash(f"❌ Kesalahan pada Pembersihan Data: {e}", "error")
+
+        # **📌 2️⃣ Normalisasi Data**
+        try:
+            normalized_file = "dataset_2_normalized.csv"
+            normalized_path = os.path.join(app.config['PROCESSED_FOLDER'], normalized_file)
+
+            if not os.path.exists(normalized_path):
+                flash("File hasil normalisasi belum tersedia.", "error")
+                return render_template('pre_processing.html', preprocessing_status=preprocessing_status, preprocessing_files=preprocessing_files)
+
+            data = pd.read_csv(normalized_path)
+
+            # **📊 Informasi Dataset**
+            data_shape_normalized = data.shape
+            data_head_normalized = data.head().to_html(classes='table table-striped', index=False)
+            data_description_normalized = data.describe().round(2).to_html(classes='table table-striped')
+
+            # **📊 Visualisasi: Distribusi Panjang Tweet Setelah Normalisasi**
+            chart_path_normalized = os.path.join(STATIC_FOLDER, 'tweet_2_length_distribution_normalized.png')
+            if not os.path.exists(chart_path_normalized):
+                try:
+                    plt.figure(figsize=(16, 9))
+                    data['Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='green', edgecolor='black', title='Distribusi Panjang Tweet Setelah Normalisasi')
+                    plt.xlabel('Jumlah Kata')
+                    plt.ylabel('Frekuensi')
+                    plt.savefig(chart_path_normalized, bbox_inches='tight', facecolor='white')
+                    plt.close()
+                except Exception as e:
+                    flash(f"❌ Kesalahan dalam membuat histogram panjang tweet setelah normalisasi: {e}", "error")
+
+            # **☁️ WordCloud Setelah Normalisasi**
+            wordcloud_path_normalized = os.path.join(STATIC_FOLDER, 'tweet_2_wordcloud_normalized.png')
+            if not os.path.exists(wordcloud_path_normalized):
+                try:
+                    text = ' '.join(data['Tweet'].dropna())
+                    wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
+                    plt.figure(figsize=(16, 9))
+                    plt.imshow(wordcloud, interpolation='bilinear')
+                    plt.axis('off')
+                    plt.savefig(wordcloud_path_normalized, bbox_inches='tight', facecolor='white')
+                    plt.close()
+                except Exception as e:
+                    flash(f"❌ Kesalahan dalam membuat WordCloud setelah normalisasi: {e}", "error")
+
+        except Exception as e:
+            flash(f"❌ Kesalahan pada Normalisasi Data: {e}", "error")
+
+        # **📌 3️⃣ Tokenisasi Data**
+        try:
+            tokenized_file = "dataset_3_tokenized.csv"
+            tokenized_path = os.path.join(app.config['PROCESSED_FOLDER'], tokenized_file)
+
+            if not os.path.exists(tokenized_path):
+                flash("File hasil tokenisasi belum tersedia.", "error")
+            else:
+                # Baca dataset hasil tokenisasi
+                data_tokenized = pd.read_csv(tokenized_path)
+
+                # **📊 Informasi Dataset**
+                data_shape_tokenized = data_tokenized.shape
+                data_head_tokenized = data_tokenized.head().to_html(classes='table table-striped', index=False)
+                data_description_tokenized = data_tokenized.describe().round(2).to_html(classes='table table-striped')
+
+                # **📊 Visualisasi: Distribusi Panjang Tokenized Tweet**
+                chart_path_tokenized = os.path.join(app.config['STATIC_FOLDER'], 'tweet_3_length_distribution_tokenized.png')
+                if not os.path.exists(chart_path_tokenized):
+                    plt.figure(figsize=(16, 9))
+                    data_tokenized['Tokens'].str.split().apply(len).plot(kind='hist', bins=30, color='green', edgecolor='black', title='Distribusi Panjang Tokenized Tweet')
+                    plt.xlabel('Jumlah Kata')
+                    plt.ylabel('Frekuensi')
+                    plt.savefig(chart_path_tokenized, bbox_inches='tight', facecolor='white')
+                    plt.close()
+
+                # **☁️ WordCloud**
+                wordcloud_path_tokenized = os.path.join(app.config['STATIC_FOLDER'], 'tweet_3_wordcloud_tokenized.png')
+                if not os.path.exists(wordcloud_path_tokenized):
+                    text_tokenized = ' '.join(data_tokenized['Tokens'].dropna())
+                    wordcloud_tokenized = WordCloud(width=1280, height=720, background_color='white').generate(text_tokenized)
+                    plt.figure(figsize=(16, 9))
+                    plt.imshow(wordcloud_tokenized, interpolation='bilinear')
+                    plt.axis('off')
+                    plt.savefig(wordcloud_path_tokenized, bbox_inches='tight', facecolor='white')
+                    plt.close()
+
+        except Exception as e:
+            flash(f"❌ Kesalahan pada Tokenisasi Data: {e}", "error")
+
+        return render_template(
+            'pre_processing.html',
+            title="Pra-Pemrosesan Data",
+            # Pembersihan Data
+            dataset_uploaded=os.path.exists(dataset_path),
+            preprocessing_status=preprocessing_status,
+            preprocessing_files=preprocessing_files,
+            selected_file=output_file,
+            data_head=data_head,
+            data_description=data_description,
+            data_shape=data_shape,
+            duplicate_count=duplicate_count,
+            null_count=null_count,
+            chart_path=url_for('static', filename='img/tweet_1_length_distribution_cleaned.png'),
+            wordcloud_path=url_for('static', filename='img/tweet_1_wordcloud_cleaned.png'),
+            download_link=url_for('download_file', filename=output_file),
+            # Normalisasi Data
+            data_shape_normalized=data_shape_normalized,
+            data_head_normalized=data_head_normalized,
+            data_description_normalized=data_description_normalized,
+            chart_path_normalized=url_for('static', filename='img/tweet_2_length_distribution_normalized.png'),
+            wordcloud_path_normalized=url_for('static', filename='img/tweet_2_wordcloud_normalized.png'),
+            download_link_normalized=url_for('download_file', filename=normalized_file),
+            # Tokenisasi Data
+            data_shape_tokenized=data_shape_tokenized,
+            data_head_tokenized=data_head_tokenized,
+            data_description_tokenized=data_description_tokenized,
+            chart_path_tokenized=url_for('static', filename='img/tweet_3_length_distribution_tokenized.png'),
+            wordcloud_path_tokenized=url_for('static', filename='img/tweet_3_wordcloud_tokenized.png'),
+            download_link_tokenized=url_for('download_file', filename=tokenized_file),
+            all=all,
+        )
+
+    except Exception as e:
+        flash(f"Terjadi kesalahan dalam pra-pemrosesan: {e}", "error")
+        return render_template(
+            'pre_processing.html', 
+            preprocessing_status=preprocessing_status, 
+            preprocessing_files=preprocessing_files,
+            all=all,
+        )
+
 # Fungsi utama untuk melakukan pra-pemrosesan
 @app.route('/start-preprocessing', methods=['POST'])
 def start_preprocessing():

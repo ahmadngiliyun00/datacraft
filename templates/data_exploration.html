@@ -163,7 +163,6 @@
               <li><strong>Jumlah Duplikat:</strong> {{ duplicate_count }}</li>
               <li><strong>Jumlah Nilai Kosong:</strong> {{ null_count }}</li>
             </ul>
-            <pre>{{ data_info }}</pre>
             <hr>
             <!-- Informasi Elemen yang Perlu Dibersihkan -->
             <div class="card-title fw-bold fs-5 text-primary mb-1">Informasi Elemen yang Perlu Dibersihkan</div>
@@ -188,7 +187,6 @@
             <div class="table table-responsive">
               {{ data_description | safe }}
             </div>
-            <hr>
             <hr>
             <div class="card-title fw-bold fs-5 text-primary mb-1">Jumlah Nilai Unik</div>
             <div class="table table-responsive">
@@ -243,7 +241,7 @@
                     </a>
                   </div>
                   <div class="">
-                    <a href="{{ url_for('index') }}"
+                    <a href="{{ url_for('preprocessing') }}"
                       class="btn btn-primary btn-sm ms-3">
                       <i class='bx bx-wrench'></i>
                       &nbsp; Pra-Pemrosesan
@@ -263,5 +261,38 @@
 </div>
 <script>
   var datasetUploaded = {{ dataset_uploaded | default(False) | tojson }};
+  
+  document.addEventListener('DOMContentLoaded', () => {
+
+    const uploadCard = document.getElementById('cardA');
+    const detailsCard = document.getElementById('cardB');
+
+    // Jika dataset sudah diunggah, perbarui UI
+    if (datasetUploaded) {
+      uploadCard.classList.remove('danger');
+      uploadCard.classList.add('success');
+      uploadCard.querySelector('.avatar').classList.remove('danger');
+      uploadCard.querySelector('.avatar').classList.add('success');
+      uploadCard.querySelector('.avatar i').classList.remove('bx-x-circle', 'danger');
+      uploadCard.querySelector('.avatar i').classList.add('bx-check-circle', 'success');
+      uploadCard.querySelector('.badge').classList.remove('bg-danger');
+      uploadCard.querySelector('.badge').classList.add('bg-success');
+      uploadCard.querySelector('.badge').textContent = "Sudah dilakukan";
+
+      document.getElementById('fileInput').disabled = true;
+      document.getElementById('submit-btn').disabled = true;
+      
+      // Perbarui status rincian dataset
+      detailsCard.classList.remove('danger');
+      detailsCard.classList.add('success');
+      detailsCard.querySelector('.avatar').classList.remove('danger');
+      detailsCard.querySelector('.avatar').classList.add('success');
+      detailsCard.querySelector('.avatar i').classList.remove('bx-x-circle', 'danger');
+      detailsCard.querySelector('.avatar i').classList.add('bx-check-circle', 'success');
+      detailsCard.querySelector('.badge').classList.remove('bg-danger');
+      detailsCard.querySelector('.badge').classList.add('bg-success');
+      detailsCard.querySelector('.badge').textContent = "Dataset tersedia";
+    }
+  });
 </script>
 {% endblock %}
