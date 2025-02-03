@@ -96,7 +96,6 @@ def remove_underscores(text):
         return text.replace('_', '')  # Mengganti underscore dengan string kosong
     return text
 
-
 # Route untuk halaman index
 @app.route('/')
 def index():
@@ -1723,8 +1722,8 @@ def upload_dataset():
 @app.route('/preprocessing')
 def preprocessing():
     try:
-        uploaded_filename = "dataset_0_raw.csv"
-        dataset_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_filename)
+        raw_file = "dataset_0_raw.csv"
+        raw_path = os.path.join(app.config['UPLOAD_FOLDER'], raw_file)
         
         # Daftar file hasil preprocessing
         processed_files = {
@@ -1755,38 +1754,56 @@ def preprocessing():
         }
         
         # 🛠 Inisialisasi variabel default (mencegah "referenced before assignment")
-        data_shape_cleaned = None
-        data_head_cleaned = None
-        data_description_cleaned = None
-        duplicate_count_cleaned = None
-        null_count_cleaned = None
-        chart_path_cleaned = None
-        wordcloud_path_cleaned = None
-        download_link_cleaned = None
+        data_shape_raw=None
+        data_shape_cleaned=None
+        data_head_cleaned=None
+        data_description_cleaned=None
+        duplicate_count_cleaned=None
+        null_count_cleaned=None
+        cleaning_methods=None
+        comparison_table_cleaned=None
+        comparison_samples_cleaned=None
+        chart_path_cleaned=None
+        wordcloud_path_cleaned=None
+        download_link_cleaned=None
+        data_count_cleaned=None
+        data_count_normalized=None
+        comparison_samples_normalized=None
         data_shape_normalized=None
         data_head_normalized=None
         data_description_normalized=None
         chart_path_normalized=None
         wordcloud_path_normalized=None
         download_link_normalized=None
+        data_count_tokenized=None
+        comparison_samples_tokenized=None
         data_shape_tokenized=None
         data_head_tokenized=None
         data_description_tokenized=None
         chart_path_tokenized=None
         wordcloud_path_tokenized=None
         download_link_tokenized=None
+        data_count_no_stopwords=None
+        total_no_stopwords=None
+        comparison_samples_no_stopwords=None
         data_shape_no_stopwords=None
         data_head_no_stopwords=None
         data_description_no_stopwords=None
         chart_path_no_stopwords=None
         wordcloud_path_no_stopwords=None
         download_link_no_stopwords=None
+        data_count_stemmed=None
+        total_stemmed=None
+        comparison_samples_stemmed=None
         data_shape_stemmed=None
         data_head_stemmed=None
         data_description_stemmed=None
         chart_path_stemmed=None
         wordcloud_path_stemmed=None
         download_link_stemmed=None
+        sentiment_encoded=None
+        sentiment_stemmed=None
+        comparison_samples_encoded=None
         data_shape_encoded=None
         data_head_encoded=None
         data_description_encoded=None
@@ -1794,16 +1811,25 @@ def preprocessing():
         download_link_encoded=None
         train_file=None
         test_file=None
-        data_shape_train=None,
-        data_shape_test=None,
-        data_head_train=None,
-        data_head_test=None,
-        data_description_train=None,
-        data_description_test=None,
-        data_distribution_split=None,
-        chart_path_split=None,
-        download_link_train=None,
-        download_link_test=None,
+        train_label_split=None
+        test_label_split=None
+        comparison_split=None
+        chart_train_split=None
+        chart_test_split=None
+        data_shape_train=None
+        data_shape_test=None
+        data_head_train=None
+        data_head_test=None
+        data_description_train=None
+        data_description_test=None
+        data_distribution_split=None
+        chart_path_split=None
+        download_link_train=None
+        download_link_test=None
+        
+        if os.path.exists(raw_path):
+            data_raw = pd.read_csv(raw_path)
+            data_shape_raw = data_raw.shape
         
         # **📌 1️⃣ Pembersihan Data**
         if preprocessing_status["Pembersihan"]:
@@ -1813,21 +1839,67 @@ def preprocessing():
 
                 if not os.path.exists(cleaned_path):
                     flash("File hasil perbersihan data belum tersedia.", "danger")
+                elif not os.path.exists(raw_path):
+                    flash("File mentah belum tersedia.", "danger")
                 else:
-                    data = pd.read_csv(cleaned_path)
+                    data_cleaned = pd.read_csv(cleaned_path)
 
                     # **📊 Informasi Dataset**
-                    data_shape_cleaned = data.shape
-                    duplicate_count_cleaned = data.duplicated().sum()
-                    null_count_cleaned = data.isnull().sum().sum()
-                    data_head_cleaned = data.head().to_html(classes='table table-striped', index=False)
-                    data_description_cleaned = data.describe().round(2).to_html(classes='table table-striped')
+                    data_shape_cleaned = data_cleaned.shape
+                    duplicate_count_cleaned = data_cleaned.duplicated().sum()
+                    null_count_cleaned = data_cleaned.isnull().sum().sum()
+                    data_head_cleaned = data_cleaned.head().to_html(classes='table table-striped', index=False)
+                    data_description_cleaned = data_cleaned.describe().round(2).to_html(classes='table table-striped')
+                    
+                    # Metode pembersihan
+                    cleaning_methods = [
+                        "Menghapus mention (@username)",
+                        "Menghapus hashtag (#hashtag)",
+                        "Menghapus karakter unik selain huruf, angka, dan spasi",
+                        "Menghapus emoji",
+                        "Menghapus tautan (URL)",
+                        "Menghapus tag HTML dan entitas",
+                        "Menghapus simbol atau karakter khusus",
+                        "Menghapus underscore (_) dalam teks",
+                        "Menghapus duplikat pada kolom 'Tweet'",
+                        "Menghapus nilai kosong pada kolom 'Tweet'",
+                    ]
+
+                    # Perbandingan sebelum dan sesudah pembersihan
+                    comparison_table_cleaned = f"""
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Langkah</th>
+                                <th>Jumlah Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sebelum Pembersihan</td>
+                                <td>{data_shape_raw[0] if data_shape_raw else "Tidak tersedia"}</td>
+                            </tr>
+                            <tr>
+                                <td>Setelah Pembersihan</td>
+                                <td>{data_shape_cleaned[0]}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    """
+                    
+                    # Ambil beberapa contoh sebelum dan sesudah pembersihan
+                    comparison_samples_cleaned = []
+                    for i in range(min(5, len(data_cleaned))):  # Ambil 5 contoh
+                        comparison_samples_cleaned.append({
+                            "Sebelum": data_raw.iloc[i]['Tweet'] if i < len(data_raw) else "-",
+                            "Sesudah": data_cleaned.iloc[i]['Tweet']
+                        })
 
                     # **📊 Visualisasi: Distribusi Panjang Tweet**
                     chart_path_cleaned = os.path.join(app.config['STATIC_FOLDER'], 'tweet_1_length_distribution_cleaned.png')
                     if not os.path.exists(chart_path_cleaned):
                         plt.figure(figsize=(16, 9))
-                        data['Cleaned_Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='blue', edgecolor='black', title='Distribusi Panjang Cleaned Tweet')
+                        data_cleaned['Cleaned_Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='blue', edgecolor='black', title='Distribusi Panjang Cleaned Tweet')
                         plt.xlabel('Jumlah Kata')
                         plt.ylabel('Frekuensi')
                         plt.savefig(chart_path_cleaned, bbox_inches='tight', facecolor='white')
@@ -1836,7 +1908,7 @@ def preprocessing():
                     # **☁️ WordCloud**
                     wordcloud_path_cleaned = os.path.join(app.config['STATIC_FOLDER'], 'tweet_1_wordcloud_cleaned.png')
                     if not os.path.exists(wordcloud_path_cleaned):
-                        text = ' '.join(data['Cleaned_Tweet'].dropna())
+                        text = ' '.join(data_cleaned['Cleaned_Tweet'].dropna())
                         wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
                         plt.figure(figsize=(16, 9))
                         plt.imshow(wordcloud, interpolation='bilinear')
@@ -1854,24 +1926,40 @@ def preprocessing():
         if preprocessing_status["Normalisasi"]:
             try:
                 normalized_file = "dataset_2_normalized.csv"
+                cleaned_file = "dataset_1_cleaned.csv"
                 normalized_path = os.path.join(app.config['PROCESSED_FOLDER'], normalized_file)
+                cleaned_path = os.path.join(app.config['PROCESSED_FOLDER'], cleaned_file)
 
                 if not os.path.exists(normalized_path):
                     flash("File hasil normalisasi belum tersedia.", "danger")
-                    # return render_template('pre_processing.html', preprocessing_status=preprocessing_status, preprocessing_files=preprocessing_files)
+                elif not os.path.exists(cleaned_path):
+                    flash("File hasil normalisasi belum tersedia.", "danger")
                 else:
-                    data = pd.read_csv(normalized_path)
+                    data_normalized = pd.read_csv(normalized_path)
+                    data_cleaned = pd.read_csv(cleaned_path)
+                    
+                    # Jumlah data sebelum dan sesudah normalisasi
+                    data_count_cleaned = len(data_cleaned)
+                    data_count_normalized = len(data_normalized)
+                    
+                    # Ambil contoh sebelum dan sesudah normalisasi
+                    comparison_samples_normalized = []
+                    for i in range(min(5, len(data_normalized))):  # Ambil 5 contoh
+                        comparison_samples_normalized.append({
+                            "Sebelum": data_cleaned.iloc[i]['Tweet'] if i < len(data_cleaned) else "-",
+                            "Sesudah": data_normalized.iloc[i]['Tweet']
+                        })
 
                     # **📊 Informasi Dataset**
-                    data_shape_normalized = data.shape
-                    data_head_normalized = data.head().to_html(classes='table table-striped', index=False)
-                    data_description_normalized = data.describe().round(2).to_html(classes='table table-striped')
+                    data_shape_normalized = data_normalized.shape
+                    data_head_normalized = data_normalized.head().to_html(classes='table table-striped', index=False)
+                    data_description_normalized = data_normalized.describe().round(2).to_html(classes='table table-striped')
 
                     # **📊 Visualisasi: Distribusi Panjang Tweet Setelah Normalisasi**
                     chart_path_normalized = os.path.join(STATIC_FOLDER, 'tweet_2_length_distribution_normalized.png')
                     if not os.path.exists(chart_path_normalized):
                         plt.figure(figsize=(16, 9))
-                        data['Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='green', edgecolor='black', title='Distribusi Panjang Tweet Setelah Normalisasi')
+                        data_normalized['Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='green', edgecolor='black', title='Distribusi Panjang Tweet Setelah Normalisasi')
                         plt.xlabel('Jumlah Kata')
                         plt.ylabel('Frekuensi')
                         plt.savefig(chart_path_normalized, bbox_inches='tight', facecolor='white')
@@ -1880,7 +1968,7 @@ def preprocessing():
                     # **☁️ WordCloud Setelah Normalisasi**
                     wordcloud_path_normalized = os.path.join(STATIC_FOLDER, 'tweet_2_wordcloud_normalized.png')
                     if not os.path.exists(wordcloud_path_normalized):
-                        text = ' '.join(data['Tweet'].dropna())
+                        text = ' '.join(data_normalized['Tweet'].dropna())
                         wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
                         plt.figure(figsize=(16, 9))
                         plt.imshow(wordcloud, interpolation='bilinear')
@@ -1898,13 +1986,30 @@ def preprocessing():
         if preprocessing_status["Tokenisasi"]:
             try:
                 tokenized_file = "dataset_3_tokenized.csv"
+                normalized_file = "dataset_2_normalized.csv"
                 tokenized_path = os.path.join(app.config['PROCESSED_FOLDER'], tokenized_file)
+                normalized_path = os.path.join(app.config['PROCESSED_FOLDER'], normalized_file)
 
                 if not os.path.exists(tokenized_path):
-                    flash("File hasil tokenisasi belum tersedia.", "danger")
+                    flash("File hasil tokenisasi data belum tersedia.", "danger")
+                elif not os.path.exists(normalized_path):
+                    flash("File hasil normalisasi data belum tersedia.", "danger")
                 else:
                     # Baca dataset hasil tokenisasi
                     data_tokenized = pd.read_csv(tokenized_path)
+                    data_normalized = pd.read_csv(normalized_path)
+                    
+                    # Perbandingan jumlah data sebelum & sesudah tokenisasi
+                    data_count_normalized = len(data_normalized)
+                    data_count_tokenized = len(data_tokenized)
+
+                    # Contoh sebelum & sesudah tokenisasi
+                    comparison_samples_tokenized = []
+                    for i in range(min(5, len(data_tokenized))):  
+                        comparison_samples_tokenized.append({
+                            "Sebelum": data_normalized.iloc[i]['Tweet'] if i < len(data_normalized) else "-",
+                            "Sesudah": data_tokenized.iloc[i]['Tokenized']
+                        })
 
                     # **📊 Informasi Dataset**
                     data_shape_tokenized = data_tokenized.shape
@@ -1942,13 +2047,31 @@ def preprocessing():
         if preprocessing_status["No Stopwords"]:
             try:
                 stopwords_file = "dataset_4_no_stopwords.csv"
+                tokenized_file = "dataset_3_tokenized.csv"
                 stopwords_path = os.path.join(app.config['PROCESSED_FOLDER'], stopwords_file)
+                tokenized_path = os.path.join(app.config['PROCESSED_FOLDER'], tokenized_file)
 
                 if not os.path.exists(stopwords_path):
                     flash("File hasil penghapusan stopwords belum tersedia.", "danger")
+                elif not os.path.exists(tokenized_path):
+                    flash("File hasil tokenisasi belum tersedia.", "danger")
                 else:
                     # Baca dataset hasil penghapusan stopwords
                     data_no_stopwords = pd.read_csv(stopwords_path)
+                    data_tokenized = pd.read_csv(tokenized_path)
+
+                    # Hitung total kata sebelum dan sesudah penghapusan stopwords
+                    data_count_tokenized = data_tokenized['Tokenized'].apply(lambda x: len(eval(x))).sum()
+                    data_count_no_stopwords = data_no_stopwords['Tokenized'].apply(lambda x: len(eval(x))).sum()
+                    total_no_stopwords = data_count_tokenized - data_count_no_stopwords
+
+                    # Contoh sebelum & sesudah penghapusan stopwords
+                    comparison_samples_no_stopwords = []
+                    for i in range(min(5, len(data_no_stopwords))):  
+                        comparison_samples_no_stopwords.append({
+                            "Sebelum": data_tokenized.iloc[i]['Tokenized'] if i < len(data_tokenized) else "-",
+                            "Sesudah": data_no_stopwords.iloc[i]['Tokenized']
+                        })
 
                     # **📊 Informasi Dataset**
                     data_shape_no_stopwords = data_no_stopwords.shape
@@ -1986,13 +2109,33 @@ def preprocessing():
         if preprocessing_status["Stemming"]:
             try:
                 stemmed_file = "dataset_5_stemmed.csv"
+                no_stopwords_file = "dataset_4_no_stopwords.csv"
                 stemmed_path = os.path.join(app.config['PROCESSED_FOLDER'], stemmed_file)
+                no_stopwords_path = os.path.join(app.config['PROCESSED_FOLDER'], no_stopwords_file)
 
                 if not os.path.exists(stemmed_path):
                     flash("File hasil stemming belum tersedia.", "danger")
+                elif not os.path.exists(no_stopwords_path):
+                    flash("File hasil penghapusan stopwords belum tersedia.", "danger")
                 else:
                     # Baca dataset hasil stemming
                     data_stemmed = pd.read_csv(stemmed_path)
+                    data_no_stopwords = pd.read_csv(no_stopwords_path)
+
+                    # Jumlah kata sebelum dan sesudah stemming
+                    data_count_no_stopwords = data_no_stopwords['Tokenized'].str.split().apply(len).sum()
+                    data_count_stemmed = data_stemmed['Tokenized'].str.split().apply(len).sum()
+
+                    # Hitung jumlah kata yang berubah setelah stemming
+                    total_stemmed = data_count_no_stopwords - data_count_stemmed
+
+                    # Contoh sebelum & sesudah stemming
+                    comparison_samples_stemmed = []
+                    for i in range(min(5, len(data_stemmed))):  
+                        comparison_samples_stemmed.append({
+                            "Sebelum": data_no_stopwords.iloc[i]['Tokenized'] if i < len(data_no_stopwords) else "-",
+                            "Sesudah": data_stemmed.iloc[i]['Tokenized']
+                        })
 
                     # **📊 Informasi Dataset**
                     data_shape_stemmed = data_stemmed.shape
@@ -2030,13 +2173,38 @@ def preprocessing():
         if preprocessing_status["Label Encoding"]:
             try:
                 encoded_file = "dataset_6_encoded.csv"
+                stemmed_file = "dataset_5_stemmed.csv"
                 encoded_path = os.path.join(app.config['PROCESSED_FOLDER'], encoded_file)
+                stemmed_path = os.path.join(app.config['PROCESSED_FOLDER'], stemmed_file)
 
                 if not os.path.exists(encoded_path):
                     flash("File hasil Label Encoding belum tersedia.", "danger")
+                elif not os.path.exists(stemmed_path):
+                    flash("File hasil stemming belum tersedia.", "danger")
                 else:
                     # Baca dataset hasil Label Encoding
                     data_encoded = pd.read_csv(encoded_path)
+                    data_stemmed = pd.read_csv(stemmed_path)
+
+                    # Distribusi Label Sentimen
+                    sentiment_count_encoded = data_encoded["Label_Encoded"].value_counts().to_dict()
+                    sentiment_encoded = {
+                        -1: sentiment_count_encoded.get(-1, 0),
+                        0: sentiment_count_encoded.get(0, 0),
+                        1: sentiment_count_encoded.get(1, 0)
+                    }
+                    sentiment_stemmed = [f"Positif : {sentiment_count_encoded.get(1,0)} sampel",
+                                            f"Netral  : {sentiment_count_encoded.get(0,0)} sampel",
+                                            f"Negatif : {sentiment_count_encoded.get(-1,0)} sampel"]
+
+                    # Contoh sebelum & sesudah encoding
+                    comparison_samples_encoded = []
+                    for i in range(min(5, len(data_encoded))):
+                        comparison_samples_encoded.append({
+                            "Tweet": data_stemmed.iloc[i]['Tweet'],
+                            "Sentimen": data_stemmed.iloc[i]['Sentimen'],
+                            "Encoded": data_encoded.iloc[i]['Label_Encoded']
+                        })
 
                     # **📊 Informasi Dataset**
                     data_shape_encoded = data_encoded.shape
@@ -2047,10 +2215,20 @@ def preprocessing():
                     chart_path_encoded = os.path.join(app.config['STATIC_FOLDER'], 'tweet_6_label_distribution_encoded.png')
                     if not os.path.exists(chart_path_encoded):
                         plt.figure(figsize=(16, 9))
-                        data_encoded['Label_Encoded'].value_counts().plot(kind='bar', color='orange', edgecolor='black', title='Distribusi Label Encoding')
+
+                        # Ambil distribusi label dan pastikan urutan -1, 0, 1 tetap konsisten
+                        label_counts_encoded = data_encoded['Label_Encoded'].value_counts().reindex([-1, 0, 1], fill_value=0)
+
+                        # Plot diagram batang dengan warna lebih jelas
+                        label_counts_encoded.plot(kind='bar', color='orange', edgecolor='black')
+
+                        # Sesuaikan label pada sumbu X agar sesuai dengan urutan yang benar
                         plt.xlabel('Kategori Label')
                         plt.ylabel('Frekuensi')
-                        plt.xticks(rotation=0)
+                        plt.title('Distribusi Label Encoding')
+                        plt.xticks(ticks=[0, 1, 2], labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"], rotation=0)
+
+                        # Simpan gambar
                         plt.savefig(chart_path_encoded, bbox_inches='tight', facecolor='white')
                         plt.close()
                         
@@ -2063,14 +2241,79 @@ def preprocessing():
         # **📌 7️⃣ Pembagian Data**
         if preprocessing_status.get("Pembagian"):
             try:
+                encoded_file = "dataset_6_encoded.csv"
                 train_file = "dataset_7_train.csv"
                 test_file = "dataset_8_test.csv"
                 train_path = os.path.join(PROCESSED_FOLDER, train_file)
                 test_path = os.path.join(PROCESSED_FOLDER, test_file)
+                encoded_path = os.path.join(app.config['PROCESSED_FOLDER'], encoded_file)
                 
-                if os.path.exists(train_path) and os.path.exists(test_path):
+                if not os.path.exists(train_path):
+                    flash("File hasil pembagian data train belum tersedia.", "danger")
+                elif not os.path.exists(test_path):
+                    flash("File hasil pembagian data test belum tersedia.", "danger")
+                elif not os.path.exists(encoded_path):
+                    flash("File hasil label encoding belum tersedia.", "danger")
+                else:
                     data_train = pd.read_csv(train_path)
                     data_test = pd.read_csv(test_path)
+                    data_encoded = pd.read_csv(encoded_path)
+                    
+                    # Hitung distribusi label dalam Training & Testing
+                    train_label_dist = data_train["Label_Encoded"].value_counts().to_dict()
+                    test_label_dist = data_test["Label_Encoded"].value_counts().to_dict()
+
+                    train_label_split = [
+                        f"-1 (Negatif): {train_label_dist.get(-1, 0)} sampel",
+                        f"0 (Netral): {train_label_dist.get(0, 0)} sampel",
+                        f"1 (Positif): {train_label_dist.get(1, 0)} sampel"
+                    ]
+
+                    test_label_split = [
+                        f"-1 (Negatif): {test_label_dist.get(-1, 0)} sampel",
+                        f"0 (Netral): {test_label_dist.get(0, 0)} sampel",
+                        f"1 (Positif): {test_label_dist.get(1, 0)} sampel"
+                    ]
+
+                    # Simpan path diagram
+                    chart_train_split = os.path.join(app.config['STATIC_FOLDER'], 'tweet_7_train_split_distribution.png')
+                    chart_test_split = os.path.join(app.config['STATIC_FOLDER'], 'tweet_7_test_split_distribution.png')
+                    print(f"📂 Path Train Split: {chart_train_split}")
+                    print(f"📂 Path Test Split: {chart_test_split}")
+
+                    # Plot distribusi sentimen di Training Set
+                    if not os.path.exists(chart_train_split):
+                        plt.figure(figsize=(16,9))
+                        data_train["Label_Encoded"].value_counts().reindex([-1, 0, 1], fill_value=0).plot(kind='bar', color='blue', edgecolor='black')
+                        plt.title("Distribusi Sentimen dalam Data Training")
+                        plt.xlabel("Kategori Sentimen")
+                        plt.ylabel("Jumlah Sampel")
+                        plt.xticks(ticks=[0, 1, 2], labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"], rotation=0)
+                        plt.savefig(chart_train_split, bbox_inches='tight', facecolor='white')
+                        plt.close()
+
+                    # Plot distribusi sentimen di Testing Set
+                    if not os.path.exists(chart_test_split):
+                        plt.figure(figsize=(16,9))
+                        data_test["Label_Encoded"].value_counts().reindex([-1, 0, 1], fill_value=0).plot(kind='bar', color='orange', edgecolor='black')
+                        plt.title("Distribusi Sentimen dalam Data Testing")
+                        plt.xlabel("Kategori Sentimen")
+                        plt.ylabel("Jumlah Sampel")
+                        plt.xticks(ticks=[0, 1, 2], labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"], rotation=0)
+                        plt.savefig(chart_test_split, bbox_inches='tight', facecolor='white')
+                        plt.close()
+
+                    # Buat dataframe untuk perbandingan jumlah data sebelum & sesudah pembagian
+                    comparison_df = pd.DataFrame({
+                        "Langkah": ["Sebelum Pembagian", "Data Training", "Data Testing"],
+                        "Jumlah Data": [len(data_encoded), len(data_train), len(data_test)],
+                        "Negatif": [sentiment_count_encoded.get(-1, 0), train_label_dist.get(-1, 0), test_label_dist.get(-1, 0)],
+                        "Netral": [sentiment_count_encoded.get(0, 0), train_label_dist.get(0, 0), test_label_dist.get(0, 0)],
+                        "Positif": [sentiment_count_encoded.get(1, 0), train_label_dist.get(1, 0), test_label_dist.get(1, 0)]
+                    })
+
+                    # Tampilkan dalam bentuk HTML table
+                    comparison_split = comparison_df.to_html(classes='table table-striped', index=False)
 
                     # Informasi dataset
                     data_shape_train = data_train.shape
@@ -2110,17 +2353,15 @@ def preprocessing():
                     download_link_train = url_for('download_file', filename=train_file)
                     download_link_test = url_for('download_file', filename=test_file)
                     
-                else:
-                    flash("File hasil pembagian data belum tersedia.", "danger")
-                    
             except Exception as e:
                 flash(f"❌ Kesalahan pada Pembagian Data: {e}", "danger")
-                
+
         return render_template(
             'pre_processing.html',
             title="Pra-Pemrosesan Data",
+            data_shape_raw=data_shape_raw,
             # Pembersihan Data
-            dataset_uploaded=os.path.exists(dataset_path),
+            dataset_uploaded=os.path.exists(raw_path),
             preprocessing_status=preprocessing_status,
             preprocessing_files=preprocessing_files,
             data_shape_cleaned=data_shape_cleaned,
@@ -2128,10 +2369,16 @@ def preprocessing():
             data_description_cleaned=data_description_cleaned,
             duplicate_count_cleaned=duplicate_count_cleaned,
             null_count_cleaned=null_count_cleaned,
+            cleaning_methods=cleaning_methods,
+            comparison_table_cleaned=comparison_table_cleaned,
+            comparison_samples_cleaned=comparison_samples_cleaned,
             chart_path_cleaned=url_for('static', filename='img/tweet_1_length_distribution_cleaned.png'),
             wordcloud_path_cleaned=url_for('static', filename='img/tweet_1_wordcloud_cleaned.png'),
             download_link_cleaned=download_link_cleaned,
             # Normalisasi Data
+            data_count_cleaned=data_count_cleaned,
+            data_count_normalized=data_count_normalized,
+            comparison_samples_normalized=comparison_samples_normalized,
             data_shape_normalized=data_shape_normalized,
             data_head_normalized=data_head_normalized,
             data_description_normalized=data_description_normalized,
@@ -2139,6 +2386,8 @@ def preprocessing():
             wordcloud_path_normalized=url_for('static', filename='img/tweet_2_wordcloud_normalized.png'),
             download_link_normalized=download_link_normalized,
             # Tokenisasi Data
+            data_count_tokenized=data_count_tokenized,
+            comparison_samples_tokenized=comparison_samples_tokenized,
             data_shape_tokenized=data_shape_tokenized,
             data_head_tokenized=data_head_tokenized,
             data_description_tokenized=data_description_tokenized,
@@ -2146,6 +2395,9 @@ def preprocessing():
             wordcloud_path_tokenized=url_for('static', filename='img/tweet_3_wordcloud_tokenized.png'),
             download_link_tokenized=download_link_tokenized,
             # No Stopwords Data
+            data_count_no_stopwords=data_count_no_stopwords,
+            total_no_stopwords=total_no_stopwords,
+            comparison_samples_no_stopwords=comparison_samples_no_stopwords,
             data_shape_no_stopwords=data_shape_no_stopwords,
             data_head_no_stopwords=data_head_no_stopwords,
             data_description_no_stopwords=data_description_no_stopwords,
@@ -2153,6 +2405,9 @@ def preprocessing():
             wordcloud_path_no_stopwords=url_for('static', filename='img/tweet_4_wordcloud_no_stopwords.png'),
             download_link_no_stopwords=download_link_no_stopwords,
             # Stemming Data
+            data_count_stemmed=data_count_stemmed,
+            total_stemmed=total_stemmed,
+            comparison_samples_stemmed=comparison_samples_stemmed,
             data_shape_stemmed=data_shape_stemmed,
             data_head_stemmed=data_head_stemmed,
             data_description_stemmed=data_description_stemmed,
@@ -2160,6 +2415,9 @@ def preprocessing():
             wordcloud_path_stemmed=url_for('static', filename='img/tweet_5_wordcloud_stemmed.png'),
             download_link_stemmed=download_link_stemmed,
             # Label Encoding Data
+            sentiment_encoded=sentiment_encoded,
+            sentiment_stemmed=sentiment_stemmed,
+            comparison_samples_encoded=comparison_samples_encoded,
             data_shape_encoded=data_shape_encoded,
             data_head_encoded=data_head_encoded,
             data_description_encoded=data_description_encoded,
@@ -2168,6 +2426,11 @@ def preprocessing():
             # Pembagian Data
             train_file=train_file,
             test_file=test_file,
+            train_label_split=train_label_split,
+            test_label_split=test_label_split,
+            comparison_split=comparison_split,
+            chart_train_split=url_for('static', filename='img/tweet_7_train_split_distribution.png'),
+            chart_test_split=url_for('static', filename='img/tweet_7_test_split_distribution.png'),
             data_shape_train=data_shape_train,
             data_shape_test=data_shape_test,
             data_head_train=data_head_train,
@@ -2187,38 +2450,56 @@ def preprocessing():
             'pre_processing.html', 
             preprocessing_status={}, 
             preprocessing_files={},
+            data_shape_raw=None,
             data_shape_cleaned=None,
             data_head_cleaned=None,
             data_description_cleaned=None,
             duplicate_count_cleaned=None,
             null_count_cleaned=None,
+            cleaning_methods=None,
+            comparison_table_cleaned=None,
+            comparison_samples_cleaned=None,
             chart_path_cleaned=None,
             wordcloud_path_cleaned=None,
             download_link_cleaned=None,
+            data_count_cleaned=None,
+            data_count_normalized=None,
+            comparison_samples_normalized=None,
             data_shape_normalized=None,
             data_head_normalized=None,
             data_description_normalized=None,
             chart_path_normalized=None,
             wordcloud_path_normalized=None,
             download_link_normalized=None,
+            data_count_tokenized=None,
+            comparison_samples_tokenized=None,
             data_shape_tokenized=None,
             data_head_tokenized=None,
             data_description_tokenized=None,
             chart_path_tokenized=None,
             wordcloud_path_tokenized=None,
             download_link_tokenized=None,
+            data_count_no_stopwords=None,
+            total_no_stopwords=None,
+            comparison_samples_no_stopwords=None,
             data_shape_no_stopwords=None,
             data_head_no_stopwords=None,
             data_description_no_stopwords=None,
             chart_path_no_stopwords=None,
             wordcloud_path_no_stopwords=None,
             download_link_no_stopwords=None,
+            data_count_stemmed=None,
+            total_stemmed=None,
+            comparison_samples_stemmed=None,
             data_shape_stemmed=None,
             data_head_stemmed=None,
             data_description_stemmed=None,
             chart_path_stemmed=None,
             wordcloud_path_stemmed=None,
             download_link_stemmed=None,
+            sentiment_encoded=None,
+            sentiment_stemmed=None,
+            comparison_samples_encoded=None,
             data_shape_encoded=None,
             data_head_encoded=None,
             data_description_encoded=None,
@@ -2226,6 +2507,11 @@ def preprocessing():
             download_link_encoded=None,
             train_file=None,
             test_file=None,
+            train_label_split=None,
+            test_label_split=None,
+            comparison_split=None,
+            chart_train_split=None,
+            chart_test_split=None,
             data_shape_train=None,
             data_shape_test=None,
             data_head_train=None,
@@ -2242,10 +2528,10 @@ def preprocessing():
 # Fungsi utama untuk melakukan pra-pemrosesan
 @app.route('/start-preprocessing', methods=['POST'])
 def start_preprocessing():
-    uploaded_filename = "dataset_0_raw.csv"
-    dataset_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_filename)
+    raw_file = "dataset_0_raw.csv"
+    raw_path = os.path.join(app.config['UPLOAD_FOLDER'], raw_file)
     
-    if not os.path.exists(dataset_path):
+    if not os.path.exists(raw_path):
         return jsonify({"success": False, "message": "Dataset belum diunggah."})
 
     try:
@@ -2253,7 +2539,7 @@ def start_preprocessing():
         try:
             print("🚀 Memulai Pembersihan Data...")
             # (Proses normalisasi)
-            data = pd.read_csv(dataset_path)
+            data = pd.read_csv(raw_path)
             if 'Tweet' not in data.columns:
                 return jsonify({"success": False, "message": "Kolom 'Tweet' tidak ditemukan dalam dataset!"})
 

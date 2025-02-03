@@ -317,8 +317,8 @@
 								</div>
 								<h3 class="card-title">Pembagian</h3>
 								<p class="card-text text-muted">
-									{{ train_file if
-									preprocessing_status['Pembagian'] else "Tidak ada file" }}
+									{{ train_file if preprocessing_status['Pembagian'] else "Tidak ada file" }}
+									{{ test_file if preprocessing_status['Pembagian'] else "Tidak ada file" }}
 								</p>
 								<span
 									class="badge bg-{{ 'success' if preprocessing_status['Pembagian'] else 'danger' }}">
@@ -343,25 +343,80 @@
 				<div class="card">
 					<h5 class="card-header">Pembersihan Data</h5>
 					<div class="card-body">
-						<!-- Informasi Dataset -->
-						<div class="card-title fw-bold fs-5 text-primary mb-1">
-							Informasi Dataset
+						<div class="row">
+							<!-- Informasi Dataset -->
+							<div class="col-12 col-md-6">
+								<div class="card-title fw-bold fs-5 text-primary mb-1">
+									Informasi Dataset
+								</div>
+								<ul class="list-group ms-3">
+									<li>
+										<strong>Nama File Sebelum Pembersihan:</strong>
+										dataset_0_raw.csv
+									</li>
+									<li>
+										<strong>Nama File Setelah Pembersihan:</strong> 
+										{{ preprocessing_files['Pembersihan'] }}
+									</li>
+									<li>
+										<strong>Dimensi Dataset Sebelum Pembersihan:</strong>
+										{{ data_shape_raw if data_shape_raw else "Tidak tersedia" }}
+									</li>
+									<li>
+										<strong>Dimensi Dataset Setelah Pembersihan:</strong>
+										{{ data_shape_cleaned }}
+									</li>
+									<li><strong>Dimensi Dataset:</strong> {{ data_shape_cleaned }}</li>
+									<li><strong>Jumlah Duplikat:</strong> {{ duplicate_count_cleaned }}</li>
+									<li><strong>Jumlah Nilai Kosong:</strong> {{ null_count_cleaned }}</li>
+								</ul>
+							</div>
+							<!-- Metode Pembersihan -->
+							<div class="col-12 col-md-6">
+								<div class="card-title fw-bold fs-5 text-primary mb-1">
+									Metode Pembersihan yang Digunakan
+								</div>
+								<ul class="list-group ms-3">
+									{% for method in cleaning_methods %}
+											<li>{{ method }}</li>
+									{% endfor %}
+								</ul>
+							</div>
 						</div>
-						<ul class="list-group ms-3">
-							<li>
-								<strong>Nama File:</strong> {{
-								preprocessing_files['Pembersihan'] }}
-							</li>
-							<li><strong>Dimensi Dataset:</strong> {{ data_shape_cleaned }}</li>
-							<li><strong>Jumlah Duplikat:</strong> {{ duplicate_count_cleaned }}</li>
-							<li><strong>Jumlah Nilai Kosong:</strong> {{ null_count_cleaned }}</li>
-						</ul>
 						<hr />
 						<!-- Menampilkan Data -->
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							5 Data Teratas
 						</div>
 						<div class="table table-responsive">{{ data_head_cleaned | safe }}</div>
+						<hr />
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+							Contoh Data Sebelum dan Sesudah Pembersihan
+						</div>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Sebelum Pembersihan</th>
+									<th>Sesudah Pembersihan</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for sample in comparison_samples_cleaned %}
+								<tr>
+									<td>{{ sample["Sebelum"] }}</td>
+									<td>{{ sample["Sesudah"] }}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+						<hr />
+						<!-- Perbandingan Sebelum & Sesudah Pembersihan -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">
+								Perbandingan Sebelum dan Sesudah Pembersihan
+						</div>
+						<div class="table table-responsive">
+								{{ comparison_table_cleaned | safe }}
+						</div>
 						<hr />
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							Statistik Deskriptif
@@ -371,7 +426,7 @@
 						</div>
 						<hr />
 						<div class="row">
-							<div class="col-12 col-lg-6">
+							<div class="col-12 col-lg-6 text-center">
 								<!-- Visualisasi Distribusi Panjang Tweet -->
 								<div class="card-title fw-bold fs-5 text-primary mb-1">
 									Distribusi Panjang Cleaned Tweet
@@ -383,7 +438,7 @@
 									draggable="false"
 									height="200" />
 							</div>
-							<div class="col-12 col-lg-6">
+							<div class="col-12 col-lg-6 text-center">
 								<!-- Visualisasi WordCloud Tweet -->
 								<div class="card-title fw-bold fs-5 text-primary mb-1">
 									WordCloud Tweet
@@ -433,18 +488,25 @@
 					<h5 class="card-header">Normalisasi Data</h5>
 					<div class="card-body">
 						<!-- Informasi Dataset -->
-						<div class="card-title fw-bold fs-5 text-primary mb-1">
-							Informasi Dataset
+            <div class="row">
+								<div class="col-12 col-md-6">
+									<div class="card-title fw-bold fs-5 text-primary mb-1">Informasi Dataset</div>
+									<ul class="list-group ms-3">
+										<li><strong>Nama File Sebelum Normalisasi:</strong> {{ preprocessing_files['Pembersihan'] }}</li>
+										<li><strong>Nama File Setelah Normalisasi:</strong> {{ preprocessing_files['Normalisasi'] }}</li>
+										<li><strong>Dimensi Dataset:</strong> {{ data_shape_normalized }}</li>
+									</ul>
+							</div>
+							<!-- Metode Pembersihan -->
+							<div class="col-12 col-md-6">
+									<div class="card-title fw-bold fs-5 text-primary mb-1">Metode Normalisasi yang Digunakan</div>
+									<ul class="list-group ms-3">
+											<li>Mengubah semua teks menjadi huruf kecil (lowercase)</li>
+											<li>Menghapus karakter selain huruf (A-Z, a-z) dan spasi</li>
+											<li>Menghapus spasi berlebihan</li>
+									</ul>
+							</div>
 						</div>
-						<ul class="list-group ms-3">
-							<li>
-								<strong>Nama File:</strong> {{
-								preprocessing_files['Normalisasi'] }}
-							</li>
-							<li>
-								<strong>Dimensi Dataset:</strong> {{ data_shape_normalized }}
-							</li>
-						</ul>
 						<hr />
 						<!-- Menampilkan Data -->
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
@@ -454,6 +516,46 @@
 							{{ data_head_normalized | safe }}
 						</div>
 						<hr />
+						<!-- Contoh Sebelum dan Sesudah Normalisasi -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Contoh Data Sebelum dan Sesudah Normalisasi</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">Sebelum Normalisasi</th>
+                        <th class="text-center">Sesudah Normalisasi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sample in comparison_samples_normalized %}
+                    <tr>
+                        <td>{{ sample["Sebelum"] }}</td>
+                        <td>{{ sample["Sesudah"] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr />
+						<!-- Perbandingan Sebelum dan Sesudah Normalisasi -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Dampak Normalisasi</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Langkah</th>
+                        <th>Jumlah Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sebelum Normalisasi</td>
+                        <td>{{ data_count_cleaned }}</td>
+                    </tr>
+                    <tr>
+                        <td>Setelah Normalisasi</td>
+                        <td>{{ data_count_normalized }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							Statistik Deskriptif
 						</div>
@@ -462,7 +564,7 @@
 						</div>
 						<hr />
 						<div class="row">
-							<div class="col-12 col-lg-6">
+							<div class="col-12 col-lg-6 text-center">
 								<!-- Visualisasi Distribusi Panjang Tweet Setelah Normalisasi -->
 								<div class="card-title fw-bold fs-5 text-primary mb-1">
 									Distribusi Panjang Tweet Setelah Normalisasi
@@ -473,7 +575,7 @@
 									class="img-fluid"
 									draggable="false" />
 							</div>
-							<div class="col-12 col-lg-6">
+							<div class="col-12 col-lg-6 text-center">
 								<!-- Visualisasi WordCloud Setelah Normalisasi -->
 								<div class="card-title fw-bold fs-5 text-primary mb-1">
 									WordCloud Tweet Setelah Normalisasi
@@ -520,19 +622,29 @@
 				<div class="card">
 					<h5 class="card-header">Tokenisasi Data</h5>
 					<div class="card-body">
-						<!-- Informasi Dataset -->
-						<div class="card-title fw-bold fs-5 text-primary mb-1">
-							Informasi Dataset
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<!-- Informasi Dataset -->
+								<div class="card-title fw-bold fs-5 text-primary mb-1">
+									Informasi Dataset
+								</div>
+								<ul class="list-group ms-3">
+									<li><strong>Nama File Sebelum Tokenisasi:</strong> {{ preprocessing_files['Normalisasi'] }}</li>
+									<li><strong>Nama File Setelah Tokenisasi:</strong> {{ preprocessing_files['Tokenisasi'] }}</li>
+									<li>
+										<strong>Dimensi Dataset:</strong> {{ data_shape_tokenized }}
+									</li>
+								</ul>
+							</div>
+							<div class="col-12 col-md-6">
+								<div class="card-title fw-bold fs-5 text-primary mb-1">Metode Tokenisasi yang Digunakan</div>
+								<ul class="list-group ms-3">
+										<li>Memecah teks menjadi kata-kata menggunakan <code>word_tokenize()</code> dari NLTK</li>
+										<li>Menggunakan metode tokenisasi berbasis aturan untuk menangani bahasa alami</li>
+										<li>Memisahkan kata berdasarkan spasi dan tanda baca</li>
+								</ul>
+							</div>
 						</div>
-						<ul class="list-group ms-3">
-							<li>
-								<strong>Nama File:</strong> {{ preprocessing_files['Tokenisasi']
-								}}
-							</li>
-							<li>
-								<strong>Dimensi Dataset:</strong> {{ data_shape_tokenized }}
-							</li>
-						</ul>
 						<hr />
 						<!-- Menampilkan Data -->
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
@@ -541,6 +653,46 @@
 						<div class="table table-responsive">
 							{{ data_head_tokenized | safe }}
 						</div>
+						<hr>
+						<!-- Contoh Sebelum dan Sesudah Tokenisasi -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">Contoh Data Sebelum dan Sesudah Tokenisasi</div>
+						<table class="table table-striped">
+								<thead>
+										<tr>
+												<th class="text-center">Sebelum Tokenisasi</th>
+												<th class="text-center">Sesudah Tokenisasi</th>
+										</tr>
+								</thead>
+								<tbody>
+										{% for sample in comparison_samples_tokenized %}
+										<tr>
+												<td>{{ sample["Sebelum"] }}</td>
+												<td>{{ sample["Sesudah"] }}</td>
+										</tr>
+										{% endfor %}
+								</tbody>
+						</table>
+						<hr>
+						<!-- Perbandingan Sebelum dan Sesudah Tokenisasi -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Dampak Tokenisasi</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Langkah</th>
+                        <th>Jumlah Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sebelum Tokenisasi</td>
+                        <td>{{ data_count_normalized }}</td>
+                    </tr>
+                    <tr>
+                        <td>Setelah Tokenisasi</td>
+                        <td>{{ data_count_tokenized }}</td>
+                    </tr>
+                </tbody>
+            </table>
 						<hr />
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							Statistik Deskriptif
@@ -611,18 +763,26 @@
 				<div class="card">
 					<h5 class="card-header">Penghapusan Stopwords</h5>
 					<div class="card-body">
-						<!-- Informasi Dataset -->
-						<div class="card-title fw-bold fs-5 text-primary mb-1">
-							Informasi Dataset
-						</div>
-						<ul class="list-group ms-3">
-							<li>
-								<strong>Nama File:</strong> {{ preprocessing_files['No Stopwords'] }}
-							</li>
-							<li>
-								<strong>Dimensi Dataset:</strong> {{ data_shape_no_stopwords }}
-							</li>
-						</ul>
+            <div class="row">
+							<!-- Informasi Dataset -->
+							<div class="col-12 col-md-6">
+									<div class="card-title fw-bold fs-5 text-primary mb-1">Informasi Dataset</div>
+									<ul class="list-group ms-3">
+											<li><strong>Nama File Sebelum:</strong> {{ preprocessing_files['Tokenisasi'] }}</li>
+											<li><strong>Nama File Setelah:</strong> {{ preprocessing_files['No Stopwords'] }}</li>
+											<li><strong>Dimensi Dataset:</strong> {{ data_shape_no_stopwords }}</li>
+									</ul>
+							</div>
+							<!-- Metode Penghapusan Stopwords -->
+							<div class="col-12 col-md-6">
+									<div class="card-title fw-bold fs-5 text-primary mb-1">Metode Penghapusan Stopwords</div>
+									<ul class="list-group ms-3">
+											<li>Menggunakan daftar stopwords dari NLTK</li>
+											<li>Menggunakan daftar stopwords tambahan secara manual</li>
+											<li>Menggunakan stopwords dari file <code>stopwordbahasa.csv</code></li>
+									</ul>
+							</div>
+            </div>
 						<hr />
 						<!-- Menampilkan Data -->
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
@@ -632,6 +792,50 @@
 							{{ data_head_no_stopwords | safe }}
 						</div>
 						<hr />
+            <!-- Contoh Sebelum dan Sesudah Penghapusan Stopwords -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Contoh Data Sebelum dan Sesudah Penghapusan Stopwords</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">Sebelum Penghapusan Stopwords</th>
+                        <th class="text-center">Sesudah Penghapusan Stopwords</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sample in comparison_samples_no_stopwords %}
+                    <tr>
+                        <td>{{ sample["Sebelum"] }}</td>
+                        <td>{{ sample["Sesudah"] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+            <!-- Dampak Penghapusan Stopwords -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Dampak Penghapusan Stopwords</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Langkah</th>
+                        <th>Jumlah Kata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sebelum Penghapusan Stopwords</td>
+                        <td>{{ data_count_tokenized }}</td>
+                    </tr>
+                    <tr>
+                        <td>Setelah Penghapusan Stopwords</td>
+                        <td>{{ data_count_no_stopwords }}</td>
+                    </tr>
+                    <tr>
+                        <td>Stopwords yang Dihapus</td>
+                        <td>{{ total_no_stopwords }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							Statistik Deskriptif
 						</div>
@@ -701,19 +905,27 @@
 				<div class="card">
 					<h5 class="card-header">Stemming Data</h5>
 					<div class="card-body">
-						<!-- Informasi Dataset -->
-						<div class="card-title fw-bold fs-5 text-primary mb-1">
-							Informasi Dataset
-						</div>
-						<ul class="list-group ms-3">
-							<li>
-								<strong>Nama File:</strong> {{ preprocessing_files['Stemming']
-								}}
-							</li>
-							<li>
-								<strong>Dimensi Dataset:</strong> {{ data_shape_stemmed }}
-							</li>
-						</ul>
+            <div class="row">
+							<!-- Informasi Dataset -->
+							<div class="col-12 col-md-6">
+								<div class="card-title fw-bold fs-5 text-primary mb-1">
+										Informasi Dataset
+								</div>
+								<ul class="list-group ms-3">
+										<li><strong>Nama File Sebelum Stemming:</strong> {{ preprocessing_files['No Stopwords'] }}</li>
+										<li><strong>Nama File Setelah Stemming:</strong> {{ preprocessing_files['Stemming'] }}</li>
+										<li><strong>Dimensi Dataset:</strong> {{ data_shape_stemmed }}</li>
+								</ul>
+							</div>
+							<!-- Metode Stemming -->
+							<div class="col-12 col-md-6">
+								<div class="card-title fw-bold fs-5 text-primary mb-1">Metode Stemming yang Digunakan</div>
+								<ul class="list-group ms-3">
+										<li>Menggunakan <code>Sastrawi Stemmer</code> untuk mengubah kata ke bentuk dasar</li>
+										<li>Proses dilakukan pada setiap token dalam kolom <code>Tokenized</code></li>
+								</ul>
+							</div>
+            </div>
 						<hr />
 						<!-- Menampilkan Data -->
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
@@ -723,6 +935,56 @@
 							{{ data_head_stemmed | safe }}
 						</div>
 						<hr />
+            <!-- Contoh Sebelum dan Sesudah Stemming -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Contoh Data Sebelum dan Sesudah Stemming</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">Sebelum Stemming</th>
+                        <th class="text-center">Sesudah Stemming</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sample in comparison_samples_stemmed %}
+                    <tr>
+                        <td>{{ sample["Sebelum"] }}</td>
+                        <td>{{ sample["Sesudah"] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+						<p class="text-muted">
+							Pada tahap stemming, tidak terdapat perubahan kata yang signifikan karena kata-kata dalam dataset sudah berada dalam bentuk dasar.
+						</p>
+            <hr>
+            <!-- Dampak Stemming -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Dampak Stemming</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Langkah</th>
+                        <th>Jumlah Kata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sebelum Stemming</td>
+                        <td>{{ data_count_no_stopwords }}</td>
+                    </tr>
+                    <tr>
+                        <td>Setelah Stemming</td>
+                        <td>{{ data_count_stemmed }}</td>
+                    </tr>
+                    <tr>
+                        <td>Kata yang Berubah</td>
+                        <td>{{ total_stemmed }}</td>
+                    </tr>
+                </tbody>
+            </table>
+						<p class="text-muted">
+							Hasil stemming menunjukkan bahwa jumlah kata dalam dataset tetap sama, menunjukkan bahwa kata-kata telah berada dalam bentuk dasar sejak tahap sebelumnya.
+						</p>
+            <hr />
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							Statistik Deskriptif
 						</div>
@@ -792,19 +1054,62 @@
 				<div class="card">
 					<h5 class="card-header">Label Encoding</h5>
 					<div class="card-body">
-						<!-- Informasi Dataset -->
-						<div class="card-title fw-bold fs-5 text-primary mb-1">
-							Informasi Dataset
+						<div class="row">
+							<!-- Informasi Dataset -->
+                <div class="col-12 col-md-6">
+                    <div class="card-title fw-bold fs-5 text-primary mb-1">
+                        Informasi Dataset
+                    </div>
+                    <ul class="list-group ms-3">
+                        <li><strong>Nama File Sebelum Encoding:</strong> {{ preprocessing_files['Stemming'] }}</li>
+                        <li><strong>Nama File Setelah Encoding:</strong> {{ preprocessing_files['Label Encoding'] }}</li>
+                        <li><strong>Dimensi Dataset:</strong> {{ data_shape_encoded }}</li>
+                    </ul>
+                </div>
+								<!-- Metode Label Encoding -->
+                <div class="col-12 col-md-6">
+                    <div class="card-title fw-bold fs-5 text-primary mb-1">Metode Label Encoding</div>
+                    <ul class="list-group ms-3">
+                        <li>Konversi kategori sentimen ke format numerik</li>
+                        <li>Mapping sentimen:</li>
+                    </ul>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Sentimen</th>
+                                <th>Label Encoding</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Positif</td><td>1</td></tr>
+                            <tr><td>Netral</td><td>0</td></tr>
+                            <tr><td>Negatif</td><td>-1</td></tr>
+                        </tbody>
+                    </table>
+                </div>
 						</div>
-						<ul class="list-group ms-3">
-							<li>
-								<strong>Nama File:</strong> {{ preprocessing_files['Label Encoding'] }}
-							</li>
-							<li>
-								<strong>Dimensi Dataset:</strong> {{ data_shape_encoded }}
-							</li>
-						</ul>
 						<hr />
+						<!-- Contoh Sebelum & Sesudah Encoding -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Contoh Sebelum & Sesudah Label Encoding</div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">Tweet</th>
+                        <th class="text-center">Sentimen</th>
+                        <th class="text-center">Label_Encoded</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sample in comparison_samples_encoded %}
+                    <tr>
+                        <td>{{ sample["Tweet"] }}</td>
+                        <td>{{ sample["Sentimen"] }}</td>
+                        <td>{{ sample["Encoded"] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+						<hr>
 						<!-- Menampilkan Data -->
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							5 Data Teratas
@@ -822,10 +1127,14 @@
 						<hr />
 						<div class="row">
 							<div class="col-12">
-								<!-- Visualisasi Distribusi Label Encoding -->
-								<div class="card-title fw-bold fs-5 text-primary mb-1">
-									Distribusi Label Encoding
-								</div>
+								<!-- Distribusi Label Sentimen -->
+								<div class="card-title fw-bold fs-5 text-primary mb-1">Distribusi Label Sentimen</div>
+								<ul>
+									<li>-1 (Negatif): {{ sentiment_encoded[-1] }}</li>
+									<li>0 (Netral): {{ sentiment_encoded[0] }}</li>
+									<li>1 (Positif): {{ sentiment_encoded[1] }}</li>
+								</ul>
+							
 								<img
 									src="{{ chart_path_encoded }}"
 									alt="Distribusi Label Encoding"
@@ -889,29 +1198,84 @@
 							</li>
 						</ul>
 						<hr />
+						<!-- Distribusi Label Sentimen Train & Test -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">Distribusi Label Sentimen</div>
+						<div class="row">
+								<div class="col-12 col-md-6">
+										<div class="card-title fw-bold fs-6 text-secondary mb-1">Distribusi Sentimen dalam Data Train</div>
+										<ul>
+												{% for item in train_label_split %}
+												<li>{{ item }}</li>
+												{% endfor %}
+										</ul>
+								</div>
+
+								<div class="col-12 col-md-6">
+										<div class="card-title fw-bold fs-6 text-secondary mb-1">Distribusi Sentimen dalam Data Test</div>
+										<ul>
+												{% for item in test_label_split %}
+												<li>{{ item }}</li>
+												{% endfor %}
+										</ul>
+								</div>
+						</div>
+						<hr />
+
+						<!-- Tabel Perbandingan Sebelum & Sesudah Pembagian -->
+						<div class="card-title fw-bold fs-5 text-primary mb-1">Perbandingan Sebelum & Sesudah Pembagian Data</div>
+						<div class="table-responsive">
+								{{ comparison_split | safe }}
+						</div>
+						<hr />
+
+						<!-- Diagram Distribusi Sentimen Train & Test -->
+						<div class="row">
+								<div class="col-12 col-lg-6">
+										<div class="card-title fw-bold fs-6 text-secondary mb-1">Distribusi Sentimen dalam Data Train</div>
+										<img src="{{ chart_train_split }}" alt="Distribusi Sentimen Train" class="img-fluid" draggable="false" />
+								</div>
+								<div class="col-12 col-lg-6">
+										<div class="card-title fw-bold fs-6 text-secondary mb-1">Distribusi Sentimen dalam Data Test</div>
+										<img src="{{ chart_test_split }}" alt="Distribusi Sentimen Test" class="img-fluid" draggable="false" />
+								</div>
+						</div>
+						<hr />
+
 						<!-- Menampilkan Data -->
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							5 Data Teratas Data Train & Test
 						</div>
-						<div class="table table-responsive">
-							<span>Data Train</span>
-							{{ data_head_train | safe }}
-						</div><br />
-						<div class="table table-responsive">
-							<span>Data Test</span>
-							{{ data_head_test | safe }}
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<div class="table table-responsive">
+									<span>Data Train</span>
+									{{ data_head_train | safe }}
+								</div>
+							</div>
+							<div class="col-12 col-md-6">
+								<div class="table table-responsive">
+									<span>Data Test</span>
+									{{ data_head_test | safe }}
+								</div>
+							</div>
 						</div>
 						<hr />
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							Statistik Deskriptif Data Train & Test
 						</div>
-						<div class="table table-responsive">
-							<span>Data Train</span>
-							{{ data_description_train | safe }}
-						</div><br>
-						<div class="table table-responsive">
-							<span>Data Test</span>
-							{{ data_description_test | safe }}
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<div class="table table-responsive">
+									<span>Data Train</span>
+									{{ data_description_train | safe }}
+								</div>
+							</div>
+							<div class="col-12 col-md-6">
+								<div class="table table-responsive">
+									<span>Data Test</span>
+									{{ data_description_test | safe }}
+								</div>
+							</div>
 						</div>
 						<hr />
 						<div class="row">
