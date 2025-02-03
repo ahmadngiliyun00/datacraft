@@ -136,7 +136,7 @@ def download_file(filename):
         download_dir = os.path.join(os.getcwd(), "data", "modeled")
     else:
         flash("File tidak valid untuk diunduh.", "danger")
-        return redirect(url_for('clean_dataset'))
+        return redirect(url_for('/'))
 
     try:
         return send_from_directory(download_dir, filename, as_attachment=True)

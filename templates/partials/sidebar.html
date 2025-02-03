@@ -56,62 +56,6 @@
 			</a>
 		</li>
 
-		<!-- Pra-Pemrosesan -->
-		<li class="menu-item {% if url_for('clean_dataset') in request.path or url_for('normalize_dataset') in request.path or url_for('tokenize_dataset') in request.path or url_for('remove_stopwords') in request.path or url_for('stemming_dataset') in request.path or url_for('label_dataset') in request.path or url_for('label_encode') in request.path or url_for('feature_representation_bow') in request.path or url_for('split_dataset') in request.path %}active open{% endif %}">
-			<a href="javascript:void(0);" class="menu-link menu-toggle">
-				<i class="menu-icon tf-icons bx bx-wrench"></i>
-				<div data-i18n="Pra-Pemrosesan">Pra-Pemrosesan</div>
-			</a>
-
-			<ul class="menu-sub">
-				<li class="menu-item {% if request.path == url_for('clean_dataset') %}active{% endif %}">
-					<a href="{{ url_for('clean_dataset') }}" class="menu-link">
-						<div data-i18n="Pembersihdan Data">Pembersihdan Data</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('normalize_dataset') %}active{% endif %}">
-					<a href="{{ url_for('normalize_dataset') }}" class="menu-link">
-						<div data-i18n="Normalisasi Data">Normalisasi Data</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('tokenize_dataset') %}active{% endif %}">
-					<a href="{{ url_for('tokenize_dataset') }}" class="menu-link">
-						<div data-i18n="Tokenisasi Data">Tokenisasi Data</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('remove_stopwords') %}active{% endif %}">
-					<a href="{{ url_for('remove_stopwords') }}" class="menu-link">
-						<div data-i18n="Penghapusan Stopwords">Penghapusan Stopwords</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('stemming_dataset') %}active{% endif %}">
-					<a href="{{ url_for('stemming_dataset') }}" class="menu-link">
-						<div data-i18n="Stemming Data">Stemming Data</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('label_dataset') %}active{% endif %}">
-					<a href="{{ url_for('label_dataset') }}" class="menu-link">
-						<div data-i18n="Pelabelan Data">Pelabelan Data</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('label_encode') %}active{% endif %}">
-					<a href="{{ url_for('label_encode') }}" class="menu-link">
-						<div data-i18n="Label Encoding">Label Encoding</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('feature_representation_bow') %}active{% endif %}">
-					<a href="{{ url_for('feature_representation_bow') }}" class="menu-link">
-						<div data-i18n="Representasi Fitur">Representasi Fitur</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('split_dataset') %}active{% endif %}">
-					<a href="{{ url_for('split_dataset') }}" class="menu-link">
-						<div data-i18n="Pemisahan Data">Pemisahan Data</div>
-					</a>
-				</li>
-			</ul>
-		</li>
-
 		<!-- Pemodelan -->
 		<li class="menu-item {% if url_for('naive_bayes_model') in request.path or url_for('svm_model') in request.path or url_for('evaluation_model') in request.path or url_for('compare_model') in request.path %}active open{% endif %}">
 			<a href="javascript:void(0);" class="menu-link menu-toggle">
