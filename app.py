@@ -2278,8 +2278,6 @@ def preprocessing():
                     # Simpan path diagram
                     chart_train_split = os.path.join(app.config['STATIC_FOLDER'], 'tweet_7_train_split_distribution.png')
                     chart_test_split = os.path.join(app.config['STATIC_FOLDER'], 'tweet_7_test_split_distribution.png')
-                    print(f"📂 Path Train Split: {chart_train_split}")
-                    print(f"📂 Path Test Split: {chart_test_split}")
 
                     # Plot distribusi sentimen di Training Set
                     if not os.path.exists(chart_train_split):
