@@ -377,7 +377,7 @@
 									Metode Pembersihan yang Digunakan
 								</div>
 								<ul class="list-group ms-3">
-									{% for method in cleaning_methods %}
+									{% for method in cleaning_methods or [] %}
 											<li>{{ method }}</li>
 									{% endfor %}
 								</ul>

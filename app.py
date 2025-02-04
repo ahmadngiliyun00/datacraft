@@ -814,6 +814,18 @@ def preprocessing():
             "Label Encoding": "dataset_6_encoded.csv",
             "Pembagian": "dataset_7_train.csv",
         }
+        
+        # Cek apakah semua file hasil preprocessing ada dan tidak kosong
+        missing_files = []
+        for step, filename in processed_files.items():
+            file_path = os.path.join(PROCESSED_FOLDER, filename)
+            
+            # Cek apakah file ada dan tidak kosong
+            if not os.path.exists(file_path) or os.stat(file_path).st_size == 0:
+                missing_files.append(f"{step} ({filename})")
+
+        if missing_files:
+            flash(f"Belum melakukan proses pra-pemrosesan data. File yang belum tersedia: {', '.join(missing_files)}", "danger")
 
         # Cek apakah setiap file hasil preprocessing ada
         preprocessing_status = {}
@@ -841,13 +853,13 @@ def preprocessing():
         null_count_cleaned=None
         cleaning_methods=None
         comparison_table_cleaned=None
-        comparison_samples_cleaned=None
+        comparison_samples_cleaned=[]
         chart_path_cleaned=None
         wordcloud_path_cleaned=None
         download_link_cleaned=None
         data_count_cleaned=None
         data_count_normalized=None
-        comparison_samples_normalized=None
+        comparison_samples_normalized=[]
         data_shape_normalized=None
         data_head_normalized=None
         data_description_normalized=None
@@ -855,7 +867,7 @@ def preprocessing():
         wordcloud_path_normalized=None
         download_link_normalized=None
         data_count_tokenized=None
-        comparison_samples_tokenized=None
+        comparison_samples_tokenized=[]
         data_shape_tokenized=None
         data_head_tokenized=None
         data_description_tokenized=None
@@ -864,7 +876,7 @@ def preprocessing():
         download_link_tokenized=None
         data_count_no_stopwords=None
         total_no_stopwords=None
-        comparison_samples_no_stopwords=None
+        comparison_samples_no_stopwords=[]
         data_shape_no_stopwords=None
         data_head_no_stopwords=None
         data_description_no_stopwords=None
@@ -873,7 +885,7 @@ def preprocessing():
         download_link_no_stopwords=None
         data_count_stemmed=None
         total_stemmed=None
-        comparison_samples_stemmed=None
+        comparison_samples_stemmed=[]
         data_shape_stemmed=None
         data_head_stemmed=None
         data_description_stemmed=None
@@ -882,7 +894,8 @@ def preprocessing():
         download_link_stemmed=None
         sentiment_encoded=None
         sentiment_stemmed=None
-        comparison_samples_encoded=None
+        comparison_samples_encoded=[]
+        sentiment_count_encoded=[]
         data_shape_encoded=None
         data_head_encoded=None
         data_description_encoded=None
@@ -901,7 +914,7 @@ def preprocessing():
         data_head_test=None
         data_description_train=None
         data_description_test=None
-        data_distribution_split=None
+        data_distribution_split=[]
         chart_path_split=None
         download_link_train=None
         download_link_test=None
@@ -916,9 +929,9 @@ def preprocessing():
                 cleaned_file = "dataset_1_cleaned.csv"
                 cleaned_path = os.path.join(app.config['PROCESSED_FOLDER'], cleaned_file)
 
-                if not os.path.exists(cleaned_path):
+                if not os.path.exists(cleaned_path) and not os.stat(cleaned_path).st_size > 0:
                     flash("File hasil perbersihan data belum tersedia.", "danger")
-                elif not os.path.exists(raw_path):
+                elif not os.path.exists(raw_path) and not os.stat(raw_path).st_size > 0:
                     flash("File mentah belum tersedia.", "danger")
                 else:
                     data_cleaned = pd.read_csv(cleaned_path)
@@ -943,6 +956,9 @@ def preprocessing():
                         "Menghapus duplikat pada kolom 'Tweet'",
                         "Menghapus nilai kosong pada kolom 'Tweet'",
                     ]
+                    
+                    if cleaning_methods is None:
+                        cleaning_methods = []
 
                     # Perbandingan sebelum dan sesudah pembersihan
                     comparison_table_cleaned = f"""
@@ -978,7 +994,7 @@ def preprocessing():
                     chart_path_cleaned = os.path.join(app.config['STATIC_FOLDER'], 'tweet_1_length_distribution_cleaned.png')
                     if not os.path.exists(chart_path_cleaned):
                         plt.figure(figsize=(16, 9))
-                        data_cleaned['Cleaned_Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='blue', edgecolor='black', title='Distribusi Panjang Cleaned Tweet')
+                        data_cleaned['Tweet'].str.split().apply(len).plot(kind='hist', bins=30, color='blue', edgecolor='black', title='Distribusi Panjang Cleaned Tweet')
                         plt.xlabel('Jumlah Kata')
                         plt.ylabel('Frekuensi')
                         plt.savefig(chart_path_cleaned, bbox_inches='tight', facecolor='white')
@@ -987,7 +1003,7 @@ def preprocessing():
                     # **☁️ WordCloud**
                     wordcloud_path_cleaned = os.path.join(app.config['STATIC_FOLDER'], 'tweet_1_wordcloud_cleaned.png')
                     if not os.path.exists(wordcloud_path_cleaned):
-                        text = ' '.join(data_cleaned['Cleaned_Tweet'].dropna())
+                        text = ' '.join(data_cleaned['Tweet'].dropna())
                         wordcloud = WordCloud(width=1280, height=720, background_color='white').generate(text)
                         plt.figure(figsize=(16, 9))
                         plt.imshow(wordcloud, interpolation='bilinear')
@@ -1256,28 +1272,56 @@ def preprocessing():
                 encoded_path = os.path.join(app.config['PROCESSED_FOLDER'], encoded_file)
                 stemmed_path = os.path.join(app.config['PROCESSED_FOLDER'], stemmed_file)
 
-                if not os.path.exists(encoded_path):
+                # Pastikan file tersedia dan tidak kosong sebelum membaca
+                if not os.path.exists(encoded_path) or os.stat(encoded_path).st_size == 0:
                     flash("File hasil Label Encoding belum tersedia.", "danger")
-                elif not os.path.exists(stemmed_path):
-                    flash("File hasil stemming belum tersedia.", "danger")
+                    data_encoded = pd.DataFrame()  # Set sebagai DataFrame kosong
                 else:
-                    # Baca dataset hasil Label Encoding
                     data_encoded = pd.read_csv(encoded_path)
+
+                if not os.path.exists(stemmed_path) or os.stat(stemmed_path).st_size == 0:
+                    flash("File hasil Stemming belum tersedia.", "danger")
+                    data_stemmed = pd.DataFrame()  # Set sebagai DataFrame kosong
+                else:
                     data_stemmed = pd.read_csv(stemmed_path)
 
-                    # Distribusi Label Sentimen
+                # **🔹 Cek apakah data terbaca dengan benar**
+                if not isinstance(data_encoded, pd.DataFrame):
+                    flash("❌ Data hasil Label Encoding bukan DataFrame!", "danger")
+                    data_encoded = pd.DataFrame()
+
+                if not isinstance(data_stemmed, pd.DataFrame):
+                    flash("❌ Data hasil Stemming bukan DataFrame!", "danger")
+                    data_stemmed = pd.DataFrame()
+
+                # **🔹 Pastikan kolom yang dibutuhkan ada**
+                required_columns = ["Tweet", "Sentimen", "Label_Encoded"]
+                for col in required_columns:
+                    if col not in data_encoded.columns:
+                        flash(f"❌ Kolom '{col}' tidak ditemukan dalam dataset Label Encoding!", "danger")
+                        data_encoded = pd.DataFrame()
+                        break  # Hentikan eksekusi jika ada kolom yang hilang
+
+                # **📊 Distribusi Label Sentimen**
+                if not data_encoded.empty:
                     sentiment_count_encoded = data_encoded["Label_Encoded"].value_counts().to_dict()
                     sentiment_encoded = {
                         -1: sentiment_count_encoded.get(-1, 0),
                         0: sentiment_count_encoded.get(0, 0),
                         1: sentiment_count_encoded.get(1, 0)
                     }
-                    sentiment_stemmed = [f"Positif : {sentiment_count_encoded.get(1,0)} sampel",
-                                            f"Netral  : {sentiment_count_encoded.get(0,0)} sampel",
-                                            f"Negatif : {sentiment_count_encoded.get(-1,0)} sampel"]
+                    sentiment_stemmed = [
+                        f"Positif : {sentiment_count_encoded.get(1, 0)} sampel",
+                        f"Netral  : {sentiment_count_encoded.get(0, 0)} sampel",
+                        f"Negatif : {sentiment_count_encoded.get(-1, 0)} sampel"
+                    ]
+                else:
+                    sentiment_encoded = {}
+                    sentiment_stemmed = ["Data belum tersedia"]
 
-                    # Contoh sebelum & sesudah encoding
-                    comparison_samples_encoded = []
+                # **📌 Contoh sebelum & sesudah encoding**
+                comparison_samples_encoded = []
+                if not data_encoded.empty and not data_stemmed.empty:
                     for i in range(min(5, len(data_encoded))):
                         comparison_samples_encoded.append({
                             "Tweet": data_stemmed.iloc[i]['Tweet'],
@@ -1285,44 +1329,47 @@ def preprocessing():
                             "Encoded": data_encoded.iloc[i]['Label_Encoded']
                         })
 
-                    # **📊 Informasi Dataset**
-                    data_shape_encoded = data_encoded.shape
-                    data_head_encoded = data_encoded.head().to_html(classes='table table-striped', index=False)
-                    data_description_encoded = data_encoded.describe().round(2).to_html(classes='table table-striped')
+                # **📊 Informasi Dataset**
+                data_shape_encoded = data_encoded.shape if not data_encoded.empty else (0, 0)
+                data_head_encoded = data_encoded.head().to_html(classes='table table-striped', index=False) if not data_encoded.empty else "<p>Tidak ada data</p>"
+                data_description_encoded = data_encoded.describe().round(2).to_html(classes='table table-striped') if not data_encoded.empty else "<p>Tidak ada data statistik</p>"
 
-                    # **📊 Visualisasi: Distribusi Label Encoding**
-                    chart_path_encoded = os.path.join(app.config['STATIC_FOLDER'], 'tweet_6_label_distribution_encoded.png')
-                    if not os.path.exists(chart_path_encoded):
-                        plt.figure(figsize=(16, 9))
+                # **📊 Visualisasi: Distribusi Label Encoding**
+                chart_path_encoded = os.path.join(app.config['STATIC_FOLDER'], 'tweet_6_label_distribution_encoded.png')
+                if not data_encoded.empty:
+                    plt.figure(figsize=(16, 9))
 
-                        # Ambil distribusi label dan pastikan urutan -1, 0, 1 tetap konsisten
-                        label_counts_encoded = data_encoded['Label_Encoded'].value_counts().reindex([-1, 0, 1], fill_value=0)
+                    # Ambil distribusi label dan pastikan urutan -1, 0, 1 tetap konsisten
+                    label_counts_encoded = data_encoded['Label_Encoded'].value_counts().reindex([-1, 0, 1], fill_value=0)
 
-                        # Plot diagram batang dengan warna lebih jelas
-                        label_counts_encoded.plot(kind='bar', color='orange', edgecolor='black')
+                    # Plot diagram batang dengan warna lebih jelas
+                    label_counts_encoded.plot(kind='bar', color='orange', edgecolor='black')
 
-                        # Sesuaikan label pada sumbu X agar sesuai dengan urutan yang benar
-                        plt.xlabel('Kategori Label')
-                        plt.ylabel('Frekuensi')
-                        plt.title('Distribusi Label Encoding')
-                        plt.xticks(ticks=[0, 1, 2], labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"], rotation=0)
+                    # Sesuaikan label pada sumbu X agar sesuai dengan urutan yang benar
+                    plt.xlabel('Kategori Label')
+                    plt.ylabel('Frekuensi')
+                    plt.title('Distribusi Label Encoding')
+                    plt.xticks(ticks=[0, 1, 2], labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"], rotation=0)
 
-                        # Simpan gambar
-                        plt.savefig(chart_path_encoded, bbox_inches='tight', facecolor='white')
-                        plt.close()
-                        
-                    # **Download File**
-                    download_link_encoded=url_for('download_file', filename=encoded_file)
+                    # Simpan gambar
+                    plt.savefig(chart_path_encoded, bbox_inches='tight', facecolor='white')
+                    plt.close()
+                else:
+                    chart_path_encoded = None
+
+                # **Download File**
+                download_link_encoded = url_for('download_file', filename=encoded_file) if not data_encoded.empty else None
 
             except Exception as e:
                 flash(f"❌ Kesalahan pada Label Encoding: {e}", "danger")
 
+
         # **📌 7️⃣ Pembagian Data**
         if preprocessing_status.get("Pembagian"):
             try:
-                encoded_file = "dataset_6_encoded.csv"
                 train_file = "dataset_7_train.csv"
                 test_file = "dataset_7_test.csv"
+                encoded_file = "dataset_6_encoded.csv"
                 train_path = os.path.join(PROCESSED_FOLDER, train_file)
                 test_path = os.path.join(PROCESSED_FOLDER, test_file)
                 encoded_path = os.path.join(app.config['PROCESSED_FOLDER'], encoded_file)
@@ -1331,16 +1378,26 @@ def preprocessing():
                     flash("File hasil pembagian data train belum tersedia.", "danger")
                 elif not os.path.exists(test_path):
                     flash("File hasil pembagian data test belum tersedia.", "danger")
-                elif not os.path.exists(encoded_path):
+                elif not os.path.exists(encoded_path) or os.stat(encoded_path).st_size == 0:
                     flash("File hasil label encoding belum tersedia.", "danger")
                 else:
                     data_train = pd.read_csv(train_path)
                     data_test = pd.read_csv(test_path)
                     data_encoded = pd.read_csv(encoded_path)
                     
+                    if not isinstance(data_encoded, pd.DataFrame):
+                        raise ValueError("❌ data_encoded bukan DataFrame! Cek format file CSV.")
+                    
                     # Hitung distribusi label dalam Training & Testing
                     train_label_dist = data_train["Label_Encoded"].value_counts().to_dict()
                     test_label_dist = data_test["Label_Encoded"].value_counts().to_dict()
+                    
+                    # Tambahkan validasi untuk memastikan formatnya dictionary
+                    if not isinstance(train_label_dist, dict):
+                        raise ValueError("❌ train_label_dist bukan dictionary! Periksa data.")
+
+                    if not isinstance(test_label_dist, dict):
+                        raise ValueError("❌ test_label_dist bukan dictionary! Periksa data.")
 
                     train_label_split = [
                         f"-1 (Negatif): {train_label_dist.get(-1, 0)} sampel",

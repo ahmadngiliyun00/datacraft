@@ -1,0 +1,933 @@
+Tokenized,Label_Encoded
+"['kabinet', 'dewan', 'gendut', 'luar', 'efektivitas', 'mampu', 'anggar', 'negara']",-1
+"['rapat', 'kabinet', 'presiden', 'tri', 'ada', 'magelang', 'tgl', 'inap', 'hotel', 'tidur', 'barak', 'tentara', 'dengar', 'bilang', 'kasi', 'suruh', 'tidur', 'barak', 'dalam', 'kepingin', 'tidur', 'barak', 'tentara']",-1
+"['kabinet', 'gemuk', 'prabowo', 'panjang', 'jangkau', 'relatif', 'program', 'cepat', 'capai', 'anggar', 'bengkak', 'prabowo', 'evaluasi', 'kerja', 'menteri']",-1
+"['selamat', 'ingat', 'sumpah', 'pemuda', 'pemuda', 'kreatif', 'kualitas', 'dar', 'sumpah', 'sama', 'aksi', 'wujud', 'semangat', 'muda', 'maju', 'bangsa', 'indonesia', 'bem', 'indonesia', 'mandiri', 'kabinet', 'abhiprayagana']",0
+"['parte', 'usung', 'belio', 'menang', 'milu', 'anggota', 'parlemen', 'tri', 'kabinet', 'bhw', 'belio', 'tugas', 'partai', 'shrsnya', 'plg', 'bertanggungjawab', 'gila']",-1
+"['suka', 'banget', 'fokus', 'kabinet', 'merah', 'putih', 'didik', 'anakanak', 'indonesia', 'cerah']",1
+"['gimana', 'gak', 'njir', 'kabinet', 'gemuk', 'wakil', 'tri', 'proker', 'butuh', 'biaya', 'gede', 'awas', 'thn', 'dgr', 'korupsi', 'sia', 'pajak', 'bayar', 'makan']",-1
+"['presiden', 'prabowo', 'subianto', 'angkat', 'bicara', 'kait', 'banyak', 'menteri', 'kabinet', 'pimpin', 'catat', 'menteri', 'kabinet', 'merah', 'putih']",0
+"['susu', 'sapi', 'murni', 'buang', 'sampe', 'ton', 'tri', 'kabinet', 'merah', 'putih', 'suara', 'program', 'makan', 'gizi', 'gratis', 'butuh', 'susu', 'sapi', 'buang']",-1
+"['kapasitas', 'jabat', 'atas', 'menteri', 'sekretaris', 'kabinet', 'atas', 'menteri', 'presiden', 'nasehat', 'presiden', 'menteri', 'jabat', 'jeda', 'presiden', 'menteri', 'anggar', 'gaji', 'bagi', 'fungsi', 'struktural']",-1
+"['dok', 'bahas', 'menteri', 'nya', 'udah', 'ngablu', 'jabat', 'bahas', 'fufafa', 'jatuh', 'personal', 'kritis', 'pedes', 'kabinet', 'gemoy', 'biar', 'bobot', 'engagement', 'gede', 'kritis', 'doang', 'mubazir', 'dok', 'lihat', 'kritik', 'dok', 'prabs']",-1
+"['menteri', 'hukum', 'amp', 'ham', 'menteri', 'imigrasi', 'pisah', 'kabinet', 'kabinet', 'boros', 'anggar', 'gak', 'manfaat', 'jatah', 'kuasa']",-1
+"['orang', 'susah', 'masuk', 'kabinet', 'menteri']",-1
+"['presiden', 'prabowo', 'subianto', 'jajar', 'menteri', 'kabinet', 'merah', 'putih', 'penting', 'urus', 'pribadi', 'jalan', 'tugas']",0
+"['presiden', 'prabowo', 'wajib', 'anggota', 'kabinet', 'merah', 'putih', 'maung', 'garuda', 'presiden', 'prabowo', 'arah', 'maung', 'pakai', 'menteri', 'wakil', 'menteri', 'jabat', 'eselon', 'i', 'kendara', 'dinas', 'supir', 'enak', 'truk', 'rosalia', 'tanggerang', 'malam', 'jumat']",0
+"['orang', 'marah', 'negara', 'duit', 'mulu', 'outputnya', 'g', 'asa', 'kkn', 'media', 'massa', 'kabinet', 'gendut', 'boros', 'jabat', 'gak', 'becus', 'masak', 'percaya', 'ngasih', 'uang', 'cari', 'susah', 'payah', 'perintah', 'trust', 'is', 'earned', 'not', 'given', 'ih']",-1
+"['sulit', 'baca', 'prabowo', 'janji', 'lambung', 'realistis', 'bas', 'data', 'tolak', 'dng', 'putus', 'mis', 'kabinet', 'obesitas', 'isi', 'misfits', 'amp', 'mismatch', 'prbw', 'bhw', 'bnyk', 'masy', 'sihir', 'dng', 'kunjung', 'ln']",-1
+"['moga', 'presiden', 'sikap', 'orang', 'lingkar', 'kabinet', 'kredibel', 'kompeten', 'copot', 'pandang', 'bulu']",0
+"['presiden', 'pimpin', 'rapat', 'kabinet', 'merah', 'putih', 'langsung', 'tegesin', 'gak', 'kerja', 'bener', 'copot', 'bantu', 'mulyono', 'byk', 'kabinet', 'tinggal', 'lihat', 'patuh', 'arah', 'kalo', 'copot', 'reputasi', 'baik', 'mrk', 'hancur', 'bukti', 'presiden', 'skr', 'pegang', 'kendali']",-1
+['kabinet'],-1
+"['isu', 'masuk', 'kabinet', 'prabowo', 'tengah', 'jalan', 'nasdem', 'komitmen', 'politik']",0
+"['prabowo', 'uang', 'pribadi', 'retret', 'kabinet', 'merah', 'putih']",0
+"['dukung', 'usaha', 'lokal', 'tingkat', 'kerja', 'kabinet']",1
+"['duit', 'rakyat', 'bangun', 'pesantren', 'retret', 'kabinet']",-1
+"['pimpin', 'sidang', 'kabinet', 'merah', 'putih', 'oktober', 'presiden', 'prabowo', 'subianto', 'kait', 'judi', 'online', 'narkoba', 'selundup', 'korupsi', 'presiden', 'prabowo', 'tegak', 'hukum', 'ragu', 'tindak']",0
+"['emg', 'stju', 'tebang', 'plih', 'ad', 'dri', 'kabinet', 'prabowo', 'korup', 'stju', 'tindak', 'bsa', 'dhukum', 'mati', 'ngebelain', 'gara', 'oposisi', 'dmana', 'otak', 'sehat']",-1
+"['prabowo', 'kabinet', 'merah', 'putih', 'sidang', 'perdana', 'sadar', 'golong']",0
+"['heeem', 'kabinet', 'gerus', 'uang', 'rakyat']",-1
+"['kolaborasi', 'akmil', 'jalan', 'lancar', 'pasok', 'listrik', 'gelar', 'retreat', 'kabinet']",1
+"['prabowo', 'rapat', 'kabinet', 'merah', 'putih', 'kebal', 'kerja', 'pecat', 'prabowo', 'ingat', 'menteri', 'giat', 'rakyat', 'kurang', 'rapat', 'ceremonial', 'kurang', 'study', 'banding', 'ln', 'prabowo', 'laku', 'efisiensi']",-1
+"['selamat', 'pacar', 'udah', 'menteri', 'kabinet', 'merah', 'putih']",-1
+"['hebatsayangnya', 'nnt', 'jebak', 'urus', 'bantu', 'nya', 'kabinetsementara', 'tancap', 'citra', 'skenario', 'nya', 'sgt', 'rapi', 'kerah', 'buzzerp', 'medsos', 'propaganda', 'ffff', 'ht', 'prbw', 'emosi', 'fisik', 'nya', 'mmg', 'stimulasi', 'drop']",-1
+"['partai', 'kabinet', 'syafrudin']",-1
+"['perintah', 'rakyat', 'indonesia', 'harap', 'penuh', 'presiden', 'baik', 'bangsa', 'acak', 'jokowi', 'moga', 'kabinet']",-1
+"['jabat', 'eksekutif', 'periode', 'tambah', 'habis', 'konsolidasi', 'kabinet', 'habis', 'politik', 'praktis', 'kerja', 'perintah', 'sisa', 'periode']",-1
+"['optimis', 'perintah', 'prabowogibran', 'nonton', 'welcome', 'kabinet', 'merah', 'putih', 'lengkap']",0
+"['kabinet', 'merah', 'putih', 'menteri', 'kemenko', 'menteri', 'menteri', 'ubah', 'nomenklatur', 'geser', 'tugas', 'menteri', 'ubah', 'nomenklatur']",0
+"['jadwal', 'padat', 'raffi', 'ahmad', 'retreat', 'kabinet', 'akmil', 'magelang', 'via']",0
+"['semangat', 'rela', 'korban', 'kabinet', 'merah', 'pitih']",1
+"['beratampterjal', 'nasib', 'ridwan', 'kamil', 'pentas', 'politik', 'nasional', 'icon', 'orang', 'sunda', 'titi', 'karir', 'politik', 'identitas', 'etnis', 'kental', 'tarung', 'jakarta', 'kemas', 'parpol', 'rusak', 'bak', 'simalakama', 'resah', 'masuk', 'kabinet', 'mnyurutkan', 'kader', 'militan', 'u', 'juang']",-1
+"['mesti', 'push', 'total', 'dng', 'duduk', 'orang', 'kabinet', 'jadi', 'peluang', 'buka', 'borok', 'kerjaankerjaan', 'kemarin', 'gmn', 'yaa', 'push', 'total', 'perangkat', 'hukum', 'biar', 'sehat', 'kerja', 'nyata']",0
+"['halo', 'presiden', 'prabowo', 'subianto', 'laksana', 'sidang', 'kabinet', 'paripurna', 'menteri', 'kabinet', 'merah', 'putih', 'sidang', 'presiden', 'poin', 'jalan', 'wujud', 'bangun', 'nasional']",0
+"['wei', 'arie', 'emang', 'gak', 'pantes', 'menteri', 'tolong', 'ganti', 'kabinet', 'merah', 'putih', 'sampe', 'beban', 'info', 'gak', 'masul', 'menteri', 'kemarin', 'titip', 'gak']",-1
+"['kabinet', 'merah', 'putih', 'moga', 'esok', 'hri', 'bawa', 'maju', 'rakyat', 'indonesia']",0
+"['ex', 'kabinet', 'waspada', 'gera', 'luar', 'komando', 'presiden']",-1
+"['itudia', 'berantas', 'maling', 'elit', 'presiden', 'pas', 'umum', 'kabinet', 'isi', 'tukang', 'maling', 'gimana', 'brantas', 'korupsi', 'dalam', 'isi', 'koruptor']",-1
+"['geng', 'caplin', 'masuk', 'kabinet', 'gosok', 'adu', 'domba']",-1
+"['prof', 'univ', 'mentereng', 'kabinet', 'coba', 'telusur', 'background', 'didik', 'anggota', 'kabinet', 'unik']",-1
+"['gembleng', 'kabinet', 'istilah', 'retreat', 'istilah', 'retreat', 'umat', 'kristiani', 'introspeksi', 'bina', 'iman', 'prilaku', 'hidup', 'retreat', 'tampil', 'menu', 'makan', 'joget', 'saat', 'banyak', 'buruh', 'industri', 'phk']",-1
+"['kalo', 'pilih', 'kabinet', 'bas', 'popularitas']",-1
+"['ngga', 'peduli', 'cemooh', 'orang', 'suruh', 'bagiin', 'topi', 'kader', 'end', 'gamenya', 'ken', 'anggota', 'dpr', 'masuk', 'kabinet', 'target', 'komisaris']",-1
+"['kabinet', 'dukung', 'langkah', 'lindung', 'hak', 'asasi', 'manusia']",1
+"['ipolidwakil', 'menteri', 'uang', 'anggito', 'abimanyu', 'mobil', 'maung', 'produksi', 'bumn', 'pt', 'pindad', 'kendara', 'dinas', 'jabat', 'menteri', 'eselon', 'i', 'kabinet', 'merah', 'putih']",0
+"['kabinet', 'merah', 'putih', 'bentuk', 'cipta', 'anggota', 'super', 'team', 'pecah', 'negara']",1
+"['kau', 'beda', 'setmilpres', 'sekretaris', 'kabinet']",-1
+"['mesti', 'tri', 'keluar', 'kabinet', 'prabowo', 'bikin', 'malu', 'bikin', 'rusak', 'negara']",-1
+"['nya', 'pilih', 'tri', 'habis', 'pikir', 'kabinet', 'merah', 'putih', 'oh']",-1
+"['wow', 'anggar', 'gaji', 'jabat', 'kabinet', 'merah', 'putih', 'persen', 'periode']",1
+"['kabinet', 'plg', 'kontrovesial', 'sejarah', 'mengakomodir', 'penting', 'oligarki', 'amp', 'jokowi', 'akibat', 'kabinet', 'obesitas', 'amp', 'lambat', 'menteri', 'korup', 'reaksi', 'pasar', 'rupiah', 'anjlok', 'utang']",-1
+"['semiotika', 'zaken', 'kabinet', 'difahami', 'abai', 'presiden', 'prabowo', 'angkat', 'orang', 'milik', 'kompetensi', 'salah', 'ari', 'lanjut']",-1
+"['sy', 'sepakat', 'pidato', 'sidang', 'perdana', 'kabinet', 'merah', 'putih', 'moga', 'bobrok', 'bangsa', 'pulih', 'th', 'acakacak', 'amp', 'ekonomi', 'pulih', 'langsung', 'hidup', 'rakyat', 'atas', 'amp', 'sengkuni', 'tindak']",-1
+"['kuat', 'lantik', 'anjlok', 'kabinet', 'gemuk']",-1
+"['seskab', 'ngurus', 'kabinet', 'gimana', 'paok', 'wkwkwkw']",-1
+"['presiden', 'yth', 'mohon', 'ditindaklanjuti', 'marwah', 'kabinet', 'bersih', 'korupsi', 'cc']",-1
+"['fadli', 'zon', 'prabowo', 'dalam', 'program', 'rencana', 'target', 'kabinet', 'merah', 'putih', 'akmil', 'magelang', 'artikel', 'tayang', 'judul', 'fadli', 'zon', 'prabowo', 'dalam', 'program', 'rencana', 'target', 'kabinet', 'merah', 'putih', 'akmil']",0
+"['titip', 'udah', 'masuk', 'kabinet']",-1
+"['km', 'anti', 'militer', 'coba', 'background', 'presiden', 'gaya', 'pimpin', 'serah', 'presiden', 'gembleng', 'pasu', 'kabinet', 'nya', 'feel', 'on', 'field', 'brainstorm', 'tindak', 'luhur', 'laku', 'negara']",-1
+"['fenomena', 'bukti', 'kuat', 'cawe', 'cawe', 'kuasa', 'presiden', 'prabowo', 'satu', 'presiden', 'milik', 'hak', 'prerogatif', 'kabinet', 'cawe', 'cawe', 'susup', 'cita', 'cita', 'periode', 'hukum', 'asai', 'kuasa', 'bengis']",-1
+"['negara', 'gak', 'bilang', 'negara', 'bubar', 'alsanya', 'flasback', 'jaman', 'mul', 'korupsi', 'raja', 't', 'bts', 'waris', 'hutang', 't', 'berat', 'kabinet', 'gemuk', 'anggar', 'bnyak', 'menteri', 'gak', 'kompeten']",-1
+"['moga', 'wujud', 'apresiasi', 'tingkat', 'produktivitas', 'staff', 'semangat', 'jalan', 'tugas', 'wajib', 'motivasi', 'semangat', 'staff', 'bem', 'fisip', 'upn', 'veteran', 'yogyakarta']",0
+"['menteri', 'ajudan', 'analisa', 'teman', 'menteri', 'sekretariat', 'kabinet', 'menteri', 'negeri', 'menteri', 'negeri', 'tahu', 'hubung', 'internasional', 'background', 'sekolah', 'gak', 'bau', 'hi', 'menteri', 'prabowo', 'rangkap', 'presiden']",-1
+"['presiden', 'prabowo', 'masa', 'kes', 'bantu', 'serah', 'bilg', 'presiden', 'happy', 'sidang', 'kabinet', 'akrab', 'gibran']",-1
+"['badan', 'publik', 'kementerianbadan', 'layan', 'prima', 'masyarakat', 'rakyat', 'harap', 'percaya', 'presiden', 'menteri', 'kabinet', 'merah', 'putih', 'rubah', 'wajah', 'perintah']",0
+"['kmren', 'kritik', 'bbrp', 'menteri', 'dkabinet', 'prabowo', 'dukung', 'prabowo', 'ngomong', 'dukung', 'gak', 'banyak', 'protes', 'kabinet', 'prabowo', 'lantas', 'klw', 'sprti', 'injadinya', 'pajak', 'it', 'dukung', 'prabowo', 'klw', 'blh', 'kyk', 'gtu', 'janji', 'protes', 'lg']",-1
+"['d', 'debat', 'kocak']",-1
+"['ehkeknya', 'nyadar', 'usaha', 'gagal', 'mulu', 'banting', 'stir', 'doikemaren', 'udah', 'posting', 'x', 'foto', 'ama', 'tri', 'kabinet', 'merah', 'putih']",-1
+"['batal', 'tarik', 'pdip', 'kabinet', 'inti', 'mau', 'jokowi', 'prabowo', 'lantik', 'prabowo', 'apa', 'lalu', 'reshuffle', 'depan', 'jegal', 'hina', 'harkat', 'martabat', 'prabowo']",-1
+"['imj', 'pimpin', 'partai', 'ppkr', 'maryam', 'nur', 'lantik', 'pimpin', 'kabinet', 'snbcc', 'uir', 'ket', 'pimpin', 'kabinet', 'jabat', 'bentuk', 'apresiasi', 'menang', 'partai', 'menang', 'milu', 'majelis', 'negara']",0
+"['panglima', 'tni', 'retreat', 'kabinet', 'sama', 'visi', 'misi', 'korupsi']",0
+"['kabinet', 'merah', 'putih', 'fokus', 'tingkat', 'kualitas', 'sehat', 'masyarakat']",1
+"['bagus', 'program', 'syang', 'ngomong', 'tri', 'kabinet', 'janji', 'bukti', 'zonk', 'kabar', 'gembira', 'korban', 'judi', 'online', 'perintah', 'bantu', 'latih', 'kerja']",-1
+"['luhut', 'zulhas', 'bw', 'anak', 'org', 'kompeten', 'kebal', 'bukti', 'masuk', 'kabinet']",-1
+"['menteri', 'dagang', 'menteri', 'bumn', 'menteri', 'tahan', 'pangan', 'menteri', 'industri', 'menteri', 'negeri', 'menteri', 'ketar', 'kabinet', 'gubernur', 'jateng', 'bupati', 'dst', 'nya', 'demo', 'besarbesaran']",-1
+"['murid', 'no', 'dri', 'negara', 'buruk', 'dunia', 'menteri', 'dikdas', 'kabinet', 'merah', 'putih', 'pres', 'haji', 'jenderal', 'tni', 'ad', 'prabowo', 'subianto', 'bin', 'soemitro', 'djojohadikoesoemo', 'niat', 'ranking', 'pisa', 'pakai', 'maksiber', 'makan', 'siang', 'gizi', 'in', 'sya', 'allah']",-1
+"['perintah', 'kalang', 'islam', 'sebut', 'kabinet', 'masyumi', 'waperdamnya', 'masyumi', 'perdana', 'menteri', 'hatta', 'kabinet', 'masyumi', 'orang', 'sistem', 'parlementer', 'masyumi', 'no', 'milu', 'mayoritas', 'parlemen']",-1
+"['presiden', 'prabowo', 'subianto', 'pimpin', 'sidang', 'kabinet', 'paripurna', 'kantor', 'presiden', 'jajar', 'menteri', 'lembaga', 'prioritas', 'program', 'swasembada', 'pangan', 'ometv', 'cat', 'baim', 'pecat', 'tuhan', 'maha', 'esa']",0
+"['menteri', 'hutan', 'sby', 'menteri', 'dagang', 'jokowi', 'menko', 'pangan', 'kabinet', 'merah', 'putih', 'zulhas', 'depan', 'mata', 'jgn', 'swasembada', 'puluh', 'batas', 'mimpi', 'agenda', 'citra', 'ulang']",0
+"['kabinet', 'obesitas', 'sakit', 'kumpul', 'tunggu', 'anfal', 'nya']",-1
+"['yandri', 'aku', 'salah', 'janji', 'ulang', 'kabinet', 'presiden', 'menteri', 'aku', 'salah', 'keliru', 'nya', 'aku', 'salah', 'tolerir', 'salah', 'akibat', 'bodoh']",1
+"['yaahnamanya', 'usaha', 'kali', 'penasaran', 'wiranto', 'masuk', 'kabinet']",0
+"['orang', 'kotor', 'kabinet', 'merah', 'putih']",-1
+"['bismillah', 'staf', 'kabinet', 'merah', 'putih']",1
+"['barusan', 'anak', 'komen', 'gimana', 'negara', 'bersih', 'korupsi', 'ponakan', 'wapres', 'mafia', 'tanah', 'biar', 'presiden', 'wapres', 'kabinet', 'ma', 'bpk', 'dpr', 'korup', 'biar', 'manusia', 'bumi', 'korup', 'korup']",-1
+"['gmni', 'optimistis', 'kabinet', 'merah', 'putih', 'jalan', 'program', 'prabowogibran']",1
+"['ngelantur', 'kabinet', 'konoha', 'inimaklumlah']",-1
+"['sore', 'rabu', 'ikut', 'sidang', 'kabinet', 'paripurna', 'pimpin', 'presiden', 'prabowo', 'subianto', 'wapres', 'gibran', 'rakabuming', 'raka', 'istana', 'negara', 'jakarta']",0
+"['kapasitas', 'jabat', 'atas', 'menteri', 'sekretaris', 'kabinet', 'atas', 'menteri', 'presiden', 'nasehat', 'presiden', 'menteri', 'jabat', 'jeda', 'presiden', 'menteri', 'anggar', 'gaji', 'bagi', 'fungsi', 'struktural']",-1
+"['presiden', 'mandiri', 'nenentukan', 'kabinet', 'putus', 'negara', 'mandiri']",-1
+"['kabinet', 'serius', 'tangan', 'isuisu', 'sosial', 'bagus', 'banget']",0
+"['perkara', 'sulit', 'so', 'menteri', 'kabinet', 'usaha', 'tambang', 'keluarga', 'prabowo']",-1
+"['pakai', 'uang', 'pribadi', 'prabowo', 'biaya', 'retreat', 'kabinet', 'merah', 'putih', 'akmil', 'magelang', 'baca']",0
+"['cuman', 'ganti', 'wakil', 'buang', 'liyalis', 'mulyono', 'kabinet', 'amamn', 'sejahtrapoinya', 'berani', 'engga']",-1
+"['salut', 'kabinet', 'merah', 'putih', 'fokus', 'banget', 'lingkung', 'hidup']",1
+"['prabowo', 'kuat', 'kabinet', 'solid']",1
+"['besok', 'kabinet', 'merah', 'putih', 'bikin', 'gebrak']",-1
+"['kabinet', 'merahputih', 'prabowo', 'subianto', 'kuat', 'komitmen', 'cipta', 'hijau', 'amp', 'lanjut', 'langkah', 'strategis', 'wujud', 'mandiri', 'energi', 'nasional']",1
+"['makan', 'siang', 'gratis', 'anggar', 't', 'kabinet', 'gemuk', 'menteri', 'lembaga', 'negara', 'gaji', 'tani', 'milenial', 'jt', 'bulan', 'butuh', 'kaji', 'anggar', 'pilkada', 'serentak', 'keluar', 'anggar']",-1
+"['bagus', 'tanda', 'harga', 'ganti', 'uang', 'putus', 'ttg', 'atur', 'pindah', 'asn', 'ikn', 'sesuai', 'ubah', 'nomenklatur', 'kementerianlembaga', 'kabinet', 'meraha', 'putih', 'pedoman', 'tahap', 'proses', 'pindah', 'susun', 'pedoman']",-1
+"['ketua', 'mpr', 'tan', 'amran', 'menteri', 'kabinet', 'merah', 'putih', 'kerja']",1
+"['presiden', 'prabowo', 'subianto', 'biaya', 'giat', 'retret', 'kabinet', 'merah', 'putih', 'akademi', 'militer', 'akmil', 'magelang', 'jawa', 'uang', 'pribadi', 'giat', 'orientasi', 'perintah', 'prabowogibran', 'sejahtera', 'rakyat', 'mandiri', 'bangsa']",0
+"['daftarin', 'anggota', 'kabinet', 'wowo', 'biarin']",-1
+"['salut', 'programprogramnya', 'kabinet', 'merah', 'putih', 'tahan', 'pangan', 'sampe', 'digitalisasi', 'top']",0
+"['didu', 'masuk', 'kabinet', 'kategori', 'juru', 'omon', 'omon']",-1
+"['full', 'pidato', 'presiden', 'prabowo', 'rapat', 'perdana', 'kabinet', 'merah', 'putih', 'program', 'makan', 'gratis', 'birokrasi']",0
+"['tema', 'melambang', 'semangat', 'bangsa', 'kuat', 'ajak', 'satu', 'jaga', 'identitas', 'nasional', 'amp', 'kuat', 'cinta', 'tanah', 'air', 'rangkai', 'upacara', 'ikut', 'khidmat', 'serta', 'menteri', 'amp', 'kepala', 'lembaga', 'kabinet', 'merah', 'putih']",-1
+"['ketawa', 'susun', 'kabinet', 'hak', 'preogatif', 'presiden', 'kabinet', 'mulyono', 'jilid', 'gemuk', 'wamen', 'lembaga', 'ataubkantot', 'utus', 'apa', 'ujungujung', 'balaa', 'jasa', 'dukung', 'jokowi', 'mai', 'hahaha']",-1
+"['kabinet', 'isi', 'nya', 'koruptor', 'backing', 'judulini', 'fakta']",-1
+"['bukti', 'sempet', 'nemenin', 'serah', 'petisi', 'asisten', 'deputi', 'bidang', 'sumber', 'daya', 'mineral', 'lingkung', 'hidup', 'sekretariat', 'kabinet', 'troeno', 'marayoga', 'sh', 'llm', 'ntah', 'beliau', 'setkab', 'gak', 'hehehe']",-1
+"['alkhamdulilah', 'presiden', 'moga', 'amanat', 'tegak', 'sesuai', 'arah', 'kabinet', 'merah', 'putih']",1
+"['harap', 'menterimenteri', 'kabinet', 'merah', 'putih', 'depan', 'asbun', 'sekali', 'salah', 'ngomong', 'goreng', 'kabinet', 'wkwk']",-1
+"['prabowo', 'kabinet', 'merah', 'putih', 'mobil', 'negeri']",0
+"['reatreat', 'akmil', 'uang', 'pribadi', 'kampanye', 'politik', 'arah', 'menteri', 'kabinet', 'programprogram', 'tetap', 'ketidakpuasan', 'sampai', 'pasca', 'sidang', 'kabinet', 'tegas', 'ulang']",-1
+"['kabar', 'kabinet', 'super', 'kuat', 'mayoritas', 'kuat', 'sebut', 'kabinet', 'kaki', 'satu', 'kuat', 'tnipolri', 'oligarki', 'parpol', 'kaum', 'kiri']",-1
+"['duga', 'stres', 'berat', 'panggil', 'masuk', 'kabinet']",-1
+"['bilang', 'repli', 'harun', 'tri', 'prabowo', 'repli', 'harun', 'masuk', 'kabinet', 'prabowo', 'kabinet', 'prabowo', 'bagus']",-1
+"['kabinet', 'merah', 'putih', 'komitmen', 'tingkat', 'sejahtera', 'sosial']",1
+"['sektor', 'tani', 'maju', 'thanks', 'to', 'kabinet', 'merah', 'putih']",1
+"['pusing', 'banget', 'baca', 'twitter', 'baca', 'berita', 'kabinet', 'allah', 'degdegan', 'banget', 'bikin', 'anxiety']",-1
+"['om', 'ndons', 'bilangin', 'gemoy', 'libas', 'tuch', 'orang', 'mulyono', 'kabinet', 'parasit', 'mrk', 'tuch', 'berani', 'gak', 'gemoy']",-1
+"['kabinet', 'reshuffle', 'liat', 'kerja', 'pecat', 'hormat']",0
+"['reshuffle', 'kabinet', 'smoga', 'd', 'angkat', 'jdi', 'menteri', 'biar', 'nampak', 'hasil', 'jilat']",-1
+"['iya', 'sihhtapi', 'dengar', 'tri', 'kabinet', 'merah', 'putih', 'angkat', 'prabowo', 'koruptor']",-1
+"['wow', 'kabinet', 'enhypen', 'merdeka', 'padat', 'ment', 'smangat', 'ment']",-1
+"['moga', 'bkn', 'upaya', 'ganti', 'main', 'khawatir', 'dasar', 'alam', 'hasil', 'operasi', 'berantas', 'website', 'judol', 'kabinet', 'bhw', 'perintah', 'rusak', 'biar', 'judol', 'bangsat']",-1
+"['untung', 'gak', 'kader', 'pdip', 'kabinet', 'merah', 'putih']",-1
+"['ahy', 'rapat', 'kabinet', 'bareng', 'presiden', 'prabowo', 'gas', 'kasih', 'kendor']",1
+"['isu', 'kemaren', 'gagal', 'bikin', 'gibran', 'gagal', 'lantik', 'bikin', 'isu', 'kudeta', 'sebut', 'bbrp', 'nama', 'rapat', 'presiden', 'isu', 'dpt', 'drmn', 'tifa', 'kau', 'paranormal', 'orang', 'kabinet', 'dpt', 'bisik']",-1
+"['sebab', 'knapa', 'ps', 'full', 'power', 'gas', 'kabinet', 'bentuk', 'mimpi', 'kualitas', 'pimpin', 'hebat', 'kaya', 'rayap', 'tatih', 'tatih', 'bolak', 'solo']",-1
+"['akses', 'didik', 'buka', 'lebar', 'salut', 'kabinet', 'merah', 'putih']",1
+"['ordal', 'presiden', 'ln', 'menteri', 'bersih', 'jejak', 'sorot', 'jaksa', 'rencana', 'presiden', 'pulang', 'audit', 'menteri', 'menteri', 'ken', 'masuk', 'kabinet', 'fyi']",-1
+"['jdikn', 'gunawan', 'menteri', 'pdip', 'menyangkl', 'masuk', 'kabinet']",-1
+"['personil', 'pilih', 'isi', 'kabinet', 'kaget']",-1
+"['indonesia', 'hadap', 'berat', 'moga', 'kabinet', 'jalan']",-1
+"['hai', 'hai', 'hai', 'kabinet', 'orangorang', 'nya', 'tementemen', 'penasaran', 'gak', 'anggotaanggota', 'osis', 'lamalama', 'nunggu', 'langsung', 'cuuus', 'tiktok', 'osis', 'sma', 'igs']",0
+"['kabinet', 'ken', 'mepet', 'jt']",0
+"['menteri', 'hutan', 'raja', 'juli', 'antoni', 'retreat', 'kabinet', 'merah', 'putih', 'jelas', 'orientasi']",1
+"['kabinet', 'merah', 'putih', 'udah', 'jalanin', 'program', 'kerja', 'solid']",1
+"['ajar', 'kabinet', 'ko', 'isi', 'nya', 'orang', 'ajar', 'gimna', 'bantu', 'urus', 'negara', 'tri', 'nya', 'ajar', 'alam', 'otak', 'skrng']",-1
+"['emang', 'rusa', 'parah', 'bangsa', 'berat', 'anggota', 'kabinet', 'titip', 'mulyono', 'sangka', 'dijdkan', 'duta', 'uang', 'saku']",-1
+"['kabinet', 'merah', 'putih', 'skrng', 'pny', 'ikat', 'kuat', 'wajib', 'militer', 'magelang', 'presiden', 'kasih', 'arah', 'lgsg', 'spy', 'menteri', 'gerak', 'semangat', 'untk', 'rakyat']",0
+"['kabinet', 'gemuk', 'tanda', 'presiden', 'kerja']",-1
+"['susun', 'kabinet', 'orisionil', 'dasar', 'meriktokrasi', 'balas', 'jasa', 'kabinet', 'sandera', 'presiden', 'kuasa', 'tentu', 'menteri', 'batu', 'sukses', 'program', 'nya', 'bantu', 'sdg', 'sekongkol']",-1
+"['hati', 'sepi', 'operasi', 'kpu', 'bawaslu', 'lapang', 'asli', 'menang', 'akal', 'kotak', 'coblos', 'menang', 'rk', 'kabinet', 'nama', 'kim', 'jong', 'ngos', 'mulyono', 'adik', 'kim', 'jong', 'un', 'tanda', 'komunis', 'bangkit', 'nyata']",-1
+"['emang', 'iya', 'kabinet', 'prabowo', 'orang', 'libat', 'korupsi', 'tangan', 'korupsi', 'alamat']",-1
+"['aduh', 'salting', 'gulingin', 'kabinet', 'perintah', 'damn', 'bro', 'ngucapin', 'pepero', 'day', 'in', 'a', 'very', 'cutesy', 'way', 'mules']",-1
+"['war', 'biassaahhh', 'menteri', 'prabowo', 'lucu', 'kalo', 'kabinet', 'kabinet', 'balas', 'hadeuhhh']",-1
+"['ganti', 'presiden', 'kabinet', 'rombak', 'aju', 'banding', 'tuan', 'dikaexsa', 'bang', 'lumayan', 'anggara']",-1
+"['mari', 'telusur', 'pelbagai', 'duga', 'balik', 'pernyatan', 'exmenteri', 'kominfo', 'komdigi', 'nyata', 'dpt', 'tanda', 'pimpin', 'kabinet', 'rejim', 'menteri', 'kabinet', 'percaya', 'proses', 'seleksi']",-1
+"['presiden', 'gerak', 'cpt', 'bikin', 'kabinet', 'solid', 'program', 'wajib', 'militer', 'magelang', 'untk', 'latih', 'menteri', 'disiplin', 'amp', 'kerja', 'bareng', 'tim', 'kompak', 'bangun', 'negeri']",1
+"['woyyy', 'mulyono', 'selesai', 'safe', 'biar', 'anak', 'udah', 'kaesbong', 'tum', 'parte', 'mantu', 'cagub', 'klean', 'beritain', 'doi', 'cawe', 'pegang', 'remote', 'control', 'oslo', 'anak', 'cucu', 'naruh', 'orang', 'nya', 'kabinet', 'bentar', 'ikut', 'kampanye', 'pilkada']",-1
+"['kabinet', 'peduli', 'kembang', 'teknologi', 'lanjut']",1
+"['periksa', 'usia', 'kabinet', 'lt', 'biar', 'main', 'sirkus', 'hadiah', 'aman', 'za', 'ak', 'fd', 'lulus', 'tunjuk', 'vendor', 'langsung']",-1
+"['emang', 'bisa', 'pimpin', 'rapat', 'kabinet', 'udah', 'nol']",-1
+"['alam', 'pramono', 'anung', 'mantan', 'sekretaris', 'kabinet', 'unggul', 'sendiri', 'milik', 'paham', 'dalam', 'perintah', 'bijak', 'publik', 'coblos', 'no']",1
+"['hrs', 'cek', 'dadak', 'rapat', 'kabinet']",-1
+"['minggu', 'umum', 'kabinet', 'kunjung', 'kantor', 'menteng', 'jakpus', 'wawancara', 'masprof', 'program', 'indonesia', 'selamat', 'simak']",0
+"['said', 'didu', 'kabinet', 'merah', 'putih', 'kendali', 'jokowi', 'prabowo']",-1
+"['prabowo', 'presiden', 'perintah', 'menteri', 'kabinet', 'merah', 'putih', 'susun', 'tim', 'kerja']",1
+"['susah', 'selesai', 'investor', 'olighar', 'kuasa', 'salah', 'komisaris', 'kabinet']",-1
+"['wamenbud', 'afrika', 'bahasa', 'asli', 'indonesia', 'malu', 'anggap', 'lbh', 'nila', 'jk', 'brbahasa', 'inggris', 'wakil', 'menteri', 'budaya', 'paham', 'tupoksinya', 'kabinet', 'prihatin']",-1
+"['bekal', 'menteri', 'kabinet', 'merah', 'putih', 'kmrn', 'materi', 'baris', 'bar', 'latih', 'ngga', 'mudah', 'lho']",0
+"['gamasuk', 'kabinet', 'mana', 'gmn']",-1
+"['kue', 'kuasa', 'optimis', 'kader', 'partai', 'masuk', 'kabinet', 'rakyat', 'nampaknya', 'awan', 'hitam', 'gelayut', 'muncul', 'matahari', 'sebentar', 'kabinet', 'bentuk', 'awan', 'hitam', 'tutup', 'matahari', 'harap', 'kabinet', 'bobrok', 'ii']",-1
+"['anggota', 'kabinet', 'merah', 'putih', 'ganti', 'presiden', 'prabowo', 'nonton', 'welcome', 'kabinet', 'merah', 'putih', 'lengkap']",0
+"['salah', 'kabinet', 'gendut', 'pasar', 'merespon', 'lemah', 'rupiah', 'moga', 'cepat', 'lepas', 'cengkraman', 'mulyono', 'bersih', 'jilat', 'rakyat', 'awas', 'ketat']",-1
+"['menteri', 'wakil', 'menteri', 'kabinet', 'merah', 'putih', 'ikut', 'bimbing', 'pelatikan', 'akademi', 'militer', 'akmil', 'bekal', 'gelar', 'magelang', 'jawa', 'ahy', 'rasa', 'nostalgia', 'akademi', 'militer']",1
+"['akmil', 'magelang', 'presiden', 'bekal', 'wajib', 'militer', 'menteri', 'disiplin', 'patriotisme', 'amp', 'kompak', 'tanam', 'biar', 'kabinet', 'solid', 'kerja', 'bareng', 'tuju', 'bangsa']",1
+"['presiden', 'hormat', 'menteri', 'lbp', 'sidang', 'kabinet', 'kacau']",-1
+"['pengin', 'mimpin', 'sidang', 'kabinet', 'tolong', 'rekam', 'pasang']",-1
+"['ayoo', 'petisi', 'batal', 'nuruddin', 'menteri', 'agama', 'karna', 'nuruddin', 'bela', 'zionis', 'israel', 'amp', 'sekutu', 'nya', 'akn', 'duri', 'daging', 'gentingdesak', 'presiden', 'resuffel', 'kabinet']",-1
+"['kemenpan', 'rb', 'cepat', 'langkah', 'transisi', 'tri', 'negara', 'kabinet', 'merah', 'putih', 'menpan', 'rb', 'rini', 'widyantini', 'target', 'tata', 'organisasi', 'kabinet', 'merah', 'putih', 'selesai', 'november', 'ten', 'hag', 'preman', 'nikmir', 'hybe', 'vini', 'mudryk', 'manchester', 'united']",0
+"['ne', 'presiden', 'prabowo', 'orang', 'kabinet', 'indonesia', 'kuat']",-1
+"['nasi', 'bubur', 'mukidi', 'akar', 'second', 'kabinet', 'brikut', 'naga', 'kuasa', 'bumi', 'indonesia', 'kemarin', 'kmn', 'skarang', 'teriak']",-1
+"['arah', 'menteri', 'era', 'kabinet', 'merah', 'putih', 'era', 'kendali', 'dominasi', 'kerja', 'tata', 'ruang', 'kendali', 'panglima', 'tanah']",1
+"['sri', 'mulyani', 'pajak', 'korsel', 'banding', 'indonesia', 'waduuh', 'dosa', 'indonesia', 'kabinet', 'prabowo', 'lucu', 'wapres', 'lucu', 'kabinet', 'fufu', 'fafa']",-1
+"['gas', 'kabinet', 'merah', 'putih']",1
+"['mikir', 'dipake', 'jabat', 'kabinet', 'gemuk', 'mules', 'lupa', 'pajak', 'pakai', 'moles', 'persona', 'depan']",-1
+"['arah', 'rapat', 'efisiensi', 'anggar', 'nyata', 'bentuk', 'kabnet', 'gemuk', 'wamen', 'staf', 'khusus', 'utus', 'presiden', 'staf', 'ahli', 'alokasi', 'anggar', 'membengkan', 'belanja', 'pegawai', 'anggar', 'program', 'rakyat']",-1
+"['jam', 'gin', 'ovt', 'gimana', 'jokowi', 'masuk', 'kabinet', 'nya', 'prabowo']",-1
+"['indonesia', 'tim', 'menang', 'elon', 'musk', 'duduk', 'kursi', 'kabinet', 'elon', 'musk', 'angkat', 'donald', 'trump', 'nantix', 'gabung', 'kursi', 'parlemen']",0
+"['kabinet', 'merah', 'putih', 'kokoh']",1
+"['mantep', 'mikir', 'target', 'korupsi', 'lbh', 'emang', 'top', 'curi', 'start', 'pesta', 'korup', 'kabinet']",-1
+"['isi', 'tiktok', 'isi', 'glorifying', 'prabowo', 'kabinet', 'beliau', 'komentar']",0
+"['kabinet', 'gonggong', 'goblok', 'dungu', 'bego', 'prabowo', 'iniga', 'ngerti', 'hrs', 'nya', 'seret', 'era', 'rezim', 'abal', 'adil', 'bg', 'salah', 'hukum', 'biar', 'biar', 'kendali', 'pimpin', 'bukti', 'zaman', 'mertua', 'elu', 'usir', 'pangkatlu', 'copot']",-1
+"['thomas', 'djiwandono', 'resmi', 'lantik', 'wakil', 'menteri', 'uang', 'ii', 'kabinet', 'merah', 'putih', 'oktober', 'alam', 'solid', 'bidang', 'uang', 'negara', 'bawa', 'indonesia', 'maju', 'profil', 'lengkap']",-1
+"['kabinet', 'merah', 'putih', 'polisi', 'negara', 'bawah', 'presiden', 'menkopulhukam', 'hal', 'tni', 'gak']",-1
+"['dukung', 'laku', 'seni', 'budaya', 'tingkat', 'terima', 'kasih', 'kabinet']",1
+"['filling', 'kabinet', 'isianya', 'duit', 'warna', 'merah', 'semuagila', 'pejabathukum', 'mati']",-1
+"['bersih', 'kek', 'byk', 'kena', 'ott', 'kepala', 'desa', 'sampe', 'kabinet']",1
+"['komunitas', 'kriminal', 'negara', 'bikin', 'kabinet', 'kriminal']",-1
+"['presiden', 'prabowo', 'konsisten', 'ucap', 'masuk', 'dunia', 'politik', 'wujud', 'perintah', 'nonton', 'welcome', 'kabinet', 'merah', 'putih', 'lengkap']",1
+"['hybe', 'kyknya', 'kabinet', 'merah', 'putih', 'setan']",-1
+"['coba', 'km', 'mas', 'masuk', 'kabinet']",-1
+"['dukung', 'perintah', 'prabowogibran', 'anas', 'urbaningrum', 'ingat', 'kabinet', 'gemuk', 'baik', 'hidup', 'rakyat']",1
+"['presiden', 'program', 'visi', 'misi', 'asta', 'cita', 'kabinet', 'merah', 'putih', 'asta', 'cita', 'kait', 'tanah', 'swasembada', 'pangan', 'tetap', 'sistem', 'tahan', 'dorong', 'mandiri', 'bangsa', 'swasembada', 'pangan', 'amp', 'energi']",1
+"['cermin', 'kabinet', 'superbody', 'mulyono', 'jilid', 'gak', 'takut', 'presiden', 'acara', 'anggar', 'pribadi', 'argumentasi', 'f', 'jawabnyasaya', 'telpon', 'oslo', 'ijin', 'duluan', 'wkkkkkkbeler', 'wapres', 'hancur', 'kharisma', 'presiden']",-1
+"['kabinet', 'orang', 'efisiensi', 'atuh']",-1
+"['akibat', 'kabinet', 'sehat']",-1
+"['presiden', 'rakyat', 'sepakat', 'dukung', 'komitmen', 'kabinet', 'merah', 'putih', 'waspada', 'seret', 'arus', 'tanggung', 'perintah', 'kabinet', 'oligarki', 'satria', 'wirang', 'biar', 'rakyat', 'nilai']",-1
+"['presiden', 'prabowo', 'pidato', 'pertama', 'gedung', 'mpr', 'tgl', 'oktober', 'mandat', 'kabinet', 'merah', 'putih', 'pimpin', 'rakyat']",1
+"['keluarga', 'kabinet', 'skrng', 'subsidiin', 'makan', 'siang', 'anniv']",-1
+"['kemenpan', 'rb', 'sdm', 'aparatur', 'sipil', 'negara', 'atur', 'hukum', 'laksana', 'tugas', 'kabinet', 'merah', 'putih', 'jalan', 'lancar']",1
+"['senin', 'november', 'wib', 'ruang', 'seminar', 'fkh', 'ugm', 'lupa', 'hadir', 'temanteman', 'mktbemfkhx', 'departemen', 'minat', 'bakat', 'kabinet', 'naaranjana', 'bem', 'fkh', 'ugm']",0
+"['sidang', 'kabinet', 'udah', 'kesana', 'kemari', 'presiden', 'beliau', 'maruf', 'amin']",-1
+"['pres', 'no', 'th', 'ditandangani', 'masa', 'injury', 'time', 'politis', 'ber', 'amat', 'politik', 'sadar', 'sibuk', 'proses', 'siap', 'kabinet', 'amp', 'lantik', 'presiden', 'ps', 'kuasa', 'tolak', 'licik', 'politik']",-1
+"['presiden', 'hormat', 'tolong', 'bukti', 'janji', 'kabinet', 'bersih', 'koruptor', 'laku', 'buat', 'jahat', 'rakyat', 'monitor', 'politis', 'demokrat', 'nama']",-1
+"['pecat', 'konsekuen', 'noda', 'kabinet']",-1
+"['mantan', 'biar', 'menteri', 'kabinet', 'nya', 'ketua', 'partai', 'korupsi', 'ujung', 'jadi', 'sandera', 'politik', 'bijak', 'politik', 'jalan', 'mulus', 'ganggu', 'ps', 'pakai', 'intrik', 'politik']",-1
+"['ulas', 'politis', 'budayawan', 'senior', 'eros', 'djarot', 'ttg', 'kabinet', 'prabowo']",0
+"['menteri', 'pakai', 'mobil', 'dinas', 'maung', 'pindad', 'perintah', 'presiden', 'prabowo', 'subianto', 'anggota', 'kabinet', 'merah', 'putih', 'mobil', 'dinas', 'maung', 'buat', 'pt', 'pindad', 'persero', 'perintah', 'presiden', 'prabowo', 'subianto', 'perintah']",0
+"['kabinet', 'periode']",-1
+"['kalimat', 'gebrak', 'menteri', 'kabinet', 'merah', 'putih']",-1
+"['kabinet', 'siapaa', 'jadwal', 'jelek', 'jelek']",-1
+"['bahlul', 'calon', 'korupsi', 'kabinet', 'korupsi', 'periode', 'makjn', 'loh']",-1
+"['kabinet', 'merah', 'putih', 'disiplin']",1
+"['ramerame', 'sambut', 'presiden', 'wapres', 'serta', 'menteri', 'kabinet', 'merah', 'putih']",-1
+"['utus', 'khusus', 'presiden', 'bidang', 'bina', 'generasi', 'muda', 'kerja', 'seni', 'jabat', 'raggi', 'kabinet', 'merah', 'putih', 'damping', 'wapres', 'tabur', 'bunga', 'kerja', 'menteri', 'didik', 'budaya']",-1
+"['kabinet', 'butuh', 'kompak', 'selesai', 'masalah', 'lapang', 'sesuai', 'bidang', 'domain', 'masingmasing']",1
+"['program', 'sehat', 'rata', 'salut', 'kabinet', 'fokus', 'sehat', 'rakyat']",0
+"['perhati', 'video', 'ir', 'logowordmark', 'kabinet', 'merah', 'putih', 'ngelanjutin', 'stylenya', 'indonesia', 'maju']",0
+"['bahas', 'gmn', 'hari', 'todayy', 'berat', 'yaa', 'bahas', 'kabinet', 'prabowo']",-1
+"['manyalaahh', 'tolong', 'masuk', 'kabinet', 'kokom', 'kocheng', 'pupr', 'awas', 'infrastruktur', 'soleh', 'kocheng', 'pajak', 'jadi', 'bendahara', 'nemenin', 'smi', 'kocheng', 'pariwisata', 'kocheng', 'aaiiuuaiauu']",-1
+"['dukung', 'sukses', 'retreat', 'kabinet', 'merah', 'putih', 'akmil', 'magelang', 'aman', 'listrik', 'lapis', 'pasti', 'agenda', 'negara', 'jalan', 'lancar', 'tutup', 'sc']",1
+"['struktur', 'organisasi', 'menteri', 'kabinet', 'merahputih', 'selesai', 'november']",0
+"['sekretaris', 'kabinet', 'seskab', 'mayor', 'teddy', 'indra', 'wijaya', 'ingat', 'kabinet', 'merah', 'putih', 'berhatihati', 'kop', 'surat', 'tanda', 'tangan']",0
+"['presiden', 'prabowo', 'alas', 'bawa', 'menteri', 'kabinet', 'merah', 'putih', 'lembah', 'tidar', 'magelang']",0
+"['hashim', 'buka', 'suara', 'kabinet', 'gemuk', 'prabowo', 'output']",0
+"['raja', 'jawa', 'pukima', 'pki', 'wajib', 'tangkap', 'hukum', 'mati', 'kabinet', 'sampah', 'prabowo', 'lanjut', 'program', 'jokowi', 'antekanteknya', 'globalist', 'kafir', 'komunis', 'tuju', 'nya', 'jadi', 'indonesia', 'negara', 'komunis']",-1
+"['kabinet', 'tangguh', 'rakyat', 'senang']",1
+"['wapres', 'gibran', 'hadir', 'sidang', 'kabinet', 'paripurna', 'perdana', 'presiden', 'prabowo', 'fokus', 'hilir', 'swasembada', 'pangan', 'program', 'makan', 'gizi']",0
+"['datang', 'tim', 'kabinet', 'gemoy', 'vibes', 'magelang', 'beda']",-1
+"['kirain', 'guanlin', 'anggota', 'kabinet', 'merah', 'putih']",0
+"['kontroversi', 'menteri', 'kabinet', 'merah', 'putih', 'tambah', 'reshuffle', 'bikin', 'kontroversi']",-1
+"['prabowo', 'ngawur', 'kabinet', 'nya', 'comot']",-1
+"['orang', 'gampang', 'khianat', 'bohong', 'anak', 'buah', 'jgn', 'kasi', 'jabat', 'indikasi', 'beliau', 'becus', 'pimpin', 'moga', 'arie', 'diresafel', 'kabinet', 'mp']",0
+"['nanya', 'teras', 'kosan', 'dapur', 'kabinet', 'lemari', 'nya', 'buat', 'kayu', 'curutnya', 'asal', 'teras', 'kamar', 'kamar', 'teras', 'kamar', 'digentayangin']",0
+"['biar', 'kabinet', 'kerja', 'kompak', 'hasil', 'rakyat']",1
+"['bagus', 'kalo', 'kabinet', 'merah', 'putih', 'maksi', 'rakyat', 'sayang', 'ngomong', 'cak', 'imin']",-1
+"['ajh', 'trus', 'copot', 'dluuu', 'atur', 'ulang', 'kabinet', 'wamen', 'serta', 'staff']",-1
+"['sok', 'ngeritik', 'tlol', 'biar', 'biar', 'ajak', 'msuk', 'kabinet', 'wokwkwk', 'org', 'kek', 'cocok', 'ny', 'buzzer', 'mbk', 'cocok']",-1
+"['hasil', 'rapat', 'paripurna', 'kabinet', 'merah', 'putih', 'realisasi', 'maksimal', 'indonesia', 'emas', 'wujud', 'streaming']",0
+"['g', 'sama', 'brics', 'mimpin', 'kemah', 'kabinet', 'udah', 'planning', 'hadir', 'situ', 'ngebolehin', 'jabat', 'kelas', 'tri', 'absen', 'dri', 'acara', 'brti', 'nunjukin', 'brics']",1
+"['bng', 'kabinet', 'bijak', 'bang', 'lo', 'rasain', 'msih', 'bijak', 'kabinet', 'sebelumny']",-1
+"['negara', 'aneh', 'ganti', 'kabinet', 'ganti', 'mobil', 'mewah', 'mobil', 'sebelumya', 'layak', 'jelek', 'hutang', 'parah', 'ingat', 'perintah']",-1
+"['kudoggy', 'umum', 'kabinet', 'naga', 'kacung', 'jongos', 'naga']",-1
+"['instruksi', 'presiden', 'prabowo', 'tni', 'polri', 'jagung', 'sidang', 'kabinet']",-1
+"['sadar', 'kabinet', 'merput', 'tri', 'ye', 'wamennya', 'pks']",-1
+"['info', 'dasco', 'peran', 'susun', 'kabinet', 'buncit', 'hasim']",-1
+"['struktur', 'organisasi', 'menteri', 'target', 'selesai', 'november', 'tata', 'organisasi', 'menteri', 'isi', 'jabat', 'prioritas', 'kabinet', 'merah', 'putih', 'jakarta', 'bahas', 'struktur', 'organisasi', 'menteri']",0
+"['masuk', 'angin', 'lo', 'kejagng', 'udah', 'indikasi', 'rugi', 'negara', 'masuk', 'kabinet']",-1
+"['kabinet', 'perhati', 'sejahtera', 'anak', 'generasi', 'jamin']",1
+"['aldi', 'sibuk', 'banget', 'curiga', 'diemdiem', 'masuk', 'kabinet', 'merahputih']",-1
+"['kritik', 'rocky', 'gerung', 'buruk', 'kabinet', 'prabowo', 'gibran', 'surat', 'rahasia', 'siswa', 'sd']",-1
+"['penting', 'yah', 'sampe', 'rekonsiliasi', 'nya', 'masuk', 'kabinet', 'syarat', 'wiranto', 'berisik', 'loe', 'bawabawa', 'dosa', 'waris']",-1
+"['luhut', 'binsar', 'pandjaitan', 'batal', 'pensiun', 'lanjut', 'kontribusi', 'kabinet', 'prabowo', 'subianto']",0
+"['kemaren', 'pas', 'nyusun', 'kabinet', 'bacain', 'tri', 'merah', 'putih', 'sempet', 'bawa', 'suasana', 'pensiun', 'ampe', 'nang', 'melow', 'eh', 'tau', 'ganti', 'jabat', 'anjirr', 'bass', 'kepala', 'otorita', 'luhut', 'ketua', 'eknas', 'sial', 'ngapain', 'sedih', 'kemaren', 'balikin', 'air', 'mata']",-1
+"['toti', 'karbitan', 'kuasa', 'kabinet']",-1
+"['susun', 'kabinet']",0
+"['hati', 'org', 'nya', 'mulyono', 'kabinet', 'meng', 'up', 'biar', 'trending', 'tenggelam', 'pantau', 'platform', 'medsos', 'media', 'meng', 'up', 'mulyono', 'sdgkan', 'bpk']",-1
+"['sandal', 'slop', 'glossy', 'korea', 'shopee', 'presiden', 'prabowo', 'kabinet', 'merah', 'putih', 'malam', 'taro', 'pigai', 'hitthefloor', 't', 'jirayut', 'doraemon', 'madrid', 'rabu']",0
+"['pesan', 'prabowo', 'subianto', 'presiden', 'sidang', 'kabinet', 'perdana', 'damping', 'mas', 'ape', 'loe']",-1
+"['w', 'pikirin', 'anggar', 'gendut', 'lho', 'kabinet']",-1
+"['menteri', 'ekonomi', 'perinci', 'kumpul', 't', 'tempoh', 'bulan', 'kerjasama', 'menteri', 'wang', 'bentang', 'kabinet', 'kelulus']",0
+"['gimana', 'nama', 'kabinet', 'omon']",-1
+"['kader', 'pikir', 'nyadan', 'duri', 'daging', 'nya', 'kabinet', 'merah', 'putih']",-1
+"['sempet', 'denger', 'zaken', 'kabinet', 'jurnal', 'yujiem', 'rame', 'ken', 'gimana', 'cerita', 'beda', 'zaken', 'ken']",-1
+"['ku', 'suruh', 'baca', 'kak', 'bingung', 'cerita', 'gitu', 'lokasi', 'pas', 'btw', 'tokoh', 'inspirasi', 'kabinet', 'alumni', 'univ', 'nya', 'rawan', 'pas', 'kampanye', 'hmm', 'bingung']",-1
+"['duga', 'lantik', 'luhut', 'binsar', 'panjaitan', 'kabinet', 'misi', 'khusus', 'utang', 'bayar', 'jamin', 'investasi', 'china', 'indonesia']",-1
+"['dukung', 'program', 'perintah', 'kabinet', 'merah', 'putih', 'perintah', 'komitmen', 'waspada', 'risiko', 'global', 'rumus', 'bijak', 'jaga', 'penting', 'indonesia', 'optimis', 'tantang', 'dinamis', 'konferensi', 'pers', 'edisi', 'november']",1
+"['husen', 'for', 'indonesia', 'kabinet', 'merah', 'putih']",1
+"['retreat', 'kabinet', 'merah', 'putih', 'akmil', 'magelang', 'jalan', 'sukses', 'dukung', 'listrik', 'suplai', 'listrik', 'aman', 'berkat', 'aman', 'lapis', 'sc']",1
+"['jajar', 'kabinet', 'prabowo', 'dijadiin', 'kantor', 'ruku', 'summarecon', 'yak']",-1
+"['kepala', 'kantor', 'komunikasi', 'presiden', 'hasan', 'nasbi', 'alas', 'presiden', 'prabowo', 'subianto', 'dana', 'pribadi', 'bekal', 'retreat', 'kabinet', 'merah', 'putih', 'tekan', 'giat', 'jalan', 'malam', 'hitung', 'kamis']",-1
+"['sukses', 'aman', 'listrik', 'lap', 'retreat', 'kabinet', 'magelang']",1
+"['et', 'kabinet', 'bapak', 'gibran', 'wajar', 'et', 'tunduk', 'kpd', 'milik', 'negara']",-1
+"['terima', 'kasih', 'perintah', 'serta', 'kabinet', 'merah', 'putih', 'dukung', 'tahan', 'keluarga', 'rakyat', 'doa', 'moga', 'navigasi', 'bangsa', 'hadap', 'tantang', 'global']",0
+"['puruk', 'bangga', 'kabinet', 'jastip', 'wowo', 'udah', 'dibayangbayangi', 'siwiwi', 'beban', 'samsul', 'ngemis', 'cina', 'ikut', 'dana', 'makan', 'siang', 'gratis']",-1
+"['prabowo', 'subianto', 'rogoh', 'kocek', 'pribadi', 'biaya', 'bekal', 'kabinet', 'merah', 'putih']",1
+"['kabinet', 'halu']",-1
+"['pertanyaanya', 'pintar', 'hebat', 'daei', 'diacoba', 'interospeksi', 'dirikenapa', 'energi', 'pakai', 'tuk', 'awas', 'kerja', 'kabinet', 'merah', 'putihdisitu', 'penting', 'kalo', 'bilang', 'mafioso']",-1
+"['patut', 'apresiasi', 'analis', 'komunikasi', 'politik', 'kerja', 'menteri', 'kabinet', 'prabowo', 'tunjuk', 'maju', 'news']",1
+"['yours', 'is', 'way', 'betterrrrrrrr', 'makasih', 'menteri', 'kabinet', 'nrhs', 'ajas', 'untung', 'bekerjasama', 'bangun', 'negeri', 'nrhs', 'indo']",-1
+"['serah', 'duit', 'negara', 'duit', 'pribadi', 'berani', 'gak', 'depak', 'fu', 'fa', 'amp', 'bersihin', 'kabinet', 'org', 'mulyono']",-1
+"['kabinet', 'merah', 'putih', 'serius', 'tangan', 'isuisu', 'sosial', 'bantu']",1
+"['menteri', 'wakil', 'menteri', 'bidang', 'hukum', 'ham', 'ikut', 'giat', 'retreat', 'kabinet', 'merah', 'putih', 'akademi', 'militer', 'magelang', 'jawa', 'tanggal', 'oktober']",0
+"['pdip', 'bela', 'prabowo', 'ajak', 'kabinet']",-1
+"['presiden', 'prabowo', 'apresiasi', 'negarawan', 'sejati', 'libat', 'generasi', 'muda', 'kabinet', 'komandan', 'tkn', 'indonesia', 'insider']",1
+"['kecele', 'buang', 'lingkar', 'kabinet', 'prabowo', 'mmelas', 'mnjadi', 'blunder', 'depak', 'karna', 'janji', 'surga', 'politik', 'bajar', 'matang', 'watak', 'politik', 'sanding', 'mnjadi', 'hambar', 'skarang']",-1
+"['sorot', 'hasil', 'rapat', 'paripurna', 'kabinet', 'merah', 'putih', 'bahas', 'generasi', 'emas', 'sore', 'talk', 'amat', 'politik', 'sumatera', 'utara', 'shohibul', 'anshor', 'siregar', 'streaming']",0
+"['tanda', 'baik', 'arah', 'bangsa', 'ampnegara', 'indonesia', 'rapat', 'kabinet', 'merah', 'putih', 'suka', 'blusukanampkunjungan', 'proyek', 'manfaat', 'kecuali', 'unt', 'pencitraanamppemborosan', 'uang', 'negara', 'harap', 'henti', 'ikut', 'arah', 'pimpin', 'faham', 'apapunfufufafa']",-1
+"['anggota', 'kabinet', 'wajib', 'presd', 'mobil', 'dinas', 'buat', 'pindad', 'mobil', 'impor', 'no', 'more', 'ketampol', 'lg', 'mulyono', 'esemka']",-1
+"['duri', 'kabinet', 'wowo']",-1
+"['bang', 'negeri', 'kacau', 'tega', 'hukum', 'judol', 'jalan', 'duga', 'korupsi', 'mendag', 'mandeg', 'proyek', 'pik', 'makan', 'korban', 'naik', 'ppn', 'bikin', 'panik', 'dolar', 'perkasa', 'anggota', 'kabinet', 'mental', 'garong']",-1
+"['mayjen', 'purn', 'soenarko', 'dukung', 'kabinet', 'merah', 'putih', 'perintah', 'presiden', 'prabowo', 'maju', 'indonesia', 'dam', 'layan', 'baik', 'masyarakat']",1
+"['kudeta', 'kabinet', 'owo', 'bakar', 'ikn']",-1
+"['rapat', 'kabinet', 'gelar', 'saking', 'paham', 'nabrak', 'depan']",-1
+"['bekal', 'kabinet', 'merah', 'putih', 'biaya', 'presiden', 'prabowo', 'subianto']",0
+"['presiden', 'prabowo', 'subianto', 'inisiasi', 'retreat', 'kabinet', 'merah', 'putih', 'dukung', 'sepenuh', 'koordinasi', 'aman', 'listrik', 'optimal', 'acara', 'jalan', 'lancar', 'sc']",1
+"['yandri', 'kritik', 'pedas', 'rocky', 'gerung', 'menteri', 'kabinet', 'merah', 'putih', 'ingat', 'mayor', 'teddy']",1
+"['wkwkwk', 'bener', 'tititfafa', 'kali', 'imajinasi', 'pakai', 'narasi', 'orang', 'luar', 'nurul', 'kerja', 'kabinet', 'udah', 'bikin', 'gaduh', 'nikmatin', 'kasih', 'ruang', 'kudeta', 'hadeehhh', 'emang', 'prabowo', 'pinter']",-1
+"['menteri', 'wamen', 'kabinet', 'merah', 'putih', 'hadir', 'acara', 'puncak', 'sumpah', 'pemuda', 'taman', 'mini', 'indonesia', 'indah', 'tmii']",0
+"['istana', 'arah', 'prabowo', 'kabinet', 'pakai', 'maung', 'retreat', 'akmil']",0
+"['sekretaris', 'fraksi', 'golkar', 'dpr', 'mukhtarudin', 'dorong', 'kabinet', 'merahputih', 'prabowo', 'subianto', 'kuat', 'komitmen', 'cipta', 'hijau', 'lanjut']",-1
+"['abraha', 'mose', 'pt', 'pindad', 'tunggu', 'tindak', 'arah', 'prabowo', 'kait', 'maung', 'kendara', 'dinas', 'kabinet', 'merah', 'putih']",0
+"['bahas', 'efisiensi', 'anggar', 'rapat', 'kabinet', 'menteri', 'efisien']",-1
+"['kabinet', 'buang', 'buang', 'duit', 'awas', 'kalo', 'hasil', 'rakyat', 'hak', 'donk', 'protes', 'pilih', 'kalo', 'otak', 'marah', 'udah', 'milih', 'hasil', 'untung', 'pilih']",-1
+"['kalo', 'mahfud', 'orang', 'lagi', 'masuk', 'kabinet']",0
+"['maung', 'garuda', 'kendara', 'dinas', 'menteri', 'kabinet', 'merah', 'putih']",0
+"['bayang', 'kabinet', 'merah', 'putih', 'angle', 'kiri']",-1
+"['iyaa', 'bangg', 'setujuuu', 'prabowo', 'ngebantu', 'emg', 'krna', 'pnya', 'parpol', 'bang', 'trus', 'gt', 'nyapres', 'gt', 'kalo', 'bantu', 'ha', 'bantu', 'kann', 'ngata', 'in', 'org', 'logis', 'dahh', 'gituan', 'anggap', 'penghianat', 'penghianat', 'kalo', 'kalah', 'trus', 'masuk', 'kabinet']",0
+"['akmil', 'saksi', 'kabinet', 'kompak']",1
+"['gelintir', 'berlian', 'sampah', 'kabinet', 'gembrot']",-1
+"['uang', 'konsolidasi', 'kabinet', 'merah', 'putih', 'magelang', 'pulang', 'traktir', 'presiden', 'sempatsempatnya', 'mampir', 'blusukan', 'pasar', 'gotong', 'royong', 'rongrong', 'popularitas', 'presiden', 'usaha', 'mengupgrade', 'isi', 'kepala']",-1
+"['guna', 'pantes', 'pulang', 'duluan', 'acara', 'rapat', 'kabinet', 'iki', 'waprese', 'sopo', 'to', 'jane', 'ki', 'ancokkk']",-1
+"['mikirny', 'prabowo', 'bkin', 'kabinet', 'gemuk', 'biar', 'bsa', 'tampung', 'smua', 'rawan', 'pilpres', 'prabowo', 'pikir', 'kue', 'bumn', 'ehhh', 'tau', 'sma', 'gma', 'bumn', 'maju', 'isi', 'ama', 'politikus', 'simpatisan', 'pilpres']",0
+"['ombudsman', 'koordinasi', 'menteri', 'lembaga', 'kait', 'pisah', 'menteri', 'kabinet', 'merah', 'putih']",0
+"['presiden', 'prabowo', 'subianto', 'terima', 'surat', 'percaya', 'duta', 'kuasa', 'penuh', 'lbbp', 'negaranegara', 'sahabat', 'istana', 'merdeka', 'jakarta', 'senin', 'serah', 'surat', 'percaya', 'tanda', 'tugas', 'resmi', 'duta']",0
+"['istana', 'dana', 'retreat', 'kabinet', 'merah', 'putih', 'magelang', 'kantong', 'prabowo', 'lengkap', 'gtgtgt']",0
+"['rem', 'perjusa', 'smp', 'gembleng', 'kabinet', 'era', 'prabs']",-1
+"['cengkraman', 'jokowi', 'kabinet', 'prabowo', 'daya', 'usung', 'tema', 'lanjut', 'postur', 'kabinet', 'merah', 'putih', 'prabowo', 'lepas', 'bayangbayang', 'joko', 'widodo', 'vini', 'najwa', 'shihab', 'padang', 'asupan', 'banda', 'neira']",-1
+"['prabowo', 'serius', 'bikin', 'kabinet', 'solid', 'apbn']",1
+"['stabilitas', 'harga', 'pangan', 'jaga', 'kerja', 'kabinet', 'mantap']",1
+"['mesti', 'tangkap', 'nyata', 'bukti', 'korupsi', 'uang', 'rakyat', 'menteri', 'nya', 'jokowi', 'cokol', 'kabinet', 'prabowo', 'lg', 'buat', 'hina', 'sanasini', 'tangkap', 'bukn', 'tom', 'lembong', 'bijak', 'impor', 'gula', 'itu', 'perintah', 'jokowi']",0
+"['jaman', 'tegak', 'hukum', 'tri', 'ngomong', 'hasil', 'zonk', 'kelas', 'kabinet', 'balas', 'bukti', 'judi', 'online', 'subur']",-1
+"['salah', 'kerja', 'tonjol', 'kabinet', 'minggu', 'iring', 'patwal', 'voorijder', 'lengkap', 'nguiknguik']",-1
+"['kabinet', 'kabinet', 'indonesia', 'maju', 'kabinet', 'balas', 'sah', 'sah', 'menteri', 'tni', 'jendral', 'sesuai', 'atur', 'uu', 'propesional', 'bidang']",-1
+"['kabinet', 'merah', 'putih', 'ikut', 'retreat', 'akademi', 'magelang', 'jawa']",0
+"['era', 'digital', 'kabinet', 'gemoy']",-1
+"['anjir', 'lengah', 'dikit', 'tri', 'kabinet', 'merah', 'putih']",-1
+"['hasto', 'kader', 'pdip', 'kabinet', 'merah', 'putih', 'prabowo']",-1
+"['mana', 'sekre', 'kabinet', 'ajudan', 'pribadi', 'nya', 'tolong', 'ingat', 'beliau', 'presiden', 'pilih', 'capres', 'gagal', 'presiden', 'aneh']",-1
+"['kabinet', 'kmaren', 'napa', 'esemka']",-1
+"['mbadoooooq', 'sampek', 'mblukek', 'mblumek', 'umbar', 'bikin', 'obesitas', 'otak', 'bebal', 'dasar', 'kabinet', 'ideologi', 'duit', 'huexxxx']",-1
+"['persen', 'kabinet', 'prabowo', 'sandung', 'kasusmakanya', 'd', 'tangan', 'g', 'maksimal']",-1
+"['ngeri', 'stigma', 'radikal', 'anti', 'pancasila', 'dukung', 'koruptor', 'kabinet', 'panggil', 'kpk']",-1
+"['gula', 'beras', 'amp', 'minyak', 'goreng', 'bahan', 'makan', 'pokok', 'butuh', 'hadap', 'raya', 'cadang', 'gagal', 'panen', 'bencana', 'alam', 'bicara', 'rencana', 'rapat', 'kabinet', 'rekomendasi', 'minta', 'presiden', 'impor']",-1
+"['prof', 'stella', 'christie', 'akademisi', 'hebat', 'lulus', 'harvard', 'guru', 'tsinghua', 'university', 'resmi', 'jabat', 'wakil', 'menteri', 'didik', 'sains', 'teknologi', 'kabinet', 'merah', 'putih']",1
+"['serbaserbi', 'maung', 'pindad', 'peluang', 'mobil', 'dinas', 'menteri', 'kabinet', 'prabowo']",0
+"['sobat', 'nusantara', 'nusantara', 'power', 'np', 'kontribusi', 'sukses', 'lantik', 'presiden', 'wakil', 'presiden', 'kabinet', 'merah', 'putih', 'republik', 'indonesia', 'pilih', 'senin', 'selasa', 'oktober', 'jakarta']",0
+"['kabinet', 'aj', 'orang', 'isi', 'kompeten', 'bgmna', 'indonesia', 'maju', 'ganti', 'presiden', 'kabinet', 'dagel']",-1
+"['budaya', 'korup', 'dunia', 'tri', 'kabinet', 'gemoy', 'sandera', 'korupsi']",-1
+"['disiplin', 'tangguh', 'kabinet', 'solid']",1
+"['akmil', 'bikin', 'kabinet', 'disiplin']",1
+"['kabinet', 'gemuk', 'khawatir', 'hambat', 'koordinasi', 'antarkementerian']",-1
+"['kabinet', 'periode']",-1
+"['senang', 'opung', 'test', 'kabinet', 'gemuk']",-1
+"['melht', 'siprabowo', 'sandera', 'olh', 'jokowi', 'naga', 'susun', 'kabinet', 'dipstkn', 'rejim', 'siprabowo', 'lbh', 'zlm', 'lg', 'rejim', 'jokowi', 'prabowo', 'duga', 'kemngn', 'palsu', 'hsl', 'rkys', 'snjt', 'sijokowi', 'menyndra', 'siprabowo', 'siprabowo', 'bkl', 'boneka', 'br', 'kepentgn', 'cina']",-1
+"['kabinet', 'merah', 'putih']",0
+"['mantul', 'menteri', 'rja', 'rapat', 'kabinet', 'paripurna', 'perdana', 'baik', 'cerdas', 'bangsa']",1
+"['pisah', 'menteri', 'desa', 'bangun', 'daerah', 'tinggal', 'menteri', 'transmigrasi', 'kabinet', 'merah', 'putih', 'salah', 'upaya', 'perintah', 'prabowo', 'gibran', 'wujud', 'tingkat', 'sektor', 'ekonomi', 'ten', 'hag', 'hybe', 'vini', 'mudryk', 'manchester', 'united']",0
+"['salah', 'alas', 'sri', 'mulyani', 'pakai', 'kabinet', 'merah', 'putih', 'presiden', 'muter', 'cari', 'utang', 'bayar', 'utang', 'waris', 'jokowi', 'miris', 'gak', 'negeri', 'kaya', 'raya', 'gemah', 'ripah', 'loh', 'jawi', 'musti', 'gali', 'lobang', 'tutup', 'lobang']",-1
+"['kabinet', 'nak', 'tolak', 'duit', 'masuk', 'kabinet', 'budget']",-1
+"['sikap', 'politik', 'muncul', 'hati', 'an', 'kecewa', 'rakyat']",-1
+"['dana', 'kabinet', 'stop', 'menteri', 'anak', 'buah', 'korupsi', 'jumbo', 'korupsi', 'rampas', 'hak', 'desa', 'dana', 'desa', 'pakai', 'dalih', 'kepala', 'desa', 'korupsi', 'pdhl', 'ngasih', 'contoh', 'korupsi', 'jabat', 'pusat']",-1
+"['persero', 'sukses', 'rangkai', 'retreat', 'kabinet', 'merah', 'putih', 'inisiasi', 'presiden', 'prabowo', 'subianto', 'akademi', 'militer', 'akmil', 'kota', 'magelang', 'tutup', 'minggu']",1
+"['eh', 'apas', 'wamen', 'kabinet', 'bener', 'ajeeeee']",-1
+"['kasih', 'kakak', 'jabat', 'menteri', 'kabinet', 'perintah', 'mantap', 'kali', 'jilat', 'bah', 'wkwkkwwk']",-1
+"['kayak', 'prabowo', 'suruh', 'kabinet', 'khatam', 'paradox', 'indonesia']",-1
+"['maaf', 'kerja', 'kali', 'pandai', 'jilat', 'bau', 'partai', 'keluarga', 'anggar', 'habis', 'gaji', 'minggirnunggu', 'makan', 'gratis', 'kalo', 'sisa', 'anak', 'sekolah', 'kabinet', 'zaken', 'taek']",-1
+"['kmrn', 'bayang', 'uang', 'rakyat', 'pakai', 'acr', 'akmil', 'pakai', 'uang', 'pribadi', 'prabowo', 'ok', 'have', 'a', 'fun', 'selamat', 'kabinet', 'merah', 'putih']",1
+"['bekal', 'kabinet', 'merah', 'putih', 'magelang', 'jawa', 'mari', 'pantau', 'giat', 'menteri', 'duduk', 'bangun', 'keluarga', 'ikut', 'korespondensi', 'cnn', 'indonesia', 'novanaya', 'antaka']",0
+"['senang', 'lihat', 'bijak', 'kabinet', 'perhati', 'ekonomi', 'lokal']",1
+"['goblok', 'goblok', 'anjing', 'kabinet', 'pd', 'tolol']",-1
+"['rapat', 'kabinet', 'beliau', 'bilang', 'hindar', 'giat', 'sifat', 'seremonial']",-1
+"['terima', 'kasih', 'kabinet', 'merah', 'putih', 'tumbuh', 'ekonomi', 'indonesia', 'jaga', 'stabil']",1
+"['kaya', 'menteri', 'kabinet', 'prabowo']",-1
+"['layan', 'sehat', 'bagus', 'terima', 'kasih', 'kabinet', 'merah', 'putih']",1
+"['kutik', 'jagung', 'bongkar', 'korupsi', 'dirjen', 'kemenhub', 'seret', 'jalur', 'kereta', 'api', 'besitanglangsa']",-1
+"['minta', 'nya', 'lulus', 'tuan', 'presiden', 'menteri', 'habis', 'apbn', 'kabinet', 'super', 'gemoy', 'indonesia', 'good', 'bye']",-1
+"['pikir', 'episode', 'luhut', 'rezim', 'prabowo', 'luhut', 'ketua', 'den', 'rapat', 'kabinet', 'tanda', 'byk', 'lg', 'jabat', 'pegang', 'rezim', 'kmrn', 'gmn', 'ges']",-1
+"['nasdem', 'gabung', 'kabinet', 'prabowogibran', 'willy', 'aditya', 'lihat']",0
+"['haha', 'kau', 'try', 'suruh', 'papanon', 'berdailog', 'ngn', 'mufti', 'ruu', 'dh', 'go', 'through', 'kabinet', 'papanon', 'tuju', 'dengn', 'ruu', 'bentang', 'tengok', 'takut']",-1
+"['at', 'least', 'nduwe', 'daya', 'paksa', 'samar', 'thus', 'sidangsidang', 'kabinet', 'bagus', 'hutan', 'wae']",-1
+"['ombak', 'kabinet', 'awokwokwokwok']",-1
+"['kalo', 'gitu', 'ganti', 'orang', 'sipil', 'jabat', 'danramil']",-1
+"['nilai', 'murni', 'hati', 'akademisi', 'nilai', 'aparatur', 'negara', 'jabat', 'menteri', 'kabinet']",-1
+"['kabinet', 'peduli', 'butuh', 'masyarakat', 'terus', 'karya']",0
+"['tumbuh', 'ekonomi', 'stabil', 'kabinet', 'kerja', 'keras', 'banget']",1
+"['kabinet', 'gemuk', 'biar', 'asisten', 'nya', 'kerja', 'bikin', 'lapor', 'salah', 'in']",-1
+"['tinggal', 'bikin', 'list', 'omonomon', 'kabinet', 'zaken', 'gak', 'tau', 'ken', 'tambah', 'gaji', 'guru', 'rp', 'jt', 'oktober', 'detik', 'zonk', 'berantas', 'judi', 'online', 'narkoba', 'dllfaktanya', 'gak', 'progres']",-1
+"['program', 'digitalisasi', 'terima', 'kasih', 'kabinet', 'merah', 'putih']",1
+[],-1
+"['kabinet', 'merah', 'putih', 'merah', 'pucat']",0
+"['rocky', 'gerung', 'prediksi', 'minggu', 'prabowo', 'laku', 'reshuffle', 'kabinet', 'vini']",-1
+"['waras', 'kabinet', 'gemoy']",-1
+"['gin', 'gaji', 'mayor', 'teddy', 'lantik', 'prabowo', 'sekretaris', 'kabinet']",0
+"['makna', 'multidimensi', 'bli', 'bagaiman', 'apa', 'ampura', 'respon', 'kabinet', 'titip', 'nokomen', 'wait', 'see', 'ken', 'megae', 'beneh', 'ape', 'cm', 'retorika', 'media', 'gen', 'ane', 'luung']",-1
+"['terima', 'kasih', 'presiden', 'segenap', 'kabinet', 'lembah', 'twitter', 'mandat', 'ketua', 'partai', 'rebah', 'terima', 'senang', 'hati', 'hormaaaaaaat', 'graaak']",-1
+"['retreat', 'kabinet', 'merah', 'putih', 'sukses', 'laksana', 'akmil', 'magelang', 'hadir', 'aman', 'listrik', 'optimal', 'giat', 'jalan', 'mulus', 'tutup', 'sc']",1
+"['arie', 'setiadi', 'menkominfo', 'kabinet', 'indonesia', 'maju', 'atensi', 'r', 'ng', 'm', 'l', 'w', 'jud', 'nln', 'lanjut', 'kabinet', 'prabowo', 'jabat', 'bu', 'meutya', 'hafid', 'komdigi', 'projo', 'muda', 'muda', 'abdi', 'dunia']",1
+"['retreat', 'kabinet', 'merah', 'putih', 'kamis', 'minggu']",0
+"['acara', 'budaya', 'kakk', 'guanlin', 'jdi', 'representative', 'sutradara', 'muda', 'katanyaaaa', 'vibesnya', 'kyk', 'kabinet', 'merah', 'putih', 'wkwkwkkw']",-1
+"['demen', 'neh', 'kabinet', 'pancing', 'jalan']",-1
+"['kakak', 'pusing', 'lantar', 'adik', 'gak', 'masuk', 'kabinet', 'hasil', 'pansus', 'mata', 'penjara', 'tunggu']",-1
+"['orang', 'naif', 'percaya', 'prabowo', 'perintah', 'bersih', 'benah', 'sistem', 'pidato', 'nya', 'janji', 'praktek', 'kabinet', 'isi', 'misfits', 'amp', 'mismatch', 'orang', 'indikasi', 'bersih', 'emang', 'indonesia', 'bersih', 'dng', 'pidato']",-1
+"['maksud', 'balik']",0
+"['bingung', 'lihat', 'orang', 'bicarayg', 'bilang', 'rakyat', 'udah', 'fahamsemua', 'kabinet', 'banditlalu', 'rakyat', 'bagaimanakita', 'udah', 'bungkam', 'aparat', 'tlah', 'seeting']",-1
+"['terobos', 'positif', 'kabinet', 'benerbener', 'ngasih', 'hasil', 'nyata']",1
+"['menteri', 'budaya', 'kabinet', 'merah', 'putih', 'lantik', 'laku', 'seni', 'budaya', 'harap', 'via']",0
+"['kabinet', 'bayang', 'nak', 'mintak', 'duit', 'la', 'gaji', 'mp', 'bajet', 'alternatif', 'mcm', 'badrul', 'la', 'pulak']",-1
+"['prabowo', 'subianto', 'tekan', 'satu', 'elit', 'politik', 'kelola', 'kaya', 'bangsa', 'sidang', 'kabinet', 'perdana']",0
+"['dinasti', 'koruptor', 'masuk', 'kabinet', 'prabowo', 'ahir', 'nya', 'jujur', 'benar', 'nya', 'wajib', 'hukum', 'mati']",-1
+"['bekal', 'kabinet', 'merah', 'putih', 'akmil', 'magelang', 'dukung', 'warganet']",1
+"['kepala', 'kantor', 'komunikasi', 'presiden', 'hasan', 'nasbi', 'biaya', 'bekal', 'anggota', 'kabinet', 'merah', 'putih', 'akademi', 'militer', 'magelang', 'jawa', 'oktober', 'asal', 'uang', 'pribadi', 'presiden', 'prabowo', 'subianto']",0
+"['salah', 'pilih', 'orang', 'kabinet', 'orang', 'indonesia', 'orang', 'pecah', 'belah', 'nkri', 'harga', 'mati', 'negara', 'syariah']",-1
+"['kabinet', 'omon', 'fufufa', 'tanggap', 'negatif', 'pasar', 'rupiah', 'ambruk', 'ekonomi', 'sulit', 'bangkit', 'kabinet', 'jadi', 'tampung', 'buzer', 'dominasi', 'buzer', 'pro', 'jokowi', 'kabinet', 'cepat', 'hancur', 'negara', 'rusak', 'uang', 'negara', 'dst', 'na', 'haryokusumo', 'nation', 'research']",-1
+"['percaya', 'kabinet', 'merah', 'putih', 'ubah', 'positif', 'bidang', 'ekonomi']",1
+"['pasti', 'beres', 'bobrok', 'rezim', 'lamaplus', 'atur', 'komposisi', 'kabinet', 'pas']",-1
+"['gambar', 'kabinet', 'sungguh', 'persis', 'suram', 'bangsa']",-1
+"['hebat', 'banget', 'hasil', 'jaga', 'stabilitas', 'listrik', 'acara', 'kabinet', 'magelang', 'kayak', 'tenang', 'good', 'job']",1
+"['kabinet', 'harap', 'cemas']",-1
+"['gemukbya', 'kursi', 'menteri', 'kabinet', 'nilai', 'picu', 'risiko', 'ekonomi', 'tingkat', 'beban', 'fiskal', 'biaya', 'menteri', 'risiko', 'tumpang', 'tindih', 'atur', 'perintah', 'surut', 'masuk', 'investor', 'asing']",-1
+"['tayang', 'gol', 'habis', 'langsung', 'hilang']",0
+"['ganti', 'kabinet', 'retwait', 'kabinet', 'sandera', 'minggu', 'uda', 'byk', 'bener', 'drama']",-1
+"['tahan', 'gara', 'emang', 'kriminalitas', 'korupsi', 'zulkifli', 'bebas', 'loh', 'kabinet', 'periksa', 'kpk', 'kolam', 'bahlil']",-1
+"['hendri', 'tutup', 'prabowo', 'lapor', 'kerja', 'kabinet']",0
+"['kabinet', 'release', 'org', 'milih', 'ngomongin', 'kucing', 'istana', 'skenario', 'kepala', 'kemarin', 'jadi']",-1
+"['menteri', 'panrb', 'ungkap', 'nasib', 'asn', 'kemenko', 'marves', 'dampak', 'ubah', 'kabinet']",-1
+"['ntar', 'klu', 'anggota', 'kabinet', 'keluh', 'anggar', 'suruh', 'pulang']",-1
+"['presiden', 'prabowo', 'subianto', 'keliling', 'orangorang', 'percaya', 'peran', 'kabinet', 'merah', 'putih']",0
+"['terima', 'arah', 'presiden', 'rapat', 'kabinet', 'paripurna', 'menteri', 'nusron', 'concern', 'tata', 'ulang', 'tanah', 'negara']",0
+"['bkn', 'asn', 'pppk', 'alih', 'imbas', 'ubah', 'nomenklatur', 'kabinet', 'merah', 'putih']",0
+"['jaman', 'tegak', 'hukum', 'tri', 'ngomong', 'hasil', 'zonk', 'kelas', 'kabinet', 'balas', 'bukti', 'judi', 'online', 'subur']",-1
+"['jerome', 'polin', 'ajak', 'gabung', 'kabinet', 'merah', 'putih']",0
+"['kabinet', 'gemoy', 'apbn', 'letoy']",-1
+"['ide', 'bagus', 'bagus', 'kerja', 'tunggak', 'ham', 'belym', 'selesai', 'tg', 'rencana', 'bicara', 'presiden', 'kabinet']",-1
+"['kabinet', 'merah', 'putih', 'wajib', 'bekal', 'kabinet', 'jiwa', 'nasionalisme', 'patriotisme', 'pihak', 'pd', 'rakyat', 'boneka', 'naga', 'oknum', 'naga', 'gusur', 'tanah', 'rakyat', 'untung', 'kapitalis', 'pik', 'pik']",0
+"['menteri', 'atr', 'kepala', 'bpn', 'nusron', 'wahid', 'wakil', 'menteri', 'atrwakil', 'kepala', 'bpn', 'ossy', 'dermawan', 'magelang', 'jawa', 'ikut', 'rapat', 'kerja', 'retreat', 'magelang', 'giat', 'giat', 'kabinet', 'merah', 'putih', 'istana', 'negara']",0
+"['mosok', 'juang', 'kali', 'pilpres', 'gagal', 'jual', 'menhan', 'kabinet', 'joko', 'udah', 'tanin', 'gob', 'rela', 'bunuh', 'gitu', 'hidupya', 'kayak', 'mencret', 'gob', 'bentar', 'ilang', 'menteri', 'ex', 'joko', 'reshuffle']",-1
+"['mudah', 'mantan', 'nasehat', 'kpk', 'kabinet', 'prabowo', 'korup', 'kecuali', 'prabowo', 'political', 'will', 'kesah']",-1
+"['depan', 'ngomongin', 'kemaren', 'kemaren', 'moga', 'ubah', 'kabinet', 'skrng', 'lgi', 'lambat', 'birokrasi']",0
+"['birokrasi', 'kenal', 'ribetnya', 'kalo', 'kabinet', 'rungkad', 'ribet']",-1
+"['mulyono', 'sukses', 'mnciptakn', 'kecebonk', 'ank', 'kodokamp', 'kampret', 'mungkn', 'dl', 'insinyur', 'peternakn', 'shg', 'hobi', 'ternak', 'prabowo', 'sprtinya', 'brhutng', 'dijdikn', 'menhan', 'shg', 'sungkn', 'sm', 'simul', 'mskipun', 'kabinet', 'pimpin', 'duri', 'daging']",-1
+"['inti', 'kapolri', 'ganti', 'hilang', 'geng', 'solo', 'kabinet', 'buka', 'lembar', 'presiden']",-1
+"['apresiasi', 'kabinet', 'ngasih', 'perhati', 'umkm']",1
+"['dashboard', 'kpikinerja', 'anggota', 'kabinet', 'pantau', 'publik', 'lgi', 'penilain', 'subjektif', 'like', 'or', 'dislike', 'smua', 'parameter', 'jlas', 'sesuai', 'progress', 'kpi', 'tsb']",0
+"['rasa', 'banget', 'ubah', 'lapang', 'kabinet', 'merah', 'putih', 'emang', 'beneran', 'fokus', 'rakyat', 'sukses']",1
+"['pidato', 'negara', 'lantik', 'percaya', 'beliau', 'kelola', 'negara', 'menteri', 'kabinet', 'nya', 'langsung', 'pupus', 'harap', 'beliau']",-1
+"['soliditas', 'kunci', 'jauh', 'kabinet', 'korupsi']",1
+"['ganti', 'pedang', 'tombak', 'pimpin', 'tak', 'mati', 'adhimas', 'daru', 'dhiulhaq', 'kabid', 'internal', 'lewat', 'tujuh', 'tempa', 'anggota', 'bem', 'usb', 'kabinet', 'aru', 'candrasa', 'terus', 'juang', 'gerak', 'demokrasi', 'hidup', 'mahasiswa']",0
+"['kerja', 'kabinet', 'prabowo', 'habis', 'giat', 'seremonial', 'lontaklantik', 'jabat', 'khawatir', 'lamban', 'kabinet', 'jumbo', 'bukti']",-1
+"['susun', 'kabinet', 'tri', 'hitung', 'jari', 'perempuan', 'pampang', 'wajahwajah', 'gagah', 'mana', 'perempuan']",-1
+"['wkwkw', 'kabinet', 'prabowo', 'isi', 'org', 'munafik']",-1
+"['isi', 'rapat', 'kabinet', 'kemarin', 'tri', 'yandri', 'pecat', 'lantik', 'salah', 'jabat', 'depan']",-1
+"['iya', 'ganti', 'bikin', 'resah', 'kabinet', 'orang']",-1
+"['positif', 'bantu', 'bawa', 'perkara', 'mesyuarat', 'jemaah', 'kabinet', 'rabu', 'doa', 'harap', 'sabah', 'biar', 'gelap', 'januari']",0
+"['anggota', 'kabinet', 'grafik', 'udah', 'kabinet', 'prabowo', 'udah', 'lampau', 'kabinet', 'menteri', 'soekarno']",-1
+"['kabinet', 'bijak', 'boros', 'didik', 'negara']",-1
+"['coba', 'maaf', 'korupsi', 'bahaya', 'loh', 'presiden', 'prabowo', 'sorry', 'kalo', 'suudzon', 'bener', 'orang', 'bentuk', 'kabinet', 'baru', 'langsung', 'langsung', 'segitu', 'nilai']",-1
+"['camarda', 'nobita', 't', 'traveling', 'vini', 'menteri', 'pecat', 'polisi', 'kabinet', 'merah', 'putih', 'suswono', 'wagub', 'warteg', 'ui', 'lurus', 'hoaks']",-1
+"['wkwkwk', 'bolos', 'kerja', 'kabinetbadut']",-1
+"['orang', 'suka', 'koar', 'jokowi', 'koar', 'udah', 'masuk', 'kabinet']",-1
+"['kabinet', 'merah', 'putih', 'beneran', 'progres', 'bikin', 'bangga']",-1
+"['wapres', 'emang', 'gebrak', 'strategic', 'work', 'nya', 'sarana', 'adu', 'masyarakat', 'nama', 'wapres', 'gerak', 'orang', 'orang', 'bawah', 'gak', 'sampe', 'ratas', 'kabinet']",-1
+"['populer', 'nasional', 'cerita', 'menteri', 'gembleng', 'akmil', 'retret', 'kabinet', 'biaya', 'uang', 'prabowo']",1
+"['kabinet', 'merah', 'putih', 'manusia', 'jujur', 'persenkarna', 'batin', 'manusia', 'nya']",-1
+"['mas', 'gibran', 'blusukan', 'pasar', 'bekal', 'kabinet', 'sah', 'sah', 'agenda', 'kerja', 'ujang', 'komarudin', 'sewot', 'bawa', 'jokowi', 'kalo', 'ciri', 'khas', 'keluarga', 'jokowi', 'blusukan', 'ujang']",-1
+"['kabinet', 'gemoy', 'obesitas']",-1
+"['tumbuh', 'sektor', 'digital', 'cepat', 'kabinet', 'benerbener', 'dukung', 'inovasi']",1
+"['kuis', 'arisan', 'serta', 'mahasiswa', 'sebut', 'nama', 'menteri', 'kabinet', 'merah', 'putih', 'yusril', 'belah', 'raffi', 'ahmad', 'giring', 'nidji', 'sebut', 'pahlawan', 'wanita', 'indonesia', 'ra', 'kartini', 'megawati', 'real', 'indonesia', 'cemas']",1
+"['bener', 'berani', 'teriak', 'kenceng', 'bro', 'kabinet', 'nmbh', 'orang', 'gmn', 'bro', 'uang', 'apbnitu', 'tri', 'tmbhan', 't', 'udah', 'teriak', 'kenceng', 'blom', 'loe', 'bro']",-1
+"['koq', 'om', 'wowo', 'lupa', 'nama', 'menteri', 'jabat', 'kecuali', 'baca', 'saking', 'tambun', 'kabinet', 'yuk', 'korupsi']",-1
+"['efisien', 'kabinet', 'nya']",-1
+"['prabowo', 'ngeluarin', 'formasi', 'kabinet', 'merah', 'putih', 'menteri', 'wakil', 'menteri', 'wow', 'banget', 'salah', 'menteri', 'tarik', 'perhati', 'netizen', 'menteri', 'negeri', 'sugiono', 'udah']",1
+"['tolong', 'prabowo', 'kabinet', 'ken', 'nya', 'jokowi', 'benalu']",-1
+"['menteri', 'uang', 'sri', 'mulyani', 'keluar', 'surat', 'edar', 'jabat', 'negara', 'kabinet', 'merah', 'putih', 'hemat', 'anggar', 'belanja', 'jalan', 'dinas', 'baca', 'lengkap', 'sumber', 'gambar']",0
+"['parah', 'didik', 'kabinet', 'pakai', 'dana', 'pribadi', 'eh', 'menteri', 'korupsi', 'incar', 'dana', 'apbn', 'nelongso']",-1
+"['kabinet', 'merah', 'putih', 'komitmen', 'jaga', 'lingkung']",-1
+"['kabinet', 'kacau', 'balau', 'nasih', 'nkri', 'th', 'depan', 'etika', 'politik', 'moralitas', 'politik', 'warga', 'nkri', 'kebiri', 'kitakita', 'bodoh', 'warga', 'didik', 'bius', 'warga', 'jamah', 'ilmu']",-1
+"['pr', 'berat', 'menteri', 'didik', 'kabinet', 'prabowo', 'okky', 'madasari', 'zonasi', 'nasib', 'guru']",0
+"['jabat', 'kabinet', 'merah', 'putih', 'periode', 'mobil', 'dinas', 'buat', 'produk', 'negeri', 'instruksi', 'presiden', 'prabowo', 'subianto', 'laku', 'minggu']",0
+"['depan', 'reshuffle', 'kabinet', 'menteri', 'ikut', 'bina', 'tidar', 'bagus', 'tanam', 'semangat', 'bela', 'negara']",1
+"['emang', 'percaya', 'yaa', 'circlenya', 'doang', 'masyarakat', 'mah', 'udah', 'orang', 'laen', 'kabinet', 'merah', 'putih', 'wowo', 'laen', 'emang']",-1
+"['tarik', 'tarik', 'kabinet', 'merah', 'putih', 'pst', 'smakin', 'keras']",-1
+"['segi', 'didik', 'programprogram', 'usung', 'kabinet', 'bikin', 'generasi', 'cemerlang']",1
+"['bidang', 'uang', 'daya', 'perempuan', 'hadir', 'bawa', 'ubah', 'daftar', 'lengkap', 'serta', 'peran', 'srikandi', 'kabinet', 'merah', 'putih', 'sumber', 'id']",1
+"['csis', 'prabowo', 'ajak', 'partai', 'gurem', 'masuk', 'kabinet', 'ganggu', 'stabilitas', 'politik']",0
+"['nice', 'kabinet', 'merah', 'putih']",1
+"['beda', 'kelas', 'jiwa', 'patriotik', 'militer', 'tukang', 'militer', 'negara', 'tukang', 'keluarga', 'presiden', 'prabowo', 'biaya', 'retret', 'kabinet', 'merah', 'putih', 'akmil', 'magelang', 'sumber']",1
+"['prabowo', 'gerindra', 'gencargencarnya', 'promosi', 'kader', 'kader', 'kader', 'gerindra', 'menlu', 'sugiono', 'wamen', 'taufik', 'hidayat', 'coba', 'sorot', 'byk', 'kader', 'gerinda', 'sinar', 'kabinet']",-1
+"['bkn', 'dukung', 'dukung', 'terhdp', 'program', 'tsb', 'presiden', 'alas', 'kuat', 'batal', 'program', 'mkn', 'siang', 'gratis', 'timbang', 'anggar', 'blum', 'lgi', 'gemuk', 'kabinet', 'hutang', 'negeri', 'publik', 'paham', 'bhw', 'didik', 'gratis', 'lbh']",0
+"['inovasi', 'lahir', 'kabinet', 'prabowo', 'proud']",1
+"['electrizen', 'sukses', 'hadir', 'listrik', 'andal', 'acara', 'retreat', 'kabinet', 'merah', 'putih', 'akademi', 'militer', 'akmil', 'magelang', 'oktober', 'pimpin', 'presiden', 'prabowo', 'subianto']",0
+"['prabowo', 'antar', 'indonesia', 'emas', 'anggota', 'kabinet', 'merah', 'putih', 'awal', 'didik', 'ilmu', 'militer', 'arti', 'tindak', 'pandang', 'bulu', 'lindung', 'bangsa', 'negara', 'korban', 'nyawa']",1
+"['tauketauke', 'oligarki', 'mr', 'anwar', 'indonesia', 'sarang', 'kabinet', 'merah', 'putih']",-1
+"['waspada', 'serang', 'iran', 'israel', 'pindah', 'lokasi', 'temu', 'minggu', 'kabinet']",0
+"['salah', 'tugas', 'kabinet', 'merah', 'putih', 'sih', 'kotor', 'pimpin']",-1
+"['kl', 'panglima', 'shrsnya', 'mngkin', 'skrng', 'jatah', 'tni', 'au', 'kalo', 'salah', 'sepak', 'terjang', 'amhp', 'sungguh', 'luarbiasa', 'pengaruh', 'oia', 'anak', 'masuk', 'kabinet', 'kalo', 'gak', 'salah']",-1
+"['anak', 'abah', 'simpatisan', 'pks', 'pks', 'ningggalin', 'abah', 'loncat', 'pagar', 'gabung', 'kim', 'dpt', 'kursi', 'kabinet', 'ps', 'nurut', 'anjing', 'pd', 'kim', 'unt', 'maju', 'pilgub', 'dki', 'rk', 'cagub', 'amp', 'suswini', 'cawagub', 'fix', 'hianati', 'hati', 'anak', 'abah', 'gila', 'bet', 'anak', 'abah', 'disrh', 'dukung', 'rido']",-1
+"['simak', 'lapor', 'utama', 'tempo', 'pekan', 'lengkap', 'main', 'kabinet']",-1
+"['kompas', 'rajin', 'banget', 'ngikutin', 'wapres', 'reporter', 'masuk', 'kabinet', 'yhahha', 'framing', 'wapres', 'hr', 'kerjacolek', 'wapres', 'temuin', 'anak', 'sekolah', 'mahasiswa', 'nungguin', 'ajak', 'ngobrol', 'smbl', 'ngopiwkwkwkw']",0
+"['kabinet', 'merah', 'putih', 'to']",-1
+"['nama', 'kabinet', 'merah', 'putih', 'gambar', 'kabinet', 'jiwa', 'nasionalis', 'isi', 'menteri', 'kepala', 'badan', 'wakil', 'menteri', 'menteri', 'wakil', 'menteri', 'cocok', 'pakai', 'nama', 'kabinet', 'padat', 'karyawan']",-1
+"['rapat', 'kabinet', 'paripurna', 'perdana', 'langsung', 'tancap', 'gas', 'sukses']",1
+"['prabowo', 'sidang', 'kabinet', 'tongkat', 'nabi', 'sulaiman']",0
+"['kabinet', 'merah', 'putih', 'nama', 'kombinasi', 'jiwa', 'patriotisme', 'jiwa', 'begawan', 'darah', 'orang', 'begawan', 'ekonom', 'milik', 'bangsa', 'kakek']",1
+"['upacara', 'hadir', 'ketua', 'lembaga', 'negara', 'menteri', 'kabinet', 'merah', 'putih', 'panglima', 'tni', 'kapolri', 'amp', 'kepala', 'staf', 'angkat', 'menhan', 'sjafrie', 'damping', 'putra', 'sempat', 'ziarah', 'pusara', 'sang', 'ayah', 'letkol', 'tni', 'purn', 'h', 'sjamsoeddin', 'koernia']",0
+"['menteri', 'atrbpn', 'nusron', 'wahid', 'wamen', 'atrbpn', 'ossy', 'dermawan', 'ikut', 'raker', 'komisi', 'ii', 'dpr', 'kali', 'rapat', 'bahas', 'target', 'capai', 'anggar', 'program', 'kerja', 'kabinet', 'merah', 'putih', 'gelar', 'gedung', 'nusantara', 'dpr']",0
+"['lapor', 'permasalahn', 'masyarakat', 'langsung', 'wapres', 'usul', 'gak', 'erti', 'nama', 'struktur', 'organisasi', 'minimal', 'gak', 'efektif', 'kabinet', 'gemuk', 'kayak', 'gitu', 'lapor', 'pucuk', 'guna']",-1
+"['rusak', 'kabinet', 'bangun', 'indonesia', 'emas']",-1
+['kabinet'],-1
+"['kacamata', 'sy', 'kabinet', 'gemuk', 'birokrasi', 'lbh', 'muter', 'urus', 'sm', 'instansi', 'non', 'kl', 'smg', 'bu', 'menkeu', 'tmbh', 'puyeng', 'mikir', 'negara', 'duit', 'seger', 'waras', 'njih', 'bu']",-1
+"['the', 'big', 'and', 'happy', 'family', 'departemen', 'hubung', 'masyarakat', 'bidang', 'komunikasi', 'informasi', 'kabinet', 'jiwa']",0
+"['antony', 'el', 'goat', 'kabinet', 'merah', 'putih']",-1
+"['kabinet', 'miskin', 'kalo', 'nama', 'kerja', 'udah', 'tekor']",-1
+"['kabinet', 'erti', 'didik', 'karakter', 'generasi', 'muda']",1
+"['tenang', 'mas', 'gibran', 'asuh', 'mulyono', 'presiden', 'ln', 'rezim', 'skr', 'pmnya', 'kabinet', 'sjahrir', 'tinggal', 'ubah', 'uud', 'nya', 'drpd', 'malu', 'amp', 'malu', 'in', 'maksa', 'incharge']",-1
+"['visi', 'misi', 'presiden', 'menteri', 'kabinet', 'merah', 'putih', 'kl', 'kepala', 'daerah', 'hrs', 'visi', 'misi', 'presiden', 'mk', 'uu', 'nomor', 'th', 'ttg', 'otonomi', 'daerahharus', 'cabut', 'dl']",-1
+"['the', 'real', 'presiden', 'tinggal', 'nyimak', 'bijak', 'kabinet', 'merah', 'putih']",1
+"['ketua', 'hari', 'gerindra', 'sufmi', 'dasco', 'ahmad', 'menteri', 'kabinet', 'prabowo', 'subianto', 'lewat', 'uji', 'patut', 'layak', 'dasco', 'klaim', 'menteri', 'prabowo', 'masalah', 'fakta']",0
+"['omon', 'omon', 'alias', 'lips', 'service', 'mulyono', 'awokwokwok', 'bukti', 'badan', 'terima', 'gagal', 'zaken', 'kabinet', 'gagal', 'naik', 'gaji', 'guru', 'laksana', 'oktober']",-1
+"['hah', 'emang', 'beneran', 'tri', 'asa', 'list', 'kabinet', 'merah', 'putih']",-1
+"['kabinet', 'benarbenar', 'paham', 'butuh', 'masyarakat', 'patut', 'contoh']",1
+"['desentralisasi', 'mesti', 'kabinet', 'perangkat', 'pusat', 'daerah', 'otonomi']",0
+"['jir', 'mending', 'kabinet', 'lius', 'bong', 'manamana']",-1
+"['salah', 'seskab', 'teddy', 'indra', 'wijaya', 'anggota', 'kabinet', 'jabat', 'sesuai', 'tentu']",1
+"['prabowo', 'ingat', 'jajar', 'kabinet', 'merah', 'putih', 'dukung', 'penuh', 'program', 'makan', 'gizi']",0
+"['actually', 'prabowo', 'ngaku', 'habis', 'duit', 'kalah', 'mulu', 'masuk', 'kabinet', 'mulyono', 'periode', 'yaaaahhhh']",-1
+"['menteri', 'lantik', 'koordinasi', 'jalan', 'kabinet', 'merah', 'putih', 'nonton', 'welcome', 'kabinet', 'merah', 'putih', 'lengkap']",0
+"['tuju', 'apbn', 'jaga', 'sehat', 'evaluasi', 'apbn', 'minus', 'rakyat', 'kena', 'pungut', 'kaya', 'asuransi', 'motor', 'tapera', 'ngukur', 'pajak', 'palak', 'rangin', 'kabinet', 'gemoy']",-1
+"['kabinet', 'gemuk', 'boros', 'tambah', 'tenaga', 'ahli', 'profesional', 'bidang', 'komunikasil', 'istana', 'proses', 'ilmu', 'nepotisme', 'keluarga', 'teman', 'nya', 'nene', 'kakenya']",-1
+"['komisi', 'ii', 'dewan', 'wakil', 'rakyat', 'republik', 'indonesia', 'dpr', 'kali', 'rapat', 'bahas', 'target', 'capai', 'anggar', 'program', 'kerja', 'kabinet', 'merah', 'putih', 'gelar', 'gedung', 'nusantara', 'dpr', 'jakarta', 'rabu']",0
+"['anggota', 'kabinet', 'merah', 'putih', 'pakai', 'maung', 'perintah', 'prabowo']",0
+"['war', 'biassaahhh', 'menteri', 'prabowo', 'lucu', 'kalo', 'kabinet', 'kabinet', 'balas', 'hadeuhhh', 'menteri', 'buru', 'bilang', 'tragedi', 'langgar', 'ham', 'berat', 'jilat']",-1
+"['kabinet', 'kerja', 'merah', 'putih', 'nya', 'cs', 'gak', 'presiden', 'nya', 'gak', 'menteri', 'nya', 'pakai', 'jabat', 'ngebuzzer', 'remuukk', 'tenan']",-1
+"['sy', 'sblm', 'kabinet', 'evaluasi', 'bijak', 'hasan', 'haikal']",-1
+"['kabinet', 'merah', 'putih', 'paman', 'mk']",-1
+"['presiden', 'prabowo', 'subianto', 'rutin', 'evaluasi', 'kerja', 'menteri', 'kabinet', 'merah', 'putih']",0
+"['anies', 'gak', 'kabinet', 'yowis', 'prabowo', 'udah', 'minggu', 'ngawur', 'sampe', 'bilang', 'aksi', 'langgar', 'ham', 'gimana', 'depan']",-1
+"['senin', 'sekretaris', 'lurah', 'lebakgede', 'hadir', 'desiminasi', 'ham', 'tingkat', 'kapasitas', 'implementasi', 'nilai', 'hak', 'asasi', 'manusia', 'lingkup', 'perintah', 'daerah', 'bentuk', 'menteri', 'hak', 'asasi', 'manusia', 'kabinet', 'merah', 'putih', 'tempat', 'hotel', 'sukajadi', 'bdg']",0
+"['kubu', 'belah', 'ngajuin', 'pimpin', 'pinter', 'prestasi', 'tpi', 'nurut', 'ajak', 'kongkalikong', 'lihat', 'menteri', 'kabinet', 'gpp', 'bodoh', 'atur']",-1
+"['ok', 'bener', 'ide', 'sperti', 'laku', 'bidang', 'kabinet', 'super', 'gemuk', 'paro', 'isi', 'orang', 'gak', 'mutu']",-1
+"['kabinet', 'kompak', 'hasil', 'rakyat']",1
+"['anggota', 'kabinet', 'pakai', 'mobil', 'maung', 'perintah', 'presiden']",0
+"['kalo', 'cuman', 'ucap', 'tindak', 'nama', 'omonomon', 'wapres', 'rapat', 'kabinet', 'citra']",-1
+"['jokoei', 'suhu', 'prabowopernahkan', 'prabowo', 'bilang', 'moelyono', 'guru', 'nya', 'jokwi', 'pegang', 'kendali', 'prabowo', 'kabinet', 'timpang', 'jalan', 'kendali', 'moelyonoknp', 'prabowo', 'sowan', 'esbeyemantan', 'presiden', 'kharismatik']",-1
+"['maju', 'prabowo', 'kabinet', 'merah', 'putih', 'indonesia', 'maju', 'programprogram', 'hebat']",1
+"['teguh', 'sang', 'jenderal', 'prabowo', 'basmi', 'korupsi', 'patut', 'apresiasi', 'awal', 'orang', 'kabinet', 'indikasi', 'korupsi', 'basmi', 'korupsi', 'omon']",-1
+"['prabowo', 'kabinet', 'merah', 'putih', 'seremonial', 'sarasehan', 'negeri', 'mohon', 'rang']",1
+"['selagi', 'prabowo', 'tunduk', 'caracara', 'perintah', 'jokowi', 'kabinet', 'nya', 'jokowi', 'ngatur', 'perintah', 'prabowo', 'sy', 'gak', 'wujud', 'bela', 'rakyat', 'korban', 'psn', 'pik', 'harap', 'prabowo', 'penuh', 'janjijanji', 'kampanye']",-1
+"['hebat', 'angkat', 'koruptor', 'cuci', 'uang', 'anggota', 'kabinet', 'oalaaaah']",-1
+"['gelar', 'evaluasi', 'hasil', 'awas', 'kendali', 'hak', 'tanah', 'dirjen', 'pptr', 'tugas', 'kendali', 'tertib', 'era', 'kabinet', 'merah', 'putih', 'cek', 'berita', 'lengkap']",0
+"['tong', 'kosong', 'nyaring', 'bunyi', 'circle', 'kabinet', 'ente', 'koruptor', 'emang', 'berani', 'nangkep', 'takut', 'orang', 'mulwkwkwk']",-1
+"['desak', 'gaji', 'orang', 'kabinet', 'obesitas', 'eh']",-1
+"['kumpul', 't', 'perinci', 'tempoh', 'bulan', 'bentang', 'kabinet']",0
+"['grup', 'kemanamana']",-1
+"['indonesian', 'minor', 'celebrity', 'kalo', 'gak', 'blow', 'up', 'kemarin', 'masuk', 'jajar', 'kabinet', 'utama', 'presiden', 'masuk', 'utus', 'khusus']",-1
+"['tunggu', 'kerjakerja', 'nyata', 'kabinet', 'merah', 'putih']",0
+"['prabowo', 'subianto', 'ungkap', 'komitmen', 'kabinet', 'merah', 'putih', 'susun', 'tim', 'ideal', 'wujud', 'pangan', 'gizi', 'gratis']",1
+"['blakblakan', 'isi', 'kabinet', 'merah', 'putih', 'via']",-1
+"['nya', 'raguin', 'ngerti', 'engga', 'when', 'update', 'giat', 'akun', 'resmi', 'sekretariat', 'kabinet']",-1
+"['pesimis', 'kabinet', 'rakyat']",-1
+"['era', 'niku', 'tri', 'kabinet', 'bangun', 'v', 'apal']",-1
+"['mantri', 'ndeso', 'blunder', 'lantik', 'blunder', 'kabinet', 'obesitas', 'omonomon', 'ndasmu', 'etik']",-1
+"['acara', 'sifat', 'dukung', 'presiden', 'amp', 'kabinet', 'kerja', 'efektif', 'giat', 'apbn', 'dana', 'pribadi', 'beban', 'negara', 'kurang', 'cerita', 'hasil', 'g', 'udah', 'output', 'publik']",1
+"['koordinasikoordinasi', 'kabinet', 'lanjut', 'policy', 'depan', 'citacitanya', 'indonesia', 'emas', 'menteri', 'dody']",1
+"['ungkap', 'prabowo', 'biaya', 'retreat', 'kabinet', 'merah', 'putih', 'uang', 'pribadi']",1
+"['menteri', 'kabinet', 'potong', 'gaji', 'elaun', 'pastu', 'agih', 'kkm', 'jelah']",0
+"['mantap', 'kabinet', 'merah', 'putih', 'kayak', 'perintah', 'butuhin', 'kerja', 'nyata', 'drama']",1
+"['anggota', 'kabinet', 'wajib', 'nunduk', 'wapres', 'memujimuji']",0
+"['teriak', 'orang', 'kabinet', 'loh', 'kabinet', 'balas', 'campur', 'tangan', 'jokowi', 'manfaat', 'bijak', 'golong', 'penting', 'rakyat', 'bukti', 'depan']",-1
+"['mekanisme', 'nya', 'bahas', 'rapat', 'kabinet', 'kait', 'instansi', 'lamgkah', 'dik', 'bagus', 'gerak', 'cepat', 'tolong', 'guru', 'honorer', 'masalah']",1
+"['kabinet', 'merah', 'putih', 'hasil', 'cipta', 'iklim', 'investasi', 'positif']",1
+"['lanjut', 'menteri', 'jokowi', 'tarik', 'kabinet', 'merah', 'putih']",0
+"['bangun', 'jam', 'gin', 'ngakak', 'gara', 'inget', 'barusan', 'mimpi', 'ngimpi', 'masuk', 'kabinet', 'merah', 'putih', 'tri', 'pargoi', 'indonesia', 'beneran', 'allah', 'ngasih', 'mimpi', 'kaya', 'umur', 'pargoi', 'lho', 'joget', 'tiktok', 'bisa', 'lantik', 'mimpi']",-1
+"['harga', 'mata', 'kabinet', 'nya']",-1
+"['setor', 'perintah', 'nya', 'ganti', 'kabinet', 'butuh', 'dana', 'segar']",-1
+"['keren', 'layan', 'publik', 'cepat', 'efisien', 'kabinet', 'benerbener', 'nyata']",1
+"['kemenpanrb', 'cepat', 'langkah', 'transisi', 'menteri', 'negara', 'kabinet', 'merah', 'putih', 'jaga', 'langsung', 'laksana', 'tugas', 'fungsi', 'sumber', 'daya', 'manusia', 'aset', 'anggar', 'ten', 'hag', 'preman', 'nikmir', 'hybe', 'vini', 'mudryk', 'manchester', 'united']",0
+"['yaiyalah', 'tum', 'anak', 'nongkrong', 'kabinet']",-1
+"['cermat', 'kabinet', 'bentuk', 'prabowo', 'soe', 'hik', 'gie', 'prabowo', 'naif', 'lugu', 'kekanak', 'xan', 'polos', 'orang', 'sifat', 'naif', 'kali', 'percaya', 'kpd', 'orang', 'jatuh', 'naif']",-1
+"['pres', 'kabinet', 'prabowogibran', 'tni', 'polri', 'dn', 'jagung', 'gunawan']",1
+"['masuk', 'kabinet', 'yaa', 'oo', 'iyaa', 'kabinet', 'mah']",-1
+"['menteri', 'kabinet', 'prabowo', 'tambah', 'anggar', 'menteri', 'nilai', 'tambah', 'anggar', 'patut', 'menteri', 'lantik']",-1
+"['bentar', 'lg', 'masuk', 'kabinet']",-1
+"['wait', 'and', 'see', 'kabinet', 'gemuk', 'efisien', 'paradox']",-1
+"['kabinet', 'merah', 'putih']",0
+"['jujur', 'busuk', 'jaman', 'sby', 'hambalang', 'sri', 'mulyani', 'buka', 'suaracari', 'amancari', 'hidup', 'kabinet', 'kabinet', 'momok', 'rakyat', 'susah']",-1
+"['prettt', 'ngaku', 'cinta', 'negara', 'korupsi', 'kabinet', 'obesitas', 'jabat', 'ajaujung', 'rakyat', 'derita']",-1
+"['selamat', 'tugas', 'letjen', 'tni', 'purn', 'am', 'putranto', 'ssos', 'kepala', 'staff', 'presiden', 'ksp', 'kabinet', 'merah', 'putih', 'moga', 'sehat', 'mudah', 'sukses', 'jalan', 'amanah', 'tugas', 'mulia']",1
+"['menteri', 'kabinet', 'prabowo', 'kaya', 'versi', 'lhkpn', 'guys']",0
+"['bijak', 'lindung', 'sosial', 'rata', 'bantu', 'terima', 'kasih', 'kabinet', 'merah', 'putih']",1
+"['manusia', 'najis', 'mau', 'y', 'woi', 'kampret', 'prabowo', 'x', 'nyapres', 'gagal', 'kali', 'beliau', 'hasil', 'dukung', 'jokowi', 'kemarin', 'jokowi', 'dukung', 'ganjar', 'selesai', 'sdah', 'impi', 'prabowo', 'wajar', 'kabinet', 'prabowo', 'isi', 'wajah']",-1
+"['retreat', 'kabinet', 'merah', 'putih', 'akmil', 'magelang', 'jalan', 'kendala', 'hadir', 'dukung', 'listrik', 'lap', 'lancar', 'acara', 'inisiasi', 'presiden', 'prabowo', 'sc']",1
+"['demen', 'ngutang', 'tangan', 'pdhl', 'harta', 'byk', 'males', 'kelola', 'disewajual', 'aseng', 'trus', 'duit', 'bancak', 'bgmn', 'makmur', 'rakyatnyaduit', 'hasil', 'penjualanan', 'aset', 'sda', 'banckan', 'circlenyahuh', 'kabinet', 'huhuhaha', 'negeri', 'konohapretlah']",-1
+"['emang', 'dasar', 'kabinet', 'nuduh', 'korupsi', 'emang', 'data', 'komplet', 'klw', 'data', 'tunujukan', 'k', 'publik', 'korupsi', 'jgn', 'tongkosong', 'nyaring', 'bunyi']",-1
+"['sampah', 'layak', 'masuk', 'kabinet', 'khianat', 'bangsa', 'anti', 'islam', 'kabinet', 'prabowo', 'kabinet', 'pki', 'lanjut', 'program', 'raja', 'jawa', 'pukima', 'bangsat']",-1
+"['kabinet', 'maju', 'maju', 'min']",-1
+"['pantau', 'beliau', 'masuk', 'kabinet', 'merah', 'putih']",0
+"['tugas', 'sekretaris', 'kabinet', 'jewer', 'menteri', 'menteri', 'nyeleneh', 'sekkab', 'jabat', 'perwira', 'pangkat', 'mayor', 'tentara', 'jabat', 'wadanyon', 'danyon', 'kabinet', 'gemoy', 'batalion']",-1
+"['suka', 'kali', 'kabinet', 'merah', 'putih', 'gils']",1
+"['kepala', 'kantor', 'komunikasi', 'presiden', 'hasan', 'nasbi', 'retreat', 'kabinet', 'merah', 'putih', 'akmil', 'magelang', 'biaya', 'prabowo', 'subianto']",0
+"['kmren', 'kabinet', 'ngapain', 'takut', 'mulyono']",-1
+"['kabinet', 'merah', 'putih', 'langsung', 'tancap', 'gas', 'wujud', 'janji', 'kampanye', 'prabowogibran']",1
+"['sukses', 'rangkai', 'retreat', 'kabinet', 'merah', 'putih', 'inisiasi', 'presiden', 'prabowo', 'subianto', 'akademi', 'militer', 'akmil', 'kota', 'magelang', 'tutup', 'minggu']",1
+"['urus', 'gula', 'proses', 'pilpres', 'judol', 'ungkap', 'tangkap', 'bina', 'judol', 'tindak', 'jaksa', 'pihak', 'drama', 'gertak', 'proses', 'bersih', 'kabinet', 'oknum', 'korup']",0
+"['ku', 'indonesia', 'kurang', 'orang', 'integritas', 'plinplan', 'ituitu', 'masuk', 'jajar', 'kabinet']",-1
+"['jamin', 'suplai', 'listrik', 'andal', 'retreat', 'kabinet', 'merah', 'putih', 'magelang', 'dukung', 'penuh', 'agenda', 'negara', 'aman', 'listrik', 'lapis', 'sc']",1
+"['pindad', 'produksi', 'maung', 'kendara', 'dinas', 'kabinet', 'merah', 'putih']",1
+"['politik', 'derajat', 'ekspektasi', 'hrs', 'rumus', 'ulang', 'kadar', 'kawan', 'lawan', 'selubung', 'bunglon', 'hrs', 'jdi', 'standar', 'dewan', 'syuro', 'hasan', 'nasbi', 'yakin', 'jdi', 'panas', 'depak', 'gerbong', 'syaiku', 'aboe', 'bakar', 'kabinet', 'prabowo', 'jilat', 'sperti', 'babeh', 'haikal']",-1
+"['langkah', 'nyata', 'kabinet', 'dorong', 'ekonomi', 'kreatif', 'maju']",1
+"['takut', 'lihat', 'nyata', 'nyata', 'kabinet']",-1
+"['faktafakta', 'tarik', 'retreat', 'menteri', 'kabinet', 'prabowo', 'akmil', 'magelang']",1
+"['ganti', 'kabinet', 'tri', 'capable', 'liat', 'mikirnya', 'takut']",-1
+"['prabowo', 'syukur', 'kabinet', 'merah', 'putih', 'raih', 'respons', 'positif', 'pasar']",1
+"['gak', 'ndut', 'duit', 'ngepas', 'bayar', 'pajak', 'ndut', 'kabinet', 'gendut', 'ndut']",-1
+"['presiden', 'prabowo', 'subianto', 'cerita', 'kali', 'umum', 'kabinet', 'merah', 'putih', 'dampak', 'pasar']",1
+"['atur', 'g', 'konfirmasi', 'rapat', 'kabinet']",-1
+"['usahh', 'munafik', 'baikk', 'singkir', 'keluarga', 'nyaa', 'boneka', 'jokowi', 'kabinet']",-1
+"['jalan', 'kerja', 'kabinet', 'merah', 'putih', 'direktur', 's', 'kompetensi', 'via']",1
+"['dapet', 'banget', 'nama', 'kabinet', 'balas']",-1
+"['kabinet', 'solid', 'rakyat', 'dukung']",1
+"['pimpin', 'prabowo', 'suasana', 'sidang', 'perdana', 'kabinet', 'merah', 'putih', 'istana']",0
+"['kunjung', 'ln', 'presiden', 'prabowo', 'arah', 'menteri', 'jajar', 'kabinet', 'merah', 'putih', 'sirat', 'kendali', 'perintah', 'presiden', 'simak', 'ibnu', 'purnas', 'video']",-1
+"['prabowo', 'subianto', 'lantik', 'menteri', 'wakil', 'menteri', 'kabinet', 'merah', 'putih']",0
+"['lengkap', 'antar', 'buka', 'rapat', 'kabinet', 'perdana', 'presidenhanya', 'video', 'singgung', 'ikn', 'rencana', 'depan', 'menteri', 'tanggung', 'cepat', 'selesai', 'ikn', 'langsung', 'tangan', 'wapres']",-1
+"['rapat', 'perdana', 'kabinet', 'merah', 'putih', 'prabowo', 'menteri', 'total', 'football']",0
+"['gimana', 'prabowo', 'emang', 'nunjukin', 'milih', 'prabowo', 'milih', 'jokowi', 'kabinet', 'gemuk', 'kritik', 'bungkam', 'raffi', 'ahmad', 'mifta', 'jabat', 'tara', 'tri', 'mentrimemtrinya', 'problematik']",-1
+"['btw', 'benci', 'perintah', 'brrti', 'benci', 'bro', 'liat', 'bru', 'komentar', 'kerja', 'minggu', 'udah', 'komplain', 'nnti', 'efisien', 'nya', 'kabinet', 'jan', 'langsung', 'disimpulin']",0
+"['tampung', 'orang', 'berjasadalam', 'sejarah', 'indonesia', 'kabinet', 'gemuk', 'orangbaik', 'menteri', 'wamen', 'staf', 'khusus', 'menteri', 'apbn']",-1
+"['mood', 'ih', 'buka', 'tiktok', 'tunggu', 'update', 'an', 'berita', 'kabinet', 'merah', 'putih', 'ma', 'perintah', 'aj', 'mls']",1
+"['wkwkwkwkwkwk', 'dilepeh', 'nadiem', 'udah', 'bener', 'curiga', 'kabinet', 'indonesia', 'maju', 'gak']",-1
+"['masuk', 'kabinet', 'muka', 'jilat', 'langsung']",-1
+"['moga', 'yh', 'doa', 'kabinet']",0
+"['kabinet', 'gemoy', 'rakyat', 'jabat']",-1
+"['prabowo', 'undang', 'kaesang', 'rapat', 'tum', 'parpol', 'undang', 'gibran', 'rapat', 'kabinet', 'prabowo', 'undang', 'kaesang', 'done', 'prabowo', 'undang', 'wapresnya', 'gibran', 'rapat', 'kabinet', 'terawang', 'dokter', 'tifa', 'prediksi']",-1
+"['tbtb', 'retreat', 'kabinet']",-1
+"['pikir', 'nambahnya', 'kabinet', 'tri', 'kantor', 'taruh', 'mana']",-1
+"['baca', 'berita', 'ttg', 'statement', 'nya', 'kabinet', 'bikin', 'marah', 'gereget', 'kaya', 'nalar', 'dikit', 'kalo', 'ngomong']",-1
+"['istana', 'presiden', 'prabowo', 'subianto', 'arah', 'menteri', 'jabat', 'kabinet', 'mobil', 'dinas', 'maung', 'buat', 'pt', 'pindad']",0
+"['kabinet', 'mangsa', 'wkwkwk', 'bagus']",-1
+"['tahan', 'pangan', 'kuat', 'kabinet', 'kerja', 'keras', 'banget', 'rakyat']",0
+"['orang', 'bayar', 'pajak', 'kalo', 'tikus', 'tikus', 'kaya', 'rafael', 'alun', 'badan', 'pajak', 'jamin', 'bayar', 'pajak', 'dapet', 'fasilitas', 'mana', 'lari', 'hasil', 'bayar', 'utang', 'bunga', 'grgr', 'program', 'kaya', 'ikn', 'kcic', 'gaji', 'kabinet', 'gendut']",-1
+"['menteri', 'wakil', 'menteri', 'kabinet', 'merah', 'putih', 'besut', 'presiden', 'prabowo', 'subianto', 'jalan', 'bekal', 'akademi', 'militer', 'akmil', 'magelang', 'ja']",0
+"['prabowo', 'pimpin', 'sidang', 'perdana', 'kabinet', 'merah', 'putih']",0
+"['harapin', 'kabinet', 'isi', 'bisnis', 'ys', 'atur', 'nya', 'ngenakin']",-1
+"['dua', 'kali', 'pulang', 'duluan', 'acara', 'rapat', 'kabinet', 'retreat', 'akmil', 'pulang', 'duluan', 'sdg', 'presiden', 'sana', 'benarkh', 'aduhgibran', 'kau', 'wapres', 'rakyat', 'butuh', 'tuntun', 'pimpin', 'sbgai', 'contoh']",-1
+"['pantesan', 'mulyono', 'kerah', 'kuat', 'maksimal', 'kuasa', 'orang', 'orang', 'nya', 'kabinet', 'presiden', 'prabowo']",-1
+"['there', 'must', 'be', 'some', 'kind', 'of', 'research', 'about', 'why', 'society', 'focusing', 'on', 'cheating', 'sexuality', 'and', 'sexual', 'topics', 'more', 'than', 'real', 'problems', 'kabinet', 'gemuk', 'blundernya', 'udah', 'dilist', 'halaman', 'ppn', 'tambang', 'pasir', 'topik', 'selangkang']",-1
+"['tenggelam', 'kabinet', 'kroni', 'mulyono', 'timbul', 'kabinet', 'zaken', 'prabowo', 'timbultenggelam', 'rakyat']",-1
+"['giat', 'retreat', 'kabinet', 'merah', 'putih', 'akademi', 'militer', 'magelang', 'jawa', 'siap', 'prabowo', 'subianto', 'lantik', 'presiden']",0
+"['lho', 'rapat', 'kabinet', 'bilang', 'efisien', 'rapat', 'seminar', 'lha']",-1
+"['sekretaris', 'fraksi', 'golkar', 'dpr', 'mukhtarudin', 'dorong', 'kabinet', 'merahputih', 'prabowo', 'subianto', 'kuat', 'komitmen', 'cipta']",1
+"['banding', 'gak', 'sesuai', 'karno', 'bentuk', 'kabinet', 'dwikora', 'peristiwa', 'g', 's', 'pki', 'jadi', 'sejarah', 'bangsa', 'bentuk', 'kabinet', 'merah', 'putih', 'peristiwa', 'tara', 'jadi', 'indonesia']",1
+"['moga', 'kabinet', 'kerja', 'maksimal', 'rakyat']",0
+"['alas', 'prabowo', 'jadi', 'mobil', 'karya', 'anak', 'bangsa', 'mv', 'garuda', 'limousine', 'kendara', 'kabinet', 'merah', 'putih']",0
+"['thankyou', 'irjen', 'jumpa', 'kabinet']",1
+"['iming', 'smpe', 'ngebela', 'keluarga', 'rakus', 'udah', 'janjiin', 'masuk', 'kabinet', 'perintah', 'kah']",-1
+"['kabinet', 'super', 'team']",1
+"['kabinet', 'merah', 'putih', 'gaspol', 'wujud', 'janji', 'kampanye', 'rakyat', 'lihat', 'ubah', 'nyata']",1
+"['prilaku', 'alhasil', 'didik', 'kabinet', 'tugas', 'partai', 'sdm', 'mundur']",-1
+"['kabinet', 'bayang', 'sampah', 'puak', 'bangang', 'bani', 'pas', 'pnunggang', 'agama']",-1
+"['kyknya', 'mkin', 'ancur', 'yaa', 'kabinet', 'skrang']",0
+"['sapa', 'ganti', 'an', 'kabinet', 'pean', 'terpilihojo', 'ngebacot', 'ngalor', 'ngidul', 'kabeh', 'mbok', 'musuh', 'konco', 'an', 'mbeh', 'cundang', 'politik', 'jgn', 'pikir', 'hancur', 'parasit', 'benalu', 'presiden', 'ganti', 'bangun', 'sistem', 'nya']",-1
+"['bagi', 'menteri', 'menteri', 'kabinet', 'merah', 'putih', 'fokus', 'efektif', 'nonton', 'welcome', 'kabinet', 'merah', 'putih', 'lengkap']",0
+"['preketek', 'tri', 'periode', 'bukti', 'sengsara', 'rakyat', 'kabinet', 'gak', 'percaya']",-1
+"['presiden', 'prabowo', 'komit', 'bangun', 'sistem', 'antikorupsi', 'berantas', 'korupsi', 'presiden', 'sadar', 'formasi', 'kabinet', 'dalam', 'milik', 'rekam', 'jejak', 'korupsi', 'ulas', 'achmad', 'zainuddin']",-1
+"['gak', 'sanggup', 'bentar', 'didaftarin', 'kabinet', 'merah', 'putih']",-1
+"['sumber', 'dana', 'retreat', 'menteri', 'kabinet', 'merah', 'putih', 'akmil', 'magelang']",0
+"['curiga', 'ptha', 'masuk', 'kabinet']",-1
+"['rapat', 'kabinet', 'tegas', 'kpd', 'bawahannyabeda', 'pimpin', 'beda', 'gaya', 'sistem', 'visi', 'misi', 'menteri', 'skrng', 'efisien', 'bangun', 'ekonomi', 'kedalammantaapd']",1
+"['prabowo', 'larang', 'proyek', 'mercusuar', 'kabinet', 'merah', 'putih']",-1
+"['ngomong', 'perintah', 'bersih', 'kabinet', 'cokol', 'samun', 'omonomon']",-1
+"['yth', 'tugas', 'utama', 'presiden', 'temu', 'obat', 'geblek', 'khusus', 'jabat', 'jajar', 'kabinet', 'prabowo']",-1
+"['media', 'partner', 'bem', 'km', 'fmipa', 'unand', 'x', 'bem', 'km', 'faterna', 'unand', 'halo', 'km', 'fmipa', 'unand', 'seminar', 'ruang', 'desain', 'seminar', 'ruang', 'desain', 'salah', 'program', 'kerja', 'dinas', 'komunikasi', 'informasi', 'bem', 'km', 'faterna', 'unand', 'salam', 'kabinet', 'inisiatif']",0
+"['kabinet', 'dwikora', 'll', 'orba', 'personal']",-1
+"['kalo', 'main', 'atur', 'menteri', 'kabinet', 'duga', 'korupsi', 'copotin', 'airlangga', 'zulhas', 'dito']",-1
+"['tekad', 'presiden', 'prabowo', 'lantik', 'kabinet', 'merah', 'putih', 'wujud', 'swasembada', 'pangan', 'tempo', 'sesingkatsingkatnya', 'layak', 'apresiasi']",1
+"['gitu', 'presiden', 'sing', 'nyar', 'gawe', 'kabinet', 'jumbo', 'malian', 'hadeuh']",-1
+"['kereta', 'kabinet', 'pekan', 'reshuffle', 'via']",-1
+"['retreat', 'kabinet', 'merah', 'putih', 'biaya', 'prabowo', 'uang', 'pribadi']",0
+"['kompak', 'kabinet', 'pragib']",1
+"['tweet', 'jabat', 'kabinet', 'merah', 'putih', 'lantik', 'sebar', 'medsos', 'tokoh', 'nu', 'sentil', 'hina', 'prabowo']",-1
+"['kemaren', 'nonton', 'siar', 'live', 'deklarasi', 'untuk', 'kabinet', 'menteri', 'rakyat', 'baca', 'headline', 'doang']",-1
+"['prinsip', 'presiden', 'prabowo', 'subianto', 'wawancara', 'ekslusif', 'lembah', 'tidar', 'kabinet', 'merah', 'putih']",0
+"['ekonomi', 'stabil', 'programprogram', 'kabinet', 'banget', 'arah']",-1
+"['jakarta', 'menteri', 'hukum', 'supratman', 'hadir', 'rapat', 'kerja', 'raker', 'komisi', 'xiii', 'dewan', 'wakil', 'rakyat', 'dpr', 'republik', 'indonesia', 'senin', 'rapat', 'perdana', 'menteri', 'hukum', 'dpr', 'bentuk', 'kabinet', 'merah', 'putih', 'presiden', 'prabowo', 'subianto']",0
+"['gatot', 'nurmantyo', 'kabinet', 'kuda', 'troya', 'tom', 'lembong', 'indikasi', 'busuk']",-1
+"['retreat', 'kabinet', 'magelang', 'lancar', 'berkat', 'dukung', 'penuh', 'sigap', 'sistem', 'aman', 'bikin', 'event', 'bebas', 'kendala', 'listrik', 'sukses']",0
+"['kali', 'ruang', 'rapat', 'kabinet', 'luas']",-1
+"['hasan', 'retreat', 'kabinet', 'merah', 'putih', 'siap', 'langsung', 'prabowo', 'siap', 'bulan']",0
+"['reshufle', 'kabinet']",-1
+"['lantik', 'kabinet']",0
+"['biarin', 'ajanamanya', 'kabinet', 'curang']",-1
+"['disiplin', 'retret', 'pondasi', 'kabinet', 'bersih']",1
+"['kqn', 'koruptor', 'kabinet', 'bilang', 'ngejar', 'kurup', 'tor', 'angkasa', 'masuk', 'sel']",-1
+"['arti', 'prabowo', 'tempat', 'orang', 'nya', 'kabinet', 'jokowi', 'pilih', 'orangorang', 'prabowo', 'ditaroh', 'kabinet', 'jokowi', 'coba', 'atur', 'sesuai']",-1
+"['konon', 'kabar', 'prabowo', 'pakai', 'biaya', 'pribadi', 'bekal', 'kabinet', 'merah', 'putih', 'kemarin', 'buzzer', 'jokowi', 'anies', 'pakai', 'apbn', 'buzzer', 'jokowi', 'beneran', 'lupa', 'cermin', 'banding', 'acara', 'ikn', 'bareng', 'selebriti', 'influencer', 'kemarin']",1
+"['kabinet', 'peduli', 'lindung', 'lingkung', 'hidup', 'inspirasi']",1
+"['blunder', 'kabinet', 'merah', 'putih', 'lesgoooooo']",-1
+"['giat', 'diskusi', 'panel', 'narasumber', 'menteri', 'pimpin', 'lembaga', 'negara', 'kabinet', 'merah', 'putih', 'usung', 'tema', 'implementasi', 'asta', 'cita', 'indonesia', 'emas', 'menteri', 'negeri', 'tito', 'karnavian', 'lapor']",0
+"['nasib', 'kerja', 'era', 'kabinet', 'merah', 'putih', 'program', 'prioritas', 'kabinet', 'merah', 'putih', 'atas', 'ketenagakerjaan', 'indonesia', 'a', 'thread']",0
+"['sayang', 'masuk', 'kabinet', 'merah', 'putih', 'tum']",-1
+"['kabinet', 'benerbener', 'dorong', 'inovasi', 'sektor', 'teknologi', 'indonesia', 'maju']",1
+"['mantan', 'menteri', 'sekretaris', 'kabinet', 'utama', 'warga', 'jakarta']",0
+"['babi', 'perhatiin', 'kabinet', 'mu']",-1
+"['duit', 'ngutang', 'hasil', 'pajak', 'luar', 'nurul', 'jabat', 'irit', 'manja', 'duit', 'kabinet', 'bengkak', 'boros', 'anggar']",-1
+"['dariawal', 'udah', 'harap', 'partai', 'eh', 'baris', 'sakit', 'hati', 'kabinet', 'ancur', 'akwkwkw']",-1
+"['sejajar', 'lha', 'kabinet', 'mayor', 'ahy', 'hehehe']",1
+"['moga', 'kabinet', 'merah', 'putih', 'smakin', 'solit']",1
+"['berita', 'antik', 'ttg', 'kabinet']",-1
+"['moga', 'kabinet', 'jowo', 'jokowi', 'prabowo', 'ganti', 'kabinet', 'presiden', 'probowo']",-1
+"['refly', 'harun', 'kabinet', 'era', 'jokowi', 'periode', 'prabowo']",-1
+"['pulang', 'sono', 'bubarin', 'kabinet', 'ganti', 'orang', 'kompeten', 'tri', 'orang']",-1
+"['tuju', 'susun', 'kabinet', 'profesional', 'd', 'kasi', 'sakral', 's', 'mul', 'jabat', 'sektor', 'kecuali', 'ekonomi', 'wkwkwk']",-1
+"['bravo', 'kabinet', 'merah', 'putih', 'presiden', 'haji', 'jenderal', 'tni', 'ad', 'ps', 'bin', 'sd']",0
+"['lidah', 'sakit', 'hati', 'sempat', 'tuk', 'kabinet', 'merah', 'putih']",-1
+"['presiden', 'prabowo', 'ajak', 'jabat', 'kabinet', 'merah', 'putih', 'mobil', 'buat', 'pindad']",1
+"['maaf', 'dbelakang', 'kapasitasjabatannya', 'kabinet', 'asn', 'shg', 'jalan', 'negara', 'biaya', 'apbn', 'tahu', 'republik', 'raja', 'saudi', 'salman', 'dtemani', 'muh', 'bin', 'salman', 'mgk', 'krg', 'update', 'susun', 'jabat', 'mohon', 'pcerahannya']",-1
+"['komposisi', 'kabinet', 'pas', 'sihh']",1
+"['kabinet', 'iya']",-1
+"['visi', 'kabinet', 'fokus', 'bangun', 'bangsa']",1
+"['antar', 'presiden', 'subianto', 'sidang', 'kabinet', 'paripurna', 'kantor', 'presiden', 'komplek', 'istana', 'presiden', 'jakarta', 'oktober']",0
+"['lapor', 'tugas', 'nasihat', 'khusus', 'presiden', 'koordinasi', 'sekretaris', 'kabinet']",0
+"['kali', 'jejak', 'digital', 'menteri', 'prabowo', 'tolong', 'evaluasi', 'kabinet', 'nya']",0
+"['lihat', 'bangun', 'daerah', 'pesat', 'berkat', 'kerja', 'keras', 'kabinet', 'merah', 'putih']",1
+"['rabu', 'oktober', 'sidang', 'paripurna', 'perdana', 'kabinet', 'merah', 'putih']",0
+"['cerdas', 'presiden', 'prabowo', 'pilih', 'latih', 'kabinet', 'merah', 'putih', 'akmil', 'daya', 'tahan', 'moral']",1
+"['udah', 'kabinet', 'indonesia', 'maju', 'anggota', 'kabinet', 'merah', 'putih', 'denda', 'trilyun', 'orang', 'karna', 'langgar', 'atur', 'negara', 'protes', 'fakta', 'hmm']",-1
+"['yassierli', 'menaker', 'guru', 'itb', 'usul', 'pks', 'masuk', 'kabinet', 'googling', 'sumber', 'berita']",-1
+"['mari', 'simak', 'apkh', 'kabinet', 'residivis', 'lantar', 'bbrp', 'menkonya', 'libat', 'kelak', 'presdn', 'prabowo', 'evaluasi']",-1
+"['srikandi', 'gerindra', 'kolaborasi', 'mang', 'penting', 'capai', 'target', 'swasembada', 'pangan', 'salah', 'visi', 'partai', 'gerindra', 'kabinet', 'merah', 'putih']",1
+"['yapemilik', 'asmaul', 'husnah', 'mhn', 'curah', 'sgala', 'mampu', 'sungguh', 'jujur', 'allah', 'swt', 'amp', 'kabinet', 'merahputih', 'mprri', 'manfaat', 'optimum', 'muampnkri']",0
+"['kabinet', 'gendut', 'isi', 'koruptor', 'ngomongin', 'naikin', 'pajak', 'welfare', 'lucu', 'kek', 'badut', 'mampang']",-1
+"['lihat', 'ajh', 'kabinet', 'nya', 'sapu', 'bersih', 'khianat', 'tuhan']",-1
+"['tuduh', 'boros', 'agenda', 'retreat', 'kabinet', 'merah', 'putih', 'selenggara', 'presiden', 'prabowo', 'informasi', 'anggar', 'retreat', 'asal', 'kantong', 'pribadi', 'presiden']",1
+"['nomenklatur', 'kabinet', 'skrgmemang', 'representasi', 'wakil', 'dasar', 'afiliasi', 'kuat', 'politik', 'agama', 'suku', 'ras', 'gender', 'generasiusia', 'kombinasi', 'individu', 'milik', 'background', 'akademisi', 'politis', 'organisasi', 'profesi']",1
+"['program', 'satu', 'kerja', 'kabinet', 'sulit', 'hasil']",-1
+"['kabinet', 'merah', 'putih', 'proaktif', 'jaga', 'sehat', 'masyarakat']",1
+"['mayor', 'bobby', 'kertanegara']",1
+"['mudeng', 'mayor', 'teddydi', 'angkat', 'sekretaris', 'kabinet', 'gt', 'y', 'moga', 'mnguasai', 'bid', 'pkerjaan', 'baru', 'at', 'least', 'masiii', 'bwh', 'arah', 'om', 'prabs', 'sekpri', 'kapolri', 'tarik', 'awal', 'presiden', 'calon', 'jen', 'yad', 'pecah', 'bintang', 'ntiii']",-1
+"['gada', 'normalisasi', 'tinggal', 'kedepanny', 'msih', 'ganti', 'kompeten', 'tinggal', 'kritik', 'kabinet', 'bru', 'bentuk', 'dh', 'komplen']",-1
+"['pasar', 'baca', 'bhw', 'kabinet', 'prabowo', 'kabinet', 'gimmick', 'bas', 'insting', 'visi', 'amp', 'design', 'ekonomi', 'gak', 'renstra', 'industri', 'teknologi', 'didik', 'nol', 'tengah', 'ecosystem', 'politik', 'amp', 'hukum', 'prihatin']",-1
+"['tantang', 'berat', 'kerja', 'kabinet', 'maksimal']",0
+"['halo', 'menteri', 'atrkepala', 'bpn', 'nusron', 'wahid', 'hadir', 'rapat', 'kabinet', 'paripurna', 'presiden', 'prabowo', 'subianto', 'sempat', 'menteri', 'atrkepala', 'bpn', 'terima', 'arah', 'langsung', 'kait', 'tata', 'ulang', 'aset', 'tanah', 'negara']",1
+"['maksud', 'bodoh', 'rafli', 'masuk', 'kabinet', 'pikir', 'lapor', 'harta', 'kaya']",-1
+"['alami', 'ganggu', 'tidur', 'tarik', 'hidup', 'sosial', 'nd', 'account', 'pasien', 'temu', 'dokter', 'spesialis', 'obat', 'reshuffle', 'kabinet', 'orientasi', 'penuh']",0
+"['harga', 'rumah', 'm', 'biaya', 'raja', 'bangun', 'rumah', 'm', 'pigai', 'kabinet', 'indonesia', 'bangkrut']",-1
+"['apbn', 'lha', 'gerbong', 'kabinet', 'gaban', 'gitu', 'bayar']",-1
+"['saran', 'sy', 'ganti', 'kabinet', 'titip', 'jokowi', 'keren', 'bersih', 'kabinet', 'prabowo']",-1
+"['anggota', 'kabinet', 'maung', 'kendara', 'dinas', 'perintah', 'presiden']",0
+"['he', 'said', 'timbul', 'tenggelam', 'rakyat', 'provokasi', 'dukung', 'sampe', 'jatuh', 'korban', 'jiwa', 'masuk', 'kabinet', 'jenguk', 'korban', 'keluarga', 'so', 'what', 'do', 'you', 'expect', 'guys']",-1
+"['rocky', 'gerung', 'prediksi', 'minggu', 'prabowo', 'laku', 'reshuffle', 'kabinet']",-1
+"['prabowo', 'tempeleng', 'sby', 'siswa', 'sby', 'pecat', 'prabowopada', 'sby', 'anggota', 'dewan', 'hormat', 'nama', 'dulur', 'deweskrg', 'kabinet', 'sby', 'nasehat', 'presiden', 'prabowo', 'lindung', 'jowo']",-1
+"['menteri', 'lantik', 'oper', 'emting', 'tambah', 'anggar', 'menyalahgunakan', 'wewenang', 'rame', 'kabinet', 'merah', 'putih', 'lucu', 'lucu']",-1
+"['presiden', 'prabowo', 'subianto', 'harap', 'menteri', 'jabat', 'eselon', 'i', 'kabinet', 'merah', 'putih', 'alih', 'mobil', 'dinas', 'buat', 'negeri', 'bijak', 'rencana', 'terap', 'minggu', 'lengkap']",0
+"['waduhhh', 'kabinet', 'maling']",0
+"['reaksi', 'pasar', 'cenderung', 'negatif', 'sentimen', 'negatif', 'thd', 'susun', 'kabinet', 'kondisi', 'aktual', 'ekonomi', 'sehat']",-1
+"['ajak', 'makan', 'malam', 'keluarga', 'presiden', 'kabinet', 'masuk', 'kategori', 'om']",-1
+"['kabinet', 'bentuk', 'beranta', 'anies', 'pikir', 'beranta']",-1
+"['kabinet', 'upil', 'nya', 'mul', 'gak', 'presiden', 'pilih', 'gerak', 'tunggu', 'zaken', 'kabinet', 'prabowo']",-1
+"['harap', 'kabinet', 'zaken', 'digembargemborkan', 'kl', 'isi', 'orng', 'kompeten', 'bau', 'jabat', 'doang', 'pesimis', 'asli', 'orng', 'alam', 'birokrat', 'mampu', 'visi', 'negara', 'didik']",-1
+"['perintah', 'presiden', 'prabowo', 'subianto', 'rencana', 'selesai', 'bangun', 'kota', 'negara', 'jangka', 'menteri', 'hutan', 'raja', 'juli', 'antoni', 'retreat', 'kabinet', 'merah', 'putih', 'magelang']",-1
+"['wajib', 'militer', 'magelang', 'menteri', 'ajar', 'disiplin', 'amp', 'kompak', 'bwh', 'arah', 'presiden', 'kabinet', 'komando', 'amp', 'kerja', 'maksimal', 'untk', 'rakyat', 'indonesia']",1
+"['kabinet', 'boros', 'ngasih', 'makan', 'gratis', 'bikin', 'negara', 'maju']",-1
+"['gak', 'dunia', 'kabinet', 'taik', 'kabinet', 'taik', 'kabinet', 'program', 'unggul', 'produksi', 'taik', 'china', 'bantu', 'dana', 'program', 'makan', 'gizi', 'gratis', 'prabowo']",-1
+"['kabinet', 'merah', 'putih', 'benerbener', 'serius', 'perhati', 'butuh', 'rakyat']",0
+"['salah', 'kabinet', 'merah', 'putih']",1
+"['bikin', 'kabinet', 'merah', 'putih', 'noda']",-1
+"['anggota', 'kabinet', 'merah', 'putih', 'mobil', 'dinas', 'maung', 'buat', 'pt', 'pindad', 'persero', 'perintah', 'presiden', 'prabowo', 'subianto']",1
+"['amat', 'latih', 'magelang', 'tanda', 'serius', 'prabowo', 'pimpin', 'kabinet']",1
+"['kabinet', 'solid', 'rakyat', 'senang']",1
+"['baik', 'emang', 'kabinet', 'merah', 'putih', 'langsung', 'bawah', 'pimpin', 'jendral']",1
+"['prabowo', 'kabinet', 'merah', 'putih', 'mobil', 'buat', 'anak', 'bangsa']",1
+"['bekal', 'magelang', 'gebrak', 'menteri', 'kabinet', 'merah', 'putih']",0
+"['fokus', 'dlu', 'oknum', 'rusak', 'kabinet', 'dalem', 'kangker']",-1
+"['tibatiba', 'lintas', 'benak', 'depan', 'heboh', 'jadi', 'perintah', 'reshufle', 'total', 'prabowo', 'amp', 'tim', 'rombak', 'kabinet', 'nama', 'siap', 'ganti', 'rival', 'arb', 'masuk']",-1
+"['gibran', 'langsungblusukan', 'kasih', 'makan', 'siang', 'gratis', 'prabowo', 'langsung', 'jalan', 'sidang', 'kabinet', 'bawah', 'tekan', 'atur', 'beliau']",-1
+"['goblok', 'ngak', 'ketulungan', 'uang', 'pribadi', 'pakai', 'fasilitas', 'negara', 'giat', 'disiplin', 'kabinet', 'nya', 'penting', 'rakyat', 'mending', 'prabowo', 'pakai', 'uang', 'pribadi', 'pakai', 'angaran', 'negara', 'blok', 'goblok']",1
+"['asseek', 'dedy', 'lgi', 'ngejilatin', 'kk', 'nya', 'majikan', 'biar', 'dpt', 'jatah', 'posisi', 'kabinet', 'per', 'dedek', 'kalah', 'dedek', 'ngebela', 'majikan', 'keluarga']",-1
+"['kabinet', 'ramping', 'efisien', 'kalo', 'gemuk', 'gimana', 'efisien']",-1
+"['kabinet', 'gendut', 'ndut']",-1
+"['tuju', 'abdi', 'kang', 'emang', 'perintah', 'guoblok', 'nemen', 'kabinet', 'balas', 'jasa', 'mandang', 'kompetensi']",-1
+"['video', 'keren', 'kabinet', 'merah', 'putih']",1
+"['kabinet', 'usia', 'ramal', 'akan', 'kapten', 'mulyono', 'hebat', 'tony', 'stark', 'bro', 'didu', 'presiden', 'bodoh', 'akan', 'presiden', 'bawah', 'perintah', 'mantan', 'presidenbiarkanlah', 'main', 'civil', 'war', 'avengers']",-1
+"['orba', 'bikin', 'malas', 'ajar', 'efek', 'orba', 'serta', 'didik', 'paksa', 'hapal', 'buka', 'uud', 'pasal', 'kabinet', 'menteri', 'tuntut', 'cinta', 'tanah', 'air', 'peduli', 'sopan', 'santun', 'moral', 'anak', 'jaman', 'orba', 'mental', 'sayur']",1
+"['satu', 'kompak', 'kabinet', 'merah', 'putih', 'bangun', 'indonesia']",1
+"['seru', 'disuru', 'tidur', 'jam', 'malem', 'bangun', 'jam', 'subuh', 'uda', 'kaya', 'kabinet', 'merah', 'putih']",-1
+"['dri', 'kabinet', 'korupsi']",-1
+"['anindya', 'bakrie', 'nilai', 'kabinet', 'merah', 'putih', 'cermin', 'lanjut']",1
+"['raffi', 'ahmad', 'artis', 'iya', 'lawak', 'iya', 'usaha', 'iya', 'kaya', 'iya', 'kabinet', 'khusus', 'menteri', 'kompeten', 'makan', 'sayur', 'sop', 'nyiduknya', 'garpu', 'gak']",-1
+"['temen', 'bahan', 'riset', 'kabinet']",0
+"['penting', 'nempatin', 'wiranto', 'kabinet', 'urgensi']",-1
+"['kabinet', 'penuh', 'koruptor', 'da', 'jahat', 'ham', 'hilang', 'paksaaktifis']",-1
+"['anggota', 'kabinet', 'omong']",-1
+"['prabowo', 'kuasa', 'perintah', 'eksekutif', 'legislatif', 'yudikatif', 'dukung', 'rakyat', 'senjata', 'politik', 'beliau', 'uras', 'politik', 'tikus', 'orang', 'orang', 'nya', 'kabinet', 'full', 'time', 'swasembada', 'pangan', 'energi']",1
+"['parah', 'banget', 'merak', 'bakauheni', 'rp', 'ugalan', 'bulan', 'perintah', 'kabinet', 'gemoy', 'harga', 'gemoy', 'nyebrang', 'rp', 'ayo', 'rakyat', 'perah', 'tuk', 'bayar', 'gaji', 'kabinet', 'gemoy']",-1
+"['semangat', 'calon', 'menteri', 'kabinet', 'prabowogibran', 'moga', 'sukses', 'baik', 'negara']",1
+"['titip', 'mulyono', 'kabinet', 'secondzeken', 'let', 'see', 'nasib', 'apes', 'yassin', 'limpo', 'buai', 'bebas', 'uang', 'menteri', 'zulhas', 'bebas', 'nepotis', 'anak', 'ipar', 'aamiin']",-1
+"['suasana', 'dahsyat', 'reshuffle', 'kabinet']",-1
+"['program', 'acara', 'konsolidasi', 'kabinet', 'mp', 'kordinasi', 'tuju', 'presiden', 'publik', 'pikir', 'amp', 'duga', 'ps', 'timing', 'place', 'and', 'condition', 'pas']",-1
+"['layan', 'publik', 'mudah', 'cepat', 'top', 'banget', 'kabinet', 'merah', 'putih']",1
+"['intip', 'peran', 'raffi', 'ahmad', 'kabinet', 'prabowo', 'ajak', 'masyarakat', 'kolaborasi', 'bayang', 'kontroversi', 'gelar', 'doktor']",1
+"['tubuh', 'kabinet', 'gendut', 'hambur', 'uang', 'gaji', 'menteri', 'team', 'karnaval']",-1
+"['curhat', 'bahlil', 'retreat', 'kabinet', 'magelang', 'bangun', 'pagi', 'repot', 'akmil', 'adaptasi', 'pola', 'disiplin', 'beda', 'beda', 'tidur', 'wib', 'wib', 'bangun']",0
+"['sekretaris', 'kabinet', 'kerja', 'ngecek', 'makan', 'presiden']",-1
+"['kl', 'dukung', 'masuk', 'kabinet', 'prabowo']",-1
+"['beda', 'kabinet', 'indonesia', 'maju', 'kabinet', 'merah', 'putih', 'a', 'thread']",-1
+"['gaada', 'beda', 'erina', 'najwa', 'dibully', 'abis', 'an', 'pokok', 'dukung', 'capres', 'mana', 'kek', 'taik', 'keti', 'jahat', 'antem', 'mulu', 'jabat', 'cawapres', 'masuk', 'kabinet', 'sadar', 'kambing', 'hitam', 'politik', 'doang']",-1
+"['maksud', 't', 'menteri', 'ekonomi', 'perinci', 'bentang', 'kabinet', 'rafizi']",0
+"['junjung', 'aku', 'org', 'pinter', 'butuh', 'org', 'pinter', 'sekitar', 'thats', 'why', 'tri', 'bejibun', 'sampe', 'jabat', 'luat', 'kabinet', 'kl', 'pinter', 'thn', 'mandek', 'presiden', 'prrsiden', 'jokodok', 't', 'cui', 'abis', 'wkwk']",-1
+"['lucu', 'kabinet', 'gemoy']",-1
+"['baca', 'bego', 'biaya', 'retreat', 'kabinet', 'akmil', 'kalo', 'pesawat']",-1
+"['cocok', 'masuk', 'kabinet', 'samun']",-1
+"['kabinet', 'gembleng']",-1
+"['prabowogibran', 'boyong', 'kabinet', 'merah', 'putih', 'akmil', 'magelang']",0
+"['maksud', 'bikin', 'kabinet', 'rame', 'an']",-1
+"['kabinet', 'solid', 'retret', 'bantu', 'cegah', 'korupsi', 'efektif']",1
+"['kabinet', 'dorong', 'lanjut', 'ekonomi', 'sempat']",1
+"['bijak', 'fiskal', 'kabinet', 'bikin', 'ekonomi', 'stabil', 'kuat']",0
+"['kalo', 'jalur', 'adu', 'domba', 'didu', 'bu', 'tifa', 'refly', 'gerung', 'roysuryo', 'masuk', 'kabinet']",-1
+"['isu', 'masuk', 'kabinet', 'merah', 'putih', 'wamen', 'kemenpora']",-1
+"['bekal', 'bikin', 'internal', 'kabinet', 'solid', 'airlangga', 'insyaallah', 'kerja', 'cepat']",0
+"['kabinet', 'sandra', 'kayak', 'gak', 'tahan', 'gak']",-1
+"['retreat', 'kabinet', 'magelang', 'sukses', 'hambat', 'listrik', 'thanks', 'to', 'aman', 'lap', 'bikin', 'acara', 'kayak', 'aman', 'mantap']",1
+"['cool', 'darimananya', 'orangorang', 'pasang', 'kabinet', 'kagum']",-1
+"['kabinet', 'sibuk', 'klarifikasi', 'quo', 'vadis', 'indonesia']",-1
+"['susun', 'kabinet', 'banget', 'gilaaaa', 'mejanyaaa', 'banget', 'peluang', 'korupsi', 'sedih', 'rakyat']",-1
+"['presiden', 'terima', 'kasih', 'beliau', 'sama', 'beliau', 'kabinet', 'merah', 'putih', 'bilang', 'kerja', 'negeri', 'eksploitasi', 'dagang', 'orang', 'hak', 'kerja', 'jaga', 'maksimal']",1
+"['coba', 'pengaruh', 'bijak', 'prabowo', 'hapus', 'judol', 'lindung', 'tunggu', 'hasil', 'lidi', 'polri', 'umum', 'mayor', 'teddy', 'sek', 'kabinet']",-1
+"['nga', 'jatah', 'kursi', 'kabinet', 'ngoceh', 'kerja']",0
+"['manusia', 'najis', 'mau', 'y', 'woi', 'kampret', 'prabowo', 'x', 'nyapres', 'gagal', 'kali', 'beliau', 'hasil', 'dukung', 'jokowi', 'kemarin', 'jokowi', 'dukung', 'ganjar', 'selesai', 'sdah', 'impi', 'prabowo', 'wajar', 'kabinet', 'prabowo', 'isi', 'wajah']",-1
+"['prabowo', 'gelar', 'sidang', 'kabinet', 'wapres', 'cek', 'makan', 'gizi', 'bekal', 'akmil', 'magelang', 'top', 'news']",1
+"['kunci', 'korupsi', 'jaman', 'mulyono', 'nipunegoro', 'mangkuputro']",-1
+"['kabinet', 'gemoy', 'gemoy']",-1
+"['awal', 'kerja', 'heboh', 'anggota', 'kabinet', 'anggar', 't', 'urus', 'pribadi', 'kop', 'surat', 'dinashe', 'he']",-1
+"['kabinet', 'merah', 'putih', 'menteri', 'goblok', 'dunia']",-1
+"['lengkap', 'tidur', 'wajib', 'laris', 'gt', 'buku', 'prabowo', 'iran', 'supriyani', 'israel', 'pecat', 'tri', 'kabinet', 'jokowi']",0
+"['moga', 'kati', 'kesihatan', 'kabinet', 'cerdik', 'takde', 'la', 'pmx', 'nak', 'tanggung']",0
+"['kalo', 'aksi', 'kamis', 'gak', 'sengaruh', 'prabowo', 'mustahil', 'kabinety', 'gak', 'isi', 'aktivis', 'gak', 'wiranto', 'ambil', 'pemerintahany', 'aksi', 'kamis', 'gak', 'hirau', 'jokowi', 'prabowo', 'yah']",-1
+"['ngeles', 'mulu', 'kmrin', 'data', 'rakyat', 'retas', 'ngeles', 'lgi', 'maksud', 'kabinet', 'isi', 'ahli', 'maaf', 'ngak']",-1
+"['dialog', 'hadap', 'urus', 'kadin', 'ketua', 'kadin', 'indonesia', 'terget', 'tumbuh', 'ekonomi', 'persen', 'capai', 'kabinet', 'isi', 'orangorang', 'kompeten', 'lanjut', 'capai']",-1
+"['kabinet', 'rongsok', 'isi', 'orang', 'ex', 'jokowi', 'bobrok', 'tipu', 'jilat', 'khianat', 'korup', 'gantung', 'mati', 'anjing', 'peking']",-1
+"['warga', 'belah', 'kubu', 'pro', 'prabowo', 'vs', 'kubu', 'pro', 'kubu', 'klaim', 'jago', 'hebat', 'cerita', 'ngk', 'kabinet', 'merah', 'putih', 'buang', 'orang', 'orang', 'jokowi', 'istana', 'solusi']",-1
+"['dasar', 'pp', 'nomor', 'gaji', 'pokok', 'terima', 'mayor', 'teddy', 'sekretariat', 'kabinet', 'kisar', 'rp']",0
+"['bersih', 'kabinet', 'oknum', 'korup', 'yaiyaiyabrarti', 'keciduksemoga']",-1
+"['up', 'kabinet', 'nambah', 'kepala', 'nambah', 'fee', 'lg', 'k', 'an']",-1
+"['kali', 'presiden', 'damping', 'wakil', 'presiden', 'gibran', 'rakabuming', 'pimpin', 'sidang', 'kabinet', 'paripurna', 'jajar', 'kabinet', 'merah', 'putih', 'kantor', 'presiden', 'jakarta', 'rabu', 'foto', 'humas', 'setkab', 'rah']",0
+"['info', 'orang', 'bobby', 'k', 'bikin', 'kabinet', 'tanding']",-1
+"['sidang', 'kabinet', 'paripurna', 'perdana', 'resmi', 'buka', 'presiden', 'prabowo', 'rabu', 'oktober']",0
+"['komandan', 'tkn', 'fanta', 'arief', 'rosyid', 'hasan', 'apresiasi', 'prabowo', 'negarawan', 'sejati', 'libat', 'generasi', 'muda', 'kabinet', 'merah', 'putih']",1
+"['presiden', 'prabowo', 'subianto', 'tegas', 'komunikasi', 'buka', 'kabinet', 'merah', 'putih']",-1
+"['kabinet', 'tmbh', 'pkai', 'acara', 'gt', 'pkai', 'uang', 'apbn', 'mnggaji', 'orang', 'pkai', 'uang', 'apbn', 'rakyat', 'cekik', 'pajak', 'gt']",-1
+"['kolaborasi', 'akmil', 'jalan', 'lancar', 'pasok', 'listrik', 'gelar', 'retreat', 'kabinet']",0
+"['tahan', 'solid', 'jujur', 'salah', 'yach', 'aku', 'salah', 'jgn', 'cari', 'benar', 'kabinet', 'bersih', 'korupsi', 'amp', 'tuntas', 'korupsi', 'gantung']",-1
+"['ribet', 'kabinet', 'belio']",-1
+"['keren', 'kabinet', 'merah', 'putih', 'kerja', 'cepat', 'hasil', 'sukses']",1
+"['prediksi', 'nkri', 'bubar', 'thn', 'mgkn', 'korupsi', 'accut', 'rusak', 'supremasi', 'hukum', 'sprti', 'video', 'amp', 'bbrp', 'blkgn', 'tpi', 'utama', 'sistim', 'multi', 'partai', 'mn', 'kuasa', 'mnolak', 'mmbntuk', 'kabinet', 'gemuk', 'takut', 'pd', 'mrk']",-1
+"['presiden', 'program', 'visi', 'misi', 'asta', 'cita', 'kabinet', 'merah', 'putih', 'asta', 'cita', 'kait', 'tanah', 'swasembada', 'pangan', 'tetap', 'sistem', 'tahan', 'amp', 'dorong', 'mandiri', 'bangsa', 'swasembada', 'pangan']",1
+"['kepala', 'kantor', 'komunikasi', 'presiden', 'hasan', 'nasbi', 'retreat', 'kabinet', 'merah', 'putih', 'uang', 'perintah']",0
+"['koplak', 'tur', 'ngawur', 'presiden', 'visi', 'miss', 'program', 'milik', 'tri', 'kabinet', 'wujud', 'visi', 'misi', 'presiden', 'program', 'amp', 'giat', 'bkn', 'urus', 'presiden', 'kabinet', 'amp', 'kepala', 'daerah']",-1
+"['hitunghitungan', 'hasil', 'kabinet', 'gemuk', 'merah', 'putih', 'prabowo', 'subianto']",1
+"['rengkuh', 'bandung', 'utama', 't', 'pangandaran', 'polisi', 'kabinet', 'merah', 'putih', 'knox', 'vault', 'luhut', 'sambung', 'juang']",1
+"['orang', 'kasus', 'stop', 'gimana', 'sempet', 'lapor', 'duga', 'hoaks', 'prabowo', 'jabat', 'baris', 'sakit', 'hati', 'gak', 'ajak', 'masuk', 'kabinet', 'langsung', 'bikin', 'statement', 'negatif', 'prabowo']",-1
+"['letjen', 'tni', 'purnawirawan', 'anto', 'mukti', 'putranto', 'salah', 'anggota', 'kabinet', 'merah', 'putih', 'milik', 'hobi', 'unik', 'golong', 'ekstrem', 'offroad']",0
+"['dukung', 'perintah', 'gabung', 'kabinet', 'sumbangsih', 'negara', 'menteri', 'kabinet', 'dukung', 'kabinet', 'recok', 'menteri', 'asli']",-1
+"['orang', 'kaya', 'angkat', 'kasih', 'limit', 'kaya', 'ganti', 'pantesan', 'kabinet', 'angkat', 'suka', 'kabinet', 'kaya', 'maksud']",-1
+"['kerja', 'keras', 'kabinet', 'merah', 'putih', 'bikin', 'optimis', 'indonesia']",1
+"['kabinet', 'ramping', 'isi', 'professional', 'beneran', 'kabinet', 'bangun', 'kabinet', 'merah', 'kuning', 'hijau', 'isi', 'oportunis', 'ungud', 'guoooob', 'tkng', 'kentit', 'zionis', 'dkk']",-1
+"['nama', 'kabinet', 'omon', 'setal', 'uang', 'kepala', 'busuk', 'ikan', 'kepala']",-1
+"['budiman', 'fadlizon', 'parah', 'mbak', 'masuk', 'kabinet']",-1
+"['pecat', 'menteri', 'aji', 'mumpung', 'nyata', 'kabinet', 'isi', 'orang', 'bersih', 'integritas']",-1
+"['gmana', 'logika', 'nya', 'kuat', 'dunia', 'hutang', 'numpuk', 'korupsi', 'stadium', 'hukum', 'ubah', 'nafsu', 'tahta', 'tahta', 'kabinet', 'gemoy', 'ama', 'parpol', 'timses', 'isi', 'nya', 'begal', 'timbun', 'harta', 'blg', 'optimis', 'fakta', 'gmana']",-1
+"['kabinet', 'korupsi', 'salah', 'denger', 'kayak']",-1
+"['alas', 'henti', 'kerja', 'mutu', 'kelas', 'wapres', 'bikin', 'meja', 'adu', 'kabinet', 'jajar', 'perintah', 'daerah']",-1
+"['kabinet', 'prabowo', 'kabinet', 'alias', 'muas', 'hatitapi', 'lihat', 'jabat', 'rasa', 'baru', 'muncul', 'kabinet', 'kabinet', 'prabowo', 'alias', 'pilih', 'prabowo', 'sendiriingat', 'beliau', 'ahli', 'strategi']",-1
+"['kabinet', 'udah', 'jalan', 'programprogram', 'janji']",1
+"['cuma', 'mao', 'program', 'pajak', 'kabinetkita', 'peres', 'kl', 'coblos', 'joget']",-1
+"['pks', 'memangemdukung', 'anies', 'pilpres', 'kemarin', 'gelora', 'gak', 'terima', 'kader', 'pks', 'masuk', 'kabinet']",-1
+"['gak', 'bilang', 'anies', 'bawa', 'surga', 'kagak', 'urus', 'ama', 'anies', 'minggu', 'perintah', 'prabowo', 'udah', 'red', 'flag', 'anies', 'kabinet', 'situ']",-1
+"['kabinet', 'booby', 'kartanegara', 'kosong']",0
+"['hitung', 'jam', 'kabinet', 'wowo', 'udah', 'gempar']",-1
+"['tri', 'guwa', 'suka', 'kabinet', 'jokowi', 'bu', 'retno']",-1
+"['presiden', 'prabowo', 'alas', 'bekal', 'menteri', 'kabinet', 'ada', 'akmil', 'magelang']",0
+"['kicau', 'kabinet', 'masuk', 'bui', 'kayak']",-1
+"['senin', 'penuh', 'berkah', 'senin', 'jajar', 'menteri', 'kabinet', 'merah', 'putih', 'penuh', 'semangat', 'tantang', 'depan', 'selamat', 'good', 'luck']",1
+"['biaya', 'bekal', 'kabinet', 'merah', 'putih', 'uang', 'pribadi', 'prabowo', 'super', 'man', 'super', 'team']",0
+"['reshuffle', 'bagus', 'kabinet', 'gemuk', 'gitu', 'porsi', 'rang', 'eh', 'parlementer', 'soalnua', 'ganti', 'ganti', 'wkwk']",-1
+"['paska', 'lantik', 'kabinet', 'kalang', 'kabut', 'nyebokin', 'jilatin']",-1
+"['teori', 'kerja', 'nilai', 'kerja', 'kerja', 'evaluasi', 'ingat', 'kerja', 'nilai', 'evaluasi', 'dampak', 'efek', 'brlanjut', 'putus', 'evaluasi', 'reshuffle', 'oktober', 'umur', 'kabinet', 'ken', 'jokowi', 'fyi']",-1
+"['aksi', 'kabinet', 'indonesia', 'gemoy', 'gtbahlil', 'men', 'esdm', 'raih', 's', 'scr', 'kontroversial', 'gtpigai', 'men', 'ham', 'anggar', 'miliar', 't', 'gtyusril', 'menko', 'hukum', 'tragedi', 'langgar', 'ham', 'berat', 'gtyandri', 'men', 'desa', 'surat', 'kop', 'tri', 'urus', 'pribadi']",-1
+"['alokasi', 'anggar', 'tri', 'sorot', 'amp', 'kritik', 'selang', 'kabinet', 'lantik', 'makan', 'gratis', 'anggar', 'jumbo', 'triliun', 'kmdn', 'kementrianbadan', 'urus', 'tega', 'hukumampdemokrasi', 'berantas', 'kkn', 'lbh', 'miris', 'anggar', 'ham', 't']",-1
+"['stample', 'kabinet', 'lanjut', 'bijak', 'lanjut', 'bungkam', 'lawan', 'politik', 'nyata']",-1
+"['dapat', 'mari', 'lihat', 'kabinet', 'prabowo', 'mulyono', 'cari', 'kerja', 'tinggal', 'evaluasi', 'nilai', 'bawah', 'kah']",-1
+"['kabinet', 'gemuk', 'libat', 'orang', 'bikin', 'blunder', 'udah', 'bener', 'keep', 'ur', 'circle', 'small']",-1
+"['keren', 'ekonomi', 'digital', 'kuat', 'berkat', 'kebijakankebijakan', 'cerdas', 'kabinet', 'merah', 'putih']",1
+"['tarik', 'simpati', 'suara', 'pilih', 'kampanye', 'pilih', 'kabinet', 'bentuk', 'menteri', 'suruh', 'ban', 'yaaaa', 'bodoh', 'orang', 'bodoh']",-1
+"['menteri', 'kabinet', 'merah', 'putih', 'latar', 'karirnya', 'orang', 'sawit', 'wkwkw', 'arah']",-1
+"['program', 'hilir', 'kabinet', 'merah', 'putih', 'prabowogibran', 'ekonom', 'sektorsektor', 'fokus', 'ekonom', 'pusat', 'ekonomi', 'makro', 'uang', 'brin', 'saran', 'perintah', 'kabinet', 'merah', 'putih', 'prabowogibran', 'fokus', 'hilir']",0
+"['kabinet', 'merah', 'putih', 'maksimal', 'kejar', 'target', 'kerja', 'menteri', 'paksa', 'keras', 'kerja', 'baik', 'saing', 'bukti', 'kompetensi', 'sesuai', 'tugas', 'emban']",-1
+"['kaya', 'nya', 'isi', 'kabinet', 'menteri', 'nya', 'e', 'aneh', 'moga', 'indonesia', 'maju', 'merdeka']",-1
+"['ekonomi', 'stabil', 'berkat', 'bijak', 'bijak', 'kabinet', 'merah', 'putih']",1
+"['rapat', 'kabinet', 'perdana', 'bahas', 'ikngk']",-1
+"['kader', 'nu', 'kabinet', 'merah', 'putih', 'tri', 'wamen', 'ketua', 'lembaga']",1
+"['bom', 'minggu', 'tri', 'udah', 'langgar', 'x', 'kabinet', 'cap', 'opo', 'paakpak']",-1
+"['pede', 'kendali', 'dn', 'anggota', 'kabinet', 'sekarangada', 'watak', 'hewan', 'sana', 'lapar', 'kenyang', 'seblmnyawaspadai', 'cengkeram', 'jokowi', 'tampung', 'hasil', 'pecat', 'partai', 'projo']",-1
+"['biar', 'marwahnya', 'kabinet', 'cengengesan', 'mukidi']",-1
+"['kabinet', 'gemuk', 'gaji', 'apbn', 'tekor', 'nutup', 'nambah', 'hutang', 'peras', 'rakyat', 'gemuk', 'jabat']",-1
+"['negara', 'kepada', 'negara', 'jfk', 'salah', 'prabowo', 'subianto', 'keluar', 'uang', 'pribadi', 'ada', 'retret', 'anggota', 'kabinet', 'merah', 'putih', 'pimpin', 'salah', 'niat', 'tulus']",1
+"['kalo', 'masuk', 'kabinet', 'indonesia', 'cocok', 'mana']",0
+"['presiden', 'prabowo', 'subianto', 'lantik', 'orang', 'isi', 'kabinet', 'merah', 'putih', 'periode', 'umum', 'pekan', 'prabowo', 'kenal', 'nama', 'menteri', 'jabat', 'menteri', 'koordinator', 'wakil']",0
+"['bilang', 'kabinet', 'balas']",-1
+"['presidenaparat', 'hukum', 'berantas', 'judi', 'online', 'kabinet']",-1
+"['bicara', 'kucing', 'pare', 'kucing', 'anak', 'buah', 'senggol', 'operasi', 'periksa', 'pare', 'kabinet', 'kena', 'kucing', 'meoooonnnggg']",-1
+"['kabinet', 'merah', 'putih', 'kerja', 'keras', 'baik', 'amanah', 'handal', 'hebat', 'akselerasi', 'wujud', 'sejahtera', 'rakyat', 'nkri', 'maju', 'bangsanegara', 'narasi', 'maju', 'negara', 'kembang', 'global', 'south']",-1
+"['kabinet', 'kerja', 'kerja', 'kerja', 'pt']",0
+"['gak', 'presiden', 'peduli', 'rakyat', 'menteri', 'kabinet', 'indonesia', 'maju', 'semangat']",1
+"['tunggu', 'janji', 'evaluasi', 'minggu', 'cmiiw', 'lho', 'udah', 'bikin', 'malu', 'kabinet', 'menteri', 'kaget', 'sampe', 'malu', 'logo', 'menteri', 'acara', 'pribadi', 'udah', 'nasihat', 'mahfud', 'md']",-1
+"['anggota', 'kabinet', 'bikin', 'gaduh', 'mulaik', 'liat', 'unjuk', 'tangkas']",-1
+"['sidang', 'kabinet', 'perdana', 'prabowo', 'patuh', 'keras', 'copot']",0
+"['pengin', 'dengar', 'saudara', 'non', 'biar', 'kalah', 'efek', 'kabinet', 'super', 'gemuk', 'kabul', 'bodoh', 'jgn', 'lupa', 'komennya']",-1
+"['kabinet', 'kabinet', 'wani', 'piro']",-1
+"['siap', 'prabowo', 'rogoh', 'kocek', 'pribadi', 'biaya', 'retreat', 'kabinet', 'magelang', 'habis']",-1
+"['percaya', 'kabinet', 'merah', 'putih', 'solusi', 'nyata', 'masalahmasalah', 'desak']",1
+"['sorot', 'namanama', 'sohor', 'masuk', 'kabinet']",-1
+"['alih', 'ybs', 'status', 'presiden', 'ketua', 'partai', 'giat', 'kampanye', 'serta', 'surat', 'cuti', 'ybs', 'presiden', 'min', 'bual', 'kelen', 'amatir', 'bagak', 'patriot', 'gampang', 'tipu', 'mulyono', 'anjing', 'kabinet']",-1
+"['kepala', 'kantor', 'komunikasi', 'presiden', 'hasan', 'nasbi', 'presiden', 'prabowo', 'subianto', 'giat', 'retret', 'kabinet', 'akademi', 'militer', 'magelang', 'jawa', 'bulan', 'lantik', 'kepala', 'negara']",1
+"['tenang', 'toti', 'karbitan', 'kuasa', 'kabinet']",-1
+"['harap', 'tetap', 'menang', 'lantik', 'isi', 'kabinet', 'tindak', 'kerja']",-1
+"['cek', 'dekoruma', 'sano', 'meja', 'ajar', 'minimal', 'sudut', 'meja', 'kerja', 'kayu', 'putih', 'l', 'lemari', 'kabinet', 'rak', 'harga', 'rp', 'dapat', 'shopee']",0
+"['sekretaris', 'fraksi', 'golkar', 'dpr', 'mukhtarudin', 'dorong', 'kabinet', 'merahputih', 'prabowo', 'subianto', 'kuat', 'komitmen', 'cipta', 'hijau', 'lanjut', 'langkah', 'strategis', 'wujud', 'mandiri', 'energi', 'nasional']",1
+"['video', 'ahy', 'nostalgia', 'bekal', 'kabinet', 'akmil', 'magelang']",0
