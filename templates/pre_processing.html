@@ -343,6 +343,7 @@
 				<div class="card">
 					<h5 class="card-header">Pembersihan Data</h5>
 					<div class="card-body">
+						{% if all(preprocessing_status.values()) %}
 						<div class="row">
 							<!-- Informasi Dataset -->
 							<div class="col-12 col-md-6">
@@ -476,6 +477,9 @@
 								</div>
 							</div>
 						</div>
+						{% else %}
+						<p class="text-muted">Belum melakukan pra-pemrosesan data.</p>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -487,6 +491,7 @@
 				<div class="card">
 					<h5 class="card-header">Normalisasi Data</h5>
 					<div class="card-body">
+						{% if all(preprocessing_status.values()) %}
 						<!-- Informasi Dataset -->
             <div class="row">
 								<div class="col-12 col-md-6">
@@ -611,6 +616,9 @@
 								</div>
 							</div>
 						</div>
+						{% else %}
+						<p class="text-muted">Belum melakukan pra-pemrosesan data.</p>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -622,6 +630,7 @@
 				<div class="card">
 					<h5 class="card-header">Tokenisasi Data</h5>
 					<div class="card-body">
+						{% if all(preprocessing_status.values()) %}
 						<div class="row">
 							<div class="col-12 col-md-6">
 								<!-- Informasi Dataset -->
@@ -752,6 +761,9 @@
 								</div>
 							</div>
 						</div>
+						{% else %}
+						<p class="text-muted">Belum melakukan pra-pemrosesan data.</p>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -763,6 +775,7 @@
 				<div class="card">
 					<h5 class="card-header">Penghapusan Stopwords</h5>
 					<div class="card-body">
+						{% if all(preprocessing_status.values()) %}
             <div class="row">
 							<!-- Informasi Dataset -->
 							<div class="col-12 col-md-6">
@@ -894,6 +907,9 @@
 								</div>
 							</div>
 						</div>
+						{% else %}
+						<p class="text-muted">Belum melakukan pra-pemrosesan data.</p>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -905,6 +921,7 @@
 				<div class="card">
 					<h5 class="card-header">Stemming Data</h5>
 					<div class="card-body">
+						{% if all(preprocessing_status.values()) %}
             <div class="row">
 							<!-- Informasi Dataset -->
 							<div class="col-12 col-md-6">
@@ -1043,6 +1060,9 @@
 								</div>
 							</div>
 						</div>
+						{% else %}
+						<p class="text-muted">Belum melakukan pra-pemrosesan data.</p>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -1054,6 +1074,7 @@
 				<div class="card">
 					<h5 class="card-header">Label Encoding</h5>
 					<div class="card-body">
+						{% if all(preprocessing_status.values()) %}
 						<div class="row">
 							<!-- Informasi Dataset -->
                 <div class="col-12 col-md-6">
@@ -1168,6 +1189,9 @@
 								</div>
 							</div>
 						</div>
+						{% else %}
+						<p class="text-muted">Belum melakukan pra-pemrosesan data.</p>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -1177,8 +1201,9 @@
 				class="collapse"
 				id="collapseGG">
 				<div class="card">
-					<h5 class="card-header">Pembagian</h5>
+					<h5 class="card-header">Pembagian Data</h5>
 					<div class="card-body">
+						{% if all(preprocessing_status.values()) %}
 						<!-- Informasi Dataset -->
 						<div class="card-title fw-bold fs-5 text-primary mb-1">
 							Informasi Dataset
@@ -1329,6 +1354,9 @@
 								</div>
 							</div>
 						</div>
+						{% else %}
+						<p class="text-muted">Belum melakukan pra-pemrosesan data.</p>
+						{% endif %}
 					</div>
 				</div>
 			</div>
