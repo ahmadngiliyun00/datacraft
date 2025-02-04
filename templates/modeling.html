@@ -1,0 +1,392 @@
+{% extends 'base.html' %} {% block content %}
+<!-- Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
+	<div class="fw-bold mb-4">
+		<span class="text-muted fw-light">DataCraft / </span>
+		<span class="color-custom-secondary">{{ title }}</span>
+	</div>
+	{% with messages = get_flashed_messages(with_categories=true) %} {% if
+	messages %} {% for category, message in messages %}
+	<div
+		class="alert alert-{{ category }} alert-dismissible fade show mb-4"
+		role="alert">
+		{{ message }}
+		<button
+			type="button"
+			class="btn-close"
+			data-bs-dismiss="alert"
+			aria-label="Close"></button>
+	</div>
+	{% endfor %} {% endif %} {% endwith %}
+  {% if not model_trained %}
+  <!-- Tombol Mulai Pra-Pemrosesan -->
+  <div
+    id="alert-modeling"
+    class="alert alert-primary d-flex justify-content-between align-items-center"
+    role="alert">
+    <div>
+      <i class="bx bx-cog bx-spin flex-shrink-0 me-1"></i>
+      <span class="fw-bold">Pemodelan Data</span>
+    </div>
+    <button
+      id="start-modeling"
+      class="btn btn-primary btn-sm ms-auto"
+      data-trained="{{ model_trained }}"
+      {% if not model_trained %}disabled{% endif %}>
+      Mulai
+    </button>
+  </div>
+	{% endif %}
+
+  <!-- Card Step -->
+	<div class="row">
+		<div class="col-12">
+			<div class="container p-0 mb-4">
+				<div class="card-container">
+					<!-- Card Naive Bayes -->
+					<div
+						class="card step collapsed {{ 'success' if model_trained else 'danger' }}"
+						id="cardAAA"
+						data-bs-toggle="collapse"
+						data-bs-target="#collapseAAA"
+						aria-expanded="false"
+						aria-controls="collapseAAA">
+						<div class="card-body text-center">
+							<div
+								class="avatar flex-shrink-0 {{ 'success' if model_trained else 'danger' }}">
+								<i
+									class="bx {{ 'bx-check-circle success' if model_trained else 'bx-x-circle danger' }}"></i>
+							</div>
+							<h3 class="card-title">Naive Bayes</h3>
+              <p class="card-text text-muted">
+                {{ model_filenames["Naive Bayes"] if model_trained else "Nama File PKL" }}
+              </p>
+              <span class="badge bg-{{ 'success' if model_trained else 'danger' }}">
+                {{ 'Sudah dilakukan' if model_trained else 'Belum dilakukan' }}
+              </span>
+						</div>
+					</div>
+
+					<!-- Connector -->
+					<div class="connector">
+						<svg
+							width="100%"
+							height="100%">
+							<line
+								id="connectingLine1"
+								x1="0"
+								y1="50%"
+								x2="100%"
+								y2="50%" />
+						</svg>
+						<i class="bx bx-right-arrow-alt bx-md arrow-icon"></i>
+					</div>
+
+					<!-- Card Support Vector Machine -->
+					<div
+						class="card step collapsed {{ 'success' if model_trained else 'danger' }}"
+						id="cardBBB"
+						data-bs-toggle="collapse"
+						data-bs-target="#collapseBBB"
+						aria-expanded="false"
+						aria-controls="collapseBBB">
+						<div class="card-body text-center">
+							<div class="avatar flex-shrink-0 {{ 'success' if model_trained else 'danger' }}">
+								<i
+									class="bx {{ 'bx-check-circle success' if model_trained else 'bx-x-circle danger' }}"></i>
+							</div>
+							<h3 class="card-title">Support Vector Machine</h3>
+							<p class="card-text text-muted">
+                {{ model_filenames["SVM"] if model_trained else "Nama File PKL" }}
+							</p>
+							<span
+								class="badge bg-{{ 'success' if model_trained else 'danger' }}">
+								{{ 'Data tersedia' if model_trained else 'Belum dilakukan' }}
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+    <div class="col-12 order-0">
+      <!-- Collapse Naive Bayes -->
+			<div
+				class="collapse"
+				id="collapseAAA">
+				<div class="card">
+					<h5 class="card-header">Naive Bayes</h5>
+					<div class="card-body">
+						{% if model_trained %}
+            <!-- Hasil Pemodelan -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Hasil Pemodelan</div>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Kelas</th>
+                    <th>Akurasi</th>
+                    <th>Presisi</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                    <th>Support</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for row in report_data %}
+                  <tr>
+                    <td>{{ row["Model"] }}</td>
+                    <td>{{ row["Kelas"] }}</td>
+                    <td>{{ "%.4f"|format(row["Akurasi"]) }}</td>
+                    <td>{{ "%.4f"|format(row["Presisi"]) }}</td>
+                    <td>{{ "%.4f"|format(row["Recall"]) }}</td>
+                    <td>{{ "%.4f"|format(row["F1-Score"]) }}</td>
+                    <td>{{ row["Support"] }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <hr>
+            <!-- Tampilkan Confusion Matrix -->
+            <div class="row mt-4">
+              {% if cm_path_nb %}
+              <div class="col-md-6 text-center">
+                <h6>Confusion Matrix - Naive Bayes</h6>
+                <img src="{{ cm_path_nb }}" alt="Confusion Matrix NB" class="img-fluid">
+              </div>
+              {% endif %}
+              
+              {% if cm_path_svm %}
+              <div class="col-md-6 text-center">
+                <h6>Confusion Matrix - SVM</h6>
+                <img src="{{ cm_path_svm }}" alt="Confusion Matrix SVM" class="img-fluid">
+              </div>
+              {% endif %}
+            </div>
+            <hr>
+            <!-- Confusion Matrix -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Confusion Matrix</div>
+            <img src="{{ confusion_matrix_nb }}" alt="Confusion Matrix Naive Bayes" class="img-fluid" />
+            <hr>
+            <!-- Visualisasi Distribusi Sentimen -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Distribusi Sentimen</div>
+            <ul class="list-group list-group-horizontal list-unstyled">
+              <li class="w-100 text-center"><strong>Positif:</strong> {{ sentiment_counts.get('positif', 0) }}</li>
+              <li class="w-100 text-center"><strong>Negatif:</strong> {{ sentiment_counts.get('negatif', 0) }}</li>
+              <li class="w-100 text-center"><strong>Netral:</strong> {{ sentiment_counts.get('netral', 0) }}</li>
+            </ul>
+            <img
+              src="{{ sentiment_chart_path }}"
+              alt="Distribusi Sentimen"
+              class="img-fluid"
+              draggable="false"
+              height="200" />
+            <hr>
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="">
+                    <a href="{{ url_for('preprocessing') }}"
+                      class="btn btn-primary btn-sm ms-3">
+                      <i class='bx bx-wrench'></i>
+                      &nbsp; Pra-Pemrosesan
+                    </a>
+                  </div>
+                  <div class="">
+                    <a href="{{ url_for('index') }}"
+                      class="btn btn-primary btn-sm ms-3">
+                      <i class='bx bx-home-circle'></i>
+                      &nbsp; Dashboard
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+						{% else %}
+						<p class="text-muted">Belum ada dataset yang diunggah.</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<!-- Collapse Support Vector Machine -->
+			<div
+				class="collapse"
+				id="collapseBBB">
+				<div class="card">
+					<h5 class="card-header">Support Vector Machine</h5>
+					<div class="card-body">
+						{% if model_trained %}
+            <!-- Informasi Dataset -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Informasi Dataset</div>
+            <ul class="list-group ms-3">
+              <li><strong>Nama File:</strong> {{ uploaded_filename }}</li>
+              <li><strong>Dimensi Dataset:</strong> {{ data_shape }}</li>
+              <li><strong>Jumlah Duplikat:</strong> {{ duplicate_count }}</li>
+              <li><strong>Jumlah Nilai Kosong:</strong> {{ null_count }}</li>
+            </ul>
+            <hr>
+            <!-- Informasi Elemen yang Perlu Dibersihkan -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Informasi Elemen yang Perlu Dibersihkan</div>
+            <ul class="list-group ms-3">
+              <li>Jumlah Tweet Kosong: {{ empty_tweets }}</li>
+              <li>Tweet dengan Emoji: {{ emoji_tweets }}</li>
+              <li>Tweet dengan Tautan: {{ links }}</li>
+              <li>Tweet dengan Simbol Khusus: {{ symbols }}</li>
+              <li>Tweet Kosong atau Berisi Spasi: {{ empty_tweets }}</li>
+              <li>Tweet Hanya Angka: {{ only_numbers }}</li>
+              <li>Tweet Mengandung Angka: {{ tweets_with_numbers }}</li>
+              <li>Tweet Pendek (&lt; 3 Kata): {{ short_tweets }}</li>
+            </ul>
+            <hr>
+            <!-- Menampilkan Data -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">5 Data Teratas</div>
+            <div class="table table-responsive">
+              {{ data_head | safe }}
+            </div>
+            <hr>
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Statistik Deskriptif</div>
+            <div class="table table-responsive">
+              {{ data_description | safe }}
+            </div>
+            <hr>
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Jumlah Nilai Unik</div>
+            <div class="table table-responsive">
+              {{ data_unique | safe }}
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-12 col-lg-6">
+                <!-- Visualisasi Distribusi Panjang Tweet -->
+                <div class="card-title fw-bold fs-5 text-primary mb-1">Distribusi Panjang Tweet</div>
+                <img
+                  src="{{ chart_path }}"
+                  alt="Distribusi Panjang Tweet"
+                  class="img-fluid"
+                  draggable="false"
+                  height="200" />
+              </div>
+              <div class="col-12 col-lg-6">
+                <!-- Visualisasi WordCloud Tweet -->
+                <div class="card-title fw-bold fs-5 text-primary mb-1">WordCloud Tweet</div>
+                <img
+                  src="{{ wordcloud_path }}"
+                  alt="WordCloud Tweet"
+                  class="img-fluid"
+                  draggable="false"
+                  height="200" />
+              </div>
+            </div>
+            <hr>
+            <!-- Visualisasi Distribusi Sentimen -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Distribusi Sentimen</div>
+            <ul class="list-group list-group-horizontal list-unstyled">
+              <li class="w-100 text-center"><strong>Positif:</strong> {{ sentiment_counts.get('positif', 0) }}</li>
+              <li class="w-100 text-center"><strong>Negatif:</strong> {{ sentiment_counts.get('negatif', 0) }}</li>
+              <li class="w-100 text-center"><strong>Netral:</strong> {{ sentiment_counts.get('netral', 0) }}</li>
+            </ul>
+            <img
+              src="{{ sentiment_chart_path }}"
+              alt="Distribusi Sentimen"
+              class="img-fluid"
+              draggable="false"
+              height="200" />
+            <hr>
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="">
+                    <a href="{{ url_for('index') }}"
+                      class="btn btn-info btn-sm ms-3">
+                      <i class="bx bx-home-circle"></i>
+                      &nbsp; Dashboard
+                    </a>
+                  </div>
+                  <div class="">
+                    <a href="{{ url_for('preprocessing') }}"
+                      class="btn btn-primary btn-sm ms-3">
+                      <i class='bx bx-wrench'></i>
+                      &nbsp; Pra-Pemrosesan
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+						{% else %}
+						<p class="text-muted">Belum ada dataset yang diunggah.</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+  var modelTrained = JSON.parse({{ model_trained | default(False) | tojson }});
+  
+  const startButton = document.getElementById('start-modeling');
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const uploadCard = document.getElementById('cardAAA');
+    const detailsCard = document.getElementById('cardBBB');
+
+    if (modelTrained) {
+      console.log("✅ Model sudah ada, tombol dinonaktifkan.");
+
+      uploadCard.classList.remove('danger');
+      uploadCard.classList.add('success');
+      uploadCard.querySelector('.avatar').classList.remove('danger');
+      uploadCard.querySelector('.avatar').classList.add('success');
+      uploadCard.querySelector('.avatar i').classList.remove('bx-x-circle', 'danger');
+      uploadCard.querySelector('.avatar i').classList.add('bx-check-circle', 'success');
+      uploadCard.querySelector('.badge').classList.remove('bg-danger');
+      uploadCard.querySelector('.badge').classList.add('bg-success');
+      uploadCard.querySelector('.badge').textContent = "Sudah dilakukan";
+      
+      detailsCard.classList.remove('danger');
+      detailsCard.classList.add('success');
+      detailsCard.querySelector('.avatar').classList.remove('danger');
+      detailsCard.querySelector('.avatar').classList.add('success');
+      detailsCard.querySelector('.avatar i').classList.remove('bx-x-circle', 'danger');
+      detailsCard.querySelector('.avatar i').classList.add('bx-check-circle', 'success');
+      detailsCard.querySelector('.badge').classList.remove('bg-danger');
+      detailsCard.querySelector('.badge').classList.add('bg-success');
+      detailsCard.querySelector('.badge').textContent = "Dataset tersedia";
+    } else {
+      console.log("🟢 Model belum ada, tombol aktif.");
+      startButton.disabled = false;
+    }
+  });
+  if(startButton){
+    startButton.addEventListener('click', function () {
+      console.log("🛠 Tombol diklik, mulai modeling...");
+      this.disabled = true;
+      this.innerHTML = '<i class="bx bx-loader bx-spin"></i> Proses...';
+  
+      fetch("{{ url_for('start_modeling') }}", { method: 'POST' })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            console.log("✅ Pemodelan berhasil, reload halaman...");
+            location.reload();
+          } else {
+            console.error("❌ Terjadi kesalahan dalam pemodelan.");
+            alert('❌ ' + data.message);
+            this.disabled = false;
+            this.innerHTML = 'Mulai';
+          }
+        })
+        .catch(error => {
+          console.error("⚠️ Error fetch: ", error);
+          alert('⚠️ Terjadi kesalahan pada server.');
+          this.disabled = false;
+          this.innerHTML = 'Mulai';
+        });
+    });
+  }
+</script>
+{% endblock %}

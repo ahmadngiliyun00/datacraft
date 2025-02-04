@@ -56,88 +56,13 @@
 			</a>
 		</li>
 
-		<!-- Pemodelan -->
-		<li class="menu-item {% if url_for('naive_bayes_model') in request.path or url_for('svm_model') in request.path or url_for('evaluation_model') in request.path or url_for('compare_model') in request.path %}active open{% endif %}">
-			<a href="javascript:void(0);" class="menu-link menu-toggle">
+		<!-- Pemodelan Data -->
+		<li class="menu-item {% if url_for('modeling') in request.path %}active{% endif %}">
+			<a href="{{ url_for('modeling') }}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-network-chart"></i>
-				<div data-i18n="Pemodelan">Pemodelan</div>
+				<div data-i18n="Pemodelan Data">Pemodelan Data</div>
 			</a>
-
-			<ul class="menu-sub">
-				<li class="menu-item {% if request.path == url_for('naive_bayes_model') %}active{% endif %}">
-					<a href="{{ url_for('naive_bayes_model') }}" class="menu-link">
-						<div data-i18n="Model Naive Bayes">Model Naive Bayes</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('svm_model') %}active{% endif %}">
-					<a href="{{ url_for('svm_model') }}" class="menu-link">
-						<div data-i18n="Model SVM">Model SVM</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('evaluation_model') %}active{% endif %}">
-					<a href="{{ url_for('evaluation_model') }}" class="menu-link">
-						<div data-i18n="Evaluasi Model">Evaluasi Model</div>
-					</a>
-				</li>
-				<li class="menu-item {% if request.path == url_for('compare_model') %}active{% endif %}">
-					<a href="{{ url_for('compare_model') }}" class="menu-link">
-						<div data-i18n="Perbandingan Model">Perbandingan Model</div>
-					</a>
-				</li>
-			</ul>
 		</li>
-
-		<!-- Optimalisasi Model -->
-		<!-- <li class="menu-item {% if url_for('compare_model') in request.path %}active open{% endif %}">
-			<a href="javascript:void(0);" class="menu-link menu-toggle">
-				<i class="menu-icon tf-icons bx bx-sort-up"></i>
-				<div data-i18n="Optimalisasi Model">Optimalisasi Model</div>
-			</a>
-
-			<ul class="menu-sub">
-				<li class="menu-item">
-					<a href="{{ url_for('index') }}" class="menu-link" data-bs-toggle="collapse" data-bs-target="#optimizeNaiveBayes" aria-expanded="false">
-						<div data-i18n="Optimisasi Naive Bayes">Optimisasi Naive Bayes</div>
-					</a>
-					<ul id="optimizeNaiveBayes" class="collapse nav ms-3">
-							<li><a href="#naiveInitialTraining" class="nav-link text-dark">Melatih Model Awal</a></li>
-							<li><a href="#naiveInitialEvaluation" class="nav-link text-dark">Evaluasi Model Awal</a></li>
-							<li><a href="#naiveRetraining" class="nav-link text-dark">Melatih Ulang Model</a></li>
-					</ul>
-				</li>
-				<li class="menu-item">
-					<a href="{{ url_for('index') }}" class="menu-link" data-bs-toggle="collapse" data-bs-target="#optimizeSVM" aria-expanded="false">
-						<div data-i18n="Optimisasi SVM">Optimisasi SVM</div>
-					</a>
-					<ul id="optimizeSVM" class="collapse nav ms-3">
-							<li><a href="#svmInitialTraining" class="nav-link text-dark">Melatih Model Awal</a></li>
-							<li><a href="#svmInitialEvaluation" class="nav-link text-dark">Evaluasi Model Awal</a></li>
-							<li><a href="#svmRetraining" class="nav-link text-dark">Melatih Ulang Model</a></li>
-					</ul>
-				</li>
-				<li class="menu-item">
-					<a href="{{ url_for('index') }}" class="menu-link">
-						<div data-i18n="Perbandingan Hasil">Perbandingan Hasil</div>
-					</a>
-				</li>
-			</ul>
-		</li> -->
-
-		<!-- Evaluasi -->
-		<!-- <li class="menu-item {% if url_for('compare_model') in request.path %}active open{% endif %}">
-			<a href="javascript:void(0);" class="menu-link menu-toggle">
-				<i class="menu-icon tf-icons bx bx-line-chart"></i>
-				<div data-i18n="Evaluasi">Evaluasi</div>
-			</a>
-
-			<ul class="menu-sub">
-				<li class="menu-item  {% if request.path == url_for('index') %}active{% endif %}">
-					<a href="{{ url_for('index') }}" class="menu-link">
-						<div data-i18n="Tentang Aplikasi">Tentang Aplikasi</div>
-					</a>
-				</li>
-			</ul>
-		</li> -->
 		
 		<!-- Interpretasi Hasil -->
 		<li class="menu-item {% if url_for('compare_model') in request.path %}active{% endif %}">
