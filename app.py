@@ -815,17 +815,18 @@ def preprocessing():
             "Pembagian": "dataset_7_train.csv",
         }
         
+        # * Tampilkan ini jika perlu
         # Cek apakah semua file hasil preprocessing ada dan tidak kosong
-        missing_files = []
-        for step, filename in processed_files.items():
-            file_path = os.path.join(PROCESSED_FOLDER, filename)
+        # missing_files = []
+        # for step, filename in processed_files.items():
+        #     file_path = os.path.join(PROCESSED_FOLDER, filename)
             
-            # Cek apakah file ada dan tidak kosong
-            if not os.path.exists(file_path) or os.stat(file_path).st_size == 0:
-                missing_files.append(f"{step} ({filename})")
+        #     # Cek apakah file ada dan tidak kosong
+        #     if not os.path.exists(file_path) or os.stat(file_path).st_size == 0:
+        #         missing_files.append(f"{step} ({filename})")
 
-        if missing_files:
-            flash(f"Belum melakukan proses pra-pemrosesan data. File yang belum tersedia: {', '.join(missing_files)}", "danger")
+        # if missing_files:
+        #     flash(f"Belum melakukan proses pra-pemrosesan data.", "danger")
 
         # Cek apakah setiap file hasil preprocessing ada
         preprocessing_status = {}
@@ -903,8 +904,8 @@ def preprocessing():
         download_link_encoded=None
         train_file=None
         test_file=None
-        train_label_split=None
-        test_label_split=None
+        train_label_split=[]
+        test_label_split=[]
         comparison_split=None
         chart_train_split=None
         chart_test_split=None
@@ -1363,7 +1364,6 @@ def preprocessing():
             except Exception as e:
                 flash(f"❌ Kesalahan pada Label Encoding: {e}", "danger")
 
-
         # **📌 7️⃣ Pembagian Data**
         if preprocessing_status.get("Pembagian"):
             try:
@@ -1505,7 +1505,7 @@ def preprocessing():
             null_count_cleaned=null_count_cleaned,
             cleaning_methods=cleaning_methods,
             comparison_table_cleaned=comparison_table_cleaned,
-            comparison_samples_cleaned=comparison_samples_cleaned,
+            comparison_samples_cleaned=comparison_samples_cleaned or [],
             chart_path_cleaned=url_for('static', filename='img/tweet_1_length_distribution_cleaned.png'),
             wordcloud_path_cleaned=url_for('static', filename='img/tweet_1_wordcloud_cleaned.png'),
             download_link_cleaned=download_link_cleaned,
@@ -1560,8 +1560,8 @@ def preprocessing():
             # Pembagian Data
             train_file=train_file,
             test_file=test_file,
-            train_label_split=train_label_split,
-            test_label_split=test_label_split,
+            train_label_split=train_label_split or [],
+            test_label_split=test_label_split or [],
             comparison_split=comparison_split,
             chart_train_split=url_for('static', filename='img/tweet_7_train_split_distribution.png'),
             chart_test_split=url_for('static', filename='img/tweet_7_test_split_distribution.png'),
@@ -1641,8 +1641,8 @@ def preprocessing():
             download_link_encoded=None,
             train_file=None,
             test_file=None,
-            train_label_split=None,
-            test_label_split=None,
+            train_label_split=[],
+            test_label_split=[],
             comparison_split=None,
             chart_train_split=None,
             chart_test_split=None,
