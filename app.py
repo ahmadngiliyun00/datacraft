@@ -2073,6 +2073,7 @@ def start_modeling():
             # 🔥 **Hapus File yang Sudah Ada Sebelum Modeling**
             files_to_remove = [
                 os.path.join(app.config["PROCESSED_FOLDER"], "model_0_calculated.csv"),
+                os.path.join(app.config["PROCESSED_FOLDER"], "model_0_error_analysis.csv"),
                 os.path.join(app.config["STATIC_FOLDER"], "model_1_naive_bayes_confusion_matrix.png"),
                 os.path.join(app.config["STATIC_FOLDER"], "model_2_svm_confusion_matrix.png")
             ]
