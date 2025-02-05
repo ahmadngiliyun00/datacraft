@@ -134,6 +134,11 @@ def index():
 def about():
     return render_template("about.html", title="Tentang Aplikasi")
 
+# Route untuk halaman lisensi
+@app.route("/license")
+def license():
+    return render_template("license.html", title="Lisensi")
+
 
 # Route untuk mengunduh file yang sudah dibuat
 @app.route("/download/<filename>")
