@@ -1365,9 +1365,9 @@
 </div>
 
 <script>
-	document
-		.getElementById('start-preprocessing')
-		.addEventListener('click', function () {
+	const startButton = document.getElementById('start-preprocessing');
+	if (startButton) {
+		startButton.addEventListener('click', function () {
 			console.log("🛠 Tombol diklik, mulai preprocessing...");
 			this.disabled = true;
 			this.innerHTML = '<i class="bx bx-loader bx-spin"></i> Proses...';
@@ -1385,5 +1385,6 @@
 				})
 				.catch(error => console.error("⚠️ Error fetch: ", error));
 		});
+	}
 </script>
 {% endblock %}

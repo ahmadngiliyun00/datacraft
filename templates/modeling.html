@@ -120,15 +120,14 @@
 					<h5 class="card-header">Naive Bayes</h5>
 					<div class="card-body">
 						{% if model_trained %}
-            <!-- Hasil Pemodelan -->
-            <div class="card-title fw-bold fs-5 text-primary mb-1">Hasil Pemodelan</div>
-            <div class="table-responsive">
+            <!-- Laporan Klasifikasi Naive Bayes -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Laporan Klasifikasi</div>
+            <p><strong>Akurasi:</strong> {{ report_data_nb[0]["Akurasi"] }}</p>
+            <div class="table-responsive mb-4">
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Model</th>
                     <th>Kelas</th>
-                    <th>Akurasi</th>
                     <th>Presisi</th>
                     <th>Recall</th>
                     <th>F1-Score</th>
@@ -136,62 +135,43 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for row in report_data %}
+                  {% for row in report_data_nb %}
                   <tr>
-                    <td>{{ row["Model"] }}</td>
-                    <td>{{ row["Kelas"] }}</td>
-                    <td>{{ "%.4f"|format(row["Akurasi"]) }}</td>
-                    <td>{{ "%.4f"|format(row["Presisi"]) }}</td>
-                    <td>{{ "%.4f"|format(row["Recall"]) }}</td>
-                    <td>{{ "%.4f"|format(row["F1-Score"]) }}</td>
-                    <td>{{ row["Support"] }}</td>
+                    <td>
+                      {% if row["Kelas"]|string == "-1" %}
+                        -1 (Negatif)
+                      {% elif row["Kelas"]|string == "0" %}
+                        0 (Netral)
+                      {% elif row["Kelas"]|string == "1" %}
+                        1 (Positif)
+                      {% else %}
+                        Aneh
+                      {% endif %}
+                    </td>
+                    <td class="text-center">{{ row["Presisi"] }}</td>
+                    <td class="text-center">{{ row["Recall"] }}</td>
+                    <td class="text-center">{{ row["F1-Score"] }}</td>
+                    <td class="text-center">{{ row["Support"] }}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
               </table>
             </div>
             <hr>
-            <!-- Tampilkan Confusion Matrix -->
-            <div class="row mt-4">
-              {% if cm_path_nb %}
-              <div class="col-md-6 text-center">
-                <h6>Confusion Matrix - Naive Bayes</h6>
-                <img src="{{ cm_path_nb }}" alt="Confusion Matrix NB" class="img-fluid">
-              </div>
-              {% endif %}
-              
-              {% if cm_path_svm %}
-              <div class="col-md-6 text-center">
-                <h6>Confusion Matrix - SVM</h6>
-                <img src="{{ cm_path_svm }}" alt="Confusion Matrix SVM" class="img-fluid">
-              </div>
-              {% endif %}
+            <!-- Confusion Matrix Naive Bayes -->
+            {% if cm_path_nb %}
+            <div class="text-center">
+              <div class="card-title fw-bold fs-5 text-primary mb-1">Confusion Matrix</div>
+              <img src="{{ cm_path_nb }}" alt="Confusion Matrix Naive Bayes" class="img-fluid">
             </div>
-            <hr>
-            <!-- Confusion Matrix -->
-            <div class="card-title fw-bold fs-5 text-primary mb-1">Confusion Matrix</div>
-            <img src="{{ confusion_matrix_nb }}" alt="Confusion Matrix Naive Bayes" class="img-fluid" />
-            <hr>
-            <!-- Visualisasi Distribusi Sentimen -->
-            <div class="card-title fw-bold fs-5 text-primary mb-1">Distribusi Sentimen</div>
-            <ul class="list-group list-group-horizontal list-unstyled">
-              <li class="w-100 text-center"><strong>Positif:</strong> {{ sentiment_counts.get('positif', 0) }}</li>
-              <li class="w-100 text-center"><strong>Negatif:</strong> {{ sentiment_counts.get('negatif', 0) }}</li>
-              <li class="w-100 text-center"><strong>Netral:</strong> {{ sentiment_counts.get('netral', 0) }}</li>
-            </ul>
-            <img
-              src="{{ sentiment_chart_path }}"
-              alt="Distribusi Sentimen"
-              class="img-fluid"
-              draggable="false"
-              height="200" />
+            {% endif %}
             <hr>
             <div class="card">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="">
                     <a href="{{ url_for('preprocessing') }}"
-                      class="btn btn-primary btn-sm ms-3">
+                      class="btn btn-info btn-sm ms-3">
                       <i class='bx bx-wrench'></i>
                       &nbsp; Pra-Pemrosesan
                     </a>
@@ -199,15 +179,15 @@
                   <div class="">
                     <a href="{{ url_for('index') }}"
                       class="btn btn-primary btn-sm ms-3">
-                      <i class='bx bx-home-circle'></i>
-                      &nbsp; Dashboard
+                      <i class='bx bx-file-find'></i>
+                      &nbsp; Interpretasi Hasil
                     </a>
                   </div>
                 </div>
               </div>
             </div>
 						{% else %}
-						<p class="text-muted">Belum ada dataset yang diunggah.</p>
+						<p class="text-muted">Belum ada pemodelan yang dibuat.</p>
 						{% endif %}
 					</div>
 				</div>
@@ -221,103 +201,74 @@
 					<h5 class="card-header">Support Vector Machine</h5>
 					<div class="card-body">
 						{% if model_trained %}
-            <!-- Informasi Dataset -->
-            <div class="card-title fw-bold fs-5 text-primary mb-1">Informasi Dataset</div>
-            <ul class="list-group ms-3">
-              <li><strong>Nama File:</strong> {{ uploaded_filename }}</li>
-              <li><strong>Dimensi Dataset:</strong> {{ data_shape }}</li>
-              <li><strong>Jumlah Duplikat:</strong> {{ duplicate_count }}</li>
-              <li><strong>Jumlah Nilai Kosong:</strong> {{ null_count }}</li>
-            </ul>
-            <hr>
-            <!-- Informasi Elemen yang Perlu Dibersihkan -->
-            <div class="card-title fw-bold fs-5 text-primary mb-1">Informasi Elemen yang Perlu Dibersihkan</div>
-            <ul class="list-group ms-3">
-              <li>Jumlah Tweet Kosong: {{ empty_tweets }}</li>
-              <li>Tweet dengan Emoji: {{ emoji_tweets }}</li>
-              <li>Tweet dengan Tautan: {{ links }}</li>
-              <li>Tweet dengan Simbol Khusus: {{ symbols }}</li>
-              <li>Tweet Kosong atau Berisi Spasi: {{ empty_tweets }}</li>
-              <li>Tweet Hanya Angka: {{ only_numbers }}</li>
-              <li>Tweet Mengandung Angka: {{ tweets_with_numbers }}</li>
-              <li>Tweet Pendek (&lt; 3 Kata): {{ short_tweets }}</li>
-            </ul>
-            <hr>
-            <!-- Menampilkan Data -->
-            <div class="card-title fw-bold fs-5 text-primary mb-1">5 Data Teratas</div>
-            <div class="table table-responsive">
-              {{ data_head | safe }}
+            <!-- Laporan Klasifikasi SVM -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Laporan Klasifikasi</div>
+            <p><strong>Akurasi:</strong> {{ report_data_svm[0]["Akurasi"] }}</p>
+            <div class="table-responsive mb-4">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Kelas</th>
+                    <th>Presisi</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                    <th>Support</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for row in report_data_svm %}
+                  <tr>
+                    <td>
+                      {% if row["Kelas"]|string == "-1" %}
+                        -1 (Negatif)
+                      {% elif row["Kelas"]|string == "0" %}
+                        0 (Netral)
+                      {% elif row["Kelas"]|string == "1" %}
+                        1 (Positif)
+                      {% else %}
+                        Aneh
+                      {% endif %}
+                    </td>
+                    <td class="text-center">{{ row["Presisi"] }}</td>
+                    <td class="text-center">{{ row["Recall"] }}</td>
+                    <td class="text-center">{{ row["F1-Score"] }}</td>
+                    <td class="text-center">{{ row["Support"] }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
             <hr>
-            <div class="card-title fw-bold fs-5 text-primary mb-1">Statistik Deskriptif</div>
-            <div class="table table-responsive">
-              {{ data_description | safe }}
+            <!-- Confusion Matrix Naive Bayes -->
+            {% if cm_path_nb %}
+            <div class="text-center">
+              <div class="card-title fw-bold fs-5 text-primary mb-1">Confusion Matrix</div>
+              <img src="{{ cm_path_svm }}" alt="Confusion Matrix SVM" class="img-fluid">
             </div>
-            <hr>
-            <div class="card-title fw-bold fs-5 text-primary mb-1">Jumlah Nilai Unik</div>
-            <div class="table table-responsive">
-              {{ data_unique | safe }}
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-12 col-lg-6">
-                <!-- Visualisasi Distribusi Panjang Tweet -->
-                <div class="card-title fw-bold fs-5 text-primary mb-1">Distribusi Panjang Tweet</div>
-                <img
-                  src="{{ chart_path }}"
-                  alt="Distribusi Panjang Tweet"
-                  class="img-fluid"
-                  draggable="false"
-                  height="200" />
-              </div>
-              <div class="col-12 col-lg-6">
-                <!-- Visualisasi WordCloud Tweet -->
-                <div class="card-title fw-bold fs-5 text-primary mb-1">WordCloud Tweet</div>
-                <img
-                  src="{{ wordcloud_path }}"
-                  alt="WordCloud Tweet"
-                  class="img-fluid"
-                  draggable="false"
-                  height="200" />
-              </div>
-            </div>
-            <hr>
-            <!-- Visualisasi Distribusi Sentimen -->
-            <div class="card-title fw-bold fs-5 text-primary mb-1">Distribusi Sentimen</div>
-            <ul class="list-group list-group-horizontal list-unstyled">
-              <li class="w-100 text-center"><strong>Positif:</strong> {{ sentiment_counts.get('positif', 0) }}</li>
-              <li class="w-100 text-center"><strong>Negatif:</strong> {{ sentiment_counts.get('negatif', 0) }}</li>
-              <li class="w-100 text-center"><strong>Netral:</strong> {{ sentiment_counts.get('netral', 0) }}</li>
-            </ul>
-            <img
-              src="{{ sentiment_chart_path }}"
-              alt="Distribusi Sentimen"
-              class="img-fluid"
-              draggable="false"
-              height="200" />
+            {% endif %}
             <hr>
             <div class="card">
               <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="">
-                    <a href="{{ url_for('index') }}"
+                    <a href="{{ url_for('preprocessing') }}"
                       class="btn btn-info btn-sm ms-3">
-                      <i class="bx bx-home-circle"></i>
-                      &nbsp; Dashboard
+                      <i class='bx bx-wrench'></i>
+                      &nbsp; Pra-Pemrosesan
                     </a>
                   </div>
                   <div class="">
-                    <a href="{{ url_for('preprocessing') }}"
+                    <a href="{{ url_for('index') }}"
                       class="btn btn-primary btn-sm ms-3">
-                      <i class='bx bx-wrench'></i>
-                      &nbsp; Pra-Pemrosesan
+                      <i class='bx bx-file-find'></i>
+                      &nbsp; Interpretasi Hasil
                     </a>
                   </div>
                 </div>
               </div>
             </div>
 						{% else %}
-						<p class="text-muted">Belum ada dataset yang diunggah.</p>
+						<p class="text-muted">Belum ada pemodelan yang dibuat.</p>
 						{% endif %}
 					</div>
 				</div>

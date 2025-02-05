@@ -1187,46 +1187,6 @@ def preprocessing():
                             }
                         )
 
-                    # **📊 Visualisasi: Distribusi Panjang Tweet**
-                    chart_path_cleaned = os.path.join(
-                        app.config["STATIC_FOLDER"],
-                        "tweet_1_length_distribution_cleaned.png",
-                    )
-                    if not os.path.exists(chart_path_cleaned):
-                        plt.figure(figsize=(16, 9))
-                        data_cleaned["Tweet"].str.split().apply(len).plot(
-                            kind="hist",
-                            bins=30,
-                            color="blue",
-                            edgecolor="black",
-                            title="Distribusi Panjang Cleaned Tweet",
-                        )
-                        plt.xlabel("Jumlah Kata")
-                        plt.ylabel("Frekuensi")
-                        plt.savefig(
-                            chart_path_cleaned, bbox_inches="tight", facecolor="white"
-                        )
-                        plt.close()
-
-                    # **☁️ WordCloud**
-                    wordcloud_path_cleaned = os.path.join(
-                        app.config["STATIC_FOLDER"], "tweet_1_wordcloud_cleaned.png"
-                    )
-                    if not os.path.exists(wordcloud_path_cleaned):
-                        text = " ".join(data_cleaned["Tweet"].dropna())
-                        wordcloud = WordCloud(
-                            width=1280, height=720, background_color="white"
-                        ).generate(text)
-                        plt.figure(figsize=(16, 9))
-                        plt.imshow(wordcloud, interpolation="bilinear")
-                        plt.axis("off")
-                        plt.savefig(
-                            wordcloud_path_cleaned,
-                            bbox_inches="tight",
-                            facecolor="white",
-                        )
-                        plt.close()
-
                     # **Download File**
                     download_link_cleaned = url_for(
                         "download_file", filename=cleaned_file
@@ -1283,47 +1243,6 @@ def preprocessing():
                         .round(2)
                         .to_html(classes="table table-striped")
                     )
-
-                    # **📊 Visualisasi: Distribusi Panjang Tweet Setelah Normalisasi**
-                    chart_path_normalized = os.path.join(
-                        STATIC_FOLDER, "tweet_2_length_distribution_normalized.png"
-                    )
-                    if not os.path.exists(chart_path_normalized):
-                        plt.figure(figsize=(16, 9))
-                        data_normalized["Tweet"].str.split().apply(len).plot(
-                            kind="hist",
-                            bins=30,
-                            color="green",
-                            edgecolor="black",
-                            title="Distribusi Panjang Tweet Setelah Normalisasi",
-                        )
-                        plt.xlabel("Jumlah Kata")
-                        plt.ylabel("Frekuensi")
-                        plt.savefig(
-                            chart_path_normalized,
-                            bbox_inches="tight",
-                            facecolor="white",
-                        )
-                        plt.close()
-
-                    # **☁️ WordCloud Setelah Normalisasi**
-                    wordcloud_path_normalized = os.path.join(
-                        STATIC_FOLDER, "tweet_2_wordcloud_normalized.png"
-                    )
-                    if not os.path.exists(wordcloud_path_normalized):
-                        text = " ".join(data_normalized["Tweet"].dropna())
-                        wordcloud = WordCloud(
-                            width=1280, height=720, background_color="white"
-                        ).generate(text)
-                        plt.figure(figsize=(16, 9))
-                        plt.imshow(wordcloud, interpolation="bilinear")
-                        plt.axis("off")
-                        plt.savefig(
-                            wordcloud_path_normalized,
-                            bbox_inches="tight",
-                            facecolor="white",
-                        )
-                        plt.close()
 
                     # **Download File**
                     download_link_normalized = url_for(
@@ -1382,46 +1301,6 @@ def preprocessing():
                         .round(2)
                         .to_html(classes="table table-striped")
                     )
-
-                    # **📊 Visualisasi: Distribusi Panjang Tokenized Tweet**
-                    chart_path_tokenized = os.path.join(
-                        app.config["STATIC_FOLDER"],
-                        "tweet_3_length_distribution_tokenized.png",
-                    )
-                    if not os.path.exists(chart_path_tokenized):
-                        plt.figure(figsize=(16, 9))
-                        data_tokenized["Tokenized"].str.split().apply(len).plot(
-                            kind="hist",
-                            bins=30,
-                            color="green",
-                            edgecolor="black",
-                            title="Distribusi Panjang Tokenized Tweet",
-                        )
-                        plt.xlabel("Jumlah Kata")
-                        plt.ylabel("Frekuensi")
-                        plt.savefig(
-                            chart_path_tokenized, bbox_inches="tight", facecolor="white"
-                        )
-                        plt.close()
-
-                    # **☁️ WordCloud**
-                    wordcloud_path_tokenized = os.path.join(
-                        app.config["STATIC_FOLDER"], "tweet_3_wordcloud_tokenized.png"
-                    )
-                    if not os.path.exists(wordcloud_path_tokenized):
-                        text_tokenized = " ".join(data_tokenized["Tokenized"].dropna())
-                        wordcloud_tokenized = WordCloud(
-                            width=1280, height=720, background_color="white"
-                        ).generate(text_tokenized)
-                        plt.figure(figsize=(16, 9))
-                        plt.imshow(wordcloud_tokenized, interpolation="bilinear")
-                        plt.axis("off")
-                        plt.savefig(
-                            wordcloud_path_tokenized,
-                            bbox_inches="tight",
-                            facecolor="white",
-                        )
-                        plt.close()
 
                     # **Download File**
                     download_link_tokenized = url_for(
@@ -1488,51 +1367,6 @@ def preprocessing():
                         .to_html(classes="table table-striped")
                     )
 
-                    # **📊 Visualisasi: Distribusi Panjang No Stopwords Tweet**
-                    chart_path_no_stopwords = os.path.join(
-                        app.config["STATIC_FOLDER"],
-                        "tweet_4_length_distribution_no_stopwords.png",
-                    )
-                    if not os.path.exists(chart_path_no_stopwords):
-                        plt.figure(figsize=(16, 9))
-                        data_no_stopwords["Tokenized"].str.split().apply(len).plot(
-                            kind="hist",
-                            bins=30,
-                            color="purple",
-                            edgecolor="black",
-                            title="Distribusi Panjang No Stopwords Tweet",
-                        )
-                        plt.xlabel("Jumlah Kata")
-                        plt.ylabel("Frekuensi")
-                        plt.savefig(
-                            chart_path_no_stopwords,
-                            bbox_inches="tight",
-                            facecolor="white",
-                        )
-                        plt.close()
-
-                    # **☁️ WordCloud**
-                    wordcloud_path_no_stopwords = os.path.join(
-                        app.config["STATIC_FOLDER"],
-                        "tweet_4_wordcloud_no_stopwords.png",
-                    )
-                    if not os.path.exists(wordcloud_path_no_stopwords):
-                        text_no_stopwords = " ".join(
-                            data_no_stopwords["Tokenized"].dropna()
-                        )
-                        wordcloud_no_stopwords = WordCloud(
-                            width=1280, height=720, background_color="white"
-                        ).generate(text_no_stopwords)
-                        plt.figure(figsize=(16, 9))
-                        plt.imshow(wordcloud_no_stopwords, interpolation="bilinear")
-                        plt.axis("off")
-                        plt.savefig(
-                            wordcloud_path_no_stopwords,
-                            bbox_inches="tight",
-                            facecolor="white",
-                        )
-                        plt.close()
-
                     # **Download File**
                     download_link_no_stopwords = url_for(
                         "download_file", filename=stopwords_file
@@ -1597,46 +1431,6 @@ def preprocessing():
                         .round(2)
                         .to_html(classes="table table-striped")
                     )
-
-                    # **📊 Visualisasi: Distribusi Panjang Stemmed Tweet**
-                    chart_path_stemmed = os.path.join(
-                        app.config["STATIC_FOLDER"],
-                        "tweet_5_length_distribution_stemmed.png",
-                    )
-                    if not os.path.exists(chart_path_stemmed):
-                        plt.figure(figsize=(16, 9))
-                        data_stemmed["Tokenized"].str.split().apply(len).plot(
-                            kind="hist",
-                            bins=30,
-                            color="purple",
-                            edgecolor="black",
-                            title="Distribusi Panjang Stemmed Tweet",
-                        )
-                        plt.xlabel("Jumlah Kata")
-                        plt.ylabel("Frekuensi")
-                        plt.savefig(
-                            chart_path_stemmed, bbox_inches="tight", facecolor="white"
-                        )
-                        plt.close()
-
-                    # **☁️ WordCloud untuk hasil Stemming**
-                    wordcloud_path_stemmed = os.path.join(
-                        app.config["STATIC_FOLDER"], "tweet_5_wordcloud_stemmed.png"
-                    )
-                    if not os.path.exists(wordcloud_path_stemmed):
-                        text_stemmed = " ".join(data_stemmed["Tokenized"].dropna())
-                        wordcloud_stemmed = WordCloud(
-                            width=1280, height=720, background_color="white"
-                        ).generate(text_stemmed)
-                        plt.figure(figsize=(16, 9))
-                        plt.imshow(wordcloud_stemmed, interpolation="bilinear")
-                        plt.axis("off")
-                        plt.savefig(
-                            wordcloud_path_stemmed,
-                            bbox_inches="tight",
-                            facecolor="white",
-                        )
-                        plt.close()
 
                     # **Download File**
                     download_link_stemmed = url_for(
@@ -1747,44 +1541,6 @@ def preprocessing():
                     else "<p>Tidak ada data statistik</p>"
                 )
 
-                # **📊 Visualisasi: Distribusi Label Encoding**
-                chart_path_encoded = os.path.join(
-                    app.config["STATIC_FOLDER"],
-                    "tweet_6_label_distribution_encoded.png",
-                )
-                if not data_encoded.empty:
-                    plt.figure(figsize=(16, 9))
-
-                    # Ambil distribusi label dan pastikan urutan -1, 0, 1 tetap konsisten
-                    label_counts_encoded = (
-                        data_encoded["Label_Encoded"]
-                        .value_counts()
-                        .reindex([-1, 0, 1], fill_value=0)
-                    )
-
-                    # Plot diagram batang dengan warna lebih jelas
-                    label_counts_encoded.plot(
-                        kind="bar", color="orange", edgecolor="black"
-                    )
-
-                    # Sesuaikan label pada sumbu X agar sesuai dengan urutan yang benar
-                    plt.xlabel("Kategori Label")
-                    plt.ylabel("Frekuensi")
-                    plt.title("Distribusi Label Encoding")
-                    plt.xticks(
-                        ticks=[0, 1, 2],
-                        labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"],
-                        rotation=0,
-                    )
-
-                    # Simpan gambar
-                    plt.savefig(
-                        chart_path_encoded, bbox_inches="tight", facecolor="white"
-                    )
-                    plt.close()
-                else:
-                    chart_path_encoded = None
-
                 # **Download File**
                 download_link_encoded = (
                     url_for("download_file", filename=encoded_file)
@@ -1803,18 +1559,13 @@ def preprocessing():
                 encoded_file = "dataset_6_encoded.csv"
                 train_path = os.path.join(PROCESSED_FOLDER, train_file)
                 test_path = os.path.join(PROCESSED_FOLDER, test_file)
-                encoded_path = os.path.join(
-                    app.config["PROCESSED_FOLDER"], encoded_file
-                )
+                encoded_path = os.path.join(PROCESSED_FOLDER, encoded_file)
 
                 if not os.path.exists(train_path):
                     flash("File hasil pembagian data train belum tersedia.", "danger")
                 elif not os.path.exists(test_path):
                     flash("File hasil pembagian data test belum tersedia.", "danger")
-                elif (
-                    not os.path.exists(encoded_path)
-                    or os.stat(encoded_path).st_size == 0
-                ):
+                elif (not os.path.exists(encoded_path) or os.stat(encoded_path).st_size == 0):
                     flash("File hasil label encoding belum tersedia.", "danger")
                 else:
                     data_train = pd.read_csv(train_path)
@@ -1856,54 +1607,6 @@ def preprocessing():
                         f"0 (Netral): {test_label_dist.get(0, 0)} sampel",
                         f"1 (Positif): {test_label_dist.get(1, 0)} sampel",
                     ]
-
-                    # Simpan path diagram
-                    chart_train_split = os.path.join(
-                        app.config["STATIC_FOLDER"],
-                        "tweet_7_train_split_distribution.png",
-                    )
-                    chart_test_split = os.path.join(
-                        app.config["STATIC_FOLDER"],
-                        "tweet_7_test_split_distribution.png",
-                    )
-
-                    # Plot distribusi sentimen di Training Set
-                    if not os.path.exists(chart_train_split):
-                        plt.figure(figsize=(16, 9))
-                        data_train["Label_Encoded"].value_counts().reindex(
-                            [-1, 0, 1], fill_value=0
-                        ).plot(kind="bar", color="blue", edgecolor="black")
-                        plt.title("Distribusi Sentimen dalam Data Training")
-                        plt.xlabel("Kategori Sentimen")
-                        plt.ylabel("Jumlah Sampel")
-                        plt.xticks(
-                            ticks=[0, 1, 2],
-                            labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"],
-                            rotation=0,
-                        )
-                        plt.savefig(
-                            chart_train_split, bbox_inches="tight", facecolor="white"
-                        )
-                        plt.close()
-
-                    # Plot distribusi sentimen di Testing Set
-                    if not os.path.exists(chart_test_split):
-                        plt.figure(figsize=(16, 9))
-                        data_test["Label_Encoded"].value_counts().reindex(
-                            [-1, 0, 1], fill_value=0
-                        ).plot(kind="bar", color="orange", edgecolor="black")
-                        plt.title("Distribusi Sentimen dalam Data Testing")
-                        plt.xlabel("Kategori Sentimen")
-                        plt.ylabel("Jumlah Sampel")
-                        plt.xticks(
-                            ticks=[0, 1, 2],
-                            labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"],
-                            rotation=0,
-                        )
-                        plt.savefig(
-                            chart_test_split, bbox_inches="tight", facecolor="white"
-                        )
-                        plt.close()
 
                     # Buat dataframe untuk perbandingan jumlah data sebelum & sesudah pembagian
                     comparison_df = pd.DataFrame(
@@ -1976,26 +1679,6 @@ def preprocessing():
                         f"Train Data: {train_size} sampel ({train_percentage}%)",
                         f"Test Data: {test_size} sampel ({test_percentage}%)",
                     ]
-
-                    # **📈 Visualisasi Distribusi Data Train vs Test**
-                    chart_path_split = os.path.join(
-                        app.config["STATIC_FOLDER"],
-                        "tweet_7_split_data_distribution.png",
-                    )
-                    if not os.path.exists(chart_path_split):
-                        plt.figure(figsize=(16, 9))
-                        plt.bar(
-                            ["Train Data", "Test Data"],
-                            [train_size, test_size],
-                            color=["blue", "orange"],
-                        )
-                        plt.title("Distribusi Data Setelah Pembagian")
-                        plt.ylabel("Jumlah Sampel")
-                        plt.xlabel("Kategori Data")
-                        plt.savefig(
-                            chart_path_split, bbox_inches="tight", facecolor="white"
-                        )
-                        plt.close()
 
                     download_link_train = url_for("download_file", filename=train_file)
                     download_link_test = url_for("download_file", filename=test_file)
@@ -2214,7 +1897,12 @@ def start_preprocessing():
         # 📌 1️⃣ Pembersihan Data
         try:
             print("🚀 Memulai Pembersihan Data...")
-            # (Proses normalisasi)
+            cleaned_path = os.path.join(app.config["PROCESSED_FOLDER"], "dataset_1_cleaned.csv")
+            
+            # **Hapus file lama jika ada**
+            if os.path.exists(cleaned_path):
+                os.remove(cleaned_path)
+                
             data = pd.read_csv(raw_path)
             if "Tweet" not in data.columns:
                 return jsonify(
@@ -2230,17 +1918,40 @@ def start_preprocessing():
             data["Tweet"] = data["Tweet"].apply(lambda x: remove_uniques(x))
             data["Tweet"] = data["Tweet"].apply(lambda x: remove_emoji(x))
             data["Tweet"] = data["Tweet"].apply(lambda x: remove_links(x))
-            data["Tweet"] = data["Tweet"].apply(
-                lambda x: remove_html_tags_and_entities(x)
-            )
+            data["Tweet"] = data["Tweet"].apply(lambda x: remove_html_tags_and_entities(x))
             data["Tweet"] = data["Tweet"].apply(lambda x: remove_special_characters(x))
             data["Tweet"] = data["Tweet"].apply(lambda x: remove_underscores(x))
             data = data.drop_duplicates(subset=["Tweet"])
             data = data.dropna(subset=["Tweet"])
-            data.to_csv(
-                os.path.join(PROCESSED_FOLDER, "dataset_1_cleaned.csv"), index=False
-            )
+            
+            # **Simpan hasil pembersihan**
+            data.to_csv(cleaned_path, index=False)
             print("✅ Pembersihan Data Selesai.")
+            
+            # **🔹 Visualisasi: Distribusi Panjang Tweet**
+            chart_path_cleaned = os.path.join(app.config["STATIC_FOLDER"], "tweet_1_length_distribution_cleaned.png")
+            plt.figure(figsize=(16, 9))
+            data["Tweet"].str.split().apply(len).plot(
+                kind="hist",
+                bins=30,
+                color="blue",
+                edgecolor="black",
+                title="Distribusi Panjang Tweet Setelah Pembersihan"
+            )
+            plt.xlabel("Jumlah Kata")
+            plt.ylabel("Frekuensi")
+            plt.savefig(chart_path_cleaned, bbox_inches="tight", facecolor="white")
+            plt.close()
+
+            # **☁️ WordCloud**
+            wordcloud_path_cleaned = os.path.join(app.config["STATIC_FOLDER"], "tweet_1_wordcloud_cleaned.png")
+            text = " ".join(data["Tweet"].dropna())
+            wordcloud = WordCloud(width=1280, height=720, background_color="white").generate(text)
+            plt.figure(figsize=(16, 9))
+            plt.imshow(wordcloud, interpolation="bilinear")
+            plt.axis("off")
+            plt.savefig(wordcloud_path_cleaned, bbox_inches="tight", facecolor="white")
+            plt.close()
 
         except Exception as e:
             print(f"❌ Kesalahan pada Pembersihan Data: {e}")
@@ -2248,14 +1959,49 @@ def start_preprocessing():
         # 📌 2️⃣ Normalisasi Data
         try:
             print("🚀 Memulai Normalisasi Data...")
+            normalized_path = os.path.join(app.config["PROCESSED_FOLDER"], "dataset_2_normalized.csv")
+
+            # **Hapus file lama jika ada**
+            if os.path.exists(normalized_path):
+                os.remove(normalized_path)
+
+            # **Load Data Pembersihan**
+            cleaned_path = os.path.join(app.config["PROCESSED_FOLDER"], "dataset_1_cleaned.csv")
+            data = pd.read_csv(cleaned_path)
+            
             # (Proses normalisasi)
             data["Tweet"] = data["Tweet"].str.lower()
             data["Tweet"] = data["Tweet"].str.replace(r"[^a-z\s]+", " ", regex=True)
             data["Tweet"] = data["Tweet"].str.replace(r"\s+", " ", regex=True)
-            data.to_csv(
-                os.path.join(PROCESSED_FOLDER, "dataset_2_normalized.csv"), index=False
-            )
+
+            # **Simpan hasil normalisasi**
+            data.to_csv(normalized_path, index=False)
             print("✅ Normalisasi Data Selesai.")
+
+            # **🔹 Visualisasi: Distribusi Panjang Tweet Setelah Normalisasi**
+            chart_path_normalized = os.path.join(app.config["STATIC_FOLDER"], "tweet_2_length_distribution_normalized.png")
+            plt.figure(figsize=(16, 9))
+            data["Tweet"].str.split().apply(len).plot(
+                kind="hist",
+                bins=30,
+                color="green",
+                edgecolor="black",
+                title="Distribusi Panjang Tweet Setelah Normalisasi"
+            )
+            plt.xlabel("Jumlah Kata")
+            plt.ylabel("Frekuensi")
+            plt.savefig(chart_path_normalized, bbox_inches="tight", facecolor="white")
+            plt.close()
+
+            # **☁️ WordCloud Setelah Normalisasi**
+            wordcloud_path_normalized = os.path.join(app.config["STATIC_FOLDER"], "tweet_2_wordcloud_normalized.png")
+            text = " ".join(data["Tweet"].dropna())
+            wordcloud = WordCloud(width=1280, height=720, background_color="white").generate(text)
+            plt.figure(figsize=(16, 9))
+            plt.imshow(wordcloud, interpolation="bilinear")
+            plt.axis("off")
+            plt.savefig(wordcloud_path_normalized, bbox_inches="tight", facecolor="white")
+            plt.close()
 
         except Exception as e:
             print(f"❌ Kesalahan pada Normalisasi Data: {e}")
@@ -2263,99 +2009,157 @@ def start_preprocessing():
         # 📌 3️⃣ Tokenisasi Data
         try:
             print("🚀 Memulai Tokenisasi Data...")
+            # **Download resource NLTK jika belum ada**
             try:
                 nltk.download("punkt", quiet=True)
             except Exception as e:
                 print(f"❌ Gagal mengunduh 'punkt' dari NLTK: {e}")
 
+            tokenized_path = os.path.join(app.config["PROCESSED_FOLDER"], "dataset_3_tokenized.csv")
+            normalized_path = os.path.join(app.config["PROCESSED_FOLDER"], "dataset_2_normalized.csv")
+
+            # **Hapus file lama jika ada**
+            if os.path.exists(tokenized_path):
+                os.remove(tokenized_path)
+                
+            # **Validasi keberadaan dataset normalisasi**
+            if not os.path.exists(normalized_path):
+                print("❌ File normalisasi tidak ditemukan!")
+                return jsonify({"success": False, "message": "File normalisasi tidak ditemukan!"})
+
+            # **Load Dataset Normalisasi**
+            data = pd.read_csv(normalized_path)
+            if "Tweet" not in data.columns:
+                return jsonify({"success": False, "message": "Kolom 'Tweet' tidak ditemukan dalam dataset!"})
+
             # (Proses tokenisasi)
             data["Tokenized"] = data["Tweet"].apply(word_tokenize)
-            data.to_csv(
-                os.path.join(PROCESSED_FOLDER, "dataset_3_tokenized.csv"), index=False
-            )
+            
+            # **Simpan hasil tokenisasi**
+            data.to_csv(tokenized_path, index=False)
             print("✅ Tokenisasi Data Selesai.")
 
+            # **📊 Visualisasi: Distribusi Panjang Tokenized Tweet**
+            chart_path_tokenized = os.path.join(app.config["STATIC_FOLDER"], "tweet_3_length_distribution_tokenized.png")
+            plt.figure(figsize=(16, 9))
+            data["Tokenized"].apply(len).plot(
+                kind="hist",
+                bins=30,
+                color="purple",
+                edgecolor="black",
+                title="Distribusi Panjang Tokenized Tweet"
+            )
+            plt.xlabel("Jumlah Token")
+            plt.ylabel("Frekuensi")
+            plt.savefig(chart_path_tokenized, bbox_inches="tight", facecolor="white")
+            plt.close()
+
+            # **☁️ WordCloud Setelah Tokenisasi**
+            wordcloud_path_tokenized = os.path.join(app.config["STATIC_FOLDER"], "tweet_3_wordcloud_tokenized.png")
+            text_tokenized = " ".join([" ".join(tokens) for tokens in data["Tokenized"].dropna()])
+            wordcloud_tokenized = WordCloud(width=1280, height=720, background_color="white").generate(text_tokenized)
+            plt.figure(figsize=(16, 9))
+            plt.imshow(wordcloud_tokenized, interpolation="bilinear")
+            plt.axis("off")
+            plt.savefig(wordcloud_path_tokenized, bbox_inches="tight", facecolor="white")
+            plt.close()
+            
         except Exception as e:
             print(f"❌ Kesalahan pada Tokenisasi Data: {e}")
 
         # 📌 4️⃣ Penghapusan Stopwords
         try:
             print("🚀 Memulai Penghapusan Stopwords...")
+            
+            # **Download resource NLTK jika belum ada**
             try:
                 nltk.download("stopwords", quiet=True)
             except Exception as e:
                 print(f"❌ Gagal mengunduh 'punkt' dari NLTK: {e}")
+            
+            stopwords_path = os.path.join(PROCESSED_FOLDER, "dataset_4_no_stopwords.csv")
+            tokenized_path = os.path.join(PROCESSED_FOLDER, "dataset_3_tokenized.csv")
+
+            # **Hapus file lama jika ada**
+            if os.path.exists(stopwords_path):
+                os.remove(stopwords_path)
+
+            # **Validasi keberadaan dataset tokenisasi**
+            if not os.path.exists(tokenized_path):
+                print("❌ File tokenisasi tidak ditemukan!")
+                return jsonify({"success": False, "message": "File tokenisasi tidak ditemukan!"})
+
+            # **Load Dataset Tokenisasi**
+            data = pd.read_csv(tokenized_path, converters={"Tokenized": eval})  # Evaluasi string list ke bentuk list Python
 
             # (Proses stemming)
             stop_words = set(stopwords.words("indonesian"))
 
             # Stopwords kustom
             manual_stopwords = [
-                "gelo",
-                "mentri2",
-                "yg",
-                "ga",
-                "udh",
-                "aja",
-                "kaga",
-                "bgt",
-                "spt",
-                "sdh",
-                "dr",
-                "utan",
-                "tuh",
-                "budi",
-                "bodi",
-                "p",
-                "psi_id",
-                "fufufafa",
-                "pln",
-                "lu",
-                "krn",
-                "dah",
-                "jd",
-                "tdk",
-                "dll",
-                "golkar_id",
-                "dlm",
-                "ri",
-                "jg",
-                "ni",
-                "sbg",
-                "tp",
-                "nih",
-                "gini",
-                "jkw",
-                "nggak",
-                "bs",
-                "pk",
-                "ya",
-                "gk",
-                "gw",
-                "gua",
-                "klo",
-                "msh",
-                "blm",
-                "gue",
-                "sih",
-                "pa",
-                "dgn",
-                "n",
-                "skrg",
-                "pake",
-                "si",
-                "dg",
-                "utk",
-                "deh",
-                "tu",
-                "hrt",
-                "ala",
-                "mdy",
-                "moga",
-                "tau",
-                "liat",
-                "orang2",
-                "jadi",
+                'gelo',
+                'mentri2',
+                'yg',
+                'ga',
+                'udh',
+                'aja',
+                'kaga',
+                'bgt',
+                'spt',
+                'sdh',
+                'dr',
+                'utan',
+                'tuh',
+                'budi',
+                'bodi',
+                'psi_id',
+                'fufufafa',
+                'pln',
+                'lu',
+                'krn',
+                'dah',
+                'jd',
+                'tdk',
+                'dll',
+                'golkar_id',
+                'dlm',
+                'ri',
+                'jg',
+                'ni',
+                'sbg',
+                'tp',
+                'nih',
+                'gini',
+                'jkw',
+                'nggak',
+                'bs',
+                'pk',
+                'ya',
+                'gk',
+                'gw',
+                'gua',
+                'klo',
+                'msh',
+                'blm',
+                'gue',
+                'sih',
+                'pa',
+                'dgn',
+                'skrg',
+                'pake',
+                'si',
+                'dg',
+                'utk',
+                'deh',
+                'tu',
+                'hrt',
+                'ala',
+                'mdy',
+                'moga',
+                'tau',
+                'liat',
+                'orang2',
+                'jadi',
             ]
             stop_words.update(manual_stopwords)
 
@@ -2375,11 +2179,35 @@ def start_preprocessing():
             data["Tokenized"] = data["Tokenized"].apply(
                 lambda x: remove_stopwords_from_tokens(str(x))
             )
-            data.to_csv(
-                os.path.join(PROCESSED_FOLDER, "dataset_4_no_stopwords.csv"),
-                index=False,
-            )
+            
+            # **Simpan hasil penghapusan stopwords**
+            data.to_csv(stopwords_path, index=False,)
             print("✅ Penghapusan Stopwords Selesai.")
+            
+            # **📊 Visualisasi: Distribusi Panjang Tweet Setelah Penghapusan Stopwords**
+            chart_path_no_stopwords = os.path.join(STATIC_FOLDER, "tweet_4_length_distribution_no_stopwords.png")
+            plt.figure(figsize=(16, 9))
+            data["Tokenized"].apply(len).plot(
+                kind="hist",
+                bins=30,
+                color="purple",
+                edgecolor="black",
+                title="Distribusi Panjang No Stopwords Tweet"
+            )
+            plt.xlabel("Jumlah Kata")
+            plt.ylabel("Frekuensi")
+            plt.savefig(chart_path_no_stopwords, bbox_inches="tight", facecolor="white")
+            plt.close()
+
+            # **☁️ WordCloud Setelah Penghapusan Stopwords**
+            wordcloud_path_no_stopwords = os.path.join(STATIC_FOLDER, "tweet_4_wordcloud_no_stopwords.png")
+            text_no_stopwords = " ".join([" ".join(tokens) for tokens in data["Tokenized"].dropna()])
+            wordcloud_no_stopwords = WordCloud(width=1280, height=720, background_color="white").generate(text_no_stopwords)
+            plt.figure(figsize=(16, 9))
+            plt.imshow(wordcloud_no_stopwords, interpolation="bilinear")
+            plt.axis("off")
+            plt.savefig(wordcloud_path_no_stopwords, bbox_inches="tight", facecolor="white")
+            plt.close()
 
         except Exception as e:
             print(f"❌ Kesalahan pada Penghapusan Stopwords: {e}")
@@ -2388,19 +2216,62 @@ def start_preprocessing():
         try:
             # (Proses stemming)
             print("🚀 Memulai Stemming Data...")
+            
+            # **Pastikan pustaka Sastrawi tersedia**
             try:
                 factory = StemmerFactory()
                 stemmer = factory.create_stemmer()
             except Exception as e:
                 print(f"❌ Gagal mengunduh 'Stemmer' dari Sastrawi: {e}")
 
-            data["Tokenized"] = data["Tokenized"].apply(
-                lambda x: [stemmer.stem(word) for word in x]
+            stemmed_path = os.path.join(PROCESSED_FOLDER, "dataset_5_stemmed.csv")
+            no_stopwords_path = os.path.join(PROCESSED_FOLDER, "dataset_4_no_stopwords.csv")
+
+            # **Hapus file lama jika ada**
+            if os.path.exists(stemmed_path):
+                os.remove(stemmed_path)
+
+            # **Validasi keberadaan dataset sebelum stemming**
+            if not os.path.exists(no_stopwords_path):
+                print("❌ File hasil penghapusan stopwords tidak ditemukan!")
+                return jsonify({"success": False, "message": "File hasil penghapusan stopwords tidak ditemukan!"})
+
+            # **Load Dataset Hasil Penghapusan Stopwords**
+            data = pd.read_csv(no_stopwords_path, converters={"Tokenized": eval})
+
+            # **Lakukan Stemming pada setiap kata dalam Tokenized**
+            def apply_stemming(tokens):
+                return [stemmer.stem(word) for word in tokens]
+            
+            data["Tokenized"] = data["Tokenized"].apply(apply_stemming)
+            
+            # **Simpan hasil stemming ke CSV**
+            data.to_csv(stemmed_path, index=False)
+
+            # **📊 Visualisasi: Distribusi Panjang Tweet Setelah Stemming**
+            chart_path_stemmed = os.path.join(STATIC_FOLDER, "tweet_5_length_distribution_stemmed.png")
+            plt.figure(figsize=(16, 9))
+            data["Tokenized"].apply(len).plot(
+                kind="hist",
+                bins=30,
+                color="brown",
+                edgecolor="black",
+                title="Distribusi Panjang Tweet Setelah Stemming"
             )
-            data.to_csv(
-                os.path.join(PROCESSED_FOLDER, "dataset_5_stemmed.csv"), index=False
-            )
-            print("✅ Stemming Data Selesai.")
+            plt.xlabel("Jumlah Kata")
+            plt.ylabel("Frekuensi")
+            plt.savefig(chart_path_stemmed, bbox_inches="tight", facecolor="white")
+            plt.close()
+
+            # **☁️ WordCloud Setelah Stemming**
+            wordcloud_path_stemmed = os.path.join(STATIC_FOLDER, "tweet_5_wordcloud_stemmed.png")
+            text_stemmed = " ".join([" ".join(tokens) for tokens in data["Tokenized"].dropna()])
+            wordcloud_stemmed = WordCloud(width=1280, height=720, background_color="white").generate(text_stemmed)
+            plt.figure(figsize=(16, 9))
+            plt.imshow(wordcloud_stemmed, interpolation="bilinear")
+            plt.axis("off")
+            plt.savefig(wordcloud_path_stemmed, bbox_inches="tight", facecolor="white")
+            plt.close()
 
         except Exception as e:
             print(f"❌ Kesalahan pada Stemming Data: {e}")
@@ -2408,29 +2279,76 @@ def start_preprocessing():
         # 📌 6️⃣ Label Encoding
         try:
             print("🚀 Memulai Label Encoding...")
-            # (Proses stemming)
-            if "Sentimen" in data.columns:
-                sentiment_mapping = {"positif": 1, "netral": 0, "negatif": -1}
-                data["Label_Encoded"] = data["Sentimen"].map(sentiment_mapping)
-                data.to_csv(
-                    os.path.join(PROCESSED_FOLDER, "dataset_6_encoded.csv"), index=False
-                )
-                print("✅ Label Encoding Selesai.")
-            else:
-                print("❌ Kesalahan: Kolom 'Sentimen' tidak ditemukan dalam dataset!")
-                return jsonify(
-                    {
-                        "success": False,
-                        "message": "Kolom 'Sentimen' tidak ditemukan dalam dataset!",
-                    }
-                )
+            
+            encoded_path = os.path.join(PROCESSED_FOLDER, "dataset_6_encoded.csv")
+            stemmed_path = os.path.join(PROCESSED_FOLDER, "dataset_5_stemmed.csv")
 
+            # **Hapus file lama jika ada**
+            if os.path.exists(encoded_path):
+                os.remove(encoded_path)
+
+            # **Validasi keberadaan dataset sebelum Label Encoding**
+            if not os.path.exists(stemmed_path):
+                print("❌ File hasil Stemming tidak ditemukan!")
+                return jsonify({"success": False, "message": "File hasil Stemming tidak ditemukan!"})
+
+            # **Load Dataset Hasil Stemming**
+            data = pd.read_csv(stemmed_path)
+            
+            # **Pastikan kolom 'Sentimen' tersedia sebelum proses Label Encoding**
+            if "Sentimen" not in data.columns:
+                print("❌ Kesalahan: Kolom 'Sentimen' tidak ditemukan dalam dataset!")
+                return jsonify({"success": False, "message": "Kolom 'Sentimen' tidak ditemukan dalam dataset!"})
+
+            # **Lakukan Mapping Label Encoding**
+            sentiment_mapping = {"positif": 1, "netral": 0, "negatif": -1}
+            data["Label_Encoded"] = data["Sentimen"].map(sentiment_mapping)
+
+            # **Simpan hasil Label Encoding ke CSV**
+            data.to_csv(encoded_path, index=False)
+            print("✅ Label Encoding Selesai.")
+
+            # **📊 Visualisasi: Distribusi Label Encoding**
+            chart_path_encoded = os.path.join(STATIC_FOLDER, "tweet_6_label_distribution_encoded.png")
+            plt.figure(figsize=(16, 9))
+            label_counts_encoded = data["Label_Encoded"].value_counts().reindex([-1, 0, 1], fill_value=0)
+            label_counts_encoded.plot(kind="bar", color="orange", edgecolor="black")
+            plt.xlabel("Kategori Label")
+            plt.ylabel("Frekuensi")
+            plt.title("Distribusi Label Encoding")
+            plt.xticks(ticks=[0, 1, 2], labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"], rotation=0)
+            plt.savefig(chart_path_encoded, bbox_inches="tight", facecolor="white")
+            plt.close()
+    
         except Exception as e:
             print(f"❌ Kesalahan pada Label Encoding: {e}")
 
         # 📌 7️⃣ Pembagian Data
         try:
             print("🚀 Memulai Pembagian Data...")
+
+            train_path = os.path.join(PROCESSED_FOLDER, "dataset_7_train.csv")
+            test_path = os.path.join(PROCESSED_FOLDER, "dataset_7_test.csv")
+            encoded_path = os.path.join(PROCESSED_FOLDER, "dataset_6_encoded.csv")
+
+            # **Hapus file lama jika ada**
+            for path in [train_path, test_path]:
+                if os.path.exists(path):
+                    os.remove(path)
+
+            # **Validasi keberadaan dataset sebelum pembagian**
+            if not os.path.exists(encoded_path):
+                print("❌ File hasil Label Encoding tidak ditemukan!")
+                return jsonify({"success": False, "message": "File hasil Label Encoding tidak ditemukan!"})
+
+            # **Load Dataset Hasil Encoding**
+            data = pd.read_csv(encoded_path)
+
+            # **Pastikan kolom yang dibutuhkan ada**
+            if "Tokenized" not in data.columns or "Label_Encoded" not in data.columns:
+                print("❌ Kolom 'Tokenized' atau 'Label_Encoded' tidak ditemukan dalam dataset!")
+                return jsonify({"success": False, "message": "Kolom yang diperlukan tidak ditemukan dalam dataset!"})
+
             # (Proses stemming)
             X = data["Tokenized"]
             y = data["Label_Encoded"]
@@ -2448,6 +2366,59 @@ def start_preprocessing():
                 os.path.join(PROCESSED_FOLDER, "dataset_7_test.csv"), index=False
             )
             print("✅ Pembagian Data Selesai.")
+            
+            # **📊 Visualisasi Distribusi Label dalam Data Training **
+            chart_train_split = os.path.join(STATIC_FOLDER, "tweet_7_train_split_distribution.png")
+            plt.figure(figsize=(16, 9))
+            y_train.value_counts().reindex([-1, 0, 1], fill_value=0).plot(kind="bar", color="blue", edgecolor="black")
+            plt.title("Distribusi Sentimen dalam Data Training")
+            plt.xlabel("Kategori Sentimen")
+            plt.ylabel("Jumlah Sampel")
+            plt.xticks(ticks=[0, 1, 2], labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"], rotation=0)
+            plt.savefig(chart_train_split, bbox_inches="tight", facecolor="white")
+            plt.close()
+
+            # **📊 Visualisasi Distribusi Label dalam Data Testing**
+            chart_test_split = os.path.join(STATIC_FOLDER, "tweet_7_test_split_distribution.png")
+            plt.figure(figsize=(16, 9))
+            y_test.value_counts().reindex([-1, 0, 1], fill_value=0).plot(kind="bar", color="orange", edgecolor="black")
+            plt.title("Distribusi Sentimen dalam Data Testing")
+            plt.xlabel("Kategori Sentimen")
+            plt.ylabel("Jumlah Sampel")
+            plt.xticks(ticks=[0, 1, 2], labels=["-1 (Negatif)", "0 (Netral)", "1 (Positif)"], rotation=0)
+            plt.savefig(chart_test_split, bbox_inches="tight", facecolor="white")
+            plt.close()
+            
+            # **📊 Distribusi Data Train dan Test**
+            train_size = len(train_data)
+            test_size = len(test_data)
+            total_size = train_size + test_size
+
+            train_percentage = round((train_size / total_size) * 100, 2)
+            test_percentage = round((test_size / total_size) * 100, 2)
+
+            # **📌 Buat List untuk Distribusi Data**
+            data_distribution_split = [
+                f"Train Data: {train_size} sampel ({train_percentage}%)",
+                f"Test Data: {test_size} sampel ({test_percentage}%)",
+            ]
+
+            # **📈 Visualisasi Distribusi Data Train vs Test**
+            chart_path_split = os.path.join(
+                STATIC_FOLDER, "tweet_7_split_data_distribution.png"
+            )
+
+            plt.figure(figsize=(16, 9))
+            plt.bar(
+                ["Train Data", "Test Data"],
+                [train_size, test_size],
+                color=["blue", "orange"],
+            )
+            plt.title("Distribusi Data Setelah Pembagian")
+            plt.ylabel("Jumlah Sampel")
+            plt.xlabel("Kategori Data")
+            plt.savefig(chart_path_split, bbox_inches="tight", facecolor="white")
+            plt.close()
 
         except Exception as e:
             print(f"❌ Kesalahan pada Pembagian Data: {e}")
@@ -2469,10 +2440,6 @@ def modeling():
             "SVM": "model_2a_svm.pkl",
             "TF-IDF Vectorizer": "model_2b_tfidf_vectorizer.pkl",
         }
-        for key, value in model_files.items():
-            file_path = os.path.join(app.config["MODELED_FOLDER"], value)
-            file_exists = os.path.exists(file_path)
-            print(f"📂 Cek file {key}: {file_path} - {'✅ Ditemukan' if file_exists else '❌ Tidak ditemukan'}")
 
         model_trained = all(
             os.path.exists(os.path.join(app.config["MODELED_FOLDER"], model_files[key]))
@@ -2482,15 +2449,20 @@ def modeling():
         report_path = os.path.join(
             app.config["PROCESSED_FOLDER"], "model_0_calculated.csv"
         )
-        # 🔹 Debugging log
-        print(f"📂 Model files checked: {list(model_files.values())}")
-        print(f"🔍 Model trained status: {model_trained}")
-        print(f"📂 Isi folder modeled: {os.listdir(app.config['MODELED_FOLDER'])}")
 
         report_data = []
         if os.path.exists(report_path):
             report_df = pd.read_csv(report_path)
             report_data = report_df.to_dict(orient="records")
+            for row in report_data:
+                row["Kelas"] = str(row["Kelas"])  # Pastikan kelas dalam format string
+                row["Akurasi"] = f"{row['Akurasi'] * 100:.2f}%"  # Ubah Akurasi ke format persen
+                row["Presisi"] = f"{row['Presisi'] * 100:.2f}%"
+                row["Recall"] = f"{row['Recall'] * 100:.2f}%"
+                row["F1-Score"] = f"{row['F1-Score'] * 100:.2f}%"
+            # 🔹 Pisahkan Laporan Klasifikasi untuk Naive Bayes dan SVM
+            report_data_nb = [row for row in report_data if row["Model"] == "Naive Bayes"]
+            report_data_svm = [row for row in report_data if row["Model"] == "SVM"]
 
         # 🔹 **Tambahkan Default `sentiment_counts`**
         sentiment_counts = {"positif": 0, "negatif": 0, "netral": 0}
@@ -2508,11 +2480,15 @@ def modeling():
             model_filenames=model_filenames,
             report_data=report_data,
             sentiment_counts=sentiment_counts,
+            report_data_nb=report_data_nb,
+            report_data_svm=report_data_svm,
             cm_path_nb=url_for(
-                "static", filename="img/model_1_naive_bayes_confusion_matrix.png"
+                "static", 
+                filename="img/model_1_naive_bayes_confusion_matrix.png"
             ),
             cm_path_svm=url_for(
-                "static", filename="img/model_2_svm_confusion_matrix.png"
+                "static", 
+                filename="img/model_2_svm_confusion_matrix.png"
             ),
         )
 
@@ -2536,6 +2512,18 @@ def start_modeling():
         elif not os.path.exists(test_path):
             flash("❌ Data tes belum tersedia!", "danger")
         else:
+        
+            # 🔥 **Hapus File yang Sudah Ada Sebelum Modeling**
+            files_to_remove = [
+                os.path.join(app.config["PROCESSED_FOLDER"], "model_0_calculated.csv"),
+                os.path.join(app.config["STATIC_FOLDER"], "model_1_naive_bayes_confusion_matrix.png"),
+                os.path.join(app.config["STATIC_FOLDER"], "model_2_svm_confusion_matrix.png")
+            ]
+
+            for file in files_to_remove:
+                if os.path.exists(file):
+                    os.remove(file)
+                    print(f"🗑 File dihapus: {file}")
 
             # 🔹 Load Dataset
             print("📂 Memuat dataset...")
@@ -2662,7 +2650,7 @@ def start_modeling():
                 app.config["STATIC_FOLDER"], "model_2_svm_confusion_matrix.png"
             )
 
-            plt.figure(figsize=(16, 9))
+            plt.figure(figsize=(8, 6))
             sns.heatmap(
                 cm_nb,
                 annot=True,
@@ -2677,7 +2665,7 @@ def start_modeling():
             plt.savefig(cm_path_nb)
             plt.close()
 
-            plt.figure(figsize=(16, 9))
+            plt.figure(figsize=(8, 6))
             sns.heatmap(
                 cm_svm,
                 annot=True,
