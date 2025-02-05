@@ -12,9 +12,13 @@
 		class="alert alert-{{ category }} alert-dismissible fade show"
 		role="alert">
 		<div>
-			{% if  %}
-			<i class="bx bx-cog bx-spin flex-shrink-0 me-1"></i>
-			<span class="fw-bold">Pra-Pemrosesan Data</span>
+			{% if category == 'success'  %}
+			<i class='bx bx-check-circle flex-shrink-0 me-1'></i>
+			<span class="fw-bold">BERHASIL</span>
+			{% else %}
+			<i class="bx bx-x-circle flex-shrink-0 me-1"></i>
+			<span class="fw-bold">GAGAL</span>
+			{% endif %}
 			{{ message }}
 		</div>
 		<button
