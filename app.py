@@ -9,6 +9,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib
 import joblib
+import time
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
@@ -126,7 +127,125 @@ def remove_underscores(text):
 # Route untuk halaman index
 @app.route("/")
 def index():
-    return render_template("index.html", title="Dashboard")
+    """Halaman Dashboard dengan Status Pemrosesan Data"""
+    
+    # Path dataset
+    raw_dataset_path = os.path.join(app.config["UPLOAD_FOLDER"], "dataset_0_raw.csv")
+    processed_dataset_path = os.path.join(app.config["PROCESSED_FOLDER"], "dataset_7_test.csv")
+    model_path = os.path.join(app.config["MODELED_FOLDER"], "model_2a_svm.pkl")
+    model_report_path = os.path.join(app.config["PROCESSED_FOLDER"], "model_0_calculated.csv")
+
+    # Path ke dataset yang sudah diproses
+    sentiment_chart_path = os.path.join(app.config["STATIC_FOLDER"], "sentiment_distribution.png")
+    
+    # Path ke dataset yang sudah diproses
+    wordcloud_paths = {
+        "negative": os.path.join(app.config["STATIC_FOLDER"], "interpretation_1_wordcloud_Negatif.png"),
+        "neutral": os.path.join(app.config["STATIC_FOLDER"], "interpretation_1_wordcloud_Netral.png"),
+        "positive": os.path.join(app.config["STATIC_FOLDER"], "interpretation_1_wordcloud_Positif.png"),
+    }
+
+    # Cek apakah file ada
+    dataset_uploaded = os.path.exists(raw_dataset_path)
+    preprocessed_done = os.path.exists(processed_dataset_path)
+    model_trained = os.path.exists(model_path)
+
+    # Variabel default (jika dataset belum diunggah)
+    dataset_name = "-"
+    dataset_rows = 0
+    dataset_uploaded_date = "-"
+    processed_dataset_name = "-"
+    processed_dataset_rows = 0
+    best_model_name = "-"
+    nb_accuracy = "-"
+    svm_accuracy = "-"
+
+    # Ambil informasi dataset yang sudah ada
+    if dataset_uploaded:
+        df = pd.read_csv(raw_dataset_path)
+        dataset_name = os.path.basename(raw_dataset_path)
+        dataset_rows = len(df)
+        dataset_uploaded_date = time.ctime(os.path.getctime(raw_dataset_path))
+
+    if preprocessed_done:
+        # Baca dataset setelah pemrosesan
+        df_processed = pd.read_csv(processed_dataset_path)
+        processed_dataset_name = os.path.basename(processed_dataset_path)
+        processed_dataset_rows = len(df_processed)
+
+        # Pastikan kolom 'sentiment' ada di dataset
+        if 'Label_Encoded' in df_processed.columns:
+            sentiment_counts = df_processed["Label_Encoded"].value_counts().sort_index()
+
+            # Buat grafik distribusi sentimen
+            plt.figure(figsize=(16, 9))
+            sns.barplot(x=sentiment_counts.index, y=sentiment_counts.values, palette=["red", "gray", "green"])
+            plt.xlabel("Sentimen")
+            plt.ylabel("Jumlah Data")
+            plt.title("Distribusi Sentimen dalam Dataset")
+            plt.xticks(ticks=[0, 1, 2], labels=["-1", "0", "1"])
+            plt.grid(axis="y", linestyle="--", alpha=0.7)
+
+            # Simpan grafik
+            plt.savefig(sentiment_chart_path, bbox_inches="tight", facecolor="white")
+            plt.close()
+        else:
+            sentiment_chart_path = None  # Jika tidak ada kolom sentimen, grafik tidak ditampilkan
+
+    # Pastikan kolom 'sentiment' dan 'text' ada di dataset
+    if 'Label_Encoded' in df_processed.columns and 'text' in df_processed.columns:
+        for sentiment_label, sentiment_name in zip([-1, 0, 1], ["negative", "neutral", "positive"]):
+            text_data = " ".join(df_processed[df_processed["Label_Encoded"] == sentiment_label]["text"])
+            if text_data.strip():
+                wordcloud = WordCloud(width=500, height=300, background_color="white", colormap="coolwarm").generate(text_data)
+                wordcloud.to_file(wordcloud_paths[sentiment_name])
+            else:
+                wordcloud_paths[sentiment_name] = None  # Jika tidak ada data, gambar tidak tersedia
+
+    if model_trained and os.path.exists(model_report_path):
+        # 🔹 Baca hasil evaluasi model dari model_0_calculated.csv
+        report_df = pd.read_csv(model_report_path)
+
+        # Ambil akurasi model dari baris yang sesuai
+        nb_accuracy = report_df[report_df["Model"] == "Naive Bayes"]["Akurasi"].mean() * 100
+        svm_accuracy = report_df[report_df["Model"] == "SVM"]["Akurasi"].mean() * 100
+
+        # Format nilai akurasi
+        nb_accuracy = f"{nb_accuracy:.2f}%"
+        svm_accuracy = f"{svm_accuracy:.2f}%"
+
+        # Tentukan model terbaik
+        best_model_name = "SVM" if float(svm_accuracy.strip("%")) > float(nb_accuracy.strip("%")) else "Naive Bayes"
+
+    # 2️⃣ Ringkasan Dataset Sebelum dan Sesudah Pemrosesan
+    dataset_columns = 0
+    processed_dataset_columns = 0
+
+    if dataset_uploaded:
+        dataset_columns = len(df.columns)  # Jumlah fitur sebelum pemrosesan
+
+    if preprocessed_done:
+        processed_dataset_columns = len(df_processed.columns)  # Jumlah fitur setelah pemrosesan
+
+    return render_template(
+        "index.html",
+        title="Dashboard",
+        dataset_uploaded=dataset_uploaded,
+        preprocessed_done=preprocessed_done,
+        model_trained=model_trained,
+        dataset_name=dataset_name,
+        dataset_rows=dataset_rows,
+        dataset_columns=dataset_columns,
+        dataset_uploaded_date=dataset_uploaded_date,
+        processed_dataset_name=processed_dataset_name,
+        processed_dataset_rows=processed_dataset_rows,
+        processed_dataset_columns=processed_dataset_columns, 
+        best_model_name=best_model_name,
+        nb_accuracy=nb_accuracy,
+        svm_accuracy=svm_accuracy,
+        wordcloud_paths=wordcloud_paths,
+        sentiment_chart_path=url_for("static", filename="img/sentiment_distribution.png"),
+    )
 
 
 # Route untuk halaman tentang
@@ -268,6 +387,19 @@ def upload_dataset():
     if file.filename == "":
         flash("Pilih file terlebih dahulu.", "danger")
         return redirect(url_for("data_exploration"))
+        
+    # 🔥 **Hapus File yang Sudah Ada Sebelum Mengunggah Dataset**
+    files_to_remove = [
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_0_sentiment_distribution.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_0_length_distribution.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_0_wordcloud.png"),
+    ]
+
+    for file in files_to_remove:
+        if os.path.exists(file):
+            os.remove(file)
+            print(f"🗑 File dihapus: {file}")
+
 
     if file and allowed_file(file.filename):
         filename = "dataset_0_raw.csv"
@@ -1267,6 +1399,29 @@ def start_preprocessing():
 
     if not os.path.exists(raw_path):
         return jsonify({"success": False, "message": "Dataset belum diunggah."})
+        
+    # 🔥 **Hapus File yang Sudah Ada Sebelum Pra Pemrosesan**
+    files_to_remove = [
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_1_length_distribution_cleaned.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_1_wordcloud_cleaned.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_2_length_distribution_normalized.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_2_wordcloud_normalized.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_3_length_distribution_tokenized.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_3_wordcloud_tokenized.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_4_length_distribution_no_stopwords.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_4_wordcloud_no_stopwords.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_5_length_distribution_stemmed.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_5_wordcloud_stemmed.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_6_label_distribution_encoded.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_7_train_split_distribution.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_7_test_split_distribution.png"),
+        os.path.join(app.config["STATIC_FOLDER"], "tweet_7_split_data_distribution.png"),
+    ]
+
+    for file in files_to_remove:
+        if os.path.exists(file):
+            os.remove(file)
+            print(f"🗑 File dihapus: {file}")
 
     try:
         # 📌 1️⃣ Pembersihan Data
