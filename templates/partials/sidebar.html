@@ -34,14 +34,10 @@
 				<i class="menu-icon tf-icons bx bx-info-circle"></i>
 				<div data-i18n="Tentang Aplikasi">Tentang Aplikasi</div>
 			</a>
-		</li>		
-
-		<li class="menu-header small text-uppercase">
-			<span class="menu-header-text">Proses Data Mining</span>
 		</li>
 
 		<!-- Eksplorasi Data -->
-		<li class="menu-item {% if url_for('data_exploration') in request.path %}active{% endif %}">
+		<li class="menu-item {% if request.path == url_for('data_exploration') %}active{% endif %}">
 			<a href="{{ url_for('data_exploration') }}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-data"></i>
 				<div data-i18n="Eksplorasi Data">Eksplorasi Data</div>
@@ -49,7 +45,7 @@
 		</li>
 
 		<!-- Pra-Pemrosesan -->
-		<li class="menu-item {% if url_for('preprocessing') in request.path %}active{% endif %}">
+		<li class="menu-item {% if request.path == url_for('preprocessing') %}active{% endif %}">
 			<a href="{{ url_for('preprocessing') }}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-wrench"></i>
 				<div data-i18n="Pra-Pemrosesan">Pra-Pemrosesan</div>
@@ -57,7 +53,7 @@
 		</li>
 
 		<!-- Pemodelan Data -->
-		<li class="menu-item {% if url_for('modeling') in request.path %}active{% endif %}">
+		<li class="menu-item {% if request.path == url_for('modeling') %}active{% endif %}">
 			<a href="{{ url_for('modeling') }}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-network-chart"></i>
 				<div data-i18n="Pemodelan Data">Pemodelan Data</div>
@@ -65,8 +61,8 @@
 		</li>
 		
 		<!-- Interpretasi Hasil -->
-		<li class="menu-item {% if url_for('compare_model') in request.path %}active{% endif %}">
-			<a href="" class="menu-link">
+		<li class="menu-item {% if request.path == url_for('about') %}active{% endif %}">
+			<a href="{{ url_for('about') }}" class="menu-link">
 				<i class="menu-icon tf-icons bx bx-file-find"></i>
 				<div data-i18n="Interpretasi Hasil">Interpretasi Hasil</div>
 			</a>

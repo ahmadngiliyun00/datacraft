@@ -1817,10 +1817,8 @@ def modeling():
             for key in model_files
         )
         
-        report_path = os.path.join(
-            app.config["PROCESSED_FOLDER"], "model_0_calculated.csv"
-        )
-
+        report_path = os.path.join(app.config["PROCESSED_FOLDER"], "model_0_calculated.csv")
+        
         report_data = []
         if os.path.exists(report_path):
             report_df = pd.read_csv(report_path)
@@ -1834,6 +1832,38 @@ def modeling():
             # 🔹 Pisahkan Laporan Klasifikasi untuk Naive Bayes dan SVM
             report_data_nb = [row for row in report_data if row["Model"] == "Naive Bayes"]
             report_data_svm = [row for row in report_data if row["Model"] == "SVM"]
+
+        # 🔹 Hitung Metrik Keseluruhan untuk Setiap Model
+        overall_metrics = {
+            "Naive Bayes": {
+                "Akurasi": f"{report_df[report_df['Model'] == 'Naive Bayes']['Akurasi'].mean() * 100:.2f}%",
+                "Presisi": f"{report_df[report_df['Model'] == 'Naive Bayes']['Presisi'].mean() * 100:.2f}%",
+                "Recall": f"{report_df[report_df['Model'] == 'Naive Bayes']['Recall'].mean() * 100:.2f}%",
+                "F1-Score": f"{report_df[report_df['Model'] == 'Naive Bayes']['F1-Score'].mean() * 100:.2f}%",
+            },
+            "SVM": {
+                "Akurasi": f"{report_df[report_df['Model'] == 'SVM']['Akurasi'].mean() * 100:.2f}%",
+                "Presisi": f"{report_df[report_df['Model'] == 'SVM']['Presisi'].mean() * 100:.2f}%",
+                "Recall": f"{report_df[report_df['Model'] == 'SVM']['Recall'].mean() * 100:.2f}%",
+                "F1-Score": f"{report_df[report_df['Model'] == 'SVM']['F1-Score'].mean() * 100:.2f}%",
+            }
+        }
+            
+        error_analysis_path = os.path.join(app.config["PROCESSED_FOLDER"], "model_0_error_analysis.csv")
+        error_analysis = []
+        if os.path.exists(error_analysis_path):
+            error_df = pd.read_csv(error_analysis_path)
+
+            # Pastikan hanya mengambil 5 contoh kesalahan prediksi
+            for _, row in error_df.head(5).iterrows():
+                error_analysis.append({
+                    "Tweet": " ".join(eval(row["Tokenized"])),  # Konversi token menjadi teks
+                    "Label": row["Label_Encoded"],
+                    "Prediksi_NB": row["Prediksi_NB"],
+                    "Prediksi_SVM": row["Prediksi_SVM"],
+                    "NB_Correct": row["Label_Encoded"] == row["Prediksi_NB"],
+                    "SVM_Correct": row["Label_Encoded"] == row["Prediksi_SVM"],
+                })
 
         # 🔹 **Tambahkan Default `sentiment_counts`**
         sentiment_counts = {"positif": 0, "negatif": 0, "netral": 0}
@@ -1850,9 +1880,11 @@ def modeling():
             model_trained=model_trained,
             model_filenames=model_filenames,
             report_data=report_data,
+            error_analysis=error_analysis,
             sentiment_counts=sentiment_counts,
             report_data_nb=report_data_nb,
             report_data_svm=report_data_svm,
+            overall_metrics=overall_metrics,
             cm_path_nb=url_for("static", filename="img/model_1_naive_bayes_confusion_matrix.png"),
             cm_path_svm=url_for("static", filename="img/model_2_svm_confusion_matrix.png"),
         )
@@ -2045,6 +2077,14 @@ def start_modeling():
             plt.savefig(cm_path_svm)
             plt.close()
 
+            # 🔹 Simpan Error Analysis (Contoh Kesalahan Prediksi)
+            error_samples = df_test.copy()
+            error_samples["Prediksi_NB"] = y_pred_nb
+            error_samples["Prediksi_SVM"] = y_pred_svm
+            error_samples = error_samples[error_samples["Label_Encoded"] != error_samples["Prediksi_NB"]]
+
+            error_samples.to_csv(os.path.join(app.config["PROCESSED_FOLDER"], "model_0_error_analysis.csv"), index=False)
+        
             flash("Pemodelan data berhasil dilakukan!", "success")
             print("✅ Pemodelan selesai!")
             return jsonify({"success": True})

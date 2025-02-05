@@ -118,7 +118,7 @@
 }
 
 .card.step {
-  width: 350px;
+  width: 300px;
   transition: all 0.3s ease;
   cursor: pointer;
   margin: 0;
@@ -154,7 +154,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 200px;
+  min-width: 150px;
 }
 
 .connector svg {

@@ -114,6 +114,45 @@
 							</span>
 						</div>
 					</div>
+
+					<!-- Connector -->
+					<div class="connector">
+						<svg
+							width="100%"
+							height="100%">
+							<line
+								id="connectingLine1"
+								x1="0"
+								y1="50%"
+								x2="100%"
+								y2="50%" />
+						</svg>
+						<i class="bx bx-right-arrow-alt bx-md arrow-icon"></i>
+					</div>
+
+					<!-- Card Evaluation -->
+					<div
+						class="card step collapsed {{ 'success' if model_trained else 'danger' }}"
+						id="cardCCC"
+						data-bs-toggle="collapse"
+						data-bs-target="#collapseCCC"
+						aria-expanded="false"
+						aria-controls="collapseCCC">
+						<div class="card-body text-center">
+							<div class="avatar flex-shrink-0 {{ 'success' if model_trained else 'danger' }}">
+								<i
+									class="bx {{ 'bx-check-circle success' if model_trained else 'bx-x-circle danger' }}"></i>
+							</div>
+							<h3 class="card-title">Evaluation</h3>
+							<p class="card-text text-muted">
+                {{ model_filenames["SVM"] if model_trained else "Nama File PKL" }}
+							</p>
+							<span
+								class="badge bg-{{ 'success' if model_trained else 'danger' }}">
+								{{ 'Data tersedia' if model_trained else 'Belum dilakukan' }}
+							</span>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -136,7 +175,7 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Kelas</th>
+                    <th class="text-start">Kelas</th>
                     <th>Presisi</th>
                     <th>Recall</th>
                     <th>F1-Score</th>
@@ -217,7 +256,7 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th>Kelas</th>
+                    <th class="text-start">Kelas</th>
                     <th>Presisi</th>
                     <th>Recall</th>
                     <th>F1-Score</th>
@@ -255,6 +294,143 @@
               <img src="{{ cm_path_svm }}" alt="Confusion Matrix SVM" class="img-fluid">
             </div>
             {% endif %}
+            <hr>
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="">
+                    <a href="{{ url_for('preprocessing') }}"
+                      class="btn btn-info btn-sm ms-3">
+                      <i class='bx bx-wrench'></i>
+                      &nbsp; Pra-Pemrosesan
+                    </a>
+                  </div>
+                  <div class="">
+                    <a href="{{ url_for('index') }}"
+                      class="btn btn-primary btn-sm ms-3">
+                      <i class='bx bx-file-find'></i>
+                      &nbsp; Interpretasi Hasil
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+						{% else %}
+						<p class="text-muted">Belum ada pemodelan yang dibuat.</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<!-- Collapse Evaluasi -->
+			<div
+				class="collapse"
+				id="collapseCCC">
+				<div class="card">
+					<h5 class="card-header">Evaluasi</h5>
+					<div class="card-body">
+						{% if model_trained %}
+            <!-- 🔹 Perbandingan Tabel Metrik -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Perbandingan Model</div>
+            <div class="table-responsive mb-4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-start">Model</th>
+                            <th>Akurasi</th>
+                            <th>Presisi</th>
+                            <th>Recall</th>
+                            <th>F1-Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                          <td class="text-start"><strong>Naive Bayes</strong></td>
+                          <td class="text-center">{{ overall_metrics["Naive Bayes"]["Akurasi"] }}</td>
+                          <td class="text-center">{{ overall_metrics["Naive Bayes"]["Presisi"] }}</td>
+                          <td class="text-center">{{ overall_metrics["Naive Bayes"]["Recall"] }}</td>
+                          <td class="text-center">{{ overall_metrics["Naive Bayes"]["F1-Score"] }}</td>
+                      </tr>
+                      <tr>
+                          <td class="text-start"><strong>SVM</strong></td>
+                          <td class="text-center">{{ overall_metrics["SVM"]["Akurasi"] }}</td>
+                          <td class="text-center">{{ overall_metrics["SVM"]["Presisi"] }}</td>
+                          <td class="text-center">{{ overall_metrics["SVM"]["Recall"] }}</td>
+                          <td class="text-center">{{ overall_metrics["SVM"]["F1-Score"] }}</td>
+                      </tr>
+                  </tbody>
+                </table>
+            </div>
+            <hr>
+            <!-- 🔹 Error Analysis -->
+            <div class="card-title fw-bold fs-5 text-primary mb-1">Contoh Kesalahan Prediksi</div>
+            <div class="table-responsive mb-4">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tweet Asli</th>
+                            <th>Label Sebenarnya</th>
+                            <th>Prediksi Naive Bayes</th>
+                            <th>Prediksi SVM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for sample in error_analysis %}
+                        <tr>
+                            <td>{{ sample["Tweet"] }}</td>
+                            <td class="text-center">
+                              {% if sample["Label"]|string == "-1" %}
+                                Negatif
+                              {% elif sample["Label"]|string == "0" %}
+                                Netral
+                              {% elif sample["Label"]|string == "1" %}
+                                Positif
+                              {% else %}
+                                Aneh
+                              {% endif %}
+                            </td>
+                            <td class="text-center {% if not sample['NB_Correct'] %}text-danger{% else %}text-success{% endif %}">
+                              {% if sample["Prediksi_NB"]|string == "-1" %}
+                                Negatif
+                              {% elif sample["Prediksi_NB"]|string == "0" %}
+                                Netral
+                              {% elif sample["Prediksi_NB"]|string == "1" %}
+                                Positif
+                              {% else %}
+                                Aneh
+                              {% endif %}
+                            </td>
+                            <td class="text-center {% if not sample['SVM_Correct'] %}text-danger{% else %}text-success{% endif %}">
+                              {% if sample["Prediksi_SVM"]|string == "-1" %}
+                                Negatif
+                              {% elif sample["Prediksi_SVM"]|string == "0" %}
+                                Netral
+                              {% elif sample["Prediksi_SVM"]|string == "1" %}
+                                Positif
+                              {% else %}
+                                Aneh
+                              {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <!-- 🔹 Confusion Matrix -->
+            <div class="text-center">
+                <div class="card-title fw-bold fs-5 text-primary mb-1">Confusion Matrix</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Naive Bayes</h6>
+                        <img src="{{ cm_path_nb }}" alt="Confusion Matrix - Naive Bayes" class="img-fluid">
+                    </div>
+                    <div class="col-md-6">
+                        <h6>SVM</h6>
+                        <img src="{{ cm_path_svm }}" alt="Confusion Matrix - SVM" class="img-fluid">
+                    </div>
+                </div>
+            </div>
             <hr>
             <div class="card">
               <div class="card-body">
