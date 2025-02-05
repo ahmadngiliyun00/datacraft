@@ -106,17 +106,17 @@ Atau Instalasi tanpa menggunakan `requirements.txt`:
 ---
 ## 📂 Struktur Direktori
 
-		📆 DataCraft
-		 └─├📂 data
-		   └─├📂 uploaded      # Folder untuk menyimpan dataset yang diunggah
-		     ├📂 processed     # Folder untuk menyimpan dataset yang telah diproses
-		     ├📂 modeled       # Folder untuk menyimpan model yang telah dilatih
-		 └─├📂 static
-		      └📂 img           # Folder untuk menyimpan visualisasi (grafik, word cloud)
-		 └📂 templates       # Folder untuk file HTML
-		 └📄 app.py          # Script utama untuk menjalankan aplikasi Flask
-		 └📄 requirements.txt # Dependensi Python
-		 └📄 README.md       # Dokumentasi proyek ini
+	📆 DataCraft
+	 └─├📂 data
+	   └─├📂 uploaded      # Folder untuk menyimpan dataset yang diunggah
+	     ├📂 processed     # Folder untuk menyimpan dataset yang telah diproses
+	     ├📂 modeled       # Folder untuk menyimpan model yang telah dilatih
+	 └─├📂 static
+	      └📂 img           # Folder untuk menyimpan visualisasi (grafik, word cloud)
+	 └📂 templates       # Folder untuk file HTML
+	 └📄 app.py          # Script utama untuk menjalankan aplikasi Flask
+	 └📄 requirements.txt # Dependensi Python
+	 └📄 README.md       # Dokumentasi proyek ini
 
 ---
 ## 📧 Kontribusi & Dukungan
