@@ -11,7 +11,12 @@
 	<div
 		class="alert alert-{{ category }} alert-dismissible fade show"
 		role="alert">
-		{{ message }}
+		<div>
+			{% if  %}
+			<i class="bx bx-cog bx-spin flex-shrink-0 me-1"></i>
+			<span class="fw-bold">Pra-Pemrosesan Data</span>
+			{{ message }}
+		</div>
 		<button
 			type="button"
 			class="btn-close"
