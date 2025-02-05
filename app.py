@@ -795,7 +795,6 @@ def data_exploration():
 
     # Pastikan variabel ini hanya True atau False
     dataset_uploaded = os.path.exists(dataset_path)
-
     sentiment_counts = {"positif": 0, "negatif": 0, "netral": 0}  # Default
 
     if dataset_uploaded:
@@ -839,46 +838,6 @@ def data_exploration():
                 data["Tweet"].apply(lambda x: len(str(x).split())) < 3
             ).sum()
 
-            # Visualisasi Sentimen
-            sentiment_chart_path = os.path.join(
-                "static", "img", "tweet_0_sentiment_distribution.png"
-            )
-            plt.figure(figsize=(16, 9))
-            plt.bar(
-                sentiment_counts.keys(),
-                sentiment_counts.values(),
-                color=["green", "red", "blue"],
-            )
-            plt.xlabel("Sentimen")
-            plt.ylabel("Jumlah")
-            plt.title("Distribusi Sentimen")
-            plt.savefig(sentiment_chart_path, bbox_inches="tight", facecolor="white")
-            plt.close()
-
-            # Visualisasi Distribusi Panjang Tweet
-            chart_path = os.path.join(
-                "static", "img", "tweet_0_length_distribution.png"
-            )
-            plt.figure(figsize=(16, 9))
-            data["Tweet Length"].hist(bins=30, color="blue", edgecolor="black")
-            plt.xlabel("Jumlah Kata")
-            plt.ylabel("Jumlah Tweet")
-            plt.title("Distribusi Panjang Tweet")
-            plt.savefig(chart_path, bbox_inches="tight", facecolor="white")
-            plt.close()
-
-            # Visualisasi WordCloud
-            wordcloud_path = os.path.join("static", "img", "tweet_0_wordcloud.png")
-            text = " ".join(data["Tweet"].dropna())
-            wordcloud = WordCloud(
-                width=1280, height=720, background_color="white"
-            ).generate(text)
-            plt.figure(figsize=(16, 9))
-            plt.imshow(wordcloud, interpolation="bilinear")
-            plt.axis("off")
-            plt.savefig(wordcloud_path, bbox_inches="tight", facecolor="white")
-            plt.close()
-
         except Exception as e:
             flash(f"Terjadi kesalahan dalam membaca dataset: {e}", "danger")
             return redirect(url_for("data_exploration"))
@@ -902,9 +861,9 @@ def data_exploration():
         tweets_with_numbers=tweets_with_numbers if dataset_uploaded else None,
         short_tweets=short_tweets if dataset_uploaded else None,
         sentiment_counts=sentiment_counts if dataset_uploaded else None,
-        sentiment_chart_path=sentiment_chart_path if dataset_uploaded else None,
-        wordcloud_path=wordcloud_path if dataset_uploaded else None,
-        chart_path=chart_path if dataset_uploaded else None,
+        sentiment_chart_path=url_for("static", filename="img/tweet_0_sentiment_distribution.png") if dataset_uploaded else None,
+        wordcloud_path=url_for("static", filename="img/tweet_0_wordcloud.png") if dataset_uploaded else None,
+        chart_path=url_for("static", filename="img/tweet_0_length_distribution.png") if dataset_uploaded else None,
     )
 
 
@@ -912,12 +871,12 @@ def data_exploration():
 @app.route("/upload-dataset", methods=["POST"])
 def upload_dataset():
     if "file" not in request.files:
-        flash("Tidak ada file yang diunggah.", "error")
+        flash("Tidak ada file yang diunggah.", "danger")
         return redirect(url_for("data_exploration"))
 
     file = request.files["file"]
     if file.filename == "":
-        flash("Pilih file terlebih dahulu.", "error")
+        flash("Pilih file terlebih dahulu.", "danger")
         return redirect(url_for("data_exploration"))
 
     if file and allowed_file(file.filename):
@@ -934,7 +893,7 @@ def upload_dataset():
                     try:
                         data = pd.read_excel(filepath, engine="xlrd")
                     except Exception as e2:
-                        flash(f"Error membaca file Excel: {str(e2)}", "error")
+                        flash(f"Error membaca file Excel: {str(e2)}", "danger")
                         return redirect(url_for("data_exploration"))
 
                 data.to_csv(filepath, index=False, sep=",")
@@ -952,7 +911,7 @@ def upload_dataset():
                     data.to_csv(filepath, index=False, sep=",")
 
         except Exception as e:
-            flash(f"Error saat membaca atau mengonversi file: {str(e)}", "error")
+            flash(f"Error saat membaca atau mengonversi file: {str(e)}", "danger")
             return redirect(url_for("data_exploration"))
 
         # Normalisasi Nama Kolom
@@ -967,10 +926,64 @@ def upload_dataset():
         data["Tweet Length"] = data["Tweet"].apply(lambda x: len(str(x).split()))
         data.to_csv(filepath, index=False)
 
+        # 🔹 **Buat dan Simpan Visualisasi Gambar**
+        try:
+            # **Distribusi Sentimen**
+            sentiment_chart_path = os.path.join(app.config["STATIC_FOLDER"], "tweet_0_sentiment_distribution.png"
+            )
+            if os.path.exists(sentiment_chart_path):
+                os.remove(sentiment_chart_path)
+
+            plt.figure(figsize=(16, 9))
+            sentiment_counts = data["Sentimen"].value_counts().to_dict()
+            plt.bar(
+                sentiment_counts.keys(),
+                sentiment_counts.values(),
+                color=["green", "red", "blue"],
+            )
+            plt.xlabel("Sentimen")
+            plt.ylabel("Jumlah")
+            plt.title("Distribusi Sentimen")
+            plt.savefig(sentiment_chart_path, bbox_inches="tight", facecolor="white")
+            plt.close()
+
+            # **Distribusi Panjang Tweet**
+            chart_path = os.path.join(app.config["STATIC_FOLDER"], "tweet_0_length_distribution.png"
+            )
+            if os.path.exists(chart_path):
+                os.remove(chart_path)
+
+            plt.figure(figsize=(16, 9))
+            data["Tweet Length"].hist(bins=30, color="blue", edgecolor="black")
+            plt.xlabel("Jumlah Kata")
+            plt.ylabel("Jumlah Tweet")
+            plt.title("Distribusi Panjang Tweet")
+            plt.savefig(chart_path, bbox_inches="tight", facecolor="white")
+            plt.close()
+
+            # **WordCloud**
+            wordcloud_path = os.path.join(app.config["STATIC_FOLDER"], "tweet_0_wordcloud.png")
+            if os.path.exists(wordcloud_path):
+                os.remove(wordcloud_path)
+
+            text = " ".join(data["Tweet"].dropna())
+            wordcloud = WordCloud(
+                width=1280, height=720, background_color="white"
+            ).generate(text)
+            plt.figure(figsize=(16, 9))
+            plt.imshow(wordcloud, interpolation="bilinear")
+            plt.axis("off")
+            plt.savefig(wordcloud_path, bbox_inches="tight", facecolor="white")
+            plt.close()
+
+        except Exception as e:
+            flash(f"Error saat membuat visualisasi: {str(e)}", "error")
+            return redirect(url_for("data_exploration"))
+
         flash("Dataset berhasil diunggah!", "success")
         return redirect(url_for("data_exploration"))
 
-    flash("Format file tidak didukung! Hanya CSV, XLSX, dan XLS.", "error")
+    flash("Format file tidak didukung! Hanya CSV, XLSX, dan XLS.", "danger")
     return redirect(url_for("data_exploration"))
 
 
@@ -1702,12 +1715,8 @@ def preprocessing():
             cleaning_methods=cleaning_methods,
             comparison_table_cleaned=comparison_table_cleaned,
             comparison_samples_cleaned=comparison_samples_cleaned or [],
-            chart_path_cleaned=url_for(
-                "static", filename="img/tweet_1_length_distribution_cleaned.png"
-            ),
-            wordcloud_path_cleaned=url_for(
-                "static", filename="img/tweet_1_wordcloud_cleaned.png"
-            ),
+            chart_path_cleaned=url_for("static", filename="img/tweet_1_length_distribution_cleaned.png"),
+            wordcloud_path_cleaned=url_for("static", filename="img/tweet_1_wordcloud_cleaned.png"),
             download_link_cleaned=download_link_cleaned,
             # Normalisasi Data
             data_count_cleaned=data_count_cleaned,
@@ -1716,12 +1725,8 @@ def preprocessing():
             data_shape_normalized=data_shape_normalized,
             data_head_normalized=data_head_normalized,
             data_description_normalized=data_description_normalized,
-            chart_path_normalized=url_for(
-                "static", filename="img/tweet_2_length_distribution_normalized.png"
-            ),
-            wordcloud_path_normalized=url_for(
-                "static", filename="img/tweet_2_wordcloud_normalized.png"
-            ),
+            chart_path_normalized=url_for("static", filename="img/tweet_2_length_distribution_normalized.png"),
+            wordcloud_path_normalized=url_for("static", filename="img/tweet_2_wordcloud_normalized.png"),
             download_link_normalized=download_link_normalized,
             # Tokenisasi Data
             data_count_tokenized=data_count_tokenized,
@@ -1729,12 +1734,8 @@ def preprocessing():
             data_shape_tokenized=data_shape_tokenized,
             data_head_tokenized=data_head_tokenized,
             data_description_tokenized=data_description_tokenized,
-            chart_path_tokenized=url_for(
-                "static", filename="img/tweet_3_length_distribution_tokenized.png"
-            ),
-            wordcloud_path_tokenized=url_for(
-                "static", filename="img/tweet_3_wordcloud_tokenized.png"
-            ),
+            chart_path_tokenized=url_for("static", filename="img/tweet_3_length_distribution_tokenized.png"),
+            wordcloud_path_tokenized=url_for("static", filename="img/tweet_3_wordcloud_tokenized.png"),
             download_link_tokenized=download_link_tokenized,
             # No Stopwords Data
             data_count_no_stopwords=data_count_no_stopwords,
@@ -1743,12 +1744,8 @@ def preprocessing():
             data_shape_no_stopwords=data_shape_no_stopwords,
             data_head_no_stopwords=data_head_no_stopwords,
             data_description_no_stopwords=data_description_no_stopwords,
-            chart_path_no_stopwords=url_for(
-                "static", filename="img/tweet_4_length_distribution_no_stopwords.png"
-            ),
-            wordcloud_path_no_stopwords=url_for(
-                "static", filename="img/tweet_4_wordcloud_no_stopwords.png"
-            ),
+            chart_path_no_stopwords=url_for("static", filename="img/tweet_4_length_distribution_no_stopwords.png"),
+            wordcloud_path_no_stopwords=url_for("static", filename="img/tweet_4_wordcloud_no_stopwords.png"),
             download_link_no_stopwords=download_link_no_stopwords,
             # Stemming Data
             data_count_stemmed=data_count_stemmed,
@@ -1757,12 +1754,8 @@ def preprocessing():
             data_shape_stemmed=data_shape_stemmed,
             data_head_stemmed=data_head_stemmed,
             data_description_stemmed=data_description_stemmed,
-            chart_path_stemmed=url_for(
-                "static", filename="img/tweet_5_length_distribution_stemmed.png"
-            ),
-            wordcloud_path_stemmed=url_for(
-                "static", filename="img/tweet_5_wordcloud_stemmed.png"
-            ),
+            chart_path_stemmed=url_for("static", filename="img/tweet_5_length_distribution_stemmed.png"),
+            wordcloud_path_stemmed=url_for("static", filename="img/tweet_5_wordcloud_stemmed.png"),
             download_link_stemmed=download_link_stemmed,
             # Label Encoding Data
             sentiment_encoded=sentiment_encoded,
@@ -1771,9 +1764,7 @@ def preprocessing():
             data_shape_encoded=data_shape_encoded,
             data_head_encoded=data_head_encoded,
             data_description_encoded=data_description_encoded,
-            chart_path_encoded=url_for(
-                "static", filename="img/tweet_6_label_distribution_encoded.png"
-            ),
+            chart_path_encoded=url_for("static", filename="img/tweet_6_label_distribution_encoded.png"),
             download_link_encoded=download_link_encoded,
             # Pembagian Data
             train_file=train_file,
@@ -1781,12 +1772,8 @@ def preprocessing():
             train_label_split=train_label_split or [],
             test_label_split=test_label_split or [],
             comparison_split=comparison_split,
-            chart_train_split=url_for(
-                "static", filename="img/tweet_7_train_split_distribution.png"
-            ),
-            chart_test_split=url_for(
-                "static", filename="img/tweet_7_test_split_distribution.png"
-            ),
+            chart_train_split=url_for("static", filename="img/tweet_7_train_split_distribution.png"),
+            chart_test_split=url_for("static", filename="img/tweet_7_test_split_distribution.png"),
             data_shape_train=data_shape_train,
             data_shape_test=data_shape_test,
             data_head_train=data_head_train,
@@ -1794,9 +1781,7 @@ def preprocessing():
             data_description_train=data_description_train,
             data_description_test=data_description_test,
             data_distribution_split=data_distribution_split,
-            chart_path_split=url_for(
-                "static", filename="img/tweet_7_split_data_distribution.png"
-            ),
+            chart_path_split=url_for("static", filename="img/tweet_7_split_data_distribution.png"),
             download_link_train=download_link_train,
             download_link_test=download_link_test,
             all=all,
@@ -2423,6 +2408,7 @@ def start_preprocessing():
         except Exception as e:
             print(f"❌ Kesalahan pada Pembagian Data: {e}")
 
+        flash("Pra pemrosesan data berhasil dilakukan!", "success")
         return jsonify({"success": True})
 
     except Exception as e:
@@ -2472,7 +2458,7 @@ def modeling():
             key: os.path.basename(value) if model_trained else "Nama File PKL"
             for key, value in model_files.items()
         }
-
+        
         return render_template(
             "modeling.html",
             title="Pemodelan Data",
@@ -2482,14 +2468,8 @@ def modeling():
             sentiment_counts=sentiment_counts,
             report_data_nb=report_data_nb,
             report_data_svm=report_data_svm,
-            cm_path_nb=url_for(
-                "static", 
-                filename="img/model_1_naive_bayes_confusion_matrix.png"
-            ),
-            cm_path_svm=url_for(
-                "static", 
-                filename="img/model_2_svm_confusion_matrix.png"
-            ),
+            cm_path_nb=url_for("static", filename="img/model_1_naive_bayes_confusion_matrix.png"),
+            cm_path_svm=url_for("static", filename="img/model_2_svm_confusion_matrix.png"),
         )
 
     except Exception as e:
@@ -2680,6 +2660,7 @@ def start_modeling():
             plt.savefig(cm_path_svm)
             plt.close()
 
+            flash("Pemodelan data berhasil dilakukan!", "success")
             print("✅ Pemodelan selesai!")
             return jsonify({"success": True})
 
