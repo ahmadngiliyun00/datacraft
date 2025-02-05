@@ -2094,5 +2094,115 @@ def start_modeling():
         return jsonify({"success": False, "message": str(e)})
 
 
+# 🔹 Fungsi untuk Halaman Interpretasi Hasil
+@app.route("/interpretation")
+def interpretation_results():
+    try:
+        # Path ke hasil evaluasi model
+        report_path = os.path.join(app.config["PROCESSED_FOLDER"], "model_0_calculated.csv")
+        error_analysis_path = os.path.join(app.config["PROCESSED_FOLDER"], "model_0_error_analysis.csv")
+
+        # Validasi apakah file ada
+        if not os.path.exists(report_path):
+            flash("❌ File hasil evaluasi model belum tersedia!", "danger")
+            return redirect(url_for("modeling"))
+
+        # 🔹 Baca CSV hasil evaluasi model
+        report_df = pd.read_csv(report_path)
+
+        # 🔹 Buat ringkasan per kelas dalam bentuk dictionary
+        classification_summary = []
+        for _, row in report_df.iterrows():
+            classification_summary.append({
+                "Model": row["Model"],
+                "Kelas": str(row["Kelas"]),
+                "Akurasi": f"{row['Akurasi'] * 100:.2f}%",
+                "Presisi": f"{row['Presisi'] * 100:.2f}%",
+                "Recall": f"{row['Recall'] * 100:.2f}%",
+                "F1-Score": f"{row['F1-Score'] * 100:.2f}%",
+                "Support": row["Support"]
+            })
+
+        # 🔹 Buat Visualisasi Grafik Perbandingan Model
+        chart_path = os.path.join(app.config["STATIC_FOLDER"], "interpretation_model_comparison.png")
+        plt.figure(figsize=(12, 6))
+        metrics = ["Akurasi", "Presisi", "Recall", "F1-Score"]
+        nb_values = [report_df[report_df["Model"] == "Naive Bayes"][metric].mean() * 100 for metric in metrics]
+        svm_values = [report_df[report_df["Model"] == "SVM"][metric].mean() * 100 for metric in metrics]
+
+        x_axis = range(len(metrics))
+        plt.bar(x_axis, nb_values, width=0.4, label="Naive Bayes", color="blue", align="center")
+        plt.bar([x + 0.4 for x in x_axis], svm_values, width=0.4, label="SVM", color="orange", align="center")
+
+        plt.xticks([x + 0.2 for x in x_axis], metrics)
+        plt.xlabel("Metrik Evaluasi")
+        plt.ylabel("Nilai (%)")
+        plt.title("Perbandingan Kinerja Model Naive Bayes vs SVM")
+        plt.legend()
+        plt.savefig(chart_path, bbox_inches="tight", facecolor="white")
+        plt.close()
+
+        # 🔹 Ambil Contoh Kesalahan Prediksi
+        error_samples = []
+        if os.path.exists(error_analysis_path):
+            error_df = pd.read_csv(error_analysis_path)
+            for _, row in error_df.head(5).iterrows():
+                error_samples.append({
+                    "Tweet": " ".join(eval(row["Tokenized"])),  # Ubah token menjadi teks asli
+                    "Label": row["Label_Encoded"],
+                    "Prediksi_NB": row["Prediksi_NB"],
+                    "Prediksi_SVM": row["Prediksi_SVM"],
+                    "NB_Correct": row["Label_Encoded"] == row["Prediksi_NB"],
+                    "SVM_Correct": row["Label_Encoded"] == row["Prediksi_SVM"],
+                })
+        
+        print(report_df.dtypes)
+        
+        # 🔹 Ambil hanya kolom numerik (tanpa "Model" & "Kelas")
+        numeric_columns = ["Akurasi", "Presisi", "Recall", "F1-Score", "Support"]
+        
+        print("🔹 Kolom dalam DataFrame:", report_df.columns)
+        print("🔹 Data Sebelum Perhitungan Mean:\n", report_df.head())
+
+        metrics_nb = report_df[report_df["Model"] == "Naive Bayes"][numeric_columns].mean()
+        metrics_svm = report_df[report_df["Model"] == "SVM"][numeric_columns].mean()
+
+
+        # 🔹 Analisis Otomatis
+        model_analysis = []
+
+        # 1️⃣ Perbandingan Akurasi
+        if metrics_nb["Akurasi"] > metrics_svm["Akurasi"]:
+            model_analysis.append("Naive Bayes memiliki akurasi lebih tinggi dibandingkan SVM dalam keseluruhan klasifikasi.")
+        else:
+            model_analysis.append("SVM lebih unggul dalam akurasi keseluruhan dibandingkan Naive Bayes.")
+
+        # 2️⃣ Analisis Sentimen Positif dan Negatif
+        if metrics_svm["Presisi"] > metrics_nb["Presisi"]:
+            model_analysis.append("SVM memiliki presisi lebih tinggi dalam mendeteksi sentimen positif.")
+        if metrics_nb["Recall"] > metrics_svm["Recall"]:
+            model_analysis.append("Naive Bayes lebih unggul dalam mendeteksi sentimen negatif.")
+
+        # 3️⃣ Cek Performansi Kelas Netral
+        recall_netral_nb = report_df[(report_df["Model"] == "Naive Bayes") & (report_df["Kelas"] == 0)]["Recall"].values[0]
+        recall_netral_svm = report_df[(report_df["Model"] == "SVM") & (report_df["Kelas"] == 0)]["Recall"].values[0]
+
+        if recall_netral_nb < 0.5 or recall_netral_svm < 0.5:
+            model_analysis.append("Distribusi data netral yang lebih sedikit memengaruhi kinerja model, menyebabkan recall untuk kelas netral lebih rendah.")
+
+        return render_template(
+            "interpretation.html",
+            title="Interpretasi Hasil",
+            classification_summary=classification_summary,
+            chart_path=url_for("static", filename="img/interpretation_model_comparison.png"),
+            error_samples=error_samples,
+            model_analysis=model_analysis
+        )
+
+    except Exception as e:
+        print(f"❌ Error dalam halaman interpretasi: {str(e)}")
+        return render_template("interpretation.html", title="Interpretasi Hasil", classification_summary=[])
+
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)

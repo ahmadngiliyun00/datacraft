@@ -1,0 +1,135 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+	<div class="fw-bold mb-4">
+		<span class="text-muted fw-light">DataCraft / </span>
+		<span class="color-custom-secondary">{{ title }}</span>
+	</div>
+
+	<!-- Ringkasan Hasil Klasifikasi -->
+	<div class="card">
+		<h5 class="card-header">Ringkasan Hasil Klasifikasi</h5>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th class="text-start">Model</th>
+							<th>Kelas</th>
+							<th>Akurasi</th>
+							<th>Presisi</th>
+							<th>Recall</th>
+							<th>F1-Score</th>
+							<th>Support</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for row in classification_summary %}
+						<tr>
+							<td><strong>{{ row["Model"] }}</strong></td>
+              <td class="text-center">
+                {% if row["Kelas"]|string == "-1" %}
+                <span class="text-danger">Negatif</span>
+                {% elif row["Kelas"]|string == "0" %}
+                <span class="">Netral</span>
+                {% elif row["Kelas"]|string == "1" %}
+                <span class="text-success">Positif</span>
+                {% else %}
+                <span class="text-secondary">???</span>
+                {% endif %}
+              </td>
+							<td class="text-center">{{ row["Akurasi"] }}</td>
+							<td class="text-center">{{ row["Presisi"] }}</td>
+							<td class="text-center">{{ row["Recall"] }}</td>
+							<td class="text-center">{{ row["F1-Score"] }}</td>
+							<td class="text-center">{{ row["Support"] }}</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Grafik Perbandingan Model -->
+	<div class="card mt-4">
+		<h5 class="card-header">Perbandingan Kinerja Model</h5>
+		<div class="card-body text-center">
+			<img
+				src="{{ chart_path }}"
+				alt="Grafik Perbandingan Model"
+				class="img-fluid" />
+		</div>
+	</div>
+
+	<!-- Kesalahan Prediksi -->
+	<div class="card mt-4">
+		<h5 class="card-header">Kesalahan Prediksi</h5>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+            <tr>
+              <th class="text-start">Tweet Asli</th>
+              <th>Label Sebenarnya</th>
+              <th>Prediksi Naive Bayes</th>
+              <th>Prediksi SVM</th>
+            </tr>
+					</thead>
+					<tbody>
+						{% for sample in error_samples %}
+              <tr>
+                <td>{{ sample["Tweet"] }}</td>
+                <td class="text-center">
+                  {% if sample["Label"]|string == "-1" %}
+                    Negatif
+                  {% elif sample["Label"]|string == "0" %}
+                    Netral
+                  {% elif sample["Label"]|string == "1" %}
+                    Positif
+                  {% else %}
+                    ???
+                  {% endif %}
+                </td>
+                <td class="text-center {% if not sample['NB_Correct'] %}text-danger{% else %}text-success{% endif %}">
+                  {% if sample["Prediksi_NB"]|string == "-1" %}
+                    Negatif
+                  {% elif sample["Prediksi_NB"]|string == "0" %}
+                    Netral
+                  {% elif sample["Prediksi_NB"]|string == "1" %}
+                    Positif
+                  {% else %}
+                    ???
+                  {% endif %}
+                </td>
+                <td class="text-center {% if not sample['SVM_Correct'] %}text-danger{% else %}text-success{% endif %}">
+                  {% if sample["Prediksi_SVM"]|string == "-1" %}
+                    Negatif
+                  {% elif sample["Prediksi_SVM"]|string == "0" %}
+                    Netral
+                  {% elif sample["Prediksi_SVM"]|string == "1" %}
+                    Positif
+                  {% else %}
+                    ???
+                  {% endif %}
+                </td>
+              </tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Analisis Model -->
+	<div class="card mt-4">
+		<h5 class="card-header">Analisis Model</h5>
+		<div class="card-body">
+			<ul>
+        {% for analysis in model_analysis %}
+          <li>{{ analysis }}</li>
+        {% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}

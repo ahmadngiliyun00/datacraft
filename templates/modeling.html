@@ -193,7 +193,7 @@
                       {% elif row["Kelas"]|string == "1" %}
                         1 (Positif)
                       {% else %}
-                        Aneh
+                        ???
                       {% endif %}
                     </td>
                     <td class="text-center">{{ row["Presisi"] }}</td>
@@ -225,7 +225,7 @@
                     </a>
                   </div>
                   <div class="">
-                    <a href="{{ url_for('index') }}"
+                    <a href="{{ url_for('interpretation_results') }}"
                       class="btn btn-primary btn-sm ms-3">
                       <i class='bx bx-file-find'></i>
                       &nbsp; Interpretasi Hasil
@@ -274,7 +274,7 @@
                       {% elif row["Kelas"]|string == "1" %}
                         1 (Positif)
                       {% else %}
-                        Aneh
+                        ???
                       {% endif %}
                     </td>
                     <td class="text-center">{{ row["Presisi"] }}</td>
@@ -306,7 +306,7 @@
                     </a>
                   </div>
                   <div class="">
-                    <a href="{{ url_for('index') }}"
+                    <a href="{{ url_for('interpretation_results') }}"
                       class="btn btn-primary btn-sm ms-3">
                       <i class='bx bx-file-find'></i>
                       &nbsp; Interpretasi Hasil
@@ -368,7 +368,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Tweet Asli</th>
+                            <th class="text-start">Tweet Asli</th>
                             <th>Label Sebenarnya</th>
                             <th>Prediksi Naive Bayes</th>
                             <th>Prediksi SVM</th>
@@ -386,7 +386,7 @@
                               {% elif sample["Label"]|string == "1" %}
                                 Positif
                               {% else %}
-                                Aneh
+                                ???
                               {% endif %}
                             </td>
                             <td class="text-center {% if not sample['NB_Correct'] %}text-danger{% else %}text-success{% endif %}">
@@ -397,7 +397,7 @@
                               {% elif sample["Prediksi_NB"]|string == "1" %}
                                 Positif
                               {% else %}
-                                Aneh
+                                ???
                               {% endif %}
                             </td>
                             <td class="text-center {% if not sample['SVM_Correct'] %}text-danger{% else %}text-success{% endif %}">
@@ -408,7 +408,7 @@
                               {% elif sample["Prediksi_SVM"]|string == "1" %}
                                 Positif
                               {% else %}
-                                Aneh
+                                ???
                               {% endif %}
                             </td>
                         </tr>
@@ -443,7 +443,7 @@
                     </a>
                   </div>
                   <div class="">
-                    <a href="{{ url_for('index') }}"
+                    <a href="{{ url_for('interpretation_results') }}"
                       class="btn btn-primary btn-sm ms-3">
                       <i class='bx bx-file-find'></i>
                       &nbsp; Interpretasi Hasil
