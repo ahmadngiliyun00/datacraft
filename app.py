@@ -2109,6 +2109,11 @@ def interpretation_results():
 
         # 🔹 Baca CSV hasil evaluasi model
         report_df = pd.read_csv(report_path)
+        
+        # 🔹 Hitung Akurasi untuk NB dan SVM
+        accuracy_nb = report_df[report_df["Model"] == "Naive Bayes"]["Akurasi"].mean() * 100
+        accuracy_svm = report_df[report_df["Model"] == "SVM"]["Akurasi"].mean() * 100
+
 
         # 🔹 Buat ringkasan per kelas dalam bentuk dictionary
         classification_summary = []
@@ -2116,7 +2121,6 @@ def interpretation_results():
             classification_summary.append({
                 "Model": row["Model"],
                 "Kelas": str(row["Kelas"]),
-                "Akurasi": f"{row['Akurasi'] * 100:.2f}%",
                 "Presisi": f"{row['Presisi'] * 100:.2f}%",
                 "Recall": f"{row['Recall'] * 100:.2f}%",
                 "F1-Score": f"{row['F1-Score'] * 100:.2f}%",
@@ -2124,8 +2128,8 @@ def interpretation_results():
             })
 
         # 🔹 Buat Visualisasi Grafik Perbandingan Model
-        chart_path = os.path.join(app.config["STATIC_FOLDER"], "interpretation_model_comparison.png")
-        plt.figure(figsize=(12, 6))
+        chart_path = os.path.join(app.config["STATIC_FOLDER"], "interpretation_0_model_comparison.png")
+        plt.figure(figsize=(16, 9))
         metrics = ["Akurasi", "Presisi", "Recall", "F1-Score"]
         nb_values = [report_df[report_df["Model"] == "Naive Bayes"][metric].mean() * 100 for metric in metrics]
         svm_values = [report_df[report_df["Model"] == "SVM"][metric].mean() * 100 for metric in metrics]
@@ -2141,6 +2145,53 @@ def interpretation_results():
         plt.legend()
         plt.savefig(chart_path, bbox_inches="tight", facecolor="white")
         plt.close()
+        
+        # 🔹 WordCloud dari Semua Data
+        full_wordcloud_path = os.path.join(app.config["STATIC_FOLDER"], "interpretation_1_wordcloud_all.png")
+        dataset_path = os.path.join(app.config["PROCESSED_FOLDER"], "dataset_7_train.csv")
+
+        if os.path.exists(dataset_path):
+            full_df = pd.read_csv(dataset_path)
+            all_text_full = " ".join([" ".join(eval(text)) for text in full_df["Tokenized"]])
+
+            full_wordcloud = WordCloud(
+                width=1280, height=720, background_color="white"
+            ).generate(all_text_full)
+
+            plt.figure(figsize=(16, 9))
+            plt.imshow(full_wordcloud, interpolation="bilinear")
+            plt.axis("off")
+            plt.title("WordCloud dari Seluruh Dataset")
+            plt.savefig(full_wordcloud_path, bbox_inches="tight", facecolor="white")
+            plt.close()
+
+        # 🔹 WordCloud berdasarkan Sentimen
+        sentiments = {"Negatif": -1, "Netral": 0, "Positif": 1}
+        sentiment_wordclouds = {}
+
+        if os.path.exists(dataset_path):
+            full_df = pd.read_csv(dataset_path)
+            
+            for label, value in sentiments.items():
+                text_for_label = " ".join(
+                    [" ".join(eval(text)) for text in full_df[full_df["Label_Encoded"] == value]["Tokenized"]]
+                )
+
+                wordcloud = WordCloud(
+                    width=1280, height=720, background_color="white"
+                ).generate(text_for_label)
+
+                sentiment_wordcloud_path = os.path.join(
+                    app.config["STATIC_FOLDER"], f"interpretation_1_wordcloud_{label}.png"
+                )
+                plt.figure(figsize=(16, 9))
+                plt.imshow(wordcloud, interpolation="bilinear")
+                plt.axis("off")
+                plt.title(f"WordCloud untuk Sentimen {label}")
+                plt.savefig(sentiment_wordcloud_path, bbox_inches="tight", facecolor="white")
+                plt.close()
+
+                sentiment_wordclouds[label] = url_for("static", filename=f"img/interpretation_1_wordcloud_{label}.png")
 
         # 🔹 Ambil Contoh Kesalahan Prediksi
         error_samples = []
@@ -2155,15 +2206,26 @@ def interpretation_results():
                     "NB_Correct": row["Label_Encoded"] == row["Prediksi_NB"],
                     "SVM_Correct": row["Label_Encoded"] == row["Prediksi_SVM"],
                 })
-        
-        print(report_df.dtypes)
+    
+        # 🔹 Buat WordCloud dari semua tweet
+        error_wordcloud_path = os.path.join(app.config["STATIC_FOLDER"], "interpretation_1_wordcloud_error.png")
+        if os.path.exists(error_analysis_path):
+            error_df = pd.read_csv(error_analysis_path)
+            all_text = " ".join([" ".join(eval(text)) for text in error_df["Tokenized"]])
+            wordcloud = WordCloud(
+                width=1280, height=720, background_color="white"
+            ).generate(all_text)
+
+            plt.figure(figsize=(16, 9))
+            plt.imshow(wordcloud, interpolation="bilinear")
+            plt.axis("off")
+            plt.title("WordCloud dari Kesalahan Prediksi")
+            plt.savefig(error_wordcloud_path, bbox_inches="tight", facecolor="white")
+            plt.close()
         
         # 🔹 Ambil hanya kolom numerik (tanpa "Model" & "Kelas")
         numeric_columns = ["Akurasi", "Presisi", "Recall", "F1-Score", "Support"]
         
-        print("🔹 Kolom dalam DataFrame:", report_df.columns)
-        print("🔹 Data Sebelum Perhitungan Mean:\n", report_df.head())
-
         metrics_nb = report_df[report_df["Model"] == "Naive Bayes"][numeric_columns].mean()
         metrics_svm = report_df[report_df["Model"] == "SVM"][numeric_columns].mean()
 
@@ -2193,8 +2255,13 @@ def interpretation_results():
         return render_template(
             "interpretation.html",
             title="Interpretasi Hasil",
+            accuracy_nb=f"{accuracy_nb:.2f}%",
+            accuracy_svm=f"{accuracy_svm:.2f}%",
             classification_summary=classification_summary,
-            chart_path=url_for("static", filename="img/interpretation_model_comparison.png"),
+            chart_path=url_for("static", filename="img/interpretation_0_model_comparison.png"),
+            full_wordcloud_path=url_for("static", filename="img/interpretation_1_wordcloud_all.png"),
+            sentiment_wordclouds=sentiment_wordclouds,
+            error_wordcloud_path=url_for("static", filename="img/interpretation_1_wordcloud_error.png"),
             error_samples=error_samples,
             model_analysis=model_analysis
         )

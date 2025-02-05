@@ -9,13 +9,21 @@
 	<div class="card">
 		<h5 class="card-header">Ringkasan Hasil Klasifikasi</h5>
 		<div class="card-body">
+      <!-- Akurasi Model -->
+      <div class="mb-3">
+        <h6 class="card-title fw-bold fs-5 text-primary mb-1">Akurasi Model</h6>
+        <ul>
+            <li><strong>Naive Bayes:</strong> {{ accuracy_nb }}</li>
+            <li><strong>SVM:</strong> {{ accuracy_svm }}</li>
+        </ul>
+      </div>
+      <!-- Laporan Klasifikasi -->
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th class="text-start">Model</th>
 							<th>Kelas</th>
-							<th>Akurasi</th>
 							<th>Presisi</th>
 							<th>Recall</th>
 							<th>F1-Score</th>
@@ -37,7 +45,6 @@
                 <span class="text-secondary">???</span>
                 {% endif %}
               </td>
-							<td class="text-center">{{ row["Akurasi"] }}</td>
 							<td class="text-center">{{ row["Presisi"] }}</td>
 							<td class="text-center">{{ row["Recall"] }}</td>
 							<td class="text-center">{{ row["F1-Score"] }}</td>
@@ -50,73 +57,104 @@
 		</div>
 	</div>
 
-	<!-- Grafik Perbandingan Model -->
-	<div class="card mt-4">
-		<h5 class="card-header">Perbandingan Kinerja Model</h5>
-		<div class="card-body text-center">
-			<img
-				src="{{ chart_path }}"
-				alt="Grafik Perbandingan Model"
-				class="img-fluid" />
-		</div>
-	</div>
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <!-- Grafik Perbandingan Model -->
+      <div class="card mt-4">
+        <h5 class="card-header">Perbandingan Kinerja Model</h5>
+        <div class="card-body text-center">
+          <img
+            src="{{ chart_path }}"
+            alt="Grafik Perbandingan Model"
+            class="img-fluid" />
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <!-- WordCloud dari Seluruh Dataset -->
+      <div class="card mt-4">
+        <h5 class="card-header">WordCloud dari Seluruh Dataset</h5>
+        <div class="card-body text-center">
+          <img
+            src="{{ full_wordcloud_path }}"
+            alt="WordCloud dari Seluruh Dataset"
+            class="img-fluid" />
+        </div>
+      </div>
+    </div>
+  </div>
 
 	<!-- Kesalahan Prediksi -->
 	<div class="card mt-4">
 		<h5 class="card-header">Kesalahan Prediksi</h5>
 		<div class="card-body">
-			<div class="table-responsive">
-				<table class="table table-striped">
-					<thead>
-            <tr>
-              <th class="text-start">Tweet Asli</th>
-              <th>Label Sebenarnya</th>
-              <th>Prediksi Naive Bayes</th>
-              <th>Prediksi SVM</th>
-            </tr>
-					</thead>
-					<tbody>
-						{% for sample in error_samples %}
-              <tr>
-                <td>{{ sample["Tweet"] }}</td>
-                <td class="text-center">
-                  {% if sample["Label"]|string == "-1" %}
-                    Negatif
-                  {% elif sample["Label"]|string == "0" %}
-                    Netral
-                  {% elif sample["Label"]|string == "1" %}
-                    Positif
-                  {% else %}
-                    ???
-                  {% endif %}
-                </td>
-                <td class="text-center {% if not sample['NB_Correct'] %}text-danger{% else %}text-success{% endif %}">
-                  {% if sample["Prediksi_NB"]|string == "-1" %}
-                    Negatif
-                  {% elif sample["Prediksi_NB"]|string == "0" %}
-                    Netral
-                  {% elif sample["Prediksi_NB"]|string == "1" %}
-                    Positif
-                  {% else %}
-                    ???
-                  {% endif %}
-                </td>
-                <td class="text-center {% if not sample['SVM_Correct'] %}text-danger{% else %}text-success{% endif %}">
-                  {% if sample["Prediksi_SVM"]|string == "-1" %}
-                    Negatif
-                  {% elif sample["Prediksi_SVM"]|string == "0" %}
-                    Netral
-                  {% elif sample["Prediksi_SVM"]|string == "1" %}
-                    Positif
-                  {% else %}
-                    ???
-                  {% endif %}
-                </td>
-              </tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <div class="card-title fw-bold fs-5 text-primary mb-1">
+            Tabel Contoh Kesalahan Prediksi
+          </div>
+          <div class="table-responsive mb-4">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="text-start">Tweet Asli</th>
+                  <th>Label Sebenarnya</th>
+                  <th>Prediksi Naive Bayes</th>
+                  <th>Prediksi SVM</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for sample in error_samples %}
+                  <tr>
+                    <td>{{ sample["Tweet"] }}</td>
+                    <td class="text-center">
+                      {% if sample["Label"]|string == "-1" %}
+                        Negatif
+                      {% elif sample["Label"]|string == "0" %}
+                        Netral
+                      {% elif sample["Label"]|string == "1" %}
+                        Positif
+                      {% else %}
+                        ???
+                      {% endif %}
+                    </td>
+                    <td class="text-center {% if not sample['NB_Correct'] %}text-danger{% else %}text-success{% endif %}">
+                      {% if sample["Prediksi_NB"]|string == "-1" %}
+                        Negatif
+                      {% elif sample["Prediksi_NB"]|string == "0" %}
+                        Netral
+                      {% elif sample["Prediksi_NB"]|string == "1" %}
+                        Positif
+                      {% else %}
+                        ???
+                      {% endif %}
+                    </td>
+                    <td class="text-center {% if not sample['SVM_Correct'] %}text-danger{% else %}text-success{% endif %}">
+                      {% if sample["Prediksi_SVM"]|string == "-1" %}
+                        Negatif
+                      {% elif sample["Prediksi_SVM"]|string == "0" %}
+                        Netral
+                      {% elif sample["Prediksi_SVM"]|string == "1" %}
+                        Positif
+                      {% else %}
+                        ???
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="card-title fw-bold fs-5 text-primary text-center mb-1">
+            WordCloud dari Kesalahan Prediksi
+          </div>
+          <div class="text-center">
+            <img src="{{ error_wordcloud_path }}" alt="WordCloud dari Kesalahan Prediksi" class="img-fluid" />
+          </div>
+        </div>
+      </div>
 		</div>
 	</div>
 
@@ -131,5 +169,20 @@
 			</ul>
 		</div>
 	</div>
+
+  <!-- WordCloud untuk Tiap Kelas Sentimen -->
+  <div class="card mt-4">
+    <h5 class="card-header">WordCloud Berdasarkan Sentimen</h5>
+    <div class="card-body text-center">
+      <div class="row justify-content-center">
+        {% for label, path in sentiment_wordclouds.items() %}
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card-title fw-bold fs-5 {% if label == 'Negatif' %}text-danger{% elif label == 'Positif' %}text-success{% else %}{% endif %} mb-1">{{ label }}</div>
+          <img src="{{ path }}" alt="WordCloud untuk {{ label }}" class="img-fluid" />
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
