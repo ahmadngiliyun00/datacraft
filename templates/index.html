@@ -70,12 +70,9 @@
 		</div>
 	{% else %}
 	<div class="card shadow-sm mb-4">
+		<h5 class="card-header">Hasil Pra Pemrosesan dan Pemodelan</h5>
 		<div class="card-body">
 			<!-- Jika semua proses selesai -->
-			<div class="alert alert-success">
-				✅ <strong>Semua Proses Selesai</strong>
-			</div>
-			<p>Dataset telah diproses dan model telah dilatih.</p>
 			<p><strong>Dataset Asli:</strong> {{ dataset_name }} ({{ dataset_rows }} baris)</p>
 			<p><strong>Dataset Setelah Pemrosesan:</strong> {{ processed_dataset_name }} ({{ processed_dataset_rows }} baris)</p>
 			<p><strong>Model Terbaik:</strong> {{ best_model_name }}</p>
@@ -91,7 +88,7 @@
 		<!-- Dataset Sebelum Pemrosesan -->
 		<div class="col-md-6">
 				<div class="card shadow-sm">
-						<h5 class="card-header bg-light text-primary">Dataset Sebelum Pemrosesan</h5>
+						<h5 class="card-header">Dataset Sebelum Pemrosesan</h5>
 						<div class="card-body">
 								<p><strong>Jumlah Data Mentah:</strong> {{ dataset_rows }}</p>
 								<p><strong>Jumlah Fitur:</strong> {{ dataset_columns }}</p>
@@ -102,7 +99,7 @@
 		<!-- Dataset Setelah Pemrosesan -->
 		<div class="col-md-6">
 				<div class="card shadow-sm">
-						<h5 class="card-header bg-light text-primary">Dataset Setelah Pemrosesan</h5>
+						<h5 class="card-header">Dataset Setelah Pemrosesan</h5>
 						<div class="card-body">
 								<p><strong>Jumlah Data Bersih:</strong> {{ processed_dataset_rows }}</p>
 								<p><strong>Jumlah Fitur Setelah Transformasi:</strong> {{ processed_dataset_columns }}</p>
