@@ -145,6 +145,7 @@
 							</div>
 							<h3 class="card-title">Evaluation</h3>
 							<p class="card-text text-muted">
+                {{ model_filenames["Naive Bayes"] if model_trained else "Nama File PKL" }}<br>
                 {{ model_filenames["SVM"] if model_trained else "Nama File PKL" }}
 							</p>
 							<span
@@ -225,8 +226,15 @@
                     </a>
                   </div>
                   <div class="">
+										<a
+											href="{{ download_link_nb }}"
+											class="btn btn-success btn-sm"
+											download>
+											<i class="bx bx-download"></i>
+											&nbsp; Unduh Model
+										</a>
                     <a href="{{ url_for('interpretation_results') }}"
-                      class="btn btn-primary btn-sm ms-3">
+                      class="btn btn-primary btn-sm">
                       <i class='bx bx-file-find'></i>
                       &nbsp; Interpretasi Hasil
                     </a>
@@ -306,8 +314,15 @@
                     </a>
                   </div>
                   <div class="">
+										<a
+											href="{{ download_link_svm }}"
+											class="btn btn-success btn-sm"
+											download>
+											<i class="bx bx-download"></i>
+											&nbsp; Unduh Model
+										</a>
                     <a href="{{ url_for('interpretation_results') }}"
-                      class="btn btn-primary btn-sm ms-3">
+                      class="btn btn-primary btn-sm">
                       <i class='bx bx-file-find'></i>
                       &nbsp; Interpretasi Hasil
                     </a>
@@ -443,8 +458,22 @@
                     </a>
                   </div>
                   <div class="">
+										<a
+											href="{{ download_link_nb }}"
+											class="btn btn-success btn-sm"
+											download>
+											<i class="bx bx-download"></i>
+											&nbsp; Unduh Model NB
+										</a>
+										<a
+											href="{{ download_link_svm }}"
+											class="btn btn-success btn-sm"
+											download>
+											<i class="bx bx-download"></i>
+											&nbsp; Unduh Model SVM
+										</a>
                     <a href="{{ url_for('interpretation_results') }}"
-                      class="btn btn-primary btn-sm ms-3">
+                      class="btn btn-primary btn-sm">
                       <i class='bx bx-file-find'></i>
                       &nbsp; Interpretasi Hasil
                     </a>

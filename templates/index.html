@@ -29,44 +29,62 @@
 	</div>
 	{% endfor %} {% endif %} {% endwith %}
   <!-- ✅ Status Pemrosesan Data -->
-  <div class="card shadow-sm mb-4">
-    <div class="card-body">
-      {% if not dataset_uploaded %}
-        <!-- Jika dataset belum diunggah -->
-        <div class="alert alert-warning">
-          ⚠️ <strong>Dataset belum diunggah!</strong> Silakan unggah dataset terlebih dahulu.
-          <a href="{{ url_for('data_exploration') }}" class="btn btn-primary btn-sm ms-2">Unggah Dataset</a>
-        </div>
-      {% elif not preprocessed_done %}
-        <!-- Jika dataset sudah diunggah tapi belum diproses -->
-        <div class="alert alert-info">
-          🛠️ <strong>Dataset telah diunggah, tapi belum diproses!</strong> Silakan lakukan pra-pemrosesan.
-        </div>
-        <p><strong>Dataset Asli:</strong> {{ dataset_name }} ({{ dataset_rows }} baris)</p>
-        <p><strong>Diunggah pada:</strong> {{ dataset_uploaded_date }}</p>
-      {% elif not model_trained %}
-        <!-- Jika pemrosesan selesai tapi model belum dilatih -->
-        <div class="alert alert-primary">
-          📊 <strong>Pra-pemrosesan selesai, tetapi model belum dilatih!</strong> Lanjutkan ke tahap pemodelan.
-        </div>
-        <p><strong>Dataset Asli:</strong> {{ dataset_name }} ({{ dataset_rows }} baris)</p>
-        <p><strong>Dataset Setelah Pemrosesan:</strong> {{ processed_dataset_name }} ({{ processed_dataset_rows }} baris)</p>
-      {% else %}
-        <!-- Jika semua proses selesai -->
-        <div class="alert alert-success">
-          ✅ <strong>Semua Proses Selesai</strong>
-        </div>
-        <p>Dataset telah diproses dan model telah dilatih.</p>
-        <p><strong>Dataset Asli:</strong> {{ dataset_name }} ({{ dataset_rows }} baris)</p>
-        <p><strong>Dataset Setelah Pemrosesan:</strong> {{ processed_dataset_name }} ({{ processed_dataset_rows }} baris)</p>
-        <p><strong>Model Terbaik:</strong> {{ best_model_name }}</p>
-        <p><strong>Akurasi Model:</strong></p>
-        <ul>
-          <li><strong>Naive Bayes:</strong> {{ nb_accuracy }}</li>
-          <li><strong>SVM:</strong> {{ svm_accuracy }}</li>
-        </ul>
-      {% endif %}
-    </div>
+	{% if not dataset_uploaded %}
+		<!-- Jika dataset belum diunggah -->
+		<div class="alert alert-info d-flex justify-content-between align-items-center">
+			<div class="">
+				<i class='bx bx-info-circle'></i>
+				<strong>Dataset belum diunggah!</strong> Silakan unggah dataset terlebih dahulu.
+			</div>
+			<a href="{{ url_for('data_exploration') }}" class="btn btn-primary btn-sm ms-2">Unggah Dataset</a>
+		</div>
+	{% elif not preprocessed_done %}
+		<!-- Jika dataset sudah diunggah tapi belum diproses -->
+		<div class="alert alert-info d-flex justify-content-between align-items-center">
+			<div class="">
+				<i class='bx bx-info-circle'></i>
+				<strong>Dataset belum diproses!</strong> Silakan lakukan pra-pemrosesan.
+			</div>
+			<a href="{{ url_for('preprocessing') }}" class="btn btn-primary btn-sm ms-2">Pra-Pemrosesan</a>
+		</div>
+		<div class="card shadow-sm mb-4">
+			<div class="card-body">
+				<p><strong>Dataset Asli:</strong> {{ dataset_name }} ({{ dataset_rows }} baris)</p>
+				<p><strong>Diunggah pada:</strong> {{ dataset_uploaded_date }}</p>
+			</div>
+		</div>
+	{% elif not model_trained %}
+		<!-- Jika pemrosesan selesai tapi model belum dilatih -->
+		<div class="alert alert-info d-flex justify-content-between align-items-center">
+			<div class="">
+				<i class='bx bx-info-circle'></i>
+				<strong>Model belum dilatih!</strong> Lanjutkan ke tahap pemodelan.
+			</div>
+			<a href="{{ url_for('modeling') }}" class="btn btn-primary btn-sm ms-2">Modeling</a>
+		</div>
+		<div class="card shadow-sm mb-4">
+			<div class="card-body">
+				<p><strong>Dataset Asli:</strong> {{ dataset_name }} ({{ dataset_rows }} baris)</p>
+				<p><strong>Dataset Setelah Pemrosesan:</strong> {{ processed_dataset_name }} ({{ processed_dataset_rows }} baris)</p>
+			</div>
+		</div>
+	{% else %}
+	<div class="card shadow-sm mb-4">
+		<div class="card-body">
+			<!-- Jika semua proses selesai -->
+			<div class="alert alert-success">
+				✅ <strong>Semua Proses Selesai</strong>
+			</div>
+			<p>Dataset telah diproses dan model telah dilatih.</p>
+			<p><strong>Dataset Asli:</strong> {{ dataset_name }} ({{ dataset_rows }} baris)</p>
+			<p><strong>Dataset Setelah Pemrosesan:</strong> {{ processed_dataset_name }} ({{ processed_dataset_rows }} baris)</p>
+			<p><strong>Model Terbaik:</strong> {{ best_model_name }}</p>
+			<p><strong>Akurasi Model:</strong></p>
+			<ul>
+				<li><strong>Naive Bayes:</strong> {{ nb_accuracy }}</li>
+				<li><strong>SVM:</strong> {{ svm_accuracy }}</li>
+			</ul>
+		</div>
   </div>
 	<!-- 2️⃣ RINGKASAN DATASET SEBELUM DAN SESUDAH PEMROSESAN -->
 	<div class="row">
@@ -133,6 +151,7 @@
 					</div>
 			</div>
 	</div>
+	{% endif %}
 </div>
 <!-- / Content -->
 {% endblock %}

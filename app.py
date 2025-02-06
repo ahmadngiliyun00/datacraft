@@ -159,6 +159,7 @@ def index():
     best_model_name = "-"
     nb_accuracy = "-"
     svm_accuracy = "-"
+    df_processed = pd.DataFrame()
 
     # Ambil informasi dataset yang sudah ada
     if dataset_uploaded:
@@ -395,11 +396,10 @@ def upload_dataset():
         os.path.join(app.config["STATIC_FOLDER"], "tweet_0_wordcloud.png"),
     ]
 
-    for file in files_to_remove:
-        if os.path.exists(file):
-            os.remove(file)
-            print(f"🗑 File dihapus: {file}")
-
+    for file_path in files_to_remove:
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            print(f"🗑 File dihapus: {file_path}")
 
     if file and allowed_file(file.filename):
         filename = "dataset_0_raw.csv"
@@ -515,6 +515,11 @@ def preprocessing():
     try:
         raw_file = "dataset_0_raw.csv"
         raw_path = os.path.join(app.config["UPLOAD_FOLDER"], raw_file)
+
+        # Validasi apakah file ada
+        if not os.path.exists(raw_path):
+            flash("File unggah dataset belum tersedia!", "danger")
+            return redirect(url_for("data_exploration"))
 
         # Daftar file hasil preprocessing
         processed_files = {
@@ -1008,11 +1013,11 @@ def preprocessing():
 
                 # **🔹 Cek apakah data terbaca dengan benar**
                 if not isinstance(data_encoded, pd.DataFrame):
-                    flash("❌ Data hasil Label Encoding bukan DataFrame!", "danger")
+                    flash("Data hasil Label Encoding bukan DataFrame!", "danger")
                     data_encoded = pd.DataFrame()
 
                 if not isinstance(data_stemmed, pd.DataFrame):
-                    flash("❌ Data hasil Stemming bukan DataFrame!", "danger")
+                    flash("Data hasil Stemming bukan DataFrame!", "danger")
                     data_stemmed = pd.DataFrame()
 
                 # **🔹 Pastikan kolom yang dibutuhkan ada**
@@ -1965,6 +1970,13 @@ def start_preprocessing():
 @app.route("/modeling")
 def modeling():
     try:
+        dataset_train_path = os.path.join(app.config["PROCESSED_FOLDER"], "dataset_7_train.csv")
+
+        # Validasi apakah file ada
+        if not os.path.exists(dataset_train_path):
+            flash("File hasil pembagian data belum tersedia!", "danger")
+            return redirect(url_for("preprocessing"))
+        
         model_files = {
             "Naive Bayes": "model_1a_naive_bayes.pkl",
             "Count Vectorizer": "model_1b_count_vectorizer.pkl",
@@ -2033,6 +2045,10 @@ def modeling():
             key: os.path.basename(value) if model_trained else "Nama File PKL"
             for key, value in model_files.items()
         }
+
+        # **Download File**
+        download_link_nb = url_for("download_file", filename=model_filenames["Naive Bayes"])
+        download_link_svm = url_for("download_file", filename=model_filenames["SVM"])
         
         return render_template(
             "modeling.html",
@@ -2047,6 +2063,8 @@ def modeling():
             overall_metrics=overall_metrics,
             cm_path_nb=url_for("static", filename="img/model_1_naive_bayes_confusion_matrix.png"),
             cm_path_svm=url_for("static", filename="img/model_2_svm_confusion_matrix.png"),
+            download_link_nb=download_link_nb,
+            download_link_svm=download_link_svm,
         )
 
     except Exception as e:
@@ -2065,9 +2083,9 @@ def start_modeling():
 
         # 🔹 Validasi apakah dataset tersedia
         if not os.path.exists(train_path):
-            flash("❌ Data latih belum tersedia!", "danger")
+            flash("Data latih belum tersedia!", "danger")
         elif not os.path.exists(test_path):
-            flash("❌ Data tes belum tersedia!", "danger")
+            flash("Data tes belum tersedia!", "danger")
         else:
         
             # 🔥 **Hapus File yang Sudah Ada Sebelum Modeling**
@@ -2265,7 +2283,7 @@ def interpretation_results():
 
         # Validasi apakah file ada
         if not os.path.exists(report_path):
-            flash("❌ File hasil evaluasi model belum tersedia!", "danger")
+            flash("File hasil evaluasi model belum tersedia!", "danger")
             return redirect(url_for("modeling"))
 
         # 🔹 Baca CSV hasil evaluasi model
