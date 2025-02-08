@@ -1,5 +1,6 @@
 import os
 import io
+import platform
 import pandas as pd
 import re
 import secrets
@@ -40,22 +41,29 @@ app.secret_key = secrets.token_hex(16)  # Gunakan string acak yang kuat dalam pr
 # Konfigurasi path folder
 UPLOAD_FOLDER = os.path.join(os.getcwd(), "data", "uploaded")
 PROCESSED_FOLDER = os.path.join(os.getcwd(), "data", "processed")
-STATIC_FOLDER = os.path.join(os.getcwd(), "static", "img")
 MODELED_FOLDER = os.path.join(os.getcwd(), "data", "modeled")
+STATIC_FOLDER = os.path.join(os.getcwd(), "static", "img")
+FONT_FOLDER = os.path.join(os.getcwd(), "static", "fonts")
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["PROCESSED_FOLDER"] = PROCESSED_FOLDER
-app.config["STATIC_FOLDER"] = STATIC_FOLDER
 app.config["MODELED_FOLDER"] = MODELED_FOLDER
+app.config["STATIC_FOLDER"] = STATIC_FOLDER
+app.config["FONT_FOLDER"] = FONT_FOLDER
 
 # Pastikan direktori tersedia
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
-os.makedirs(STATIC_FOLDER, exist_ok=True)
 os.makedirs(MODELED_FOLDER, exist_ok=True)
+os.makedirs(STATIC_FOLDER, exist_ok=True)
+os.makedirs(FONT_FOLDER, exist_ok=True)
 
 # 🔹 Fungsi Cek Ekstensi File
 ALLOWED_EXTENSIONS = {"csv", "xls", "xlsx"}
+
+
+# Import Font PublicSans
+font_path = os.path.join(FONT_FOLDER, "PublicSans-Regular.ttf")
 
 
 # Fungsi pengecekan ekstensi file
@@ -499,7 +507,7 @@ def upload_dataset():
             plt.close()
 
         except Exception as e:
-            flash(f"Error saat membuat visualisasi: {str(e)}", "error")
+            flash(f"Error saat membuat visualisasi: {str(e)}", "danger")
             return redirect(url_for("data_exploration"))
 
         flash("Dataset berhasil diunggah!", "success")

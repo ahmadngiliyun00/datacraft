@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'PublicSans';
+  src: url('../fonts/PublicSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 :root {
   --primary-color: #5271ff;
   --primary-color-transparent: #5272ff50;
@@ -9,7 +15,9 @@
   --warning-dark: rgb(255, 193, 7);
   --warning-light: #fff3cd;
 }
-
+body {
+  font-family: 'PublicSans', sans-serif;
+}
 .color-custom-primary {
   color: #5271ff;
 }
