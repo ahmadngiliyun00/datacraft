@@ -59,10 +59,6 @@ os.makedirs(STATIC_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {"csv", "xls", "xlsx"}
 
 
-# Import Font PublicSans
-font_path = os.path.join(FONT_FOLDER, "PublicSans-Regular.ttf")
-
-
 # Fungsi pengecekan ekstensi file
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
