@@ -5,6 +5,8 @@
 
 DataCraft adalah aplikasi berbasis web yang digunakan untuk melakukan analisis sentimen menggunakan Naive Bayes dan Support Vector Machine (SVM). Aplikasi ini mendukung pemrosesan data otomatis, pembuatan model, serta visualisasi hasil dengan berbagai metrik evaluasi.
 
+Lihat tutorial penggunaan nya di link video berikut: https://youtu.be/vp-mobE9gkI
+
 ![Tentang DataCraft](https://github.com/ahmadngiliyun00/datacraft/blob/main/static/img/Tentang-Aplikasi.png?raw=true)
 
 ## ✨ Fitur Utama
