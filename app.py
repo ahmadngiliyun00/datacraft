@@ -43,20 +43,17 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), "data", "uploaded")
 PROCESSED_FOLDER = os.path.join(os.getcwd(), "data", "processed")
 MODELED_FOLDER = os.path.join(os.getcwd(), "data", "modeled")
 STATIC_FOLDER = os.path.join(os.getcwd(), "static", "img")
-FONT_FOLDER = os.path.join(os.getcwd(), "static", "fonts")
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["PROCESSED_FOLDER"] = PROCESSED_FOLDER
 app.config["MODELED_FOLDER"] = MODELED_FOLDER
 app.config["STATIC_FOLDER"] = STATIC_FOLDER
-app.config["FONT_FOLDER"] = FONT_FOLDER
 
 # Pastikan direktori tersedia
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 os.makedirs(MODELED_FOLDER, exist_ok=True)
 os.makedirs(STATIC_FOLDER, exist_ok=True)
-os.makedirs(FONT_FOLDER, exist_ok=True)
 
 # 🔹 Fungsi Cek Ekstensi File
 ALLOWED_EXTENSIONS = {"csv", "xls", "xlsx"}
